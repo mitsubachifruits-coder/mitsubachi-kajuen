@@ -7,8 +7,9 @@ export default function Header() {
         position: "sticky",
         top: 0,
         zIndex: 100,
-        background: "#fafaf9",
+        background: "rgba(250, 250, 249, 0.96)",
         borderBottom: "1px solid #ecece8",
+        backdropFilter: "blur(12px)",
       }}
     >
       <div
@@ -17,18 +18,25 @@ export default function Header() {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          height: "88px",
+          gap: "20px",
+          minHeight: "88px",
+          paddingTop: "14px",
+          paddingBottom: "14px",
+          flexWrap: "wrap",
         }}
       >
         {/* ロゴ */}
         <Link
-        
           href="/"
           style={{
-            display: "inLine-flex",
+            display: "inline-flex",
             alignItems: "center",
-            fontSize: "48px",
+            flexShrink: 0,
+            fontSize: "clamp(30px, 7vw, 48px)",
             letterSpacing: "0em",
+            fontWeight: 900,
+            textDecoration: "none",
+            lineHeight: 1,
           }}
         >
           <span style={{ color: "#FF3131" }}>み</span>
@@ -44,20 +52,39 @@ export default function Header() {
         <nav
           style={{
             display: "flex",
-            gap: "40px",
-            fontSize: "17px",
+            gap: "clamp(14px, 3vw, 40px)",
+            fontSize: "clamp(13px, 3.4vw, 17px)",
             letterSpacing: "0em",
-            fontWeight: 400,
+            fontWeight: 500,
+            flexWrap: "wrap",
+            justifyContent: "flex-end",
+            alignItems: "center",
+            lineHeight: 1.2,
           }}
         >
-          <Link href="/about">About</Link>
-          <Link href="/fruits">Fruits</Link>
-          <Link href="/story">Story</Link>
-          <Link href="/contact">Contact</Link>
-          <Link href="/order">Order</Link>
+          <Link href="/about" style={navLinkStyle}>
+            About
+          </Link>
+          <Link href="/fruits" style={navLinkStyle}>
+            Fruits
+          </Link>
+          <Link href="/story" style={navLinkStyle}>
+            Story
+          </Link>
+          <Link href="/contact" style={navLinkStyle}>
+            Contact
+          </Link>
+          <Link href="/order" style={navLinkStyle}>
+            Order
+          </Link>
         </nav>
       </div>
-
     </header>
   );
 }
+
+const navLinkStyle: React.CSSProperties = {
+  color: "#444",
+  textDecoration: "none",
+  whiteSpace: "nowrap",
+};
