@@ -51,7 +51,7 @@ export default function Footer() {
               lineHeight: 1.9,
             }}
           >
-            みつばち果樹園
+            Bee My friends!
             <br />
             〒999-3701 山形県東根市神町若木通り13-1
             <br />
