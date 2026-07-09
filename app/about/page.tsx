@@ -351,9 +351,7 @@ export default function About() {
                 fontWeight: 600,
               }}
             >
-              また会いたくなる、
-              <br />
-              果樹園でありますように。
+              また会いたくなる、果樹園でありますように。
             </p>
           </div>
         </div>

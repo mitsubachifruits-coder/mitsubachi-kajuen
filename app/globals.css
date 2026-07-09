@@ -66,3 +66,74 @@ img {
 body {
   background: #FAFAF9;
 }
+/* =========================
+   Responsive Base
+========================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+}
+
+/* スマホ共通 */
+@media (max-width: 768px) {
+  main {
+    padding-left: 18px !important;
+    padding-right: 18px !important;
+  }
+
+  section {
+    padding-left: 18px !important;
+    padding-right: 18px !important;
+  }
+
+  h1 {
+    font-size: clamp(34px, 11vw, 48px) !important;
+    line-height: 1.15 !important;
+  }
+
+  h2 {
+    font-size: clamp(26px, 8vw, 36px) !important;
+    line-height: 1.25 !important;
+  }
+
+  p {
+    font-size: 15px;
+    line-height: 1.9;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+}
+
+/* かなり小さいスマホ */
+@media (max-width: 480px) {
+  main {
+    padding-top: 48px !important;
+    padding-bottom: 48px !important;
+  }
+
+  h1 {
+    font-size: clamp(30px, 12vw, 42px) !important;
+  }
+}
