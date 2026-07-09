@@ -15,12 +15,11 @@ export default function Header() {
         style={{
           maxWidth: "1100px",
           margin: "0 auto",
-          padding: "20px 24px",
+          padding: "40px 24px 32px",
           display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
+          flexDirection: "column",
+          alignItems: "flex-start",
           gap: "28px",
-          flexWrap: "wrap",
           boxSizing: "border-box",
         }}
       >
@@ -30,8 +29,7 @@ export default function Header() {
           style={{
             display: "inline-flex",
             alignItems: "center",
-            flexShrink: 0,
-            fontSize: "clamp(28px, 8vw, 48px)",
+            fontSize: "clamp(48px, 13vw, 72px)",
             fontWeight: 400,
             letterSpacing: "0em",
             textDecoration: "none",
@@ -51,11 +49,11 @@ export default function Header() {
         <nav
           style={{
             display: "flex",
-            gap: "22px",
+            gap: "clamp(22px, 6vw, 40px)",
             flexWrap: "wrap",
-            justifyContent: "flex-end",
+            justifyContent: "flex-start",
             alignItems: "center",
-            fontSize: "14px",
+            fontSize: "clamp(17px, 4.4vw, 22px)",
             fontWeight: 700,
             lineHeight: 1.4,
           }}
