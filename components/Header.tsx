@@ -15,7 +15,7 @@ export default function Header() {
         style={{
           maxWidth: "1100px",
           margin: "0 auto",
-          padding: "40px 24px 32px",
+          padding: "32px 24px 28px",
           display: "flex",
           flexDirection: "column",
           alignItems: "flex-start",
@@ -29,7 +29,7 @@ export default function Header() {
           style={{
             display: "inline-flex",
             alignItems: "center",
-            fontSize: "clamp(48px, 13vw, 72px)",
+            fontSize: "clamp(42px, 10.5vw, 48px)",
             fontWeight: 400,
             letterSpacing: "0em",
             textDecoration: "none",
@@ -49,13 +49,17 @@ export default function Header() {
         <nav
           style={{
             display: "flex",
-            gap: "clamp(22px, 6vw, 40px)",
-            flexWrap: "wrap",
+            width: "100%",
+            gap: "clamp(20px, 5.2vw, 40px)",
+            flexWrap: "nowrap",
             justifyContent: "flex-start",
             alignItems: "center",
-            fontSize: "clamp(17px, 4.4vw, 22px)",
+            fontSize: "clamp(16px, 4vw, 22px)",
             fontWeight: 700,
             lineHeight: 1.4,
+            overflowX: "auto",
+            WebkitOverflowScrolling: "touch",
+            scrollbarWidth: "none",
           }}
         >
           <Link href="/about" style={navLinkStyle}>
