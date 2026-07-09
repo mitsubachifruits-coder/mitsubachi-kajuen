@@ -28,7 +28,7 @@ export default function Footer() {
               display: "inline-flex",
               alignItems: "center",
               fontSize: "48px",
-              fontWeight: 900,
+              fontWeight: 400,
               letterSpacing: "0em",
               textDecoration: "none",
               marginBottom: "24px",
