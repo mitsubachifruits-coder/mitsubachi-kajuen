@@ -1,127 +1,91 @@
 import Link from "next/link";
 
-export default function Footer() {
+export default function Header() {
   return (
-    <footer
+    <header
       style={{
-        padding: "96px 24px 56px",
-        background: "#fafaf9",
-        borderTop: "1px solid #eee",
+        position: "sticky",
+        top: 0,
+        zIndex: 100,
+        background: "rgba(250, 250, 249, 0.96)",
+        borderBottom: "1px solid #ecece8",
+        backdropFilter: "blur(12px)",
       }}
     >
       <div
         style={{
-          maxWidth: "1100px",
+          maxWidth: "1180px",
           margin: "0 auto",
+          padding: "0 20px",
           display: "flex",
           justifyContent: "space-between",
-          alignItems: "flex-end",
-          gap: "48px",
+          alignItems: "center",
+          gap: "24px",
+          minHeight: "88px",
           flexWrap: "wrap",
+          boxSizing: "border-box",
         }}
       >
-        <div>
-          {/* ロゴ */}
-          <Link
-            href="/"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              fontSize: "48px",
-              fontWeight: 400,
-              letterSpacing: "0em",
-              textDecoration: "none",
-              marginBottom: "24px",
-            }}
-          >
-            <span style={{ color: "#FF3131" }}>み</span>
-            <span style={{ color: "#006DFF" }}>つ</span>
-            <span style={{ color: "#00BF63" }}>ば</span>
-            <span style={{ color: "#FFDE59" }}>ち</span>
-            <span style={{ color: "#8C52FF" }}>果</span>
-            <span style={{ color: "#00A1FF" }}>樹</span>
-            <span style={{ color: "#FF66C4" }}>園</span>
-          </Link>
-
-          <p
-            style={{
-              margin: 0,
-              color: "#777",
-              fontSize: "14px",
-              lineHeight: 1.9,
-            }}
-          >
-            BeeMYfriends!
-            <br />
-            〒999-3701 山形県東根市神町若木通り13-1
-            <br />
-            山形県東根市から、季節の果物をお届けします。
-          </p>
-        </div>
-
-        <div
+        {/* ロゴ */}
+        <Link
+          href="/"
           style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-end",
-            gap: "18px",
+            display: "inline-flex",
+            alignItems: "center",
+            flexShrink: 0,
+            fontSize: "clamp(32px, 7vw, 48px)",
+            letterSpacing: "0em",
+            fontWeight: 400,
+            textDecoration: "none",
+            lineHeight: 1,
           }}
         >
-          <nav
-            style={{
-              display: "flex",
-              gap: "22px",
-              flexWrap: "wrap",
-              justifyContent: "flex-end",
-              fontSize: "14px",
-              fontWeight: 700,
-            }}
-          >
-            <Link href="/about" style={linkStyle}>
-              About
-            </Link>
-            <Link href="/fruits" style={linkStyle}>
-              Fruits
-            </Link>
-            <Link href="/story" style={linkStyle}>
-              Story
-            </Link>
-            <Link href="/contact" style={linkStyle}>
-              Contact
-            </Link>
-            <Link href="/order" style={linkStyle}>
-              Order
-            </Link>
-          </nav>
+          <span style={{ color: "#FF3131" }}>み</span>
+          <span style={{ color: "#006DFF" }}>つ</span>
+          <span style={{ color: "#00BF63" }}>ば</span>
+          <span style={{ color: "#FFDE59" }}>ち</span>
+          <span style={{ color: "#8C52FF" }}>果</span>
+          <span style={{ color: "#00A1FF" }}>樹</span>
+          <span style={{ color: "#FF66C4" }}>園</span>
+        </Link>
 
-          <Link
-            href="/legal"
-            style={{
-              color: "#777",
-              textDecoration: "none",
-              fontSize: "13px",
-              fontWeight: 600,
-            }}
-          >
-            特定商取引法に基づく表示
+        {/* ナビ */}
+        <nav
+          style={{
+            display: "flex",
+            gap: "clamp(14px, 3vw, 40px)",
+            fontSize: "clamp(13px, 3.4vw, 17px)",
+            letterSpacing: "0em",
+            fontWeight: 400,
+            flexWrap: "wrap",
+            justifyContent: "flex-end",
+            alignItems: "center",
+            lineHeight: 1.2,
+          }}
+        >
+          <Link href="/about" style={navLinkStyle}>
+            About
           </Link>
-
-          <p
-            style={{
-              margin: 0,
-              color: "#999",
-              fontSize: "12px",
-            }}
-          >
-            © {new Date().getFullYear()} みつばち果樹園
-          </p>
-        </div>
+          <Link href="/fruits" style={navLinkStyle}>
+            Fruits
+          </Link>
+          <Link href="/story" style={navLinkStyle}>
+            Story
+          </Link>
+          <Link href="/contact" style={navLinkStyle}>
+            Contact
+          </Link>
+          <Link href="/order" style={navLinkStyle}>
+            Order
+          </Link>
+        </nav>
       </div>
-    </footer>
+    </header>
   );
 }
 
-const linkStyle: React.CSSProperties = {
-  color: "#555",
+const navLinkStyle: React.CSSProperties = {
+  color: "#444",
   textDecoration: "none",
+  whiteSpace: "nowrap",
 };
