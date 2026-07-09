@@ -27,7 +27,7 @@ export default function Footer() {
             style={{
               display: "inline-flex",
               alignItems: "center",
-              fontSize: "28px",
+              fontSize: "48px",
               fontWeight: 900,
               letterSpacing: "0em",
               textDecoration: "none",
@@ -51,6 +51,8 @@ export default function Footer() {
               lineHeight: 1.9,
             }}
           >
+            みつばち果樹園
+            〒999-3701 山形県東根市神町若木通り13-1
             山形県東根市から、季節の果物をお届けします。
           </p>
         </div>
