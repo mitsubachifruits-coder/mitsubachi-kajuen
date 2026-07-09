@@ -20,12 +20,12 @@ type Destination = {
 };
 
 const productMaster = [
-  { name: "佐藤錦 500g", price: 3500 },
-  { name: "佐藤錦 1kg", price: 6500 },
-  { name: "紅秀峰 500g", price: 4000 },
-  { name: "紅秀峰 1kg", price: 7500 },
-  { name: "やまがた紅王 500g", price: 5000 },
-  { name: "サンふじ 5kg", price: 3500 },
+  { name: "佐藤錦 500g", price: 7000 },
+  { name: "佐藤錦 1kg", price: 9000 },
+  { name: "紅秀峰 500g", price: 15000 },
+  { name: "紅秀峰 1kg", price: 9000 },
+  { name: "やまがた紅王 500g", price: 16000 },
+  { name: "サンふじ 5kg", price: 4000 },
   { name: "サンふじ 10kg", price: 6000 },
 ];
 
@@ -205,6 +205,7 @@ export default function OrderPage() {
           ご注文まことにありがとうございます。
           <br />
           下記内容をご記入の上送信ください。
+          ＊現在サイト構築中のため受理できない場合がございます。
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-14">
