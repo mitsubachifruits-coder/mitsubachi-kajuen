@@ -7,21 +7,19 @@ export default function Header() {
         position: "sticky",
         top: 0,
         zIndex: 100,
-        background: "rgba(250, 250, 249, 0.96)",
-        borderBottom: "1px solid #ecece8",
-        backdropFilter: "blur(12px)",
+        background: "#fafaf9",
+        borderBottom: "1px solid #eee",
       }}
     >
       <div
         style={{
-          maxWidth: "1180px",
+          maxWidth: "1100px",
           margin: "0 auto",
-          padding: "0 20px",
+          padding: "20px 24px",
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          gap: "24px",
-          minHeight: "88px",
+          gap: "28px",
           flexWrap: "wrap",
           boxSizing: "border-box",
         }}
@@ -33,9 +31,9 @@ export default function Header() {
             display: "inline-flex",
             alignItems: "center",
             flexShrink: 0,
-            fontSize: "clamp(32px, 7vw, 48px)",
-            letterSpacing: "0em",
+            fontSize: "clamp(28px, 8vw, 48px)",
             fontWeight: 400,
+            letterSpacing: "0em",
             textDecoration: "none",
             lineHeight: 1,
           }}
@@ -53,14 +51,13 @@ export default function Header() {
         <nav
           style={{
             display: "flex",
-            gap: "clamp(14px, 3vw, 40px)",
-            fontSize: "clamp(13px, 3.4vw, 17px)",
-            letterSpacing: "0em",
-            fontWeight: 400,
+            gap: "22px",
             flexWrap: "wrap",
             justifyContent: "flex-end",
             alignItems: "center",
-            lineHeight: 1.2,
+            fontSize: "14px",
+            fontWeight: 700,
+            lineHeight: 1.4,
           }}
         >
           <Link href="/about" style={navLinkStyle}>
@@ -85,7 +82,7 @@ export default function Header() {
 }
 
 const navLinkStyle: React.CSSProperties = {
-  color: "#444",
+  color: "#555",
   textDecoration: "none",
   whiteSpace: "nowrap",
 };
