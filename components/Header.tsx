@@ -14,9 +14,9 @@ export default function Header() {
     >
       <div
         style={{
-          maxWidth: "1100px",
+          maxWidth: "1180px",
           margin: "0 auto",
-          padding: "0 24px",
+          padding: "0 20px",
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
@@ -35,7 +35,7 @@ export default function Header() {
             flexShrink: 0,
             fontSize: "clamp(32px, 7vw, 48px)",
             letterSpacing: "0em",
-            fontWeight: 900,
+            fontWeight: 400,
             textDecoration: "none",
             lineHeight: 1,
           }}
@@ -56,7 +56,7 @@ export default function Header() {
             gap: "clamp(14px, 3vw, 40px)",
             fontSize: "clamp(13px, 3.4vw, 17px)",
             letterSpacing: "0em",
-            fontWeight: 500,
+            fontWeight: 400,
             flexWrap: "wrap",
             justifyContent: "flex-end",
             alignItems: "center",
