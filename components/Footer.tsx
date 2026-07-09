@@ -51,7 +51,7 @@ export default function Footer() {
               lineHeight: 1.9,
             }}
           >
-            Bee My friends!
+            BeeMYfriends!
             <br />
             〒999-3701 山形県東根市神町若木通り13-1
             <br />
