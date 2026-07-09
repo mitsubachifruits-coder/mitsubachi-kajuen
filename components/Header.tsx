@@ -13,16 +13,17 @@ export default function Header() {
       }}
     >
       <div
-        className="container"
         style={{
+          maxWidth: "1100px",
+          margin: "0 auto",
+          padding: "0 24px",
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          gap: "20px",
+          gap: "24px",
           minHeight: "88px",
-          paddingTop: "14px",
-          paddingBottom: "14px",
           flexWrap: "wrap",
+          boxSizing: "border-box",
         }}
       >
         {/* ロゴ */}
@@ -32,9 +33,9 @@ export default function Header() {
             display: "inline-flex",
             alignItems: "center",
             flexShrink: 0,
-            fontSize: "clamp(30px, 7vw, 48px)",
+            fontSize: "clamp(32px, 7vw, 48px)",
             letterSpacing: "0em",
-            fontWeight: 400,
+            fontWeight: 900,
             textDecoration: "none",
             lineHeight: 1,
           }}
