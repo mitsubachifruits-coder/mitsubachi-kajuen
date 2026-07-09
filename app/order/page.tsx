@@ -77,6 +77,7 @@ export default function OrderPage() {
     const res = await fetch(
       `https://zipcloud.ibsnet.co.jp/api/search?zipcode=${cleanPostal}`
     );
+
     const data = await res.json();
     if (!data.results) return;
 
@@ -121,6 +122,7 @@ export default function OrderPage() {
 
         if (key === "product") {
           const selected = productMaster.find((p) => p.name === value);
+
           return {
             ...item,
             product: value,
@@ -130,6 +132,7 @@ export default function OrderPage() {
 
         if (key === "quantity") {
           const selected = productMaster.find((p) => p.name === item.product);
+
           return {
             ...item,
             quantity: value,
@@ -137,7 +140,14 @@ export default function OrderPage() {
           };
         }
 
-        return { ...item, [key]: value };
+        if (key === "price") {
+          return {
+            ...item,
+            price: Number(value) || 0,
+          };
+        }
+
+        return item;
       })
     );
   };
@@ -201,26 +211,80 @@ export default function OrderPage() {
           <section className="space-y-8">
             <h2 className="text-xl font-bold">ご依頼主</h2>
 
-            <input required placeholder="電話番号" className={inputClass} value={client.tel} onChange={(e) => setClient({ ...client, tel: e.target.value })} />
+            <input
+              required
+              placeholder="電話番号"
+              className={inputClass}
+              value={client.tel}
+              onChange={(e) => setClient({ ...client, tel: e.target.value })}
+            />
 
-            <input required type="email" placeholder="メールアドレス（ご注文確認メールが送付されます。）" className={inputClass} value={client.email} onChange={(e) => setClient({ ...client, email: e.target.value })} />
+            <input
+              required
+              type="email"
+              placeholder="メールアドレス（ご注文確認メールが送付されます。）"
+              className={inputClass}
+              value={client.email}
+              onChange={(e) => setClient({ ...client, email: e.target.value })}
+            />
 
-            <input required placeholder="郵便番号" className={inputClass} value={client.postal} onChange={(e) => setClient({ ...client, postal: e.target.value })} onBlur={() => searchAddress(client.postal, "client")} />
+            <input
+              required
+              placeholder="郵便番号"
+              className={inputClass}
+              value={client.postal}
+              onChange={(e) =>
+                setClient({ ...client, postal: e.target.value })
+              }
+              onBlur={() => searchAddress(client.postal, "client")}
+            />
 
-            <input required placeholder="都道府県・市区町村・町名" className={`${inputClass} bg-yellow-50`} value={client.prefCity} onChange={(e) => setClient({ ...client, prefCity: e.target.value })} />
+            <input
+              required
+              placeholder="都道府県・市区町村・町名"
+              className={`${inputClass} bg-yellow-50`}
+              value={client.prefCity}
+              onChange={(e) =>
+                setClient({ ...client, prefCity: e.target.value })
+              }
+            />
 
-            <input required placeholder="番地名" className={inputClass} value={client.address} onChange={(e) => setClient({ ...client, address: e.target.value })} />
+            <input
+              required
+              placeholder="番地名"
+              className={inputClass}
+              value={client.address}
+              onChange={(e) =>
+                setClient({ ...client, address: e.target.value })
+              }
+            />
 
-            <input placeholder="マンション・アパート名" className={inputClass} value={client.building} onChange={(e) => setClient({ ...client, building: e.target.value })} />
+            <input
+              placeholder="マンション・アパート名"
+              className={inputClass}
+              value={client.building}
+              onChange={(e) =>
+                setClient({ ...client, building: e.target.value })
+              }
+            />
 
-            <input required placeholder="お名前" className={inputClass} value={client.name} onChange={(e) => setClient({ ...client, name: e.target.value })} />
+            <input
+              required
+              placeholder="お名前"
+              className={inputClass}
+              value={client.name}
+              onChange={(e) => setClient({ ...client, name: e.target.value })}
+            />
           </section>
 
           <section className="space-y-10 border-t pt-10">
             <h2 className="text-xl font-bold">お届け先</h2>
 
             {destinations.map((d, index) => (
-              <div key={index} className="space-y-8 rounded-3xl bg-[#fafaf9] p-6">
+              <div
+                key={index}
+                className="space-y-8 rounded-3xl bg-[#fafaf9] p-6"
+              >
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                   <h3 className="text-lg font-bold">お届け先{index + 1}</h3>
 
@@ -235,21 +299,84 @@ export default function OrderPage() {
                   )}
                 </div>
 
-                <input required placeholder="電話番号" className={inputClass} value={d.tel} onChange={(e) => updateDestination(index, "tel", e.target.value)} />
+                <input
+                  required
+                  placeholder="電話番号"
+                  className={inputClass}
+                  value={d.tel}
+                  onChange={(e) =>
+                    updateDestination(index, "tel", e.target.value)
+                  }
+                />
 
-                <input required placeholder="郵便番号" className={inputClass} value={d.postal} onChange={(e) => updateDestination(index, "postal", e.target.value)} onBlur={() => searchAddress(d.postal, "destination", index)} />
+                <input
+                  required
+                  placeholder="郵便番号"
+                  className={inputClass}
+                  value={d.postal}
+                  onChange={(e) =>
+                    updateDestination(index, "postal", e.target.value)
+                  }
+                  onBlur={() => searchAddress(d.postal, "destination", index)}
+                />
 
-                <input required placeholder="都道府県・市区町村・町名" className={`${inputClass} bg-yellow-50`} value={d.prefCity} onChange={(e) => updateDestination(index, "prefCity", e.target.value)} />
+                <input
+                  required
+                  placeholder="都道府県・市区町村・町名"
+                  className={`${inputClass} bg-yellow-50`}
+                  value={d.prefCity}
+                  onChange={(e) =>
+                    updateDestination(index, "prefCity", e.target.value)
+                  }
+                />
 
-                <input required placeholder="番地名" className={inputClass} value={d.address} onChange={(e) => updateDestination(index, "address", e.target.value)} />
+                <input
+                  required
+                  placeholder="番地名"
+                  className={inputClass}
+                  value={d.address}
+                  onChange={(e) =>
+                    updateDestination(index, "address", e.target.value)
+                  }
+                />
 
-                <input placeholder="マンション・アパート名" className={inputClass} value={d.building} onChange={(e) => updateDestination(index, "building", e.target.value)} />
+                <input
+                  placeholder="マンション・アパート名"
+                  className={inputClass}
+                  value={d.building}
+                  onChange={(e) =>
+                    updateDestination(index, "building", e.target.value)
+                  }
+                />
 
-                <input required placeholder="お名前" className={inputClass} value={d.name} onChange={(e) => updateDestination(index, "name", e.target.value)} />
+                <input
+                  required
+                  placeholder="お名前"
+                  className={inputClass}
+                  value={d.name}
+                  onChange={(e) =>
+                    updateDestination(index, "name", e.target.value)
+                  }
+                />
 
-                <input required type="date" className={inputClass} value={d.deliveryDate} onChange={(e) => updateDestination(index, "deliveryDate", e.target.value)} />
+                <input
+                  required
+                  type="date"
+                  className={inputClass}
+                  value={d.deliveryDate}
+                  onChange={(e) =>
+                    updateDestination(index, "deliveryDate", e.target.value)
+                  }
+                />
 
-                <select required className={inputClass} value={d.deliveryTime} onChange={(e) => updateDestination(index, "deliveryTime", e.target.value)}>
+                <select
+                  required
+                  className={inputClass}
+                  value={d.deliveryTime}
+                  onChange={(e) =>
+                    updateDestination(index, "deliveryTime", e.target.value)
+                  }
+                >
                   <option value="">配達希望時間帯を選択</option>
                   <option value="指定なし">指定なし</option>
                   <option value="午前中">午前中</option>
