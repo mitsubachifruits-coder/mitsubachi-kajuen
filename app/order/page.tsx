@@ -61,10 +61,6 @@ export default function OrderPage() {
         </h1>
 
         <div style={{ fontSize: "18px", lineHeight: 2.1, color: "#4f4f4f" }}>
-          <p>
-            <ColorLogo />
-          </p>
-
           <div
             style={{
               margin: "56px 0 72px",
