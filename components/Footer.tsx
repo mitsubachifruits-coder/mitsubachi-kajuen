@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <footer
       style={{
-        padding: "60px 24px 40px",
+        padding: "96px 24px 56px",
         background: "#fafaf9",
         borderTop: "1px solid #eee",
       }}
@@ -16,7 +16,7 @@ export default function Footer() {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "flex-end",
-          gap: "32px",
+          gap: "48px",
           flexWrap: "wrap",
         }}
       >
@@ -31,7 +31,7 @@ export default function Footer() {
               fontWeight: 900,
               letterSpacing: "0em",
               textDecoration: "none",
-              marginBottom: "16px",
+              marginBottom: "24px",
             }}
           >
             <span style={{ color: "#FF3131" }}>み</span>
@@ -48,7 +48,7 @@ export default function Footer() {
               margin: 0,
               color: "#777",
               fontSize: "14px",
-              lineHeight: 1.8,
+              lineHeight: 1.9,
             }}
           >
             山形県東根市から、季節の果物をお届けします。
@@ -60,30 +60,33 @@ export default function Footer() {
             display: "flex",
             flexDirection: "column",
             alignItems: "flex-end",
-            gap: "12px",
+            gap: "18px",
           }}
         >
           <nav
             style={{
               display: "flex",
-              gap: "20px",
+              gap: "22px",
               flexWrap: "wrap",
               justifyContent: "flex-end",
               fontSize: "14px",
               fontWeight: 700,
             }}
           >
-            <Link href="/story" style={linkStyle}>
-              Story
+            <Link href="/about" style={linkStyle}>
+              About
             </Link>
             <Link href="/fruits" style={linkStyle}>
               Fruits
             </Link>
-            <Link href="/order" style={linkStyle}>
-              Order
+            <Link href="/story" style={linkStyle}>
+              Story
             </Link>
             <Link href="/contact" style={linkStyle}>
               Contact
+            </Link>
+            <Link href="/order" style={linkStyle}>
+              Order
             </Link>
           </nav>
 
