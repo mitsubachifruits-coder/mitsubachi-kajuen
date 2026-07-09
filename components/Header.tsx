@@ -34,7 +34,7 @@ export default function Header() {
             flexShrink: 0,
             fontSize: "clamp(30px, 7vw, 48px)",
             letterSpacing: "0em",
-            fontWeight: 900,
+            fontWeight: 400,
             textDecoration: "none",
             lineHeight: 1,
           }}
