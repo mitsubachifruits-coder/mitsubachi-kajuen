@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { CSSProperties } from "react";
 
 export default function Footer() {
   return (
@@ -40,7 +41,7 @@ export default function Footer() {
             <span style={{ color: "#FFDE59" }}>ち</span>
             <span style={{ color: "#8C52FF" }}>果</span>
             <span style={{ color: "#00A1FF" }}>樹</span>
-            <span style={{ color: "#FF66C4" }}>園</span>
+            <span style={{ color: "#00A1FF" }}>園</span>
           </Link>
 
           <p
@@ -51,7 +52,7 @@ export default function Footer() {
               lineHeight: 1.9,
             }}
           >
-             BeeMYfriends!
+            BeeMYfriends!
             <br />
             〒999-3701 山形県東根市神町若木通り13-1
             <br />
@@ -80,31 +81,41 @@ export default function Footer() {
             <Link href="/about" style={linkStyle}>
               About
             </Link>
+
             <Link href="/fruits" style={linkStyle}>
               Fruits
             </Link>
+
             <Link href="/story" style={linkStyle}>
               Story
             </Link>
+
             <Link href="/contact" style={linkStyle}>
               Contact
             </Link>
+
             <Link href="/order" style={linkStyle}>
               Order
             </Link>
           </nav>
 
-          <Link
-            href="/legal"
+          {/* 法律関連リンク */}
+          <div
             style={{
-              color: "#777",
-              textDecoration: "none",
-              fontSize: "13px",
-              fontWeight: 600,
+              display: "flex",
+              gap: "18px",
+              flexWrap: "wrap",
+              justifyContent: "flex-end",
             }}
           >
-            特定商取引法に基づく表示
-          </Link>
+            <Link href="/privacy" style={legalLinkStyle}>
+              プライバシーポリシー
+            </Link>
+
+            <Link href="/legal" style={legalLinkStyle}>
+              特定商取引法に基づく表示
+            </Link>
+          </div>
 
           <p
             style={{
@@ -121,7 +132,14 @@ export default function Footer() {
   );
 }
 
-const linkStyle: React.CSSProperties = {
+const linkStyle: CSSProperties = {
   color: "#555",
   textDecoration: "none",
+};
+
+const legalLinkStyle: CSSProperties = {
+  color: "#777",
+  textDecoration: "none",
+  fontSize: "13px",
+  fontWeight: 600,
 };
