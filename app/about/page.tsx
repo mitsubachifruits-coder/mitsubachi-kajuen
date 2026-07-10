@@ -107,7 +107,7 @@ export default function About() {
                 color: "#5f3d00",
               }}
             >
-              お店は
+              お店は、
               <br />
               みつばちフルーツです。
             </h2>
