@@ -51,11 +51,11 @@ export default function Footer() {
               lineHeight: 1.9,
             }}
           >
-            BeeMYfriends!
+            みつばちが育んだ自然の恵み
             <br />
             〒999-3701 山形県東根市神町若木通り13-1
             <br />
-            山形県東根市から、季節の果物をお届けします。
+            四季を通して本物のおいしさをお届けします
           </p>
         </div>
 
