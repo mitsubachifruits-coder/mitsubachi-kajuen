@@ -209,7 +209,7 @@ export default function OrderPage() {
                   color: "#2f2f2f",
                 }}
               >
-                直売所でのお買い物
+                お店でのお買い物
               </h2>
 
               <p>

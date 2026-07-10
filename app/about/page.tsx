@@ -62,7 +62,7 @@ export default function About() {
         <div style={{ fontSize: "18px", lineHeight: 2.1, color: "#4f4f4f" }}>
           <p>
             みつばち果樹園は、
-            <strong>GI「東根さくらんぼ」</strong>生産者です。🍒
+            <strong>GI「東根さくらんぼ」</strong>生産者です。
           </p>
 
           <p>
@@ -107,7 +107,7 @@ export default function About() {
                 color: "#5f3d00",
               }}
             >
-              直売所は
+              お店は
               <br />
               みつばちフルーツです。
             </h2>
@@ -136,7 +136,7 @@ export default function About() {
                 fontWeight: 700,
               }}
             >
-              Google Mapsで直売所を開く →
+              Google Mapsでお店を開く →
             </a>
           </div>
 
