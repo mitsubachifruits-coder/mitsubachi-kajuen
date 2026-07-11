@@ -14,7 +14,7 @@ function ColorLogo() {
       style={{
         display: "inline-flex",
         alignItems: "center",
-        fontSize: "clamp(48px, 9vw, 88.8px)",
+        fontSize: "88.8px",
         letterSpacing: "0em",
       }}
     >
@@ -28,11 +28,8 @@ function ColorLogo() {
 }
 
 export default function About() {
-  const shopMapUrl =
-    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3518.8628564887726!2d140.37989087616913!3d38.45851107248066!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f8bddb815aa36a5%3A0xa3af7357704955ec!2z44G_44Gk44Gw44Gh44OV44Or44O844OE!5e1!3m2!1sja!2sjp!4v1783729225000!5m2!1sja!2sjp";
-
   const shopGoogleMapsUrl =
-    "https://www.google.com/maps/search/?api=1&query=みつばちフルーツ";
+    "https://www.google.com/maps/place/みつばちフルーツ/@38.4585069,140.3824658,808m/data=!3m2!1e3!4b1!4m6!3m5!1s0x5f8bddb815aa36a5:0xa3af7357704955ec!8m2!3d38.4585069!4d140.3824658!16s%2Fg%2F11pdn5drk_?entry=ttu&g_ep=EgoyMDI2MDcwOC4wIKXMDSoASAFQAw%3D%3D";
 
   return (
     <main
@@ -43,12 +40,7 @@ export default function About() {
         boxSizing: "border-box",
       }}
     >
-      <section
-        style={{
-          maxWidth: "980px",
-          margin: "0 auto",
-        }}
-      >
+      <section style={{ maxWidth: "980px", margin: "0 auto" }}>
         <p
           style={{
             color: "#888",
@@ -70,17 +62,10 @@ export default function About() {
           <ColorLogo />
         </h1>
 
-        <div
-          style={{
-            fontSize: "18px",
-            lineHeight: 2.1,
-            color: "#4f4f4f",
-          }}
-        >
+        <div style={{ fontSize: "18px", lineHeight: 2.1, color: "#4f4f4f" }}>
           <p>
             みつばち果樹園は、
-            <strong>GI「東根さくらんぼ」</strong>
-            生産者です。
+            <strong>GI「東根さくらんぼ」</strong>生産者です。
           </p>
 
           <p>
@@ -96,7 +81,6 @@ export default function About() {
             一粒一粒を大切に育てています。
           </p>
 
-          {/* ご来店案内 */}
           <div
             style={{
               margin: "56px 0 72px",
@@ -112,7 +96,7 @@ export default function About() {
                 fontSize: "15px",
                 letterSpacing: "0.12em",
                 fontWeight: 700,
-                margin: "0 0 16px",
+                marginBottom: "16px",
               }}
             >
               ご来店のお客様へ
@@ -131,7 +115,7 @@ export default function About() {
               みつばちフルーツです。
             </h2>
 
-            <p style={{ margin: "0 0 24px" }}>
+            <p style={{ marginBottom: "24px" }}>
               ナビで「みつばち果樹園」と検索すると、
               農園・作業場へ案内される場合があります。
               <br />
@@ -145,9 +129,7 @@ export default function About() {
               target="_blank"
               rel="noopener noreferrer"
               style={{
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
+                display: "inline-block",
                 padding: "14px 24px",
                 borderRadius: "999px",
                 background: "#2f2f2f",
@@ -161,7 +143,6 @@ export default function About() {
             </a>
           </div>
 
-          {/* お店・農園 */}
           <div
             style={{
               display: "grid",
@@ -170,7 +151,6 @@ export default function About() {
               marginBottom: "72px",
             }}
           >
-            {/* みつばちフルーツ */}
             <section
               style={{
                 background: "#fff",
@@ -185,7 +165,7 @@ export default function About() {
                   letterSpacing: "0.18em",
                   fontSize: "12px",
                   fontWeight: 700,
-                  margin: "0 0 12px",
+                  marginBottom: "12px",
                 }}
               >
                 SHOP
@@ -216,21 +196,15 @@ export default function About() {
                   marginTop: "24px",
                   borderRadius: "22px",
                   overflow: "hidden",
-                  border: "1px solid #ecece8",
                 }}
               >
                 <iframe
-                  src={shopMapUrl}
+                  src="https://www.google.com/maps?q=山形県東根市東根甲4694-1&output=embed"
                   title="みつばちフルーツ Googleマップ"
                   width="100%"
                   height="300"
-                  style={{
-                    display: "block",
-                    border: 0,
-                  }}
-                  allowFullScreen
+                  style={{ border: 0 }}
                   loading="lazy"
-                  referrerPolicy="strict-origin-when-cross-origin"
                 />
               </div>
 
@@ -250,7 +224,6 @@ export default function About() {
               </a>
             </section>
 
-            {/* みつばち果樹園 */}
             <section
               style={{
                 background: "#fff",
@@ -265,7 +238,7 @@ export default function About() {
                   letterSpacing: "0.18em",
                   fontSize: "12px",
                   fontWeight: 700,
-                  margin: "0 0 12px",
+                  marginBottom: "12px",
                 }}
               >
                 FARM
@@ -312,7 +285,6 @@ export default function About() {
                   marginTop: "24px",
                   borderRadius: "22px",
                   overflow: "hidden",
-                  border: "1px solid #ecece8",
                 }}
               >
                 <iframe
@@ -320,13 +292,8 @@ export default function About() {
                   title="みつばち果樹園 Googleマップ"
                   width="100%"
                   height="300"
-                  style={{
-                    display: "block",
-                    border: 0,
-                  }}
-                  allowFullScreen
+                  style={{ border: 0 }}
                   loading="lazy"
-                  referrerPolicy="strict-origin-when-cross-origin"
                 />
               </div>
 
@@ -391,6 +358,7 @@ export default function About() {
           >
             <p
               style={{
+                fontSize: "clamp(36px, 6vw, 60px)",
                 lineHeight: 1.2,
                 marginBottom: "20px",
               }}
