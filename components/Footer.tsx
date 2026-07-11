@@ -41,7 +41,7 @@ export default function Footer() {
             <span style={{ color: "#FFDE59" }}>ち</span>
             <span style={{ color: "#8C52FF" }}>果</span>
             <span style={{ color: "#00A1FF" }}>樹</span>
-            <span style={{ color: "#00A1FF" }}>園</span>
+            <span style={{ color: "#FF66C4" }}>園</span>
           </Link>
 
           <p
@@ -68,6 +68,40 @@ export default function Footer() {
             gap: "18px",
           }}
         >
+          {/* Instagram */}
+          <a
+            href="https://www.instagram.com/mitsubachi_kajuen/"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "10px",
+              color: "#444",
+              fontSize: "14px",
+              fontWeight: 700,
+              textDecoration: "none",
+            }}
+          >
+            <span
+              aria-hidden="true"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: "34px",
+                height: "34px",
+                border: "1px solid #ddd",
+                borderRadius: "50%",
+                fontSize: "16px",
+              }}
+            >
+              ◎
+            </span>
+
+            <span>@mitsubachi_kajuen</span>
+          </a>
+
           <nav
             style={{
               display: "flex",
