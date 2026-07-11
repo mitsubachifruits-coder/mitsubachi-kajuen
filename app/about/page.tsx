@@ -1,3 +1,4 @@
+import InstagramFeed from "@/components/InstagramFeed";
 function ColorLogo() {
   const letters = [
     { text: "み", color: "#ff3131" },
