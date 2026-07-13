@@ -23,10 +23,13 @@ function ColorLogo({ className = "" }: { className?: string }) {
 }
 
 function ColorBeeMyFriends() {
-  const letters = Array.from("BeeMYFriends!");
+  const letters = Array.from("Bee my friends!");
 
   return (
-    <span className="color-bee-my-friends" aria-label="BeeMYFriends!">
+    <span
+      className="color-bee-my-friends"
+      aria-label="Bee my friends!"
+    >
       {letters.map((letter, index) => (
         <span
           key={`${letter}-${index}`}
@@ -35,7 +38,7 @@ function ColorBeeMyFriends() {
           }}
           aria-hidden="true"
         >
-          {letter}
+          {letter === " " ? "\u00A0" : letter}
         </span>
       ))}
     </span>

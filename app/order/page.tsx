@@ -243,54 +243,6 @@ export default function OrderPage() {
               </a>
             </section>
           </div>
-
-          <hr
-            style={{
-              margin: "64px 0",
-              border: "none",
-              borderTop: "1px solid #ddd",
-            }}
-          />
-
-          <div
-            style={{
-              marginTop: "72px",
-              textAlign: "center",
-            }}
-          >
-            <p
-              style={{
-                fontSize: "clamp(36px, 6vw, 60px)",
-                lineHeight: 1.2,
-                marginBottom: "20px",
-              }}
-            >
-              <ColorLogo />
-            </p>
-
-            <p
-              style={{
-                fontSize: "24px",
-                lineHeight: 1.7,
-                color: "#2f2f2f",
-                fontWeight: 700,
-                marginBottom: "12px",
-              }}
-            >
-              BeeMYFriends!
-            </p>
-
-            <p
-              style={{
-                fontSize: "20px",
-                lineHeight: 2,
-                color: "#2f2f2f",
-                fontWeight: 600,
-              }}
-            >
-              Web注文の準備が整うまで、もう少々お待ちください。
-            </p>
-          </div>
         </div>
       </section>
     </main>
