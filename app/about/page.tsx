@@ -1,19 +1,41 @@
+const logoColors = [
+  "#ff3131",
+  "#006dff",
+  "#00bf63",
+  "#ffde59",
+  "#8c52ff",
+  "#00a1ff",
+  "#ff66c4",
+];
+
 function ColorLogo({ className = "" }: { className?: string }) {
-  const letters = [
-    { text: "み", color: "#ff3131" },
-    { text: "つ", color: "#006dff" },
-    { text: "ば", color: "#00bf63" },
-    { text: "ち", color: "#ffde59" },
-    { text: "果", color: "#8c52ff" },
-    { text: "樹", color: "#00a1ff" },
-    { text: "園", color: "#ff66c4" },
-  ];
+  const letters = ["み", "つ", "ば", "ち", "果", "樹", "園"];
 
   return (
     <span className={`color-logo ${className}`}>
-      {letters.map((letter) => (
-        <span key={letter.text} style={{ color: letter.color }}>
-          {letter.text}
+      {letters.map((letter, index) => (
+        <span key={`${letter}-${index}`} style={{ color: logoColors[index] }}>
+          {letter}
+        </span>
+      ))}
+    </span>
+  );
+}
+
+function ColorBeeMyFriends() {
+  const letters = Array.from("BeeMYFriends!");
+
+  return (
+    <span className="color-bee-my-friends" aria-label="BeeMYFriends!">
+      {letters.map((letter, index) => (
+        <span
+          key={`${letter}-${index}`}
+          style={{
+            color: logoColors[index % logoColors.length],
+          }}
+          aria-hidden="true"
+        >
+          {letter}
         </span>
       ))}
     </span>
@@ -195,18 +217,14 @@ export default function About() {
             </section>
 
             <section className="about-closing">
-              <p className="closing-label">FROM OUR FARM</p>
+              <p className="closing-label">THANK YOU</p>
 
               <h2 className="closing-title">
-                旬のおいしさを、
-                <br />
-                果樹園からまっすぐに。
+                <ColorBeeMyFriends />
               </h2>
 
               <p className="closing-description">
-                天候や生育状況により、収穫時期や販売数量が変わる場合があります。
-                <br className="desktop-break" />
-                最新の販売情報は、ホームページやInstagramでお知らせします。
+                また会いたくなる、果樹園でありますように。
               </p>
             </section>
           </div>
@@ -467,10 +485,19 @@ export default function About() {
 
         .closing-title {
           margin: 0 0 20px;
-          color: #2f2f2f;
           font-size: clamp(28px, 5vw, 46px);
           font-weight: 700;
           line-height: 1.4;
+        }
+
+        .color-bee-my-friends {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          max-width: 100%;
+          line-height: 1.15;
+          letter-spacing: 0;
+          white-space: nowrap;
         }
 
         .closing-description {
@@ -479,10 +506,6 @@ export default function About() {
           color: #666;
           font-size: 15px;
           line-height: 2;
-        }
-
-        .desktop-break {
-          display: block;
         }
 
         @media (max-width: 800px) {
@@ -634,16 +657,16 @@ export default function About() {
 
           .closing-title {
             margin-bottom: 18px;
-            font-size: clamp(27px, 8vw, 36px);
+            font-size: clamp(25px, 8vw, 36px);
+          }
+
+          .color-bee-my-friends {
+            font-size: clamp(25px, 8vw, 36px);
           }
 
           .closing-description {
             font-size: 14px;
             line-height: 1.9;
-          }
-
-          .desktop-break {
-            display: none;
           }
         }
 
@@ -655,6 +678,10 @@ export default function About() {
 
           .color-logo {
             font-size: 10.8vw;
+          }
+
+          .color-bee-my-friends {
+            font-size: 7.7vw;
           }
 
           .location-card,
