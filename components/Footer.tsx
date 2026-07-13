@@ -51,9 +51,16 @@ export default function Footer() {
               lineHeight: 1.9,
             }}
           >
-            BeeMYfriends!
+            <span
+              style={{
+                color: "#2f2f2f",
+                fontWeight: 700,
+              }}
+            >
+              Bee my friends! 🐝
+            </span>
             <br />
-            〒999-3701 山形県東根市神町若木通り13-1
+            〒999-3701 山形県東根市若木通り13-1
             <br />
             みつばちが育んだ自然の恵み
           </p>
