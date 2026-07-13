@@ -1,469 +1,381 @@
-import type { Metadata } from "next";
-import Link from "next/link";
-
-export const metadata: Metadata = {
-  title: "果物 | みつばち果樹園",
-  description:
-    "みつばち果樹園で育てている、さくらんぼやりんごなどの果物をご紹介します。",
-};
-
-type Product = {
-  id: number;
-  name: string;
-  englishName: string;
-  season: string;
-  price: string;
-  description: string;
-  image: string;
-  href: string;
-  status: "販売中" | "準備中" | "販売終了";
-  accent: string;
-};
-
-const products: Product[] = [
-  {
-    id: 1,
-    name: "佐藤錦",
-    englishName: "SATO NISHIKI",
-    season: "6月中旬〜下旬",
-    price: "価格準備中",
-    description:
-      "上品な甘みとほどよい酸味。山形を代表する、みずみずしいさくらんぼです。",
-    image: "",
-    href: "",
-    status: "準備中",
-    accent: "#ff6b6b",
-  },
-  {
-    id: 2,
-    name: "紅秀峰",
-    englishName: "BENI SHUHO",
-    season: "6月下旬〜7月上旬",
-    price: "価格準備中",
-    description:
-      "大粒でしっかりとした果肉。濃厚な甘みを楽しめる人気のさくらんぼです。",
-    image: "",
-    href: "",
-    status: "準備中",
-    accent: "#d94a64",
-  },
-  {
-    id: 3,
-    name: "やまがた紅王",
-    englishName: "YAMAGATA BENIOU",
-    season: "6月下旬〜7月上旬",
-    price: "価格準備中",
-    description:
-      "存在感のある大きな実と鮮やかな紅色。山形生まれの新しいさくらんぼです。",
-    image: "",
-    href: "",
-    status: "準備中",
-    accent: "#c72c48",
-  },
-  {
-    id: 4,
-    name: "サンふじ",
-    englishName: "SUN FUJI",
-    season: "11月〜12月",
-    price: "価格準備中",
-    description:
-      "蜜が入りやすく、甘みと酸味のバランスに優れた香り豊かなりんごです。",
-    image: "",
-    href: "",
-    status: "準備中",
-    accent: "#e9553f",
-  },
-];
-
-export default function FruitsPage() {
+export default function OrderPage() {
   return (
     <main
       style={{
         minHeight: "100vh",
         background: "#fafaf9",
-        color: "#2f2f2f",
-        padding: "120px 24px 100px",
+        padding: "120px 24px 80px",
         boxSizing: "border-box",
       }}
     >
-      <div
+      <section
         style={{
           width: "100%",
-          maxWidth: "1100px",
+          maxWidth: "980px",
           margin: "0 auto",
         }}
       >
-        {/* ページタイトル */}
-        <section
+        <p
           style={{
-            marginBottom: "72px",
+            margin: "0 0 24px",
+            color: "#888",
+            fontSize: "13px",
+            letterSpacing: "0.25em",
           }}
         >
-          <p
-            style={{
-              margin: "0 0 18px",
-              color: "#888",
-              fontSize: "13px",
-              letterSpacing: "0.25em",
-            }}
-          >
-            FRUITS
-          </p>
+          ORDER
+        </p>
 
-          <h1
-            style={{
-              margin: "0 0 28px",
-              fontSize: "clamp(42px, 7vw, 78px)",
-              lineHeight: 1.15,
-              letterSpacing: "0.02em",
-            }}
-          >
-            みつばちが育んだ
-            <br />
-            季節の果物
-          </h1>
-
-          <p
-            style={{
-              maxWidth: "700px",
-              margin: 0,
-              color: "#666",
-              fontSize: "17px",
-              lineHeight: 2,
-            }}
-          >
-            山形県東根市の自然の中で、
-            <br />
-            一つひとつの実と向き合いながら大切に育てています。
-            <br />
-            旬を迎えた果物を、もぎたてのおいしさでお届けします。
-          </p>
-        </section>
-
-        {/* お知らせ */}
-        <section
+        <h1
           style={{
-            marginBottom: "56px",
-            padding: "26px 28px",
-            borderRadius: "24px",
-            background: "#fff8d6",
-            color: "#735000",
-            lineHeight: 1.9,
+            margin: "0 0 56px",
+            fontSize: "clamp(42px, 7vw, 78px)",
+            lineHeight: 1.1,
           }}
         >
-          <p
+          ご注文について
+        </h1>
+
+        <div
+          style={{
+            color: "#4f4f4f",
+            fontSize: "18px",
+            lineHeight: 2.1,
+          }}
+        >
+          {/* Web注文準備中のお知らせ */}
+          <section
+            className="orderNotice"
             style={{
-              margin: "0 0 6px",
-              fontSize: "13px",
-              fontWeight: 700,
-              letterSpacing: "0.12em",
+              margin: "56px 0 72px",
+              padding: "clamp(28px, 6vw, 48px)",
+              borderRadius: "28px",
+              background: "#fff8d6",
+              color: "#8a5a00",
+              boxShadow: "0 18px 50px rgba(0,0,0,0.06)",
             }}
           >
-            ONLINE SHOP
-          </p>
-
-          <p
-            style={{
-              margin: 0,
-              fontSize: "15px",
-            }}
-          >
-            現在、オンライン販売の準備を進めています。
-            販売開始まで、もうしばらくお待ちください。
-          </p>
-        </section>
-
-        {/* 商品一覧 */}
-        <section>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "flex-end",
-              justifyContent: "space-between",
-              gap: "24px",
-              marginBottom: "30px",
-              flexWrap: "wrap",
-            }}
-          >
-            <div>
-              <p
-                style={{
-                  margin: "0 0 10px",
-                  color: "#888",
-                  fontSize: "12px",
-                  fontWeight: 700,
-                  letterSpacing: "0.18em",
-                }}
-              >
-                OUR PRODUCTS
-              </p>
-
-              <h2
-                style={{
-                  margin: 0,
-                  fontSize: "clamp(28px, 4vw, 42px)",
-                  lineHeight: 1.3,
-                }}
-              >
-                商品一覧
-              </h2>
-            </div>
-
             <p
               style={{
-                margin: 0,
-                color: "#888",
-                fontSize: "13px",
+                margin: "0 0 16px",
+                fontSize: "15px",
+                fontWeight: 700,
+                letterSpacing: "0.12em",
               }}
             >
-              商品は季節ごとに順次追加します
+              ただいま準備中です
             </p>
-          </div>
 
-          <div className="productGrid">
-            {products.map((product) => (
-              <article
-                key={product.id}
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  minWidth: 0,
-                  overflow: "hidden",
-                  background: "#fff",
-                  border: "1px solid #ecece8",
-                  borderRadius: "28px",
-                  boxShadow: "0 18px 50px rgba(0,0,0,0.055)",
-                }}
+            <h2
+              style={{
+                margin: "0 0 24px",
+                color: "#5f3d00",
+                fontSize: "clamp(30px, 6vw, 52px)",
+                lineHeight: 1.25,
+              }}
+            >
+              現在、Web注文は
+              <br />
+              受付準備中です。
+            </h2>
+
+            <p style={{ margin: "0 0 24px" }}>
+              みつばち果樹園の注文ページをご覧いただき、
+              ありがとうございます。
+              <br className="desktopBreak" />
+              現在、オンライン注文フォームは調整中のため、
+              このページからのご注文はまだ受け付けておりません。
+            </p>
+
+            <p style={{ margin: 0 }}>
+              正式に準備が整い次第、こちらのページから
+              さくらんぼ・りんごなどの季節の果物を
+              ご注文いただけるようにいたします。
+            </p>
+          </section>
+
+          {/* お問い合わせ・店舗情報 */}
+          <div className="orderCardGrid">
+            <section className="orderCard">
+              <p className="orderCardLabel">CONTACT</p>
+
+              <h2 className="orderCardTitle">お急ぎのお客様へ</h2>
+
+              <p>
+                現在のご注文・お問い合わせは、
+                お電話またはFAXにてお願いいたします。
+              </p>
+
+              <p>
+                <strong>TEL</strong>
+                <br />
+                <a href="tel:09082515523" className="contactLink">
+                  090-8251-5523
+                </a>
+              </p>
+
+              <p>
+                <strong>FAX</strong>
+                <br />
+                0237-51-4041
+              </p>
+
+              <a href="tel:09082515523" className="orderButton">
+                電話をかける →
+              </a>
+            </section>
+
+            <section className="orderCard">
+              <p className="orderCardLabel">SHOP</p>
+
+              <h2 className="orderCardTitle">お店でのお買い物</h2>
+
+              <p>
+                ご来店・お買い物のお客様は、
+                <strong>みつばちフルーツ</strong>へお越しください。
+              </p>
+
+              <p>
+                〒999-3701
+                <br />
+                山形県東根市東根甲4694-1
+              </p>
+
+              <a
+                href="https://www.google.com/maps/search/?api=1&query=山形県東根市東根甲4694-1"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="orderButton"
               >
-                {/* 商品画像 */}
-                <div
-                  style={{
-                    position: "relative",
-                    width: "100%",
-                    aspectRatio: "4 / 3",
-                    overflow: "hidden",
-                    background: `linear-gradient(145deg, ${product.accent}18, #fafaf9)`,
-                  }}
-                >
-                  {product.image ? (
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      style={{
-                        display: "block",
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                      }}
-                    />
-                  ) : (
-                    <div
-                      style={{
-                        display: "flex",
-                        width: "100%",
-                        height: "100%",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        color: "#aaa",
-                        fontSize: "13px",
-                        letterSpacing: "0.12em",
-                      }}
-                    >
-                      PRODUCT IMAGE
-                    </div>
-                  )}
-
-                  <span
-                    style={{
-                      position: "absolute",
-                      top: "18px",
-                      right: "18px",
-                      display: "inline-flex",
-                      alignItems: "center",
-                      minHeight: "32px",
-                      padding: "0 14px",
-                      borderRadius: "999px",
-                      background:
-                        product.status === "販売中"
-                          ? "#2f2f2f"
-                          : "rgba(255,255,255,0.92)",
-                      color:
-                        product.status === "販売中" ? "#fff" : "#666",
-                      fontSize: "12px",
-                      fontWeight: 700,
-                      boxShadow: "0 6px 20px rgba(0,0,0,0.08)",
-                    }}
-                  >
-                    {product.status}
-                  </span>
-                </div>
-
-                {/* 商品情報 */}
-                <div
-                  style={{
-                    display: "flex",
-                    flex: 1,
-                    flexDirection: "column",
-                    padding: "28px",
-                  }}
-                >
-                  <p
-                    style={{
-                      margin: "0 0 8px",
-                      color: product.accent,
-                      fontSize: "11px",
-                      fontWeight: 700,
-                      letterSpacing: "0.18em",
-                    }}
-                  >
-                    {product.englishName}
-                  </p>
-
-                  <h3
-                    style={{
-                      margin: "0 0 12px",
-                      fontSize: "28px",
-                      lineHeight: 1.35,
-                      color: "#2f2f2f",
-                    }}
-                  >
-                    {product.name}
-                  </h3>
-
-                  <p
-                    style={{
-                      margin: "0 0 18px",
-                      color: "#888",
-                      fontSize: "13px",
-                    }}
-                  >
-                    収穫時期：{product.season}
-                  </p>
-
-                  <p
-                    style={{
-                      margin: "0 0 24px",
-                      color: "#666",
-                      fontSize: "15px",
-                      lineHeight: 1.9,
-                    }}
-                  >
-                    {product.description}
-                  </p>
-
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      gap: "16px",
-                      marginTop: "auto",
-                      paddingTop: "22px",
-                      borderTop: "1px solid #eee",
-                    }}
-                  >
-                    <p
-                      style={{
-                        margin: 0,
-                        color: "#444",
-                        fontSize: "15px",
-                        fontWeight: 700,
-                      }}
-                    >
-                      {product.price}
-                    </p>
-
-                    {product.href ? (
-                      <Link
-                        href={product.href}
-                        style={{
-                          color: "#2f2f2f",
-                          fontSize: "14px",
-                          fontWeight: 700,
-                          textDecoration: "none",
-                        }}
-                      >
-                        商品を見る →
-                      </Link>
-                    ) : (
-                      <span
-                        style={{
-                          color: "#aaa",
-                          fontSize: "13px",
-                          fontWeight: 700,
-                        }}
-                      >
-                        COMING SOON
-                      </span>
-                    )}
-                  </div>
-                </div>
-              </article>
-            ))}
+                Google Mapsで開く →
+              </a>
+            </section>
           </div>
-        </section>
 
-        {/* 下部メッセージ */}
-        <section
-          style={{
-            marginTop: "88px",
-            padding: "56px 28px",
-            borderRadius: "32px",
-            background: "#fff",
-            border: "1px solid #ecece8",
-            textAlign: "center",
-            boxShadow: "0 18px 50px rgba(0,0,0,0.04)",
-          }}
-        >
-          <p
-            style={{
-              margin: "0 0 14px",
-              color: "#888",
-              fontSize: "12px",
-              fontWeight: 700,
-              letterSpacing: "0.18em",
-            }}
-          >
-            FROM OUR FARM
-          </p>
+          {/* 下部メッセージ */}
+          <section className="closingCard">
+            <p className="closingLabel">FROM OUR FARM</p>
 
-          <h2
-            style={{
-              margin: "0 0 20px",
-              fontSize: "clamp(28px, 5vw, 46px)",
-              lineHeight: 1.4,
-            }}
-          >
-            旬のおいしさを、
-            <br />
-            果樹園からまっすぐに。
-          </h2>
+            <h2 className="closingTitle">
+              旬のおいしさを、
+              <br />
+              果樹園からまっすぐに。
+            </h2>
 
-          <p
-            style={{
-              maxWidth: "620px",
-              margin: "0 auto",
-              color: "#666",
-              fontSize: "15px",
-              lineHeight: 2,
-            }}
-          >
-            天候や生育状況により、収穫時期や販売数量が変わる場合があります。
-            最新の販売情報は、ホームページやInstagramでお知らせします。
-          </p>
-        </section>
-      </div>
+            <p className="closingDescription">
+              天候や生育状況により、収穫時期や販売数量が
+              変わる場合があります。
+              <br className="desktopBreak" />
+              最新の販売情報は、ホームページやInstagramで
+              お知らせします。
+            </p>
+          </section>
+        </div>
+      </section>
 
       <style>{`
-        .productGrid {
+        * {
+          box-sizing: border-box;
+        }
+
+        .orderCardGrid {
           display: grid;
           grid-template-columns: repeat(2, minmax(0, 1fr));
           gap: 28px;
+          margin-bottom: 72px;
+        }
+
+        .orderCard {
+          display: flex;
+          flex-direction: column;
+          min-width: 0;
+          padding: 32px;
+          border-radius: 28px;
+          background: #fff;
+          box-shadow: 0 18px 50px rgba(0, 0, 0, 0.06);
+        }
+
+        .orderCardLabel {
+          margin: 0 0 12px;
+          color: #888;
+          font-size: 12px;
+          font-weight: 700;
+          line-height: 1.5;
+          letter-spacing: 0.18em;
+        }
+
+        .orderCardTitle {
+          margin: 0 0 20px;
+          color: #2f2f2f;
+          font-size: 30px;
+          line-height: 1.4;
+        }
+
+        .contactLink {
+          color: #2f2f2f;
+          font-weight: 700;
+          text-decoration: none;
+        }
+
+        .contactLink:hover {
+          text-decoration: underline;
+        }
+
+        .orderButton {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          align-self: flex-start;
+          min-height: 52px;
+          margin-top: auto;
+          padding: 14px 24px;
+          border-radius: 999px;
+          background: #2f2f2f;
+          color: #fff;
+          font-size: 15px;
+          font-weight: 700;
+          line-height: 1.5;
+          text-align: center;
+          text-decoration: none;
+          transition:
+            opacity 0.2s ease,
+            transform 0.2s ease;
+        }
+
+        .orderButton:hover {
+          opacity: 0.86;
+          transform: translateY(-2px);
+        }
+
+        .closingCard {
+          margin-top: 88px;
+          padding: 56px 28px;
+          border: 1px solid #ecece8;
+          border-radius: 32px;
+          background: #fff;
+          text-align: center;
+          box-shadow: 0 18px 50px rgba(0, 0, 0, 0.04);
+        }
+
+        .closingLabel {
+          margin: 0 0 14px;
+          color: #888;
+          font-size: 12px;
+          font-weight: 700;
+          line-height: 1.5;
+          letter-spacing: 0.18em;
+        }
+
+        .closingTitle {
+          margin: 0 0 20px;
+          color: #2f2f2f;
+          font-size: clamp(28px, 5vw, 46px);
+          line-height: 1.4;
+        }
+
+        .closingDescription {
+          max-width: 620px;
+          margin: 0 auto;
+          color: #666;
+          font-size: 15px;
+          line-height: 2;
+        }
+
+        .desktopBreak {
+          display: block;
         }
 
         @media (max-width: 720px) {
-          .productGrid {
+          main {
+            padding: 96px 20px 64px !important;
+          }
+
+          .orderCardGrid {
             grid-template-columns: 1fr;
+            gap: 24px;
+            margin-bottom: 56px;
+          }
+
+          .orderCard {
+            padding: 28px;
+          }
+
+          .closingCard {
+            margin-top: 72px;
+          }
+        }
+
+        @media (max-width: 520px) {
+          main {
+            padding: 72px 16px 56px !important;
+          }
+
+          .orderNotice {
+            margin: 40px 0 48px !important;
+            padding: 24px 20px !important;
+            border-radius: 22px !important;
+          }
+
+          .orderCardGrid {
+            gap: 20px;
+            margin-bottom: 48px;
+          }
+
+          .orderCard {
+            padding: 24px 20px;
+            border-radius: 22px;
+          }
+
+          .orderCardTitle {
+            font-size: 25px;
+          }
+
+          .orderButton {
+            width: 100%;
+            align-self: stretch;
+            margin-top: 12px;
+            padding: 14px 16px;
+          }
+
+          .closingCard {
+            margin-top: 64px;
+            padding: 48px 20px;
+            border-radius: 24px;
+          }
+
+          .closingLabel {
+            font-size: 11px;
+          }
+
+          .closingTitle {
+            font-size: clamp(27px, 8vw, 36px);
+          }
+
+          .closingDescription {
+            font-size: 14px;
+            line-height: 1.9;
+          }
+
+          .desktopBreak {
+            display: none;
+          }
+        }
+
+        @media (max-width: 360px) {
+          main {
+            padding-right: 14px !important;
+            padding-left: 14px !important;
+          }
+
+          .orderCard,
+          .orderNotice {
+            padding-right: 18px !important;
+            padding-left: 18px !important;
+          }
+
+          .closingCard {
+            padding-right: 16px;
+            padding-left: 16px;
           }
         }
       `}</style>
