@@ -178,6 +178,7 @@ export default function About() {
 
                 <div className="information-item">
                   <p className="information-label">TEL</p>
+
                   <a
                     href="tel:09082515523"
                     className="information-value information-link"
@@ -194,16 +195,18 @@ export default function About() {
             </section>
 
             <section className="about-closing">
-              <div className="closing-logo">
-                <ColorLogo />
-              </div>
+              <p className="closing-label">FROM OUR FARM</p>
 
-              <p className="closing-english">BeeMYFriends!</p>
+              <h2 className="closing-title">
+                旬のおいしさを、
+                <br />
+                果樹園からまっすぐに。
+              </h2>
 
-              <p className="closing-message">
-                また会いたくなる、
-                <br className="mobile-break" />
-                果樹園でありますように。
+              <p className="closing-description">
+                天候や生育状況により、収穫時期や販売数量が変わる場合があります。
+                <br className="desktop-break" />
+                最新の販売情報は、ホームページやInstagramでお知らせします。
               </p>
             </section>
           </div>
@@ -448,31 +451,38 @@ export default function About() {
 
         .about-closing {
           margin-top: 96px;
+          padding: 72px 24px 8px;
+          border-top: 1px solid #ddd;
           text-align: center;
         }
 
-        .closing-logo .color-logo {
-          font-size: clamp(36px, 7vw, 60px);
-        }
-
-        .closing-english {
-          margin: 24px 0 12px;
-          color: #2f2f2f;
-          font-size: clamp(22px, 4vw, 26px);
+        .closing-label {
+          margin: 0 0 20px;
+          color: #888;
+          font-size: 12px;
           font-weight: 700;
-          line-height: 1.7;
+          line-height: 1.5;
+          letter-spacing: 0.22em;
         }
 
-        .closing-message {
-          margin: 0;
+        .closing-title {
+          margin: 0 0 20px;
           color: #2f2f2f;
-          font-size: clamp(17px, 3vw, 20px);
-          font-weight: 600;
+          font-size: clamp(28px, 5vw, 46px);
+          font-weight: 700;
+          line-height: 1.4;
+        }
+
+        .closing-description {
+          max-width: 620px;
+          margin: 0 auto;
+          color: #666;
+          font-size: 15px;
           line-height: 2;
         }
 
-        .mobile-break {
-          display: none;
+        .desktop-break {
+          display: block;
         }
 
         @media (max-width: 800px) {
@@ -512,6 +522,7 @@ export default function About() {
 
           .about-closing {
             margin-top: 72px;
+            padding-top: 64px;
           }
         }
 
@@ -613,18 +624,26 @@ export default function About() {
 
           .about-closing {
             margin-top: 64px;
+            padding: 56px 4px 0;
           }
 
-          .closing-logo .color-logo {
-            font-size: clamp(34px, 11vw, 50px);
+          .closing-label {
+            margin-bottom: 16px;
+            font-size: 11px;
           }
 
-          .closing-english {
-            margin-top: 20px;
+          .closing-title {
+            margin-bottom: 18px;
+            font-size: clamp(27px, 8vw, 36px);
           }
 
-          .mobile-break {
-            display: block;
+          .closing-description {
+            font-size: 14px;
+            line-height: 1.9;
+          }
+
+          .desktop-break {
+            display: none;
           }
         }
 
