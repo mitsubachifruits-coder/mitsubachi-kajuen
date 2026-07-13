@@ -1,4 +1,4 @@
-function ColorLogo() {
+function ColorLogo({ className = "" }: { className?: string }) {
   const letters = [
     { text: "み", color: "#ff3131" },
     { text: "つ", color: "#006dff" },
@@ -10,14 +10,7 @@ function ColorLogo() {
   ];
 
   return (
-    <span
-      style={{
-        display: "inline-flex",
-        alignItems: "center",
-        fontSize: "88.8px",
-        letterSpacing: "0em",
-      }}
-    >
+    <span className={`color-logo ${className}`}>
       {letters.map((letter) => (
         <span key={letter.text} style={{ color: letter.color }}>
           {letter.text}
@@ -32,365 +25,630 @@ export default function About() {
     "https://www.google.com/maps/place/みつばちフルーツ/@38.4585069,140.3824658,808m/data=!3m2!1e3!4b1!4m6!3m5!1s0x5f8bddb815aa36a5:0xa3af7357704955ec!8m2!3d38.4585069!4d140.3824658!16s%2Fg%2F11pdn5drk_?entry=ttu&g_ep=EgoyMDI2MDcwOC4wIKXMDSoASAFQAw%3D%3D";
 
   return (
-    <main
-      style={{
-        minHeight: "100vh",
-        background: "#fafaf9",
-        padding: "120px 24px 80px",
-        boxSizing: "border-box",
-      }}
-    >
-      <section style={{ maxWidth: "980px", margin: "0 auto" }}>
-        <p
-          style={{
-            color: "#888",
-            letterSpacing: "0.25em",
-            fontSize: "13px",
-            marginBottom: "24px",
-          }}
-        >
-          ABOUT
-        </p>
+    <>
+      <main className="about-page">
+        <section className="about-container">
+          <p className="about-label">ABOUT</p>
 
-        <h1
-          style={{
-            fontSize: "clamp(42px, 7vw, 78px)",
-            lineHeight: 1.1,
-            margin: "0 0 56px",
-          }}
-        >
-          <ColorLogo />
-        </h1>
+          <h1 className="about-title">
+            <ColorLogo />
+          </h1>
 
-        <div style={{ fontSize: "18px", lineHeight: 2.1, color: "#4f4f4f" }}>
-          <p>
-            みつばち果樹園は、
-            <strong>GI「東根さくらんぼ」</strong>生産者です。
-          </p>
-
-          <p>
-            日本一のさくらんぼ生産量を誇るまち、
-            <br />
-            山形県東根市より、
-            <br />
-            もぎたてのおいしさを全国へお届けしています。
-          </p>
-
-          <p>
-            四季の移ろいを感じながら、自然と向き合い、
-            一粒一粒を大切に育てています。
-          </p>
-
-          <div
-            style={{
-              margin: "56px 0 72px",
-              padding: "32px",
-              borderRadius: "28px",
-              background: "#fff8d6",
-              color: "#8a5a00",
-              boxShadow: "0 18px 50px rgba(0,0,0,0.06)",
-            }}
-          >
-            <p
-              style={{
-                fontSize: "15px",
-                letterSpacing: "0.12em",
-                fontWeight: 700,
-                marginBottom: "16px",
-              }}
-            >
-              ご来店のお客様へ
-            </p>
-
-            <h2
-              style={{
-                fontSize: "clamp(28px, 5vw, 46px)",
-                lineHeight: 1.25,
-                margin: "0 0 20px",
-                color: "#5f3d00",
-              }}
-            >
-              お店は、
-              <br />
-              みつばちフルーツです。
-            </h2>
-
-            <p style={{ marginBottom: "24px" }}>
-              ナビで「みつばち果樹園」と検索すると、
-              農園・作業場へ案内される場合があります。
-              <br />
-              ご来店・お買い物のお客様は、
-              <strong>「みつばちフルーツ」</strong>
-              へお越しください。
-            </p>
-
-            <a
-              href={shopGoogleMapsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                display: "inline-block",
-                padding: "14px 24px",
-                borderRadius: "999px",
-                background: "#2f2f2f",
-                color: "#fff",
-                textDecoration: "none",
-                fontSize: "15px",
-                fontWeight: 700,
-              }}
-            >
-              Google Mapsでお店を開く →
-            </a>
-          </div>
-
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-              gap: "28px",
-              marginBottom: "72px",
-            }}
-          >
-            <section
-              style={{
-                background: "#fff",
-                borderRadius: "28px",
-                padding: "32px",
-                boxShadow: "0 18px 50px rgba(0,0,0,0.06)",
-              }}
-            >
-              <p
-                style={{
-                  color: "#888",
-                  letterSpacing: "0.18em",
-                  fontSize: "12px",
-                  fontWeight: 700,
-                  marginBottom: "12px",
-                }}
-              >
-                SHOP
+          <div className="about-body">
+            <div className="about-introduction">
+              <p>
+                みつばち果樹園は、
+                <strong>GI「東根さくらんぼ」</strong>
+                生産者です。
               </p>
 
-              <h2
-                style={{
-                  fontSize: "30px",
-                  margin: "0 0 20px",
-                  color: "#2f2f2f",
-                }}
-              >
-                みつばちフルーツ
+              <p>
+                日本一のさくらんぼ生産量を誇るまち、
+                <br />
+                山形県東根市より、
+                <br />
+                もぎたてのおいしさを全国へお届けしています。
+              </p>
+
+              <p>
+                四季の移ろいを感じながら、自然と向き合い、
+                一粒一粒を大切に育てています。
+              </p>
+            </div>
+
+            <section className="visitor-notice">
+              <p className="visitor-notice-label">ご来店のお客様へ</p>
+
+              <h2 className="visitor-notice-title">
+                お店は、
+                <br />
+                みつばちフルーツです。
               </h2>
 
-              <p>
-                <strong>直営店・ご来店はこちら</strong>
-              </p>
-
-              <p>
-                〒999-3701
+              <p className="visitor-notice-text">
+                ナビで「みつばち果樹園」と検索すると、
+                農園・作業場へ案内される場合があります。
                 <br />
-                山形県東根市東根甲4694-1
+                ご来店・お買い物のお客様は、
+                <strong>「みつばちフルーツ」</strong>
+                へお越しください。
               </p>
-
-              <div
-                style={{
-                  marginTop: "24px",
-                  borderRadius: "22px",
-                  overflow: "hidden",
-                }}
-              >
-                <iframe
-                  src="https://www.google.com/maps?q=山形県東根市東根甲4694-1&output=embed"
-                  title="みつばちフルーツ Googleマップ"
-                  width="100%"
-                  height="300"
-                  style={{ border: 0 }}
-                  loading="lazy"
-                />
-              </div>
 
               <a
                 href={shopGoogleMapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{
-                  display: "inline-block",
-                  marginTop: "20px",
-                  color: "#2f2f2f",
-                  fontWeight: 700,
-                  textDecoration: "none",
-                }}
+                className="dark-button"
               >
-                Google Mapsで開く →
+                Google Mapsでお店を開く →
               </a>
             </section>
 
-            <section
-              style={{
-                background: "#fff",
-                borderRadius: "28px",
-                padding: "32px",
-                boxShadow: "0 18px 50px rgba(0,0,0,0.06)",
-              }}
-            >
-              <p
-                style={{
-                  color: "#888",
-                  letterSpacing: "0.18em",
-                  fontSize: "12px",
-                  fontWeight: 700,
-                  marginBottom: "12px",
-                }}
-              >
-                FARM
-              </p>
+            <div className="location-grid">
+              <section className="location-card">
+                <p className="location-label">SHOP</p>
 
-              <h2
-                style={{
-                  fontSize: "30px",
-                  margin: "0 0 20px",
-                  color: "#2f2f2f",
-                }}
-              >
-                みつばち果樹園
-              </h2>
+                <h2 className="location-title">みつばちフルーツ</h2>
 
-              <p>
-                <strong>農園・作業場</strong>
-              </p>
+                <p>
+                  <strong>直営店・ご来店はこちら</strong>
+                </p>
 
-              <p>
-                〒999-3751
-                <br />
-                山形県東根市若木通り1-13
-              </p>
+                <p>
+                  〒999-3701
+                  <br />
+                  山形県東根市東根甲4694-1
+                </p>
 
-              <p
-                style={{
-                  padding: "14px 18px",
-                  borderRadius: "18px",
-                  background: "#fafaf9",
-                  fontSize: "15px",
-                  lineHeight: 1.8,
-                  color: "#666",
-                }}
-              >
-                ※こちらは収穫・発送作業を行う農園です。
-                <br />
-                直売でお買い求めのお客様は、
-                みつばちフルーツへお越しください。
-              </p>
+                <div className="map-wrapper">
+                  <iframe
+                    src="https://www.google.com/maps?q=山形県東根市東根甲4694-1&output=embed"
+                    title="みつばちフルーツ Googleマップ"
+                    width="100%"
+                    height="300"
+                    className="map-frame"
+                    loading="lazy"
+                  />
+                </div>
 
-              <div
-                style={{
-                  marginTop: "24px",
-                  borderRadius: "22px",
-                  overflow: "hidden",
-                }}
-              >
-                <iframe
-                  src="https://www.google.com/maps?q=山形県東根市若木通り1-13&output=embed"
-                  title="みつばち果樹園 Googleマップ"
-                  width="100%"
-                  height="300"
-                  style={{ border: 0 }}
-                  loading="lazy"
-                />
+                <a
+                  href={shopGoogleMapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="map-link"
+                >
+                  Google Mapsで開く →
+                </a>
+              </section>
+
+              <section className="location-card">
+                <p className="location-label">FARM</p>
+
+                <h2 className="location-title">みつばち果樹園</h2>
+
+                <p>
+                  <strong>農園・作業場</strong>
+                </p>
+
+                <p>
+                  〒999-3751
+                  <br />
+                  山形県東根市若木通り1-13
+                </p>
+
+                <p className="farm-note">
+                  ※こちらは収穫・発送作業を行う農園です。
+                  <br />
+                  直売でお買い求めのお客様は、
+                  みつばちフルーツへお越しください。
+                </p>
+
+                <div className="map-wrapper">
+                  <iframe
+                    src="https://www.google.com/maps?q=山形県東根市若木通り1-13&output=embed"
+                    title="みつばち果樹園 Googleマップ"
+                    width="100%"
+                    height="300"
+                    className="map-frame"
+                    loading="lazy"
+                  />
+                </div>
+
+                <a
+                  href="https://www.google.com/maps/search/?api=1&query=山形県東根市若木通り1-13"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="map-link"
+                >
+                  Google Mapsで開く →
+                </a>
+              </section>
+            </div>
+
+            <hr className="about-divider" />
+
+            <section className="farm-information">
+              <h2 className="farm-information-title">みつばち果樹園</h2>
+
+              <div className="information-grid">
+                <div className="information-item">
+                  <p className="information-label">園主</p>
+                  <p className="information-value">中川 敏浩</p>
+                </div>
+
+                <div className="information-item">
+                  <p className="information-label">TEL</p>
+                  <a
+                    href="tel:09082515523"
+                    className="information-value information-link"
+                  >
+                    090-8251-5523
+                  </a>
+                </div>
+
+                <div className="information-item">
+                  <p className="information-label">FAX</p>
+                  <p className="information-value">0237-51-4041</p>
+                </div>
+              </div>
+            </section>
+
+            <section className="about-closing">
+              <div className="closing-logo">
+                <ColorLogo />
               </div>
 
-              <a
-                href="https://www.google.com/maps/search/?api=1&query=山形県東根市若木通り1-13"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  display: "inline-block",
-                  marginTop: "20px",
-                  color: "#2f2f2f",
-                  fontWeight: 700,
-                  textDecoration: "none",
-                }}
-              >
-                Google Mapsで開く →
-              </a>
+              <p className="closing-english">BeeMYFriends!</p>
+
+              <p className="closing-message">
+                また会いたくなる、
+                <br className="mobile-break" />
+                果樹園でありますように。
+              </p>
             </section>
           </div>
+        </section>
+      </main>
 
-          <hr
-            style={{
-              margin: "64px 0",
-              border: "none",
-              borderTop: "1px solid #ddd",
-            }}
-          />
+      <style>{`
+        * {
+          box-sizing: border-box;
+        }
 
-          <h2
-            style={{
-              fontSize: "28px",
-              marginBottom: "24px",
-              color: "#2f2f2f",
-            }}
-          >
-            みつばち果樹園
-          </h2>
+        .about-page {
+          min-height: 100vh;
+          padding: 120px 24px 80px;
+          background: #fafaf9;
+          overflow: hidden;
+        }
 
-          <p>
-            <strong>園主</strong>
-            <br />
-            中川 敏浩
-          </p>
+        .about-container {
+          width: 100%;
+          max-width: 980px;
+          margin: 0 auto;
+        }
 
-          <p>
-            <strong>TEL</strong>
-            <br />
-            090-8251-5523
-          </p>
+        .about-label {
+          margin: 0 0 24px;
+          color: #888;
+          font-size: 13px;
+          font-weight: 700;
+          letter-spacing: 0.25em;
+        }
 
-          <p>
-            <strong>FAX</strong>
-            <br />
-            0237-51-4041
-          </p>
+        .about-title {
+          margin: 0 0 56px;
+          line-height: 1.1;
+        }
 
-          <div
-            style={{
-              marginTop: "72px",
-              textAlign: "center",
-            }}
-          >
-            <p
-              style={{
-                fontSize: "clamp(36px, 6vw, 60px)",
-                lineHeight: 1.2,
-                marginBottom: "20px",
-              }}
-            >
-              <ColorLogo />
-            </p>
+        .color-logo {
+          display: inline-flex;
+          align-items: center;
+          max-width: 100%;
+          font-size: clamp(42px, 9vw, 88.8px);
+          line-height: 1;
+          letter-spacing: 0;
+          white-space: nowrap;
+        }
 
-            <p
-              style={{
-                fontSize: "24px",
-                lineHeight: 1.7,
-                color: "#2f2f2f",
-                fontWeight: 700,
-                marginBottom: "12px",
-              }}
-            >
-              BeeMYFriends!
-            </p>
+        .about-body {
+          color: #4f4f4f;
+          font-size: 18px;
+          line-height: 2.1;
+        }
 
-            <p
-              style={{
-                fontSize: "20px",
-                lineHeight: 2,
-                color: "#2f2f2f",
-                fontWeight: 600,
-              }}
-            >
-              また会いたくなる、果樹園でありますように。
-            </p>
-          </div>
-        </div>
-      </section>
-    </main>
+        .about-body p {
+          overflow-wrap: break-word;
+        }
+
+        .about-introduction {
+          max-width: 760px;
+        }
+
+        .about-introduction p {
+          margin: 0 0 28px;
+        }
+
+        .visitor-notice {
+          margin: 56px 0 72px;
+          padding: 32px;
+          border-radius: 28px;
+          background: #fff8d6;
+          color: #8a5a00;
+          box-shadow: 0 18px 50px rgba(0, 0, 0, 0.06);
+        }
+
+        .visitor-notice-label {
+          margin: 0 0 16px;
+          font-size: 15px;
+          font-weight: 700;
+          letter-spacing: 0.12em;
+        }
+
+        .visitor-notice-title {
+          margin: 0 0 20px;
+          color: #5f3d00;
+          font-size: clamp(28px, 5vw, 46px);
+          line-height: 1.25;
+        }
+
+        .visitor-notice-text {
+          margin: 0 0 24px;
+        }
+
+        .dark-button {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          min-height: 52px;
+          padding: 14px 24px;
+          border-radius: 999px;
+          background: #2f2f2f;
+          color: #fff;
+          font-size: 15px;
+          font-weight: 700;
+          line-height: 1.5;
+          text-align: center;
+          text-decoration: none;
+          transition:
+            transform 0.2s ease,
+            opacity 0.2s ease;
+        }
+
+        .dark-button:hover {
+          opacity: 0.86;
+          transform: translateY(-2px);
+        }
+
+        .location-grid {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 28px;
+          margin-bottom: 72px;
+          align-items: stretch;
+        }
+
+        .location-card {
+          display: flex;
+          flex-direction: column;
+          min-width: 0;
+          padding: 32px;
+          border-radius: 28px;
+          background: #fff;
+          box-shadow: 0 18px 50px rgba(0, 0, 0, 0.06);
+        }
+
+        .location-card > p {
+          margin-top: 0;
+        }
+
+        .location-label {
+          margin: 0 0 12px;
+          color: #888;
+          font-size: 12px;
+          font-weight: 700;
+          letter-spacing: 0.18em;
+        }
+
+        .location-title {
+          margin: 0 0 20px;
+          color: #2f2f2f;
+          font-size: clamp(25px, 3.2vw, 30px);
+          line-height: 1.4;
+        }
+
+        .farm-note {
+          padding: 14px 18px;
+          border-radius: 18px;
+          background: #fafaf9;
+          color: #666;
+          font-size: 15px;
+          line-height: 1.8;
+        }
+
+        .map-wrapper {
+          width: 100%;
+          margin-top: auto;
+          padding-top: 24px;
+          border-radius: 22px;
+          overflow: hidden;
+        }
+
+        .map-frame {
+          display: block;
+          width: 100%;
+          height: 300px;
+          border: 0;
+        }
+
+        .map-link {
+          display: inline-block;
+          margin-top: 20px;
+          color: #2f2f2f;
+          font-size: 15px;
+          font-weight: 700;
+          line-height: 1.6;
+          text-decoration: none;
+        }
+
+        .map-link:hover {
+          text-decoration: underline;
+        }
+
+        .about-divider {
+          margin: 64px 0;
+          border: 0;
+          border-top: 1px solid #ddd;
+        }
+
+        .farm-information-title {
+          margin: 0 0 32px;
+          color: #2f2f2f;
+          font-size: 28px;
+          line-height: 1.4;
+        }
+
+        .information-grid {
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 20px;
+        }
+
+        .information-item {
+          padding: 24px;
+          border-radius: 22px;
+          background: #fff;
+        }
+
+        .information-label {
+          margin: 0 0 8px;
+          color: #888;
+          font-size: 12px;
+          font-weight: 700;
+          letter-spacing: 0.16em;
+          line-height: 1.5;
+        }
+
+        .information-value {
+          display: block;
+          margin: 0;
+          color: #2f2f2f;
+          font-size: 17px;
+          font-weight: 700;
+          line-height: 1.7;
+        }
+
+        .information-link {
+          text-decoration: none;
+        }
+
+        .information-link:hover {
+          text-decoration: underline;
+        }
+
+        .about-closing {
+          margin-top: 96px;
+          text-align: center;
+        }
+
+        .closing-logo .color-logo {
+          font-size: clamp(36px, 7vw, 60px);
+        }
+
+        .closing-english {
+          margin: 24px 0 12px;
+          color: #2f2f2f;
+          font-size: clamp(22px, 4vw, 26px);
+          font-weight: 700;
+          line-height: 1.7;
+        }
+
+        .closing-message {
+          margin: 0;
+          color: #2f2f2f;
+          font-size: clamp(17px, 3vw, 20px);
+          font-weight: 600;
+          line-height: 2;
+        }
+
+        .mobile-break {
+          display: none;
+        }
+
+        @media (max-width: 800px) {
+          .about-page {
+            padding: 96px 20px 64px;
+          }
+
+          .about-title {
+            margin-bottom: 44px;
+          }
+
+          .about-body {
+            font-size: 17px;
+            line-height: 2;
+          }
+
+          .visitor-notice {
+            margin: 48px 0 56px;
+            padding: 28px;
+            border-radius: 24px;
+          }
+
+          .location-grid {
+            grid-template-columns: 1fr;
+            gap: 24px;
+            margin-bottom: 56px;
+          }
+
+          .information-grid {
+            grid-template-columns: 1fr;
+            gap: 14px;
+          }
+
+          .about-divider {
+            margin: 56px 0;
+          }
+
+          .about-closing {
+            margin-top: 72px;
+          }
+        }
+
+        @media (max-width: 520px) {
+          .about-page {
+            padding: 72px 16px 56px;
+          }
+
+          .about-label {
+            margin-bottom: 18px;
+            font-size: 11px;
+          }
+
+          .about-title {
+            margin-bottom: 36px;
+          }
+
+          .color-logo {
+            font-size: clamp(35px, 11.7vw, 58px);
+          }
+
+          .about-body {
+            font-size: 16px;
+            line-height: 1.95;
+          }
+
+          .about-introduction p {
+            margin-bottom: 24px;
+          }
+
+          .visitor-notice {
+            margin: 40px 0 48px;
+            padding: 24px 20px;
+            border-radius: 22px;
+          }
+
+          .visitor-notice-label {
+            font-size: 13px;
+          }
+
+          .visitor-notice-title {
+            font-size: clamp(27px, 8vw, 38px);
+          }
+
+          .visitor-notice-text br {
+            display: none;
+          }
+
+          .dark-button {
+            width: 100%;
+            padding: 14px 16px;
+          }
+
+          .location-grid {
+            gap: 20px;
+            margin-bottom: 48px;
+          }
+
+          .location-card {
+            padding: 24px 20px;
+            border-radius: 22px;
+          }
+
+          .location-title {
+            font-size: 25px;
+          }
+
+          .map-wrapper {
+            padding-top: 18px;
+            border-radius: 18px;
+          }
+
+          .map-frame {
+            height: 240px;
+          }
+
+          .map-link {
+            margin-top: 16px;
+          }
+
+          .farm-note {
+            padding: 14px;
+            font-size: 14px;
+          }
+
+          .about-divider {
+            margin: 48px 0;
+          }
+
+          .farm-information-title {
+            margin-bottom: 24px;
+            font-size: 25px;
+          }
+
+          .information-item {
+            padding: 20px;
+            border-radius: 18px;
+          }
+
+          .about-closing {
+            margin-top: 64px;
+          }
+
+          .closing-logo .color-logo {
+            font-size: clamp(34px, 11vw, 50px);
+          }
+
+          .closing-english {
+            margin-top: 20px;
+          }
+
+          .mobile-break {
+            display: block;
+          }
+        }
+
+        @media (max-width: 360px) {
+          .about-page {
+            padding-right: 14px;
+            padding-left: 14px;
+          }
+
+          .color-logo {
+            font-size: 10.8vw;
+          }
+
+          .location-card,
+          .visitor-notice {
+            padding-right: 18px;
+            padding-left: 18px;
+          }
+
+          .map-frame {
+            height: 220px;
+          }
+        }
+      `}</style>
+    </>
   );
 }
