@@ -22,7 +22,6 @@ export default function Footer() {
         }}
       >
         <div>
-          {/* ロゴ */}
           <Link
             href="/"
             style={{
@@ -68,11 +67,11 @@ export default function Footer() {
             gap: "18px",
           }}
         >
-          {/* Instagram */}
           <a
             href="https://www.instagram.com/mitsubachi_kajuen/"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="みつばち果樹園のInstagramを見る"
             style={{
               display: "inline-flex",
               alignItems: "center",
@@ -89,14 +88,45 @@ export default function Footer() {
                 display: "inline-flex",
                 alignItems: "center",
                 justifyContent: "center",
-                width: "34px",
-                height: "34px",
-                border: "1px solid #ddd",
-                borderRadius: "50%",
-                fontSize: "16px",
+                width: "36px",
+                height: "36px",
+                borderRadius: "10px",
+                background:
+                  "linear-gradient(135deg, #833ab4 0%, #fd1d1d 55%, #fcb045 100%)",
+                color: "#fff",
+                flexShrink: 0,
               }}
             >
-              ◎
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  x="3"
+                  y="3"
+                  width="18"
+                  height="18"
+                  rx="5"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                />
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="4"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                />
+                <circle
+                  cx="17.5"
+                  cy="6.5"
+                  r="1.2"
+                  fill="currentColor"
+                />
+              </svg>
             </span>
 
             <span>@mitsubachi_kajuen</span>
@@ -133,7 +163,6 @@ export default function Footer() {
             </Link>
           </nav>
 
-          {/* 法律関連リンク */}
           <div
             style={{
               display: "flex",
