@@ -1,6 +1,7 @@
 export default function OrderPage() {
   return (
     <main
+      className="orderPage"
       style={{
         minHeight: "100vh",
         background: "#fafaf9",
@@ -152,8 +153,8 @@ export default function OrderPage() {
             </section>
           </div>
 
-          {/* 下部メッセージ */}
-          <section className="closingCard">
+          {/* Aboutページと同じ雰囲気の下部メッセージ */}
+          <section className="aboutStyleClosing">
             <p className="closingLabel">FROM OUR FARM</p>
 
             <h2 className="closingTitle">
@@ -247,29 +248,27 @@ export default function OrderPage() {
           transform: translateY(-2px);
         }
 
-        .closingCard {
-          margin-top: 88px;
-          padding: 56px 28px;
-          border: 1px solid #ecece8;
-          border-radius: 32px;
-          background: #fff;
+        .aboutStyleClosing {
+          margin-top: 96px;
+          padding: 72px 24px 8px;
+          border-top: 1px solid #ddd;
           text-align: center;
-          box-shadow: 0 18px 50px rgba(0, 0, 0, 0.04);
         }
 
         .closingLabel {
-          margin: 0 0 14px;
+          margin: 0 0 20px;
           color: #888;
           font-size: 12px;
           font-weight: 700;
           line-height: 1.5;
-          letter-spacing: 0.18em;
+          letter-spacing: 0.22em;
         }
 
         .closingTitle {
           margin: 0 0 20px;
           color: #2f2f2f;
           font-size: clamp(28px, 5vw, 46px);
+          font-weight: 700;
           line-height: 1.4;
         }
 
@@ -286,7 +285,7 @@ export default function OrderPage() {
         }
 
         @media (max-width: 720px) {
-          main {
+          .orderPage {
             padding: 96px 20px 64px !important;
           }
 
@@ -300,13 +299,14 @@ export default function OrderPage() {
             padding: 28px;
           }
 
-          .closingCard {
+          .aboutStyleClosing {
             margin-top: 72px;
+            padding-top: 64px;
           }
         }
 
         @media (max-width: 520px) {
-          main {
+          .orderPage {
             padding: 72px 16px 56px !important;
           }
 
@@ -337,17 +337,18 @@ export default function OrderPage() {
             padding: 14px 16px;
           }
 
-          .closingCard {
+          .aboutStyleClosing {
             margin-top: 64px;
-            padding: 48px 20px;
-            border-radius: 24px;
+            padding: 56px 4px 0;
           }
 
           .closingLabel {
+            margin-bottom: 16px;
             font-size: 11px;
           }
 
           .closingTitle {
+            margin-bottom: 18px;
             font-size: clamp(27px, 8vw, 36px);
           }
 
@@ -362,7 +363,7 @@ export default function OrderPage() {
         }
 
         @media (max-width: 360px) {
-          main {
+          .orderPage {
             padding-right: 14px !important;
             padding-left: 14px !important;
           }
@@ -371,11 +372,6 @@ export default function OrderPage() {
           .orderNotice {
             padding-right: 18px !important;
             padding-left: 18px !important;
-          }
-
-          .closingCard {
-            padding-right: 16px;
-            padding-left: 16px;
           }
         }
       `}</style>
