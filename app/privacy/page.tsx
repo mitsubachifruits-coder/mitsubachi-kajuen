@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { CSSProperties } from "react";
 
 export const metadata: Metadata = {
   title: "プライバシーポリシー | みつばち果樹園",
@@ -231,15 +232,7 @@ export default function PrivacyPage() {
           本プライバシーポリシーおよび個人情報の取り扱いに関するお問い合わせは、
           以下の窓口までお願いいたします。
 
-          <div
-            style={{
-              marginTop: "24px",
-              padding: "22px 24px",
-              background: "#fafaf9",
-              border: "1px solid #ecece8",
-              borderRadius: "16px",
-            }}
-          >
+          <div className="contactBox">
             <p style={{ margin: "0 0 16px" }}>
               <strong style={{ color: "#444" }}>事業者名</strong>
               <br />
@@ -255,7 +248,9 @@ export default function PrivacyPage() {
             <p style={{ margin: 0 }}>
               <strong style={{ color: "#444" }}>メールアドレス</strong>
               <br />
-              mitsubachi-kajuen@ae.auone-net.jp
+              <span className="emailAddress">
+                mitsubachi-kajuen@ae.auone-net.jp
+              </span>
             </p>
           </div>
         </>
@@ -264,111 +259,35 @@ export default function PrivacyPage() {
   ];
 
   return (
-    <main
-      style={{
-        minHeight: "100vh",
-        background: "#fafaf9",
-        padding: "96px 20px",
-      }}
-    >
-      <div
-        style={{
-          maxWidth: "920px",
-          margin: "0 auto",
-        }}
-      >
-        <p
-          style={{
-            color: "#777",
-            letterSpacing: "0.18em",
-            fontSize: "13px",
-            marginBottom: "16px",
-          }}
-        >
-          PRIVACY POLICY
-        </p>
+    <main className="privacyPage">
+      <div className="privacyContainer">
+        <p className="privacyEnglishTitle">PRIVACY POLICY</p>
 
-        <h1
-          style={{
-            fontSize: "clamp(32px, 5vw, 52px)",
-            lineHeight: 1.2,
-            marginBottom: "24px",
-            color: "#333",
-          }}
-        >
-          プライバシーポリシー
-        </h1>
+        <h1 className="privacyTitle">プライバシーポリシー</h1>
 
-        <p
-          style={{
-            fontSize: "16px",
-            lineHeight: 2,
-            color: "#666",
-            marginBottom: "48px",
-          }}
-        >
+        <p className="privacyIntroduction">
           みつばち果樹園は、お客様からお預かりする情報を大切に取り扱います。
-          <br />
+          <br className="desktopBreak" />
           当園における個人情報の取り扱いについて、以下のとおり定めます。
         </p>
 
-        <div
-          style={{
-            background: "#fff",
-            border: "1px solid #ecece8",
-            borderRadius: "28px",
-            overflow: "hidden",
-            boxShadow: "0 20px 60px rgba(0,0,0,0.05)",
-          }}
-        >
+        <div className="privacyTable">
           {rows.map((row, index) => (
-            <div
+            <section
               key={row.label}
               className="privacyRow"
               style={{
-                display: "grid",
-                gridTemplateColumns: "minmax(200px, 280px) 1fr",
                 borderTop: index === 0 ? "none" : "1px solid #eee",
               }}
             >
-              <div
-                className="privacyLabel"
-                style={{
-                  background: "#fafaf9",
-                  padding: "22px 24px",
-                  fontWeight: 700,
-                  color: "#444",
-                  borderRight: "1px solid #eee",
-                  lineHeight: 1.7,
-                }}
-              >
-                {row.label}
-              </div>
+              <div className="privacyLabel">{row.label}</div>
 
-              <div
-                style={{
-                  padding: "22px 24px",
-                  color: "#555",
-                  lineHeight: 1.9,
-                  minWidth: 0,
-                }}
-              >
-                {row.value}
-              </div>
-            </div>
+              <div className="privacyContent">{row.value}</div>
+            </section>
           ))}
         </div>
 
-        <div
-          style={{
-            marginTop: "40px",
-            padding: "24px",
-            borderRadius: "20px",
-            background: "#fff8d8",
-            color: "#5f4b00",
-            lineHeight: 1.8,
-          }}
-        >
+        <div className="establishedDate">
           制定日：2026年7月11日
           <br />
           みつばち果樹園
@@ -376,14 +295,228 @@ export default function PrivacyPage() {
       </div>
 
       <style>{`
+        * {
+          box-sizing: border-box;
+        }
+
+        .privacyPage {
+          min-height: 100vh;
+          padding: 120px 24px 100px;
+          background: #fafaf9;
+          overflow: hidden;
+        }
+
+        .privacyContainer {
+          width: 100%;
+          max-width: 920px;
+          margin: 0 auto;
+        }
+
+        .privacyEnglishTitle {
+          margin: 0 0 16px;
+          color: #777;
+          font-size: 13px;
+          line-height: 1.5;
+          letter-spacing: 0.18em;
+        }
+
+        .privacyTitle {
+          margin: 0 0 24px;
+          color: #333;
+          font-size: clamp(32px, 5vw, 52px);
+          line-height: 1.2;
+          overflow-wrap: anywhere;
+        }
+
+        .privacyIntroduction {
+          margin: 0 0 48px;
+          color: #666;
+          font-size: 16px;
+          line-height: 2;
+        }
+
+        .privacyTable {
+          overflow: hidden;
+          border: 1px solid #ecece8;
+          border-radius: 28px;
+          background: #fff;
+          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.05);
+        }
+
+        .privacyRow {
+          display: grid;
+          grid-template-columns: minmax(200px, 280px) minmax(0, 1fr);
+        }
+
+        .privacyLabel {
+          padding: 22px 24px;
+          border-right: 1px solid #eee;
+          background: #fafaf9;
+          color: #444;
+          font-weight: 700;
+          line-height: 1.7;
+          overflow-wrap: anywhere;
+        }
+
+        .privacyContent {
+          min-width: 0;
+          padding: 22px 24px;
+          color: #555;
+          font-size: 16px;
+          line-height: 1.9;
+          overflow-wrap: anywhere;
+          word-break: normal;
+        }
+
+        .privacyContent ul {
+          margin-bottom: 0;
+        }
+
+        .privacyContent li + li {
+          margin-top: 6px;
+        }
+
+        .contactBox {
+          margin-top: 24px;
+          padding: 22px 24px;
+          border: 1px solid #ecece8;
+          border-radius: 16px;
+          background: #fafaf9;
+        }
+
+        .emailAddress {
+          overflow-wrap: anywhere;
+          word-break: break-word;
+        }
+
+        .establishedDate {
+          margin-top: 40px;
+          padding: 24px;
+          border-radius: 20px;
+          background: #fff8d8;
+          color: #5f4b00;
+          line-height: 1.8;
+        }
+
+        .desktopBreak {
+          display: block;
+        }
+
+        @media (max-width: 800px) {
+          .privacyPage {
+            padding: 96px 20px 80px;
+          }
+
+          .privacyIntroduction {
+            margin-bottom: 40px;
+          }
+
+          .privacyRow {
+            grid-template-columns: minmax(180px, 220px) minmax(0, 1fr);
+          }
+
+          .privacyLabel,
+          .privacyContent {
+            padding: 20px;
+          }
+        }
+
         @media (max-width: 700px) {
           .privacyRow {
-            grid-template-columns: 1fr !important;
+            grid-template-columns: 1fr;
           }
 
           .privacyLabel {
-            border-right: none !important;
+            padding: 18px 20px;
+            border-right: none;
             border-bottom: 1px solid #eee;
+          }
+
+          .privacyContent {
+            padding: 22px 20px 26px;
+          }
+        }
+
+        @media (max-width: 520px) {
+          .privacyPage {
+            padding: 72px 16px 64px;
+          }
+
+          .privacyEnglishTitle {
+            margin-bottom: 14px;
+            font-size: 11px;
+            letter-spacing: 0.2em;
+          }
+
+          .privacyTitle {
+            margin-bottom: 20px;
+            font-size: clamp(30px, 9vw, 42px);
+            line-height: 1.25;
+          }
+
+          .privacyIntroduction {
+            margin-bottom: 32px;
+            font-size: 15px;
+            line-height: 1.9;
+          }
+
+          .desktopBreak {
+            display: none;
+          }
+
+          .privacyTable {
+            border-radius: 22px;
+          }
+
+          .privacyLabel {
+            padding: 17px 18px;
+            font-size: 15px;
+            line-height: 1.6;
+          }
+
+          .privacyContent {
+            padding: 20px 18px 24px;
+            font-size: 15px;
+            line-height: 1.85;
+          }
+
+          .privacyContent ul {
+            padding-left: 1.25em !important;
+          }
+
+          .contactBox {
+            margin-top: 20px;
+            padding: 18px;
+            border-radius: 14px;
+          }
+
+          .establishedDate {
+            margin-top: 32px;
+            padding: 20px;
+            border-radius: 16px;
+            font-size: 14px;
+          }
+        }
+
+        @media (max-width: 360px) {
+          .privacyPage {
+            padding-right: 14px;
+            padding-left: 14px;
+          }
+
+          .privacyLabel {
+            padding-right: 16px;
+            padding-left: 16px;
+          }
+
+          .privacyContent {
+            padding-right: 16px;
+            padding-left: 16px;
+          }
+
+          .contactBox {
+            padding-right: 16px;
+            padding-left: 16px;
           }
         }
       `}</style>
@@ -391,11 +524,11 @@ export default function PrivacyPage() {
   );
 }
 
-const listStyle: React.CSSProperties = {
+const listStyle: CSSProperties = {
   margin: "18px 0 0",
   paddingLeft: "1.4em",
 };
 
-const paragraphStyle: React.CSSProperties = {
+const paragraphStyle: CSSProperties = {
   margin: "18px 0 0",
 };
