@@ -1,3 +1,9 @@
+import type { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "特定商取引法に基づく表示 | みつばち果樹園",
+  description:
+    "みつばち果樹園の通信販売に関する特定商取引法に基づく表示です。",
+};
 export default function LegalPage() {
   const rows = [
     {
@@ -76,113 +82,209 @@ export default function LegalPage() {
         "掲載写真はイメージです。青果物のため、色味・形・大きさ・入り数には個体差があります。",
     },
   ];
-
   return (
-    <main
-      style={{
-        minHeight: "100vh",
-        background: "#fafaf9",
-        padding: "96px 20px",
-      }}
-    >
-      <div
-        style={{
-          maxWidth: "920px",
-          margin: "0 auto",
-        }}
-      >
-        <p
-          style={{
-            color: "#777",
-            letterSpacing: "0.18em",
-            fontSize: "13px",
-            marginBottom: "16px",
-          }}
-        >
-          LEGAL NOTICE
-        </p>
-
-        <h1
-          style={{
-            fontSize: "clamp(32px, 5vw, 52px)",
-            lineHeight: 1.2,
-            marginBottom: "24px",
-            color: "#333",
-          }}
-        >
-          特定商取引法に基づく表示
-        </h1>
-
-        <p
-          style={{
-            fontSize: "16px",
-            lineHeight: 2,
-            color: "#666",
-            marginBottom: "48px",
-          }}
-        >
+    <main className="legalPage">
+      <div className="legalContainer">
+        <p className="legalEnglishTitle">LEGAL NOTICE</p>
+        <h1 className="legalTitle">特定商取引法に基づく表示</h1>
+        <p className="legalIntroduction">
           みつばち果樹園の通信販売に関する表示事項です。
-          <br />
+          <br className="desktopBreak" />
           ご注文前に内容をご確認ください。
         </p>
-
-        <div
-          style={{
-            background: "#fff",
-            border: "1px solid #ecece8",
-            borderRadius: "28px",
-            overflow: "hidden",
-            boxShadow: "0 20px 60px rgba(0,0,0,0.05)",
-          }}
-        >
+        <div className="legalTable">
           {rows.map((row, index) => (
-            <div
+            <section
               key={row.label}
+              className="legalRow"
               style={{
-                display: "grid",
-                gridTemplateColumns: "minmax(160px, 240px) 1fr",
-                gap: "0",
                 borderTop: index === 0 ? "none" : "1px solid #eee",
               }}
             >
+              <div className="legalLabel">{row.label}</div>
               <div
-                style={{
-                  background: "#fafaf9",
-                  padding: "22px 24px",
-                  fontWeight: 700,
-                  color: "#444",
-                  borderRight: "1px solid #eee",
-                }}
-              >
-                {row.label}
-              </div>
-
-              <div
-                style={{
-                  padding: "22px 24px",
-                  color: "#555",
-                  lineHeight: 1.9,
-                }}
+                className={`legalContent ${
+                  row.label === "メールアドレス" ? "emailAddress" : ""
+                }`}
               >
                 {row.value}
               </div>
-            </div>
+            </section>
           ))}
         </div>
-
-        <div
-          style={{
-            marginTop: "40px",
-            padding: "24px",
-            borderRadius: "20px",
-            background: "#fff8d8",
-            color: "#5f4b00",
-            lineHeight: 1.8,
-          }}
-        >
-          ※ 現在、サイトは準備・テスト公開中です。正式な販売開始時には、内容を最新情報に更新いたします。
+        <div className="preparationNotice">
+          ※
+          現在、サイトは準備・テスト公開中です。正式な販売開始時には、内容を最新情報に更新いたします。
         </div>
       </div>
+      <style>{`
+        * {
+          box-sizing: border-box;
+        }
+        .legalPage {
+          min-height: 100vh;
+          padding: 120px 24px 100px;
+          background: #fafaf9;
+          overflow: hidden;
+        }
+        .legalContainer {
+          width: 100%;
+          max-width: 920px;
+          margin: 0 auto;
+        }
+        .legalEnglishTitle {
+          margin: 0 0 16px;
+          color: #777;
+          font-size: 13px;
+          line-height: 1.5;
+          letter-spacing: 0.18em;
+        }
+        .legalTitle {
+          margin: 0 0 24px;
+          color: #333;
+          font-size: clamp(32px, 5vw, 52px);
+          line-height: 1.2;
+          overflow-wrap: anywhere;
+        }
+        .legalIntroduction {
+          margin: 0 0 48px;
+          color: #666;
+          font-size: 16px;
+          line-height: 2;
+        }
+        .legalTable {
+          overflow: hidden;
+          border: 1px solid #ecece8;
+          border-radius: 28px;
+          background: #fff;
+          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.05);
+        }
+        .legalRow {
+          display: grid;
+          grid-template-columns: minmax(200px, 280px) minmax(0, 1fr);
+        }
+        .legalLabel {
+          padding: 22px 24px;
+          border-right: 1px solid #eee;
+          background: #fafaf9;
+          color: #444;
+          font-weight: 700;
+          line-height: 1.7;
+          overflow-wrap: anywhere;
+        }
+        .legalContent {
+          min-width: 0;
+          padding: 22px 24px;
+          color: #555;
+          font-size: 16px;
+          line-height: 1.9;
+          overflow-wrap: anywhere;
+          word-break: normal;
+        }
+        .emailAddress {
+          overflow-wrap: anywhere;
+          word-break: break-word;
+        }
+        .preparationNotice {
+          margin-top: 40px;
+          padding: 24px;
+          border-radius: 20px;
+          background: #fff8d8;
+          color: #5f4b00;
+          line-height: 1.8;
+        }
+        .desktopBreak {
+          display: block;
+        }
+        @media (max-width: 800px) {
+          .legalPage {
+            padding: 96px 20px 80px;
+          }
+          .legalIntroduction {
+            margin-bottom: 40px;
+          }
+          .legalRow {
+            grid-template-columns: minmax(180px, 220px) minmax(0, 1fr);
+          }
+          .legalLabel,
+          .legalContent {
+            padding: 20px;
+          }
+        }
+        @media (max-width: 700px) {
+          .legalRow {
+            grid-template-columns: 1fr;
+          }
+          .legalLabel {
+            padding: 18px 20px;
+            border-right: none;
+            border-bottom: 1px solid #eee;
+          }
+          .legalContent {
+            padding: 22px 20px 26px;
+          }
+        }
+        @media (max-width: 520px) {
+          .legalPage {
+            padding: 72px 16px 64px;
+          }
+          .legalEnglishTitle {
+            margin-bottom: 14px;
+            font-size: 11px;
+            letter-spacing: 0.2em;
+          }
+          .legalTitle {
+            margin-bottom: 20px;
+            font-size: clamp(30px, 9vw, 42px);
+            line-height: 1.25;
+          }
+          .legalIntroduction {
+            margin-bottom: 32px;
+            font-size: 15px;
+            line-height: 1.9;
+          }
+          .desktopBreak {
+            display: none;
+          }
+          .legalTable {
+            border-radius: 22px;
+          }
+          .legalLabel {
+            padding: 17px 18px;
+            font-size: 15px;
+            line-height: 1.6;
+          }
+          .legalContent {
+            padding: 20px 18px 24px;
+            font-size: 15px;
+            line-height: 1.85;
+          }
+          .preparationNotice {
+            margin-top: 32px;
+            padding: 20px;
+            border-radius: 16px;
+            font-size: 14px;
+          }
+        }
+        @media (max-width: 360px) {
+          .legalPage {
+            padding-right: 14px;
+            padding-left: 14px;
+          }
+          .legalLabel {
+            padding-right: 16px;
+            padding-left: 16px;
+          }
+          .legalContent {
+            padding-right: 16px;
+            padding-left: 16px;
+          }
+          .preparationNotice {
+            padding-right: 16px;
+            padding-left: 16px;
+          }
+        }
+      `}</style>
     </main>
   );
 }
