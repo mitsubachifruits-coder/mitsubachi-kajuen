@@ -105,6 +105,7 @@ export default function Header() {
           align-items: center;
           justify-content: flex-end;
           gap: clamp(22px, 2.7vw, 38px);
+          box-sizing: border-box;
         }
 
         .mitsubachi-header-nav-link {
@@ -149,8 +150,7 @@ export default function Header() {
           position: relative;
           display: inline-flex;
           width: auto;
-          min-width: 0;
-          max-width: none;
+          min-width: max-content;
           min-height: 48px;
           flex: 0 0 auto;
           align-items: center;
@@ -212,7 +212,7 @@ export default function Header() {
 
         @media (max-width: 900px) {
           .mitsubachi-header-inner {
-            width: min(100% - 40px, 1180px);
+            width: calc(100% - 40px);
             min-height: auto;
             padding: 24px 0 20px;
             flex-direction: column;
@@ -225,11 +225,16 @@ export default function Header() {
           }
 
           .mitsubachi-header-nav {
-            width: 100%;
+            width: calc(100% + 20px);
+            max-width: none;
             justify-content: flex-start;
             gap: 28px;
+            padding-right: 20px;
+            box-sizing: border-box;
             overflow-x: auto;
+            overflow-y: visible;
             overscroll-behavior-inline: contain;
+            scroll-padding-right: 20px;
             scrollbar-width: none;
             -webkit-overflow-scrolling: touch;
           }
@@ -246,8 +251,7 @@ export default function Header() {
 
           .mitsubachi-header-order-link {
             width: auto;
-            min-width: 0;
-            max-width: none;
+            min-width: max-content;
             min-height: 42px;
             flex: 0 0 auto;
             justify-content: center;
@@ -269,7 +273,10 @@ export default function Header() {
           }
 
           .mitsubachi-header-nav {
+            width: calc(100% + 16px);
             gap: 24px;
+            padding-right: 16px;
+            scroll-padding-right: 16px;
           }
 
           .mitsubachi-header-nav-link {
@@ -278,8 +285,7 @@ export default function Header() {
 
           .mitsubachi-header-order-link {
             width: auto;
-            min-width: 0;
-            max-width: none;
+            min-width: max-content;
             min-height: 40px;
             flex: 0 0 auto;
             gap: 8px;
