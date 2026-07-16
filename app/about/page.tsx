@@ -100,9 +100,7 @@ export default function AboutPage() {
           {/* 来店案内 */}
           <section className="visitor-notice">
             <div className="visitor-notice-heading">
-              <p className="visitor-notice-label">
-                VISITOR INFORMATION
-              </p>
+              <p className="visitor-notice-label">VISITOR INFORMATION</p>
 
               <h2 className="visitor-notice-title">
                 お店は、
@@ -154,7 +152,6 @@ export default function AboutPage() {
               <article className="location-card">
                 <div className="location-card-header">
                   <p className="location-label">SHOP</p>
-
                   <span className="location-number">01</span>
                 </div>
 
@@ -164,9 +161,7 @@ export default function AboutPage() {
                   フルーツ
                 </h3>
 
-                <p className="location-role">
-                  直営店・ご来店はこちら
-                </p>
+                <p className="location-role">直営店・ご来店はこちら</p>
 
                 <address className="location-address">
                   〒999-3701
@@ -199,7 +194,6 @@ export default function AboutPage() {
               <article className="location-card">
                 <div className="location-card-header">
                   <p className="location-label">FARM</p>
-
                   <span className="location-number">02</span>
                 </div>
 
@@ -598,7 +592,9 @@ export default function AboutPage() {
           display: block;
           width: 100%;
           height: 340px;
+          overflow: hidden;
           border: 0;
+          border-radius: 21px;
           filter: saturate(0.75);
         }
 
@@ -914,6 +910,7 @@ export default function AboutPage() {
 
           .map-frame {
             height: 250px;
+            border-radius: 17px;
           }
 
           .farm-information {
