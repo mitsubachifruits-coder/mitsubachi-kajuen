@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import type { CSSProperties } from "react";
 
 export const metadata: Metadata = {
   title: "ご注文 | みつばち果樹園",
@@ -277,7 +278,7 @@ export default function OrderPage() {
                   style={
                     {
                       "--product-accent": product.accent,
-                    } as React.CSSProperties
+                    } as CSSProperties
                   }
                 >
                   <div className="seasonCardTop">
@@ -400,10 +401,17 @@ export default function OrderPage() {
       </main>
 
       <style>{`
+        * {
+          box-sizing: border-box;
+        }
+
+        /*
+         * デスクトップ
+         * 元デザインの約75%を基準にコンパクト化
+         */
         .orderPage {
           min-height: 100vh;
-          padding: 120px 24px 100px;
-          box-sizing: border-box;
+          padding: 90px 24px 75px;
           overflow: hidden;
           background: #fafaf9;
           color: #2f2f2f;
@@ -411,48 +419,48 @@ export default function OrderPage() {
 
         .orderContainer {
           width: 100%;
-          max-width: 1100px;
+          max-width: 900px;
           margin: 0 auto;
         }
 
         .englishLabel {
-          margin: 0 0 18px;
+          margin: 0 0 14px;
           color: #888;
-          font-size: 12px;
+          font-size: 9px;
           font-weight: 700;
           line-height: 1.5;
           letter-spacing: 0.22em;
         }
 
         .heroSection {
-          margin-bottom: 72px;
+          margin-bottom: 54px;
         }
 
         .heroTitle {
-          max-width: 900px;
-          margin: 0 0 30px;
+          max-width: 700px;
+          margin: 0 0 23px;
           color: #2f2f2f;
-          font-size: clamp(44px, 7.5vw, 82px);
+          font-size: clamp(35px, 5.6vw, 62px);
           font-weight: 700;
           line-height: 1.18;
           letter-spacing: 0.01em;
         }
 
         .heroText {
-          max-width: 720px;
+          max-width: 540px;
           margin: 0;
           color: #666;
-          font-size: 17px;
+          font-size: 13px;
           line-height: 2;
         }
 
         .orderNotice {
           position: relative;
-          margin-bottom: 112px;
-          padding: 64px;
+          margin-bottom: 84px;
+          padding: 48px;
           overflow: hidden;
           border: 1px solid #ecece8;
-          border-radius: 36px;
+          border-radius: 27px;
           background:
             radial-gradient(
               circle at 100% 0%,
@@ -460,15 +468,15 @@ export default function OrderPage() {
               transparent 34%
             ),
             #ffffff;
-          box-shadow: 0 24px 70px rgba(0, 0, 0, 0.055);
+          box-shadow: 0 18px 52px rgba(0, 0, 0, 0.055);
         }
 
         .orderNotice::after {
           position: absolute;
-          right: -50px;
-          bottom: -80px;
-          width: 240px;
-          height: 240px;
+          right: -38px;
+          bottom: -60px;
+          width: 180px;
+          height: 180px;
           border-radius: 50%;
           background: rgba(255, 222, 89, 0.12);
           content: "";
@@ -479,35 +487,35 @@ export default function OrderPage() {
           position: relative;
           z-index: 1;
           display: inline-flex;
+          min-height: 27px;
           align-items: center;
-          gap: 10px;
-          min-height: 36px;
-          margin-bottom: 28px;
-          padding: 0 16px;
+          gap: 8px;
+          margin-bottom: 21px;
+          padding: 0 12px;
           border-radius: 999px;
           background: #fff8d6;
           color: #735000;
-          font-size: 12px;
+          font-size: 9px;
           font-weight: 700;
           letter-spacing: 0.08em;
         }
 
         .noticeStatusDot {
-          width: 8px;
-          height: 8px;
+          width: 6px;
+          height: 6px;
           flex-shrink: 0;
           border-radius: 50%;
           background: #ffde59;
-          box-shadow: 0 0 0 5px rgba(255, 222, 89, 0.22);
+          box-shadow: 0 0 0 4px rgba(255, 222, 89, 0.22);
         }
 
         .noticeTitle {
           position: relative;
           z-index: 1;
-          max-width: 780px;
-          margin: 0 0 24px;
+          max-width: 600px;
+          margin: 0 0 18px;
           color: #2f2f2f;
-          font-size: clamp(31px, 5vw, 52px);
+          font-size: clamp(25px, 3.8vw, 39px);
           line-height: 1.45;
           letter-spacing: 0.01em;
         }
@@ -515,22 +523,22 @@ export default function OrderPage() {
         .noticeText {
           position: relative;
           z-index: 1;
-          max-width: 720px;
+          max-width: 540px;
           margin: 0;
           color: #606060;
-          font-size: 16px;
+          font-size: 12px;
           line-height: 2;
         }
 
         .noticeSupplement {
           position: relative;
           z-index: 1;
-          max-width: 720px;
-          margin-top: 36px;
-          padding-top: 30px;
+          max-width: 540px;
+          margin-top: 27px;
+          padding-top: 23px;
           border-top: 1px solid #ecece8;
           color: #888;
-          font-size: 14px;
+          font-size: 11px;
           line-height: 1.9;
         }
 
@@ -539,33 +547,33 @@ export default function OrderPage() {
         }
 
         .noticeSupplement p + p {
-          margin-top: 7px;
+          margin-top: 5px;
         }
 
         .guideSection,
         .seasonSection {
-          margin-bottom: 112px;
+          margin-bottom: 84px;
         }
 
         .sectionHeading {
           display: flex;
           align-items: flex-end;
           justify-content: space-between;
-          gap: 30px;
-          margin-bottom: 36px;
+          gap: 23px;
+          margin-bottom: 27px;
         }
 
         .sectionTitle {
           margin: 0;
           color: #2f2f2f;
-          font-size: clamp(30px, 4.5vw, 48px);
+          font-size: clamp(24px, 3.4vw, 36px);
           line-height: 1.3;
         }
 
         .sectionSideText {
-          margin: 0 0 5px;
+          margin: 0 0 4px;
           color: #999;
-          font-size: 13px;
+          font-size: 10px;
           line-height: 1.8;
           text-align: right;
         }
@@ -573,56 +581,56 @@ export default function OrderPage() {
         .guideGrid {
           display: grid;
           grid-template-columns: repeat(3, minmax(0, 1fr));
-          gap: 22px;
+          gap: 17px;
         }
 
         .guideCard {
           min-width: 0;
-          padding: 34px;
+          padding: 26px;
           border: 1px solid #ecece8;
-          border-radius: 28px;
+          border-radius: 21px;
           background: #fff;
-          box-shadow: 0 18px 50px rgba(0, 0, 0, 0.04);
+          box-shadow: 0 14px 38px rgba(0, 0, 0, 0.04);
         }
 
         .guideNumber {
-          margin: 0 0 30px;
+          margin: 0 0 23px;
           color: #c7c7c1;
-          font-size: 13px;
+          font-size: 10px;
           font-weight: 700;
           letter-spacing: 0.18em;
         }
 
         .guideTitle {
-          margin: 0 0 16px;
+          margin: 0 0 12px;
           color: #2f2f2f;
-          font-size: 23px;
+          font-size: 17px;
           line-height: 1.5;
         }
 
         .guideText {
           margin: 0;
           color: #6d6d6d;
-          font-size: 14px;
+          font-size: 11px;
           line-height: 1.95;
         }
 
         .seasonGrid {
           display: grid;
           grid-template-columns: repeat(2, minmax(0, 1fr));
-          gap: 22px;
+          gap: 17px;
         }
 
         .seasonCard {
           position: relative;
           display: flex;
           min-width: 0;
-          min-height: 310px;
+          min-height: 233px;
           flex-direction: column;
-          padding: 34px;
+          padding: 26px;
           overflow: hidden;
           border: 1px solid #ecece8;
-          border-radius: 28px;
+          border-radius: 21px;
           background:
             linear-gradient(
               145deg,
@@ -633,15 +641,15 @@ export default function OrderPage() {
               ),
               #ffffff 48%
             );
-          box-shadow: 0 18px 50px rgba(0, 0, 0, 0.04);
+          box-shadow: 0 14px 38px rgba(0, 0, 0, 0.04);
         }
 
         .seasonCard::before {
           position: absolute;
-          top: -64px;
-          right: -64px;
-          width: 180px;
-          height: 180px;
+          top: -48px;
+          right: -48px;
+          width: 135px;
+          height: 135px;
           border-radius: 50%;
           background: color-mix(
             in srgb,
@@ -658,14 +666,14 @@ export default function OrderPage() {
           display: flex;
           align-items: flex-start;
           justify-content: space-between;
-          gap: 20px;
-          margin-bottom: 26px;
+          gap: 15px;
+          margin-bottom: 20px;
         }
 
         .productEnglishName {
-          margin: 0 0 8px;
+          margin: 0 0 6px;
           color: var(--product-accent);
-          font-size: 11px;
+          font-size: 8px;
           font-weight: 700;
           line-height: 1.5;
           letter-spacing: 0.17em;
@@ -674,26 +682,26 @@ export default function OrderPage() {
         .productName {
           margin: 0;
           color: #2f2f2f;
-          font-size: clamp(25px, 3.2vw, 34px);
+          font-size: clamp(20px, 2.4vw, 26px);
           line-height: 1.4;
         }
 
         .statusBadge {
           display: inline-flex;
-          align-items: center;
-          gap: 7px;
-          min-height: 32px;
+          min-height: 24px;
           flex-shrink: 0;
-          padding: 0 13px;
+          align-items: center;
+          gap: 5px;
+          padding: 0 10px;
           border-radius: 999px;
-          font-size: 11px;
+          font-size: 8px;
           font-weight: 700;
           white-space: nowrap;
         }
 
         .statusDot {
-          width: 6px;
-          height: 6px;
+          width: 5px;
+          height: 5px;
           flex-shrink: 0;
           border-radius: 50%;
           background: currentColor;
@@ -719,25 +727,25 @@ export default function OrderPage() {
           z-index: 1;
           display: flex;
           align-items: center;
-          gap: 12px;
-          margin: 0 0 18px;
+          gap: 9px;
+          margin: 0 0 14px;
           color: #999;
-          font-size: 12px;
+          font-size: 9px;
           line-height: 1.7;
         }
 
         .productSeason span {
           color: #555;
-          font-size: 14px;
+          font-size: 11px;
           font-weight: 700;
         }
 
         .productDescription {
           position: relative;
           z-index: 1;
-          margin: 0 0 30px;
+          margin: 0 0 23px;
           color: #666;
-          font-size: 14px;
+          font-size: 11px;
           line-height: 1.95;
         }
 
@@ -745,7 +753,7 @@ export default function OrderPage() {
           position: relative;
           z-index: 1;
           width: 100%;
-          height: 3px;
+          height: 2px;
           margin-top: auto;
           overflow: hidden;
           border-radius: 999px;
@@ -764,18 +772,20 @@ export default function OrderPage() {
 
         .informationSection {
           display: grid;
-          grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
-          gap: 70px;
-          margin-bottom: 112px;
-          padding: 64px;
-          border-radius: 36px;
+          grid-template-columns:
+            minmax(0, 0.85fr)
+            minmax(0, 1.15fr);
+          gap: 53px;
+          margin-bottom: 84px;
+          padding: 48px;
+          border-radius: 27px;
           background: #f1f1ed;
         }
 
         .informationTitle {
           margin: 0;
           color: #2f2f2f;
-          font-size: clamp(30px, 4.5vw, 48px);
+          font-size: clamp(24px, 3.4vw, 36px);
           line-height: 1.45;
         }
 
@@ -788,9 +798,9 @@ export default function OrderPage() {
 
         .informationItem {
           display: grid;
-          grid-template-columns: 10px minmax(0, 1fr);
-          gap: 16px;
-          padding: 22px 0;
+          grid-template-columns: 8px minmax(0, 1fr);
+          gap: 12px;
+          padding: 17px 0;
           border-bottom: 1px solid #dbdbd5;
         }
 
@@ -806,61 +816,61 @@ export default function OrderPage() {
         .informationItem p {
           margin: 0;
           color: #626262;
-          font-size: 14px;
+          font-size: 11px;
           line-height: 1.95;
         }
 
         .informationDot {
-          width: 8px;
-          height: 8px;
-          margin-top: 10px;
+          width: 6px;
+          height: 6px;
+          margin-top: 8px;
           border-radius: 50%;
           background: #ffde59;
         }
 
         .contactCta {
-          margin-bottom: 120px;
-          padding: 72px 32px;
-          border-radius: 36px;
+          margin-bottom: 90px;
+          padding: 54px 24px;
+          border-radius: 27px;
           background: #2f2f2f;
           color: #fff;
           text-align: center;
         }
 
         .contactCtaLabel {
-          margin: 0 0 16px;
+          margin: 0 0 12px;
           color: #bdbdb8;
-          font-size: 12px;
+          font-size: 9px;
           font-weight: 700;
           letter-spacing: 0.22em;
         }
 
         .contactCtaTitle {
-          margin: 0 0 24px;
+          margin: 0 0 18px;
           color: #fff;
-          font-size: clamp(31px, 5vw, 50px);
+          font-size: clamp(25px, 3.8vw, 38px);
           line-height: 1.45;
         }
 
         .contactCtaText {
-          max-width: 680px;
-          margin: 0 auto 34px;
+          max-width: 510px;
+          margin: 0 auto 26px;
           color: #d1d1cd;
-          font-size: 15px;
+          font-size: 11px;
           line-height: 2;
         }
 
         .contactButton {
           display: inline-flex;
+          min-height: 42px;
           align-items: center;
           justify-content: center;
-          gap: 18px;
-          min-height: 56px;
-          padding: 0 28px;
+          gap: 14px;
+          padding: 0 21px;
           border-radius: 999px;
           background: #fff;
           color: #2f2f2f;
-          font-size: 14px;
+          font-size: 11px;
           font-weight: 700;
           text-decoration: none;
           transition:
@@ -874,21 +884,21 @@ export default function OrderPage() {
         }
 
         .closingSection {
-          padding: 24px 20px 42px;
+          padding: 18px 15px 32px;
           text-align: center;
         }
 
         .closingLabel {
-          margin: 0 0 28px;
+          margin: 0 0 21px;
           color: #aaa;
-          font-size: 12px;
+          font-size: 9px;
           font-weight: 700;
           letter-spacing: 0.24em;
         }
 
         .closingLogo {
-          margin: 0 0 38px;
-          font-size: clamp(43px, 8vw, 82px);
+          margin: 0 0 29px;
+          font-size: clamp(34px, 6vw, 62px);
           font-weight: 400;
           line-height: 1.2;
         }
@@ -901,21 +911,21 @@ export default function OrderPage() {
         }
 
         .closingMessage {
-          margin: 0 0 42px;
+          margin: 0 0 32px;
           color: #3f3f46;
-          font-size: clamp(22px, 3.5vw, 34px);
+          font-size: clamp(18px, 2.6vw, 26px);
           font-weight: 700;
           line-height: 1.75;
         }
 
         .closingBee {
-          margin-bottom: 20px;
+          margin-bottom: 15px;
         }
 
         .colorBeeMyFriends {
           display: inline-flex;
           align-items: center;
-          font-size: clamp(23px, 4vw, 34px);
+          font-size: clamp(18px, 3vw, 26px);
           font-weight: 700;
           line-height: 1.4;
           letter-spacing: 0;
@@ -924,25 +934,291 @@ export default function OrderPage() {
         .closingText {
           margin: 0;
           color: #888;
-          font-size: 14px;
+          font-size: 11px;
           line-height: 1.9;
         }
 
+        /*
+         * タブレット
+         * 900px以下は元のサイズ感に戻す
+         */
         @media (max-width: 900px) {
+          .orderPage {
+            padding: 120px 24px 100px;
+          }
+
+          .orderContainer {
+            max-width: 1100px;
+          }
+
+          .englishLabel {
+            margin-bottom: 18px;
+            font-size: 12px;
+          }
+
+          .heroSection {
+            margin-bottom: 72px;
+          }
+
+          .heroTitle {
+            max-width: 900px;
+            margin-bottom: 30px;
+            font-size: clamp(44px, 7.5vw, 82px);
+          }
+
+          .heroText {
+            max-width: 720px;
+            font-size: 17px;
+          }
+
+          .orderNotice {
+            margin-bottom: 112px;
+            padding: 64px;
+            border-radius: 36px;
+          }
+
+          .orderNotice::after {
+            right: -50px;
+            bottom: -80px;
+            width: 240px;
+            height: 240px;
+          }
+
+          .noticeStatus {
+            min-height: 36px;
+            gap: 10px;
+            margin-bottom: 28px;
+            padding: 0 16px;
+            font-size: 12px;
+          }
+
+          .noticeStatusDot {
+            width: 8px;
+            height: 8px;
+            box-shadow: 0 0 0 5px rgba(255, 222, 89, 0.22);
+          }
+
+          .noticeTitle {
+            max-width: 780px;
+            margin-bottom: 24px;
+            font-size: clamp(31px, 5vw, 52px);
+          }
+
+          .noticeText {
+            max-width: 720px;
+            font-size: 16px;
+          }
+
+          .noticeSupplement {
+            max-width: 720px;
+            margin-top: 36px;
+            padding-top: 30px;
+            font-size: 14px;
+          }
+
+          .noticeSupplement p + p {
+            margin-top: 7px;
+          }
+
+          .guideSection,
+          .seasonSection {
+            margin-bottom: 112px;
+          }
+
+          .sectionHeading {
+            gap: 30px;
+            margin-bottom: 36px;
+          }
+
+          .sectionTitle {
+            font-size: clamp(30px, 4.5vw, 48px);
+          }
+
+          .sectionSideText {
+            margin-bottom: 5px;
+            font-size: 13px;
+          }
+
           .guideGrid {
             grid-template-columns: 1fr;
+            gap: 22px;
           }
 
           .guideCard {
             min-height: auto;
+            padding: 34px;
+            border-radius: 28px;
+          }
+
+          .guideNumber {
+            margin-bottom: 30px;
+            font-size: 13px;
+          }
+
+          .guideTitle {
+            margin-bottom: 16px;
+            font-size: 23px;
+          }
+
+          .guideText {
+            font-size: 14px;
+          }
+
+          .seasonGrid {
+            gap: 22px;
+          }
+
+          .seasonCard {
+            min-height: 310px;
+            padding: 34px;
+            border-radius: 28px;
+          }
+
+          .seasonCard::before {
+            top: -64px;
+            right: -64px;
+            width: 180px;
+            height: 180px;
+          }
+
+          .seasonCardTop {
+            gap: 20px;
+            margin-bottom: 26px;
+          }
+
+          .productEnglishName {
+            margin-bottom: 8px;
+            font-size: 11px;
+          }
+
+          .productName {
+            font-size: clamp(25px, 3.2vw, 34px);
+          }
+
+          .statusBadge {
+            min-height: 32px;
+            gap: 7px;
+            padding: 0 13px;
+            font-size: 11px;
+          }
+
+          .statusDot {
+            width: 6px;
+            height: 6px;
+          }
+
+          .productSeason {
+            gap: 12px;
+            margin-bottom: 18px;
+            font-size: 12px;
+          }
+
+          .productSeason span {
+            font-size: 14px;
+          }
+
+          .productDescription {
+            margin-bottom: 30px;
+            font-size: 14px;
+          }
+
+          .seasonLine {
+            height: 3px;
           }
 
           .informationSection {
             grid-template-columns: 1fr;
             gap: 48px;
+            margin-bottom: 112px;
+            padding: 64px;
+            border-radius: 36px;
+          }
+
+          .informationTitle {
+            font-size: clamp(30px, 4.5vw, 48px);
+          }
+
+          .informationItem {
+            grid-template-columns: 10px minmax(0, 1fr);
+            gap: 16px;
+            padding: 22px 0;
+          }
+
+          .informationItem p {
+            font-size: 14px;
+          }
+
+          .informationDot {
+            width: 8px;
+            height: 8px;
+            margin-top: 10px;
+          }
+
+          .contactCta {
+            margin-bottom: 120px;
+            padding: 72px 32px;
+            border-radius: 36px;
+          }
+
+          .contactCtaLabel {
+            margin-bottom: 16px;
+            font-size: 12px;
+          }
+
+          .contactCtaTitle {
+            margin-bottom: 24px;
+            font-size: clamp(31px, 5vw, 50px);
+          }
+
+          .contactCtaText {
+            max-width: 680px;
+            margin-bottom: 34px;
+            font-size: 15px;
+          }
+
+          .contactButton {
+            min-height: 56px;
+            gap: 18px;
+            padding: 0 28px;
+            font-size: 14px;
+          }
+
+          .closingSection {
+            padding: 24px 20px 42px;
+          }
+
+          .closingLabel {
+            margin-bottom: 28px;
+            font-size: 12px;
+          }
+
+          .closingLogo {
+            margin-bottom: 38px;
+            font-size: clamp(43px, 8vw, 82px);
+          }
+
+          .closingMessage {
+            margin-bottom: 42px;
+            font-size: clamp(22px, 3.5vw, 34px);
+          }
+
+          .closingBee {
+            margin-bottom: 20px;
+          }
+
+          .colorBeeMyFriends {
+            font-size: clamp(23px, 4vw, 34px);
+          }
+
+          .closingText {
+            font-size: 14px;
           }
         }
 
+        /*
+         * スマートフォン
+         * 現在のデザインを維持
+         */
         @media (max-width: 720px) {
           .orderPage {
             padding: 88px 18px 72px;
@@ -1079,7 +1355,6 @@ export default function OrderPage() {
             max-width: 330px;
             min-height: 54px;
             padding: 0 22px;
-            box-sizing: border-box;
           }
 
           .closingSection {
@@ -1151,6 +1426,12 @@ export default function OrderPage() {
 
           .colorBeeMyFriends {
             font-size: 22px;
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .contactButton {
+            transition: none;
           }
         }
       `}</style>
