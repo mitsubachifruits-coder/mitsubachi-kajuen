@@ -26,7 +26,7 @@ export default function Footer() {
             <p className="footer-catchphrase">Bee my friends! 🐝</p>
 
             <address className="footer-address">
-              〒999-3701
+              〒999-3751
               <br />
               山形県東根市若木通り13-1
             </address>
