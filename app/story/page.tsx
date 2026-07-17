@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "物語 | みつばち果樹園",
   description:
-    "山形県東根市神町若木地区の開拓の歴史と、みつばち果樹園が受け継いできた物語をご紹介します。",
+    "山形県東根市神町若木地区の開拓の歴史と、みつばち果樹園が受け継ぐ物語をご紹介します。",
 };
 
 const historyItems = [
@@ -88,7 +88,7 @@ export default function StoryPage() {
 
           <div className="story-hero-bottom">
             <p className="story-hero-description">
-              果樹園になる前から、
+              果樹園になる前、
               <br />
               この土地には物語がありました。
             </p>
@@ -268,21 +268,21 @@ export default function StoryPage() {
           <p className="closing-label">TO THE FUTURE</p>
 
           <div className="closing-copy">
-            <p>一本のさくらんぼの木は、一年では育ちません。</p>
+            <p>さくらんぼの木も。</p>
 
-            <p>この果樹園もまた、一世代ではつくられませんでした。</p>
+            <p>みつばち果樹園も。</p>
           </div>
 
           <h2 className="closing-title">
-            ゼロから切り拓いた
+            ゼロから共に切り拓いた
             <br />
-            先人たちの想いを、
+            先人たちの熱い想いを、
             <br />
             これからも一粒一粒に。
           </h2>
 
           <p className="closing-description">
-            この土地から生まれる果物と物語を、
+            この土地で生まれた果物と物語を、
             <br />
             次の世代へ届けていきます。
           </p>
