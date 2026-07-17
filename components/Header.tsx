@@ -188,7 +188,7 @@ export default function Header() {
           </Link>
 
           <div className="mitsubachi-mobile-menu-footer">
-            <p>Fruit from Yamagata, Higashine.</p>
+            <p>Bee my friends!🐝</p>
             <p>みつばちが育んだ、自然の恵み。</p>
           </div>
         </div>
