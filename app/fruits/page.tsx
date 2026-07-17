@@ -1,3 +1,11 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "季節の果物 | みつばち果樹園",
+  description:
+    "みつばち果樹園で育てている、さくらんぼ、すいか、桃、ぶどう、りんご、ラ・フランスなど、山形の季節の果物をご紹介します。",
+};
+
 type Product = {
   id: string;
   name: string;
