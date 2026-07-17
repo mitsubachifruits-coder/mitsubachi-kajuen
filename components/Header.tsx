@@ -528,10 +528,10 @@ export default function Header() {
           }
 
           .mitsubachi-mobile-nav-text {
-            font-size: clamp(30px, 8vw, 42px);
+            font-size: clamp(25px, 6.8vw, 34px);
             font-weight: 600;
             line-height: 1;
-            letter-spacing: -0.035em;
+            letter-spacing: -0.025em;
           }
 
           .mitsubachi-mobile-nav-arrow {
@@ -631,7 +631,7 @@ export default function Header() {
           }
 
           .mitsubachi-mobile-nav-text {
-            font-size: clamp(29px, 9vw, 38px);
+            font-size: clamp(24px, 7vw, 31px);
           }
 
           .mitsubachi-mobile-order-link {
