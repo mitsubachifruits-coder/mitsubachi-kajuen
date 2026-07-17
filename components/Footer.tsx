@@ -47,8 +47,8 @@ export default function Footer() {
             >
               <span className="instagram-icon" aria-hidden="true">
                 <svg
-                  width="22"
-                  height="22"
+                  width="18"
+                  height="18"
                   viewBox="0 0 24 24"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -82,6 +82,7 @@ export default function Footer() {
 
               <span className="instagram-text">
                 <span className="instagram-label">INSTAGRAM</span>
+
                 <span className="instagram-account">
                   @mitsubachi_kajuen
                 </span>
@@ -119,7 +120,7 @@ export default function Footer() {
       <style>{`
         .site-footer {
           width: 100%;
-          padding: 96px 0 54px;
+          padding: 72px 0 40px;
           overflow: hidden;
           border-top: 1px solid #e2e1dc;
           background:
@@ -138,15 +139,21 @@ export default function Footer() {
           box-sizing: border-box;
         }
 
+        /*
+         * デスクトップ
+         * 元のデザインから約75%程度にコンパクト化
+         */
         .footer-inner {
-          width: min(1180px, calc(100% - 48px));
+          width: min(960px, calc(100% - 64px));
           margin: 0 auto;
         }
 
         .footer-main {
           display: grid;
-          grid-template-columns: minmax(320px, 1fr) minmax(420px, 1fr);
-          gap: 100px;
+          grid-template-columns:
+            minmax(260px, 1fr)
+            minmax(340px, 1fr);
+          gap: 76px;
           align-items: end;
         }
 
@@ -157,13 +164,14 @@ export default function Footer() {
         .footer-logo {
           display: inline-flex;
           align-items: center;
-          margin-bottom: 30px;
+          margin-bottom: 23px;
           color: inherit;
-          font-size: clamp(48px, 4.5vw, 62px);
+          font-size: clamp(38px, 3.5vw, 47px);
           font-weight: 400;
           line-height: 1;
           letter-spacing: 0;
           text-decoration: none;
+          white-space: nowrap;
           transition:
             transform 180ms ease,
             opacity 180ms ease;
@@ -175,9 +183,9 @@ export default function Footer() {
         }
 
         .footer-catchphrase {
-          margin: 0 0 22px;
+          margin: 0 0 16px;
           color: #343430;
-          font-size: 17px;
+          font-size: 13px;
           font-weight: 700;
           line-height: 1.6;
         }
@@ -185,17 +193,17 @@ export default function Footer() {
         .footer-address {
           margin: 0;
           color: #72726c;
-          font-size: 14px;
+          font-size: 11px;
           font-style: normal;
           line-height: 1.9;
         }
 
         .footer-farm-message {
-          margin: 18px 0 0;
+          margin: 14px 0 0;
           color: #92928b;
-          font-size: 13px;
+          font-size: 10px;
           line-height: 1.8;
-          letter-spacing: 0.04em;
+          letter-spacing: 0.05em;
         }
 
         .footer-navigation-area {
@@ -203,22 +211,23 @@ export default function Footer() {
           min-width: 0;
           flex-direction: column;
           align-items: flex-end;
-          gap: 38px;
+          gap: 29px;
         }
 
         .instagram-link {
           display: flex;
-          width: min(100%, 430px);
-          min-height: 82px;
+          width: min(100%, 340px);
+          min-height: 64px;
           align-items: center;
-          gap: 17px;
-          padding: 14px 18px;
+          gap: 13px;
+          padding: 10px 14px;
+          box-sizing: border-box;
           border: 1px solid #deddd7;
-          border-radius: 22px;
+          border-radius: 17px;
           background: rgba(255, 255, 255, 0.72);
           color: #3f3f3a;
           text-decoration: none;
-          box-shadow: 0 12px 38px rgba(52, 52, 45, 0.045);
+          box-shadow: 0 9px 28px rgba(52, 52, 45, 0.04);
           transition:
             transform 200ms ease,
             border-color 200ms ease,
@@ -227,18 +236,18 @@ export default function Footer() {
 
         .instagram-link:hover {
           border-color: #c7c6bf;
-          box-shadow: 0 20px 48px rgba(52, 52, 45, 0.09);
+          box-shadow: 0 15px 36px rgba(52, 52, 45, 0.08);
           transform: translateY(-3px);
         }
 
         .instagram-icon {
           display: inline-flex;
-          width: 48px;
-          height: 48px;
-          flex-shrink: 0;
+          width: 38px;
+          height: 38px;
+          flex: 0 0 auto;
           align-items: center;
           justify-content: center;
-          border-radius: 14px;
+          border-radius: 11px;
           background: linear-gradient(
             135deg,
             #833ab4 0%,
@@ -246,7 +255,7 @@ export default function Footer() {
             #fcb045 100%
           );
           color: #ffffff;
-          box-shadow: 0 8px 22px rgba(176, 55, 104, 0.2);
+          box-shadow: 0 6px 17px rgba(176, 55, 104, 0.18);
         }
 
         .instagram-text {
@@ -254,12 +263,12 @@ export default function Footer() {
           min-width: 0;
           flex: 1;
           flex-direction: column;
-          gap: 3px;
+          gap: 2px;
         }
 
         .instagram-label {
           color: #999992;
-          font-size: 10px;
+          font-size: 8px;
           font-weight: 700;
           line-height: 1.4;
           letter-spacing: 0.18em;
@@ -268,7 +277,7 @@ export default function Footer() {
         .instagram-account {
           overflow: hidden;
           color: #41413d;
-          font-size: 15px;
+          font-size: 12px;
           font-weight: 700;
           line-height: 1.5;
           text-overflow: ellipsis;
@@ -277,15 +286,15 @@ export default function Footer() {
 
         .instagram-arrow {
           display: inline-flex;
-          width: 40px;
-          height: 40px;
-          flex-shrink: 0;
+          width: 32px;
+          height: 32px;
+          flex: 0 0 auto;
           align-items: center;
           justify-content: center;
           border: 1px solid #deddd7;
           border-radius: 999px;
           color: #676761;
-          font-size: 17px;
+          font-size: 14px;
           transition:
             background 180ms ease,
             color 180ms ease,
@@ -302,18 +311,18 @@ export default function Footer() {
           display: flex;
           align-items: center;
           justify-content: flex-end;
-          gap: clamp(22px, 2.7vw, 38px);
+          gap: clamp(18px, 2.1vw, 29px);
           flex-wrap: wrap;
         }
 
         .footer-nav a {
           position: relative;
-          padding: 8px 0;
+          padding: 6px 0;
           color: #5f5f59;
-          font-size: 15px;
+          font-size: 12px;
           font-weight: 600;
           line-height: 1.4;
-          letter-spacing: 0.035em;
+          letter-spacing: 0.045em;
           text-decoration: none;
           white-space: nowrap;
           transition: color 180ms ease;
@@ -322,7 +331,7 @@ export default function Footer() {
         .footer-nav a::after {
           position: absolute;
           right: 0;
-          bottom: 2px;
+          bottom: 1px;
           left: 0;
           height: 1px;
           background: #343431;
@@ -345,13 +354,13 @@ export default function Footer() {
           display: flex;
           align-items: center;
           justify-content: flex-end;
-          gap: 24px;
+          gap: 18px;
           flex-wrap: wrap;
         }
 
         .footer-legal-nav a {
           color: #85857e;
-          font-size: 12px;
+          font-size: 9px;
           font-weight: 600;
           line-height: 1.6;
           text-decoration: none;
@@ -366,20 +375,24 @@ export default function Footer() {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          gap: 30px;
-          margin-top: 76px;
-          padding-top: 28px;
+          gap: 24px;
+          margin-top: 57px;
+          padding-top: 21px;
           border-top: 1px solid #deddd7;
         }
 
         .footer-bottom p {
           margin: 0;
           color: #999992;
-          font-size: 11px;
+          font-size: 9px;
           line-height: 1.5;
           letter-spacing: 0.09em;
         }
 
+        /*
+         * タブレット
+         * 現在のデザイン・サイズ感を維持
+         */
         @media (max-width: 900px) {
           .site-footer {
             padding: 78px 0 46px;
@@ -394,20 +407,100 @@ export default function Footer() {
             gap: 62px;
           }
 
+          .footer-logo {
+            margin-bottom: 30px;
+            font-size: clamp(48px, 4.5vw, 62px);
+          }
+
+          .footer-catchphrase {
+            margin-bottom: 22px;
+            font-size: 17px;
+          }
+
+          .footer-address {
+            font-size: 14px;
+          }
+
+          .footer-farm-message {
+            margin-top: 18px;
+            font-size: 13px;
+          }
+
           .footer-navigation-area {
             align-items: flex-start;
+            gap: 38px;
           }
 
           .instagram-link {
             width: min(100%, 500px);
+            min-height: 82px;
+            gap: 17px;
+            padding: 14px 18px;
+            border-radius: 22px;
+          }
+
+          .instagram-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+          }
+
+          .instagram-icon svg {
+            width: 22px;
+            height: 22px;
+          }
+
+          .instagram-label {
+            font-size: 10px;
+          }
+
+          .instagram-account {
+            font-size: 15px;
+          }
+
+          .instagram-arrow {
+            width: 40px;
+            height: 40px;
+            font-size: 17px;
           }
 
           .footer-nav,
           .footer-legal-nav {
             justify-content: flex-start;
           }
+
+          .footer-nav {
+            gap: clamp(22px, 2.7vw, 38px);
+          }
+
+          .footer-nav a {
+            padding: 8px 0;
+            font-size: 15px;
+            letter-spacing: 0.035em;
+          }
+
+          .footer-legal-nav {
+            gap: 24px;
+          }
+
+          .footer-legal-nav a {
+            font-size: 12px;
+          }
+
+          .footer-bottom {
+            margin-top: 76px;
+            padding-top: 28px;
+          }
+
+          .footer-bottom p {
+            font-size: 11px;
+          }
         }
 
+        /*
+         * スマートフォン
+         * 現在のデザインを維持
+         */
         @media (max-width: 560px) {
           .site-footer {
             padding: 68px 0 38px;
@@ -464,6 +557,17 @@ export default function Footer() {
             flex-direction: column;
             gap: 10px;
             margin-top: 58px;
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .footer-logo,
+          .instagram-link,
+          .instagram-arrow,
+          .footer-nav a,
+          .footer-nav a::after,
+          .footer-legal-nav a {
+            transition: none;
           }
         }
       `}</style>

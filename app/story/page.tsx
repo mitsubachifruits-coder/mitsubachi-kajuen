@@ -294,9 +294,13 @@ export default function StoryPage() {
           box-sizing: border-box;
         }
 
+        /*
+         * デスクトップ
+         * 元デザインの約75%を基準にコンパクト化
+         */
         .story-page {
           min-height: 100vh;
-          padding: 128px 0 120px;
+          padding: 96px 0 90px;
           overflow: hidden;
           background:
             radial-gradient(
@@ -314,29 +318,29 @@ export default function StoryPage() {
         }
 
         .story-container {
-          width: min(1180px, calc(100% - 48px));
+          width: min(960px, calc(100% - 64px));
           margin: 0 auto;
         }
 
         .story-hero {
-          padding-bottom: 112px;
+          padding-bottom: 84px;
         }
 
         .story-label,
         .section-label {
-          margin: 0 0 28px;
+          margin: 0 0 21px;
           color: #92928b;
-          font-size: 11px;
+          font-size: 8px;
           font-weight: 700;
           line-height: 1.5;
           letter-spacing: 0.25em;
         }
 
         .story-title {
-          max-width: 980px;
+          max-width: 760px;
           margin: 0;
           color: #2f2f2b;
-          font-size: clamp(56px, 7.2vw, 98px);
+          font-size: clamp(45px, 5.4vw, 74px);
           font-weight: 400;
           line-height: 1.06;
           letter-spacing: -0.055em;
@@ -346,21 +350,21 @@ export default function StoryPage() {
           display: flex;
           align-items: flex-end;
           justify-content: space-between;
-          gap: 60px;
-          margin-top: 52px;
+          gap: 45px;
+          margin-top: 39px;
         }
 
         .story-hero-description {
           margin: 0;
           color: #6c6c66;
-          font-size: clamp(16px, 1.6vw, 21px);
+          font-size: clamp(13px, 1.2vw, 16px);
           line-height: 1.9;
         }
 
         .story-hero-location {
           margin: 0;
           color: #a1a19a;
-          font-size: 10px;
+          font-size: 8px;
           font-weight: 700;
           line-height: 1.7;
           letter-spacing: 0.22em;
@@ -369,22 +373,24 @@ export default function StoryPage() {
 
         .story-introduction {
           display: grid;
-          grid-template-columns: minmax(340px, 0.9fr) minmax(0, 1.1fr);
-          gap: clamp(60px, 9vw, 130px);
+          grid-template-columns:
+            minmax(270px, 0.9fr)
+            minmax(0, 1.1fr);
+          gap: clamp(48px, 7vw, 98px);
           align-items: start;
-          padding: 88px 0 122px;
+          padding: 66px 0 92px;
           border-top: 1px solid #deddd7;
         }
 
         .introduction-heading {
           position: sticky;
-          top: 160px;
+          top: 120px;
         }
 
         .introduction-title {
           margin: 0;
           color: #30302c;
-          font-size: clamp(38px, 4.8vw, 64px);
+          font-size: clamp(30px, 3.6vw, 48px);
           font-weight: 400;
           line-height: 1.28;
           letter-spacing: -0.05em;
@@ -392,7 +398,7 @@ export default function StoryPage() {
 
         .introduction-copy {
           color: #62625c;
-          font-size: clamp(17px, 1.7vw, 21px);
+          font-size: clamp(14px, 1.3vw, 16px);
           line-height: 2.1;
         }
 
@@ -401,40 +407,42 @@ export default function StoryPage() {
         }
 
         .introduction-copy p + p {
-          margin-top: 32px;
+          margin-top: 24px;
         }
 
         .introduction-copy .introduction-emphasis {
-          margin-top: 52px;
+          margin-top: 39px;
           color: #30302c;
-          font-size: clamp(28px, 3.4vw, 44px);
+          font-size: clamp(22px, 2.6vw, 33px);
           line-height: 1.55;
           letter-spacing: -0.035em;
         }
 
         .history-section {
-          padding: 112px 0 132px;
+          padding: 84px 0 99px;
           border-top: 1px solid #deddd7;
         }
 
         .section-heading {
           display: grid;
-          grid-template-columns: minmax(0, 1fr) minmax(300px, 450px);
-          gap: 60px;
+          grid-template-columns:
+            minmax(0, 1fr)
+            minmax(240px, 340px);
+          gap: 45px;
           align-items: end;
-          margin-bottom: 62px;
-          padding-bottom: 32px;
+          margin-bottom: 47px;
+          padding-bottom: 24px;
           border-bottom: 1px solid #deddd7;
         }
 
         .section-label {
-          margin-bottom: 12px;
+          margin-bottom: 9px;
         }
 
         .section-title {
           margin: 0;
           color: #30302c;
-          font-size: clamp(40px, 5vw, 66px);
+          font-size: clamp(32px, 3.8vw, 50px);
           font-weight: 400;
           line-height: 1.23;
           letter-spacing: -0.05em;
@@ -443,7 +451,7 @@ export default function StoryPage() {
         .section-description {
           margin: 0;
           color: #777770;
-          font-size: 14px;
+          font-size: 11px;
           line-height: 2;
         }
 
@@ -453,9 +461,11 @@ export default function StoryPage() {
 
         .history-item {
           display: grid;
-          grid-template-columns: minmax(170px, 0.3fr) minmax(0, 1fr);
-          gap: clamp(44px, 8vw, 110px);
-          padding: 76px 0;
+          grid-template-columns:
+            minmax(128px, 0.3fr)
+            minmax(0, 1fr);
+          gap: clamp(35px, 6vw, 82px);
+          padding: 57px 0;
           border-bottom: 1px solid #deddd7;
         }
 
@@ -467,27 +477,28 @@ export default function StoryPage() {
         .history-number {
           margin: 0;
           color: #aaa9a2;
-          font-size: 11px;
+          font-size: 8px;
           font-weight: 700;
           letter-spacing: 0.18em;
         }
 
         .history-content {
-          max-width: 760px;
+          max-width: 570px;
         }
 
         .history-english-title {
-          margin: 0 0 16px;
+          margin: 0 0 12px;
           color: #999992;
-          font-size: 10px;
+          font-size: 8px;
           font-weight: 700;
+          line-height: 1.5;
           letter-spacing: 0.22em;
         }
 
         .history-title {
-          margin: 0 0 34px;
+          margin: 0 0 26px;
           color: #30302c;
-          font-size: clamp(32px, 4.2vw, 54px);
+          font-size: clamp(26px, 3.2vw, 41px);
           font-weight: 400;
           line-height: 1.3;
           letter-spacing: -0.045em;
@@ -495,7 +506,7 @@ export default function StoryPage() {
 
         .history-text {
           color: #696963;
-          font-size: 16px;
+          font-size: 12px;
           line-height: 2.05;
         }
 
@@ -504,14 +515,14 @@ export default function StoryPage() {
         }
 
         .history-text p + p {
-          margin-top: 25px;
+          margin-top: 19px;
         }
 
         .story-quote {
-          margin: 0 0 132px;
-          padding: 84px 68px;
+          margin: 0 0 99px;
+          padding: 63px 51px;
           border: 1px solid #e5e4de;
-          border-radius: 34px;
+          border-radius: 26px;
           background:
             radial-gradient(
               circle at 90% 10%,
@@ -524,52 +535,55 @@ export default function StoryPage() {
               transparent 34%
             ),
             #f4f3ef;
-          box-shadow: 0 24px 70px rgba(52, 52, 45, 0.05);
+          box-shadow: 0 18px 52px rgba(52, 52, 45, 0.05);
         }
 
         .story-quote-label {
-          margin: 0 0 38px;
+          margin: 0 0 29px;
           color: #92928b;
-          font-size: 11px;
+          font-size: 8px;
           font-weight: 700;
+          line-height: 1.5;
           letter-spacing: 0.24em;
         }
 
         .story-quote blockquote {
           margin: 0;
           color: #30302c;
-          font-size: clamp(40px, 5.8vw, 74px);
+          font-size: clamp(32px, 4.4vw, 56px);
           font-weight: 400;
           line-height: 1.3;
           letter-spacing: -0.055em;
         }
 
         .story-quote-description {
-          max-width: 650px;
-          margin: 44px 0 0;
+          max-width: 500px;
+          margin: 33px 0 0;
           color: #777770;
-          font-size: 15px;
+          font-size: 12px;
           line-height: 2;
         }
 
         .inheritance-section {
           display: grid;
-          grid-template-columns: minmax(340px, 0.9fr) minmax(0, 1.1fr);
-          gap: clamp(60px, 9vw, 130px);
+          grid-template-columns:
+            minmax(270px, 0.9fr)
+            minmax(0, 1.1fr);
+          gap: clamp(48px, 7vw, 98px);
           align-items: start;
-          padding: 112px 0 132px;
+          padding: 84px 0 99px;
           border-top: 1px solid #deddd7;
         }
 
         .inheritance-heading {
           position: sticky;
-          top: 160px;
+          top: 120px;
         }
 
         .inheritance-title {
           margin: 0;
           color: #30302c;
-          font-size: clamp(40px, 5vw, 66px);
+          font-size: clamp(32px, 3.8vw, 50px);
           font-weight: 400;
           line-height: 1.28;
           letter-spacing: -0.05em;
@@ -577,7 +591,7 @@ export default function StoryPage() {
 
         .inheritance-copy {
           color: #62625c;
-          font-size: clamp(17px, 1.7vw, 21px);
+          font-size: clamp(14px, 1.3vw, 16px);
           line-height: 2.1;
         }
 
@@ -586,51 +600,52 @@ export default function StoryPage() {
         }
 
         .inheritance-copy p + p {
-          margin-top: 32px;
+          margin-top: 24px;
         }
 
         .activities-section {
-          padding: 112px 0 132px;
+          padding: 84px 0 99px;
           border-top: 1px solid #deddd7;
         }
 
         .activities-grid {
           display: grid;
           grid-template-columns: repeat(3, minmax(0, 1fr));
-          gap: 20px;
+          gap: 15px;
         }
 
         .activity-card {
           display: flex;
-          min-height: 330px;
+          min-height: 248px;
           flex-direction: column;
-          padding: 30px;
+          padding: 23px;
           border: 1px solid #e5e4de;
-          border-radius: 25px;
+          border-radius: 19px;
           background: rgba(255, 255, 255, 0.95);
-          box-shadow: 0 14px 42px rgba(52, 52, 45, 0.04);
+          box-shadow: 0 11px 32px rgba(52, 52, 45, 0.04);
         }
 
         .activity-card-header {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          gap: 20px;
+          gap: 15px;
         }
 
         .activity-number,
         .activity-english-title {
           margin: 0;
           color: #999992;
-          font-size: 10px;
+          font-size: 8px;
           font-weight: 700;
+          line-height: 1.5;
           letter-spacing: 0.18em;
         }
 
         .activity-title {
-          margin: auto 0 24px;
+          margin: auto 0 18px;
           color: #30302c;
-          font-size: clamp(28px, 3vw, 39px);
+          font-size: clamp(22px, 2.3vw, 29px);
           font-weight: 400;
           line-height: 1.35;
           letter-spacing: -0.04em;
@@ -638,31 +653,32 @@ export default function StoryPage() {
 
         .activity-description {
           margin: 0;
-          padding-top: 22px;
+          padding-top: 17px;
           border-top: 1px solid #ecece7;
           color: #777770;
-          font-size: 14px;
+          font-size: 11px;
           line-height: 1.9;
         }
 
         .story-closing {
-          padding: 122px 24px 40px;
+          padding: 92px 18px 30px;
           border-top: 1px solid #deddd7;
           text-align: center;
         }
 
         .closing-label {
-          margin: 0 0 36px;
+          margin: 0 0 27px;
           color: #92928b;
-          font-size: 11px;
+          font-size: 8px;
           font-weight: 700;
+          line-height: 1.5;
           letter-spacing: 0.24em;
         }
 
         .closing-copy {
-          margin-bottom: 52px;
+          margin-bottom: 39px;
           color: #777770;
-          font-size: 16px;
+          font-size: 12px;
           line-height: 2;
         }
 
@@ -671,25 +687,29 @@ export default function StoryPage() {
         }
 
         .closing-copy p + p {
-          margin-top: 8px;
+          margin-top: 6px;
         }
 
         .closing-title {
           margin: 0;
           color: #30302c;
-          font-size: clamp(40px, 5.6vw, 72px);
+          font-size: clamp(32px, 4.2vw, 54px);
           font-weight: 400;
           line-height: 1.36;
           letter-spacing: -0.055em;
         }
 
         .closing-description {
-          margin: 44px auto 0;
+          margin: 33px auto 0;
           color: #777770;
-          font-size: 15px;
+          font-size: 12px;
           line-height: 2;
         }
 
+        /*
+         * タブレット
+         * 900px以下は元のデザイン・サイズ感を維持
+         */
         @media (max-width: 900px) {
           .story-page {
             padding: 104px 0 90px;
@@ -703,8 +723,28 @@ export default function StoryPage() {
             padding-bottom: 90px;
           }
 
+          .story-label,
+          .section-label {
+            margin-bottom: 28px;
+            font-size: 11px;
+          }
+
           .story-title {
+            max-width: 980px;
             font-size: clamp(50px, 9.6vw, 78px);
+          }
+
+          .story-hero-bottom {
+            gap: 60px;
+            margin-top: 52px;
+          }
+
+          .story-hero-description {
+            font-size: clamp(16px, 1.6vw, 21px);
+          }
+
+          .story-hero-location {
+            font-size: 10px;
           }
 
           .story-introduction,
@@ -719,29 +759,165 @@ export default function StoryPage() {
             position: static;
           }
 
+          .introduction-title {
+            font-size: clamp(38px, 4.8vw, 64px);
+          }
+
+          .introduction-copy,
+          .inheritance-copy {
+            font-size: clamp(17px, 1.7vw, 21px);
+          }
+
+          .introduction-copy p + p,
+          .inheritance-copy p + p {
+            margin-top: 32px;
+          }
+
+          .introduction-copy .introduction-emphasis {
+            margin-top: 52px;
+            font-size: clamp(28px, 3.4vw, 44px);
+          }
+
+          .history-section,
+          .activities-section {
+            padding: 112px 0 132px;
+          }
+
           .section-heading {
             grid-template-columns: 1fr;
             gap: 22px;
+            margin-bottom: 62px;
+            padding-bottom: 32px;
+          }
+
+          .section-label {
+            margin-bottom: 12px;
+          }
+
+          .section-title,
+          .inheritance-title {
+            font-size: clamp(40px, 5vw, 66px);
+          }
+
+          .section-description {
+            font-size: 14px;
           }
 
           .history-item {
             grid-template-columns: 130px minmax(0, 1fr);
             gap: 44px;
+            padding: 76px 0;
+          }
+
+          .history-number {
+            font-size: 11px;
+          }
+
+          .history-content {
+            max-width: 760px;
+          }
+
+          .history-english-title {
+            margin-bottom: 16px;
+            font-size: 10px;
+          }
+
+          .history-title {
+            margin-bottom: 34px;
+            font-size: clamp(32px, 4.2vw, 54px);
+          }
+
+          .history-text {
+            font-size: 16px;
+          }
+
+          .history-text p + p {
+            margin-top: 25px;
           }
 
           .story-quote {
+            margin-bottom: 132px;
             padding: 66px 48px;
+            border-radius: 34px;
+          }
+
+          .story-quote-label {
+            margin-bottom: 38px;
+            font-size: 11px;
+          }
+
+          .story-quote blockquote {
+            font-size: clamp(40px, 5.8vw, 74px);
+          }
+
+          .story-quote-description {
+            max-width: 650px;
+            margin-top: 44px;
+            font-size: 15px;
           }
 
           .activities-grid {
             grid-template-columns: 1fr;
+            gap: 20px;
           }
 
           .activity-card {
             min-height: 260px;
+            padding: 30px;
+            border-radius: 25px;
+          }
+
+          .activity-card-header {
+            gap: 20px;
+          }
+
+          .activity-number,
+          .activity-english-title {
+            font-size: 10px;
+          }
+
+          .activity-title {
+            margin-bottom: 24px;
+            font-size: clamp(28px, 3vw, 39px);
+          }
+
+          .activity-description {
+            padding-top: 22px;
+            font-size: 14px;
+          }
+
+          .story-closing {
+            padding: 122px 24px 40px;
+          }
+
+          .closing-label {
+            margin-bottom: 36px;
+            font-size: 11px;
+          }
+
+          .closing-copy {
+            margin-bottom: 52px;
+            font-size: 16px;
+          }
+
+          .closing-copy p + p {
+            margin-top: 8px;
+          }
+
+          .closing-title {
+            font-size: clamp(40px, 5.6vw, 72px);
+          }
+
+          .closing-description {
+            margin-top: 44px;
+            font-size: 15px;
           }
         }
 
+        /*
+         * スマートフォン
+         * 現在のデザインを維持
+         */
         @media (max-width: 560px) {
           .story-page {
             padding: 76px 0 68px;

@@ -35,198 +35,260 @@ export default function Hero() {
           position: relative;
           display: flex;
           width: 100%;
-          min-height: calc(100svh - 116px);
-          align-items: center;
+          min-height: calc(100svh - 88px);
+          padding: 72px 64px 56px;
           overflow: hidden;
-          padding: 110px 0 120px;
-          background:
-            radial-gradient(
-              circle at 87% 16%,
-              rgba(255, 222, 89, 0.18),
-              transparent 26%
-            ),
-            radial-gradient(
-              circle at 12% 88%,
-              rgba(0, 191, 99, 0.08),
-              transparent 30%
-            ),
-            #fafaf9;
           box-sizing: border-box;
+          background: #fafaf9;
+          color: #27272a;
         }
 
         .hero-inner {
           position: relative;
-          z-index: 2;
-          width: min(1180px, calc(100% - 48px));
+          z-index: 1;
+          display: flex;
+          flex-direction: column;
+          width: 100%;
+          max-width: 1180px;
+          min-height: 100%;
           margin: 0 auto;
         }
 
         .hero-eyebrow {
-          margin: 0 0 28px;
-          color: #92928b;
-          font-size: 11px;
-          font-weight: 700;
-          line-height: 1.5;
-          letter-spacing: 0.25em;
+          margin: 0;
+          font-size: 12px;
+          font-weight: 500;
+          line-height: 1.4;
+          letter-spacing: 0.22em;
+          color: #71717a;
         }
 
         .hero-title {
-          max-width: 980px;
-          margin: 0;
-          color: #2f2f2b;
-          font-size: clamp(56px, 7.2vw, 98px);
-          font-weight: 400;
-          line-height: 1.06;
-          letter-spacing: -0.055em;
+          margin: auto 0;
+          font-size: clamp(64px, 6.8vw, 104px);
+          font-weight: 500;
+          line-height: 1.12;
+          letter-spacing: -0.045em;
+          color: #27272a;
         }
 
         .hero-bottom {
           display: flex;
           align-items: flex-end;
           justify-content: space-between;
-          gap: 60px;
-          margin-top: 52px;
+          width: 100%;
+          margin-top: auto;
+          padding-top: 48px;
         }
 
         .hero-description {
-          max-width: 620px;
           margin: 0;
-          color: #6c6c66;
-          font-size: clamp(16px, 1.6vw, 21px);
+          font-size: 17px;
           font-weight: 400;
           line-height: 1.9;
-          letter-spacing: 0.01em;
+          letter-spacing: 0.06em;
+          color: #52525b;
         }
 
         .hero-location {
           margin: 0;
-          color: #a1a19a;
-          font-size: 10px;
-          font-weight: 700;
-          line-height: 1.7;
-          letter-spacing: 0.22em;
+          font-size: 12px;
+          font-weight: 500;
+          line-height: 1.55;
+          letter-spacing: 0.18em;
           text-align: right;
+          color: #71717a;
         }
 
         .scroll-guide {
           position: absolute;
-          right: max(24px, calc((100vw - 1180px) / 2));
-          bottom: 34px;
+          right: 24px;
+          bottom: 0;
+          z-index: 2;
           display: flex;
+          flex-direction: column;
           align-items: center;
-          gap: 14px;
-          color: #aaa9a2;
+          gap: 12px;
+          color: #71717a;
+          pointer-events: none;
+        }
+
+        .scroll-guide > span:first-child {
           font-size: 9px;
-          font-weight: 700;
-          letter-spacing: 0.2em;
-          transform: rotate(90deg);
-          transform-origin: right bottom;
+          font-weight: 500;
+          line-height: 1;
+          letter-spacing: 0.18em;
+          writing-mode: vertical-rl;
         }
 
         .scroll-line {
           display: block;
-          width: 58px;
-          height: 1px;
-          overflow: hidden;
-          background: #d3d2cc;
+          width: 1px;
+          height: 48px;
+          background: #a1a1aa;
         }
 
-        .scroll-line::after {
-          display: block;
-          width: 50%;
-          height: 100%;
-          background: #777770;
-          content: "";
-          animation: scrollMove 2.2s ease-in-out infinite;
-        }
-
-        @keyframes scrollMove {
-          0% {
-            transform: translateX(-110%);
-          }
-
-          50% {
-            transform: translateX(100%);
-          }
-
-          100% {
-            transform: translateX(220%);
-          }
-        }
-
-        @media (max-width: 900px) {
+        /*
+         * デスクトップのみ75%程度にコンパクト化
+         * 文字を小さくするだけではなく、
+         * 左右・上下の余白も整えて高級感を残しています。
+         */
+        @media (min-width: 1101px) {
           .hero {
-            min-height: calc(100svh - 146px);
-            padding: 90px 0 100px;
+            min-height: calc(100svh - 88px);
+            padding: 82px 72px 64px;
           }
 
           .hero-inner {
-            width: min(100% - 40px, 1180px);
-          }
-
-          .hero-title {
-            max-width: 780px;
-            font-size: clamp(50px, 9.6vw, 78px);
-            line-height: 1.08;
-            letter-spacing: -0.055em;
-          }
-
-          .hero-bottom {
-            margin-top: 44px;
-          }
-
-          .hero-description {
-            font-size: clamp(16px, 2.4vw, 19px);
-          }
-
-          .scroll-guide {
-            display: none;
-          }
-        }
-
-        @media (max-width: 560px) {
-          .hero {
-            min-height: calc(100svh - 140px);
-            padding: 72px 0 82px;
-          }
-
-          .hero-inner {
-            width: calc(100% - 32px);
+            max-width: 960px;
           }
 
           .hero-eyebrow {
-            margin-bottom: 22px;
-            font-size: 9px;
+            font-size: 10px;
+            letter-spacing: 0.24em;
           }
 
           .hero-title {
-            max-width: 100%;
-            font-size: clamp(42px, 12.8vw, 60px);
-            line-height: 1.1;
-            letter-spacing: -0.055em;
+            font-size: clamp(52px, 5.1vw, 78px);
+            line-height: 1.14;
+            letter-spacing: -0.04em;
           }
 
           .hero-bottom {
-            align-items: flex-start;
-            flex-direction: column;
-            gap: 28px;
-            margin-top: 36px;
+            padding-top: 38px;
           }
 
           .hero-description {
-            font-size: 15px;
-            line-height: 1.9;
+            font-size: 14px;
+            line-height: 1.95;
+            letter-spacing: 0.07em;
           }
 
           .hero-location {
-            font-size: 9px;
-            text-align: left;
+            font-size: 10px;
+            line-height: 1.6;
+            letter-spacing: 0.2em;
+          }
+
+          .scroll-guide {
+            right: 28px;
+            gap: 10px;
+          }
+
+          .scroll-guide > span:first-child {
+            font-size: 8px;
+          }
+
+          .scroll-line {
+            height: 40px;
           }
         }
 
-        @media (max-width: 380px) {
+        /*
+         * タブレット
+         * 現在のデザイン・サイズ感を維持
+         */
+        @media (max-width: 1100px) {
+          .hero {
+            min-height: calc(100svh - 80px);
+            padding: 64px 40px 48px;
+          }
+
+          .hero-inner {
+            max-width: 100%;
+          }
+
           .hero-title {
-            font-size: 40px;
+            font-size: clamp(58px, 8vw, 84px);
+          }
+
+          .hero-description {
+            font-size: 16px;
+          }
+
+          .scroll-guide {
+            right: 18px;
+          }
+        }
+
+        /*
+         * スマートフォン
+         * 現在の縦構成と大きさを維持
+         */
+        @media (max-width: 767px) {
+          .hero {
+            min-height: calc(100svh - 72px);
+            padding:
+              max(42px, env(safe-area-inset-top))
+              24px
+              36px;
+          }
+
+          .hero-eyebrow {
+            font-size: 9px;
+            letter-spacing: 0.18em;
+          }
+
+          .hero-title {
+            margin: auto 0;
+            font-size: clamp(44px, 13.5vw, 62px);
+            line-height: 1.15;
+            letter-spacing: -0.045em;
+          }
+
+          .hero-bottom {
+            align-items: flex-end;
+            gap: 24px;
+            padding-top: 36px;
+          }
+
+          .hero-description {
+            font-size: 14px;
+            line-height: 1.9;
+            letter-spacing: 0.04em;
+          }
+
+          .hero-location {
+            flex-shrink: 0;
+            font-size: 9px;
+            line-height: 1.55;
+            letter-spacing: 0.16em;
+          }
+
+          .scroll-guide {
+            right: 8px;
+            gap: 8px;
+          }
+
+          .scroll-guide > span:first-child {
+            font-size: 7px;
+          }
+
+          .scroll-line {
+            height: 32px;
+          }
+        }
+
+        @media (max-width: 390px) {
+          .hero {
+            padding-right: 20px;
+            padding-left: 20px;
+          }
+
+          .hero-title {
+            font-size: clamp(40px, 13vw, 52px);
+          }
+
+          .hero-description {
+            font-size: 13px;
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .hero,
+          .hero-inner,
+          .scroll-guide {
+            scroll-behavior: auto;
           }
         }
       `}</style>

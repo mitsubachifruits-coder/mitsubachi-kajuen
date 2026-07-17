@@ -129,6 +129,7 @@ export default function ContactPage() {
                   aria-label="みつばち果樹園へ電話をかける"
                 >
                   <span>電話をかける</span>
+
                   <span className="round-arrow" aria-hidden="true">
                     →
                   </span>
@@ -174,6 +175,7 @@ export default function ContactPage() {
                   aria-label="みつばち果樹園へメールを送る"
                 >
                   <span>メールを送る</span>
+
                   <span className="round-arrow" aria-hidden="true">
                     →
                   </span>
@@ -288,6 +290,7 @@ export default function ContactPage() {
                   aria-label="みつばち果樹園のInstagramを開く"
                 >
                   <span>Instagramを見る</span>
+
                   <span className="round-arrow" aria-hidden="true">
                     ↗
                   </span>
@@ -361,9 +364,13 @@ export default function ContactPage() {
           box-sizing: border-box;
         }
 
+        /*
+         * デスクトップ
+         * 元デザインの約75%を基準にコンパクト化
+         */
         .contact-page {
           min-height: 100vh;
-          padding: 128px 0 120px;
+          padding: 96px 0 90px;
           overflow: hidden;
           background:
             radial-gradient(
@@ -381,29 +388,29 @@ export default function ContactPage() {
         }
 
         .contact-container {
-          width: min(1180px, calc(100% - 48px));
+          width: min(960px, calc(100% - 64px));
           margin: 0 auto;
         }
 
         .contact-hero {
-          padding-bottom: 112px;
+          padding-bottom: 84px;
         }
 
         .contact-label,
         .section-label {
-          margin: 0 0 28px;
+          margin: 0 0 21px;
           color: #92928b;
-          font-size: 11px;
+          font-size: 8px;
           font-weight: 700;
           line-height: 1.5;
           letter-spacing: 0.25em;
         }
 
         .contact-title {
-          max-width: 980px;
+          max-width: 760px;
           margin: 0;
           color: #2f2f2b;
-          font-size: clamp(56px, 7.2vw, 98px);
+          font-size: clamp(45px, 5.4vw, 74px);
           font-weight: 400;
           line-height: 1.06;
           letter-spacing: -0.055em;
@@ -413,22 +420,22 @@ export default function ContactPage() {
           display: flex;
           align-items: flex-end;
           justify-content: space-between;
-          gap: 60px;
-          margin-top: 52px;
+          gap: 45px;
+          margin-top: 39px;
         }
 
         .contact-description {
-          max-width: 720px;
+          max-width: 540px;
           margin: 0;
           color: #6c6c66;
-          font-size: clamp(16px, 1.6vw, 21px);
+          font-size: clamp(13px, 1.2vw, 16px);
           line-height: 1.9;
         }
 
         .contact-location {
           margin: 0;
           color: #a1a19a;
-          font-size: 10px;
+          font-size: 8px;
           font-weight: 700;
           line-height: 1.7;
           letter-spacing: 0.22em;
@@ -437,13 +444,15 @@ export default function ContactPage() {
 
         .contact-notice {
           display: grid;
-          grid-template-columns: minmax(320px, 0.9fr) minmax(0, 1.1fr);
-          gap: clamp(48px, 8vw, 110px);
+          grid-template-columns:
+            minmax(250px, 0.9fr)
+            minmax(0, 1.1fr);
+          gap: clamp(38px, 6vw, 82px);
           align-items: end;
-          margin-bottom: 128px;
-          padding: 56px;
+          margin-bottom: 96px;
+          padding: 42px;
           border: 1px solid #f1e4ad;
-          border-radius: 34px;
+          border-radius: 26px;
           background:
             radial-gradient(
               circle at 90% 10%,
@@ -452,13 +461,13 @@ export default function ContactPage() {
             ),
             #fff8d6;
           color: #76520a;
-          box-shadow: 0 24px 70px rgba(83, 68, 22, 0.07);
+          box-shadow: 0 18px 52px rgba(83, 68, 22, 0.07);
         }
 
         .notice-label {
-          margin: 0 0 20px;
+          margin: 0 0 15px;
           color: #997520;
-          font-size: 11px;
+          font-size: 8px;
           font-weight: 700;
           line-height: 1.5;
           letter-spacing: 0.2em;
@@ -467,7 +476,7 @@ export default function ContactPage() {
         .notice-title {
           margin: 0;
           color: #5f420a;
-          font-size: clamp(38px, 4.7vw, 62px);
+          font-size: clamp(30px, 3.5vw, 47px);
           font-weight: 400;
           line-height: 1.25;
           letter-spacing: -0.045em;
@@ -480,52 +489,54 @@ export default function ContactPage() {
         .notice-text {
           margin: 0;
           color: #765b20;
-          font-size: 16px;
+          font-size: 12px;
           line-height: 2;
         }
 
         .notice-points {
           display: flex;
-          gap: 10px;
-          margin-top: 30px;
+          gap: 8px;
+          margin-top: 23px;
           flex-wrap: wrap;
         }
 
         .notice-points span {
           display: inline-flex;
-          min-height: 34px;
+          min-height: 26px;
           align-items: center;
-          padding: 5px 14px;
+          padding: 4px 11px;
           border: 1px solid rgba(143, 102, 19, 0.2);
           border-radius: 999px;
           background: rgba(255, 255, 255, 0.45);
           color: #76520a;
-          font-size: 12px;
+          font-size: 9px;
           font-weight: 700;
         }
 
         .methods-section {
-          margin-bottom: 128px;
+          margin-bottom: 96px;
         }
 
         .section-heading {
           display: grid;
-          grid-template-columns: minmax(0, 1fr) minmax(300px, 450px);
-          gap: 60px;
+          grid-template-columns:
+            minmax(0, 1fr)
+            minmax(240px, 340px);
+          gap: 45px;
           align-items: end;
-          margin-bottom: 46px;
-          padding-bottom: 30px;
+          margin-bottom: 35px;
+          padding-bottom: 23px;
           border-bottom: 1px solid #deddd7;
         }
 
         .section-label {
-          margin-bottom: 12px;
+          margin-bottom: 9px;
         }
 
         .section-title {
           margin: 0;
           color: #30302c;
-          font-size: clamp(40px, 5vw, 66px);
+          font-size: clamp(32px, 3.8vw, 50px);
           font-weight: 400;
           line-height: 1.23;
           letter-spacing: -0.05em;
@@ -534,62 +545,62 @@ export default function ContactPage() {
         .section-description {
           margin: 0;
           color: #777770;
-          font-size: 14px;
+          font-size: 11px;
           line-height: 2;
         }
 
         .contact-grid {
           display: grid;
           grid-template-columns: repeat(2, minmax(0, 1fr));
-          gap: 30px;
+          gap: 23px;
         }
 
         .contact-card {
           display: flex;
           min-width: 0;
-          min-height: 460px;
+          min-height: 345px;
           flex-direction: column;
-          padding: 36px;
+          padding: 27px;
           border: 1px solid #e5e4de;
-          border-radius: 30px;
+          border-radius: 23px;
           background: rgba(255, 255, 255, 0.95);
-          box-shadow: 0 18px 54px rgba(52, 52, 45, 0.055);
+          box-shadow: 0 14px 41px rgba(52, 52, 45, 0.055);
           transition:
             transform 200ms ease,
             box-shadow 200ms ease;
         }
 
         .contact-card:hover {
-          box-shadow: 0 26px 70px rgba(52, 52, 45, 0.09);
-          transform: translateY(-4px);
+          box-shadow: 0 20px 52px rgba(52, 52, 45, 0.09);
+          transform: translateY(-3px);
         }
 
         .card-header {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          gap: 20px;
-          margin-bottom: 56px;
+          gap: 15px;
+          margin-bottom: 42px;
         }
 
         .card-number,
         .card-english {
           margin: 0;
           color: #999992;
-          font-size: 10px;
+          font-size: 8px;
           font-weight: 700;
           line-height: 1.5;
           letter-spacing: 0.18em;
         }
 
         .card-content {
-          max-width: 440px;
+          max-width: 330px;
         }
 
         .card-title {
-          margin: 0 0 22px;
+          margin: 0 0 17px;
           color: #30302c;
-          font-size: clamp(34px, 4vw, 52px);
+          font-size: clamp(27px, 3vw, 39px);
           font-weight: 400;
           line-height: 1.3;
           letter-spacing: -0.045em;
@@ -598,13 +609,13 @@ export default function ContactPage() {
         .card-text {
           margin: 0;
           color: #777770;
-          font-size: 15px;
+          font-size: 12px;
           line-height: 1.95;
         }
 
         .card-footer {
           margin-top: auto;
-          padding-top: 46px;
+          padding-top: 35px;
         }
 
         .telephone-link,
@@ -613,7 +624,7 @@ export default function ContactPage() {
           margin: 0;
           overflow-wrap: anywhere;
           color: #30302c;
-          font-size: clamp(25px, 3.4vw, 40px);
+          font-size: clamp(20px, 2.6vw, 30px);
           font-weight: 700;
           line-height: 1.4;
           letter-spacing: -0.035em;
@@ -624,7 +635,7 @@ export default function ContactPage() {
           display: inline-block;
           overflow-wrap: anywhere;
           color: #30302c;
-          font-size: clamp(18px, 2.5vw, 28px);
+          font-size: clamp(15px, 1.9vw, 21px);
           font-weight: 700;
           line-height: 1.5;
           letter-spacing: -0.025em;
@@ -637,9 +648,9 @@ export default function ContactPage() {
         }
 
         .card-note {
-          margin: 18px 0 0;
+          margin: 14px 0 0;
           color: #8b8b84;
-          font-size: 13px;
+          font-size: 10px;
           line-height: 1.85;
         }
 
@@ -647,20 +658,20 @@ export default function ContactPage() {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          gap: 20px;
-          margin-top: 28px;
-          padding-top: 22px;
+          gap: 15px;
+          margin-top: 21px;
+          padding-top: 17px;
           border-top: 1px solid #ecece7;
           color: #3f3f3a;
-          font-size: 14px;
+          font-size: 11px;
           font-weight: 700;
           text-decoration: none;
         }
 
         .round-arrow {
           display: inline-flex;
-          width: 40px;
-          height: 40px;
+          width: 30px;
+          height: 30px;
           flex-shrink: 0;
           align-items: center;
           justify-content: center;
@@ -681,42 +692,42 @@ export default function ContactPage() {
         .status-line {
           display: flex;
           align-items: center;
-          gap: 10px;
-          margin-top: 30px;
-          padding-top: 24px;
+          gap: 8px;
+          margin-top: 23px;
+          padding-top: 18px;
           border-top: 1px solid #ecece7;
           color: #777770;
-          font-size: 13px;
+          font-size: 10px;
           font-weight: 700;
         }
 
         .status-dot {
-          width: 9px;
-          height: 9px;
+          width: 7px;
+          height: 7px;
           flex-shrink: 0;
           border-radius: 50%;
           background: #00bf63;
-          box-shadow: 0 0 0 5px rgba(0, 191, 99, 0.1);
+          box-shadow: 0 0 0 4px rgba(0, 191, 99, 0.1);
         }
 
         .instagram-account {
           display: inline-flex;
           align-items: center;
-          gap: 15px;
+          gap: 11px;
           color: #30302c;
-          font-size: clamp(16px, 2.1vw, 22px);
+          font-size: clamp(13px, 1.6vw, 17px);
           font-weight: 700;
           text-decoration: none;
         }
 
         .instagram-icon {
           display: inline-flex;
-          width: 50px;
-          height: 50px;
+          width: 38px;
+          height: 38px;
           flex-shrink: 0;
           align-items: center;
           justify-content: center;
-          border-radius: 15px;
+          border-radius: 11px;
           background: linear-gradient(
             135deg,
             #833ab4 0%,
@@ -724,26 +735,33 @@ export default function ContactPage() {
             #fcb045 100%
           );
           color: #ffffff;
-          box-shadow: 0 9px 24px rgba(176, 55, 104, 0.2);
+          box-shadow: 0 7px 18px rgba(176, 55, 104, 0.2);
+        }
+
+        .instagram-icon svg {
+          width: 19px;
+          height: 19px;
         }
 
         .information-section {
-          padding: 112px 0 132px;
+          padding: 84px 0 99px;
           border-top: 1px solid #deddd7;
         }
 
         .information-heading {
           display: grid;
-          grid-template-columns: minmax(0, 1fr) minmax(300px, 450px);
-          gap: 60px;
+          grid-template-columns:
+            minmax(0, 1fr)
+            minmax(240px, 340px);
+          gap: 45px;
           align-items: end;
-          margin-bottom: 46px;
+          margin-bottom: 35px;
         }
 
         .information-title {
           margin: 0;
           color: #30302c;
-          font-size: clamp(40px, 5vw, 66px);
+          font-size: clamp(32px, 3.8vw, 50px);
           font-weight: 400;
           line-height: 1.28;
           letter-spacing: -0.05em;
@@ -752,30 +770,30 @@ export default function ContactPage() {
         .information-description {
           margin: 0;
           color: #777770;
-          font-size: 14px;
+          font-size: 11px;
           line-height: 2;
         }
 
         .information-grid {
           display: grid;
           grid-template-columns: repeat(3, minmax(0, 1fr));
-          gap: 20px;
+          gap: 15px;
         }
 
         .information-item {
           min-width: 0;
-          min-height: 180px;
-          padding: 28px;
+          min-height: 135px;
+          padding: 21px;
           border: 1px solid #e5e4de;
-          border-radius: 24px;
+          border-radius: 18px;
           background: rgba(255, 255, 255, 0.95);
-          box-shadow: 0 14px 40px rgba(52, 52, 45, 0.04);
+          box-shadow: 0 11px 30px rgba(52, 52, 45, 0.04);
         }
 
         .information-number {
-          margin: 0 0 48px;
+          margin: 0 0 36px;
           color: #b0afa9;
-          font-size: 10px;
+          font-size: 8px;
           font-weight: 700;
           letter-spacing: 0.16em;
         }
@@ -783,7 +801,7 @@ export default function ContactPage() {
         .information-value {
           margin: 0;
           color: #30302c;
-          font-size: clamp(18px, 2.2vw, 26px);
+          font-size: clamp(15px, 1.7vw, 20px);
           font-weight: 700;
           line-height: 1.55;
         }
@@ -792,9 +810,9 @@ export default function ContactPage() {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          gap: 70px;
-          padding: 68px;
-          border-radius: 34px;
+          gap: 53px;
+          padding: 51px;
+          border-radius: 26px;
           background:
             radial-gradient(
               circle at 90% 10%,
@@ -803,50 +821,50 @@ export default function ContactPage() {
             ),
             #30302c;
           color: #ffffff;
-          box-shadow: 0 24px 70px rgba(52, 52, 45, 0.16);
+          box-shadow: 0 18px 52px rgba(52, 52, 45, 0.16);
         }
 
         .order-content {
-          max-width: 700px;
+          max-width: 525px;
         }
 
         .order-label {
-          margin: 0 0 18px;
+          margin: 0 0 14px;
           color: #bdbdb6;
-          font-size: 11px;
+          font-size: 8px;
           font-weight: 700;
           letter-spacing: 0.22em;
         }
 
         .order-title {
           margin: 0;
-          font-size: clamp(34px, 4.5vw, 58px);
+          font-size: clamp(27px, 3.4vw, 44px);
           font-weight: 400;
           line-height: 1.3;
           letter-spacing: -0.045em;
         }
 
         .order-description {
-          max-width: 620px;
-          margin: 28px 0 0;
+          max-width: 465px;
+          margin: 21px 0 0;
           color: #d1d1cc;
-          font-size: 15px;
+          font-size: 12px;
           line-height: 2;
         }
 
         .order-link {
           display: inline-flex;
-          min-width: 230px;
-          min-height: 64px;
+          min-width: 173px;
+          min-height: 48px;
           flex-shrink: 0;
           align-items: center;
           justify-content: space-between;
-          gap: 28px;
-          padding: 0 18px 0 26px;
+          gap: 21px;
+          padding: 0 14px 0 20px;
           border-radius: 999px;
           background: #ffffff;
           color: #30302c;
-          font-size: 14px;
+          font-size: 11px;
           font-weight: 700;
           text-decoration: none;
           transition:
@@ -861,8 +879,9 @@ export default function ContactPage() {
 
         .order-arrow {
           display: inline-flex;
-          width: 42px;
-          height: 42px;
+          width: 32px;
+          height: 32px;
+          flex-shrink: 0;
           align-items: center;
           justify-content: center;
           border-radius: 50%;
@@ -870,6 +889,10 @@ export default function ContactPage() {
           color: #ffffff;
         }
 
+        /*
+         * タブレット
+         * 900px以下は元のデザイン・サイズ感に戻す
+         */
         @media (max-width: 900px) {
           .contact-page {
             padding: 104px 0 90px;
@@ -883,8 +906,29 @@ export default function ContactPage() {
             padding-bottom: 90px;
           }
 
+          .contact-label,
+          .section-label {
+            margin-bottom: 28px;
+            font-size: 11px;
+          }
+
           .contact-title {
+            max-width: 980px;
             font-size: clamp(50px, 9.6vw, 78px);
+          }
+
+          .contact-hero-bottom {
+            gap: 60px;
+            margin-top: 52px;
+          }
+
+          .contact-description {
+            max-width: 720px;
+            font-size: clamp(16px, 1.6vw, 21px);
+          }
+
+          .contact-location {
+            font-size: 10px;
           }
 
           .contact-notice {
@@ -892,24 +936,177 @@ export default function ContactPage() {
             gap: 38px;
             margin-bottom: 100px;
             padding: 44px;
+            border-radius: 34px;
+          }
+
+          .notice-label {
+            margin-bottom: 20px;
+            font-size: 11px;
+          }
+
+          .notice-title {
+            font-size: clamp(38px, 4.7vw, 62px);
+          }
+
+          .notice-text {
+            font-size: 16px;
+          }
+
+          .notice-points {
+            gap: 10px;
+            margin-top: 30px;
+          }
+
+          .notice-points span {
+            min-height: 34px;
+            padding: 5px 14px;
+            font-size: 12px;
+          }
+
+          .methods-section {
+            margin-bottom: 128px;
           }
 
           .section-heading,
           .information-heading {
             grid-template-columns: 1fr;
             gap: 22px;
+            margin-bottom: 46px;
+          }
+
+          .section-heading {
+            padding-bottom: 30px;
+          }
+
+          .section-label {
+            margin-bottom: 12px;
+          }
+
+          .section-title,
+          .information-title {
+            font-size: clamp(40px, 5vw, 66px);
+          }
+
+          .section-description,
+          .information-description {
+            font-size: 14px;
           }
 
           .contact-grid {
             grid-template-columns: 1fr;
+            gap: 30px;
           }
 
           .contact-card {
             min-height: 420px;
+            padding: 36px;
+            border-radius: 30px;
+          }
+
+          .card-header {
+            gap: 20px;
+            margin-bottom: 56px;
+          }
+
+          .card-number,
+          .card-english {
+            font-size: 10px;
+          }
+
+          .card-content {
+            max-width: 440px;
+          }
+
+          .card-title {
+            margin-bottom: 22px;
+            font-size: clamp(34px, 4vw, 52px);
+          }
+
+          .card-text {
+            font-size: 15px;
+          }
+
+          .card-footer {
+            padding-top: 46px;
+          }
+
+          .telephone-link,
+          .fax-number {
+            font-size: clamp(25px, 3.4vw, 40px);
+          }
+
+          .email-link {
+            font-size: clamp(18px, 2.5vw, 28px);
+          }
+
+          .card-note {
+            margin-top: 18px;
+            font-size: 13px;
+          }
+
+          .round-link {
+            gap: 20px;
+            margin-top: 28px;
+            padding-top: 22px;
+            font-size: 14px;
+          }
+
+          .round-arrow {
+            width: 40px;
+            height: 40px;
+          }
+
+          .status-line {
+            gap: 10px;
+            margin-top: 30px;
+            padding-top: 24px;
+            font-size: 13px;
+          }
+
+          .status-dot {
+            width: 9px;
+            height: 9px;
+            box-shadow: 0 0 0 5px rgba(0, 191, 99, 0.1);
+          }
+
+          .instagram-account {
+            gap: 15px;
+            font-size: clamp(16px, 2.1vw, 22px);
+          }
+
+          .instagram-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 15px;
+          }
+
+          .instagram-icon svg {
+            width: 25px;
+            height: 25px;
+          }
+
+          .information-section {
+            padding: 112px 0 132px;
           }
 
           .information-grid {
             grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+          }
+
+          .information-item {
+            min-height: 180px;
+            padding: 28px;
+            border-radius: 24px;
+          }
+
+          .information-number {
+            margin-bottom: 48px;
+            font-size: 10px;
+          }
+
+          .information-value {
+            font-size: clamp(18px, 2.2vw, 26px);
           }
 
           .order-section {
@@ -917,9 +1114,46 @@ export default function ContactPage() {
             flex-direction: column;
             gap: 44px;
             padding: 52px;
+            border-radius: 34px;
+          }
+
+          .order-content {
+            max-width: 700px;
+          }
+
+          .order-label {
+            margin-bottom: 18px;
+            font-size: 11px;
+          }
+
+          .order-title {
+            font-size: clamp(34px, 4.5vw, 58px);
+          }
+
+          .order-description {
+            max-width: 620px;
+            margin-top: 28px;
+            font-size: 15px;
+          }
+
+          .order-link {
+            min-width: 230px;
+            min-height: 64px;
+            gap: 28px;
+            padding: 0 18px 0 26px;
+            font-size: 14px;
+          }
+
+          .order-arrow {
+            width: 42px;
+            height: 42px;
           }
         }
 
+        /*
+         * スマートフォン
+         * 現在のデザインを維持
+         */
         @media (max-width: 560px) {
           .contact-page {
             padding: 76px 0 68px;
@@ -1094,6 +1328,14 @@ export default function ContactPage() {
 
           .email-link {
             font-size: 16px;
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .contact-card,
+          .round-arrow,
+          .order-link {
+            transition: none;
           }
         }
       `}</style>

@@ -91,6 +91,7 @@ export default function Header() {
               }`}
             >
               <span>Order</span>
+
               <span
                 className="mitsubachi-desktop-order-arrow"
                 aria-hidden="true"
@@ -135,9 +136,7 @@ export default function Header() {
         aria-hidden={!isMenuOpen}
       >
         <div className="mitsubachi-mobile-menu-inner">
-          <div className="mitsubachi-mobile-menu-label">
-            MENU
-          </div>
+          <div className="mitsubachi-mobile-menu-label">MENU</div>
 
           <nav
             className="mitsubachi-mobile-nav"
@@ -207,14 +206,18 @@ export default function Header() {
           -webkit-backdrop-filter: blur(20px);
         }
 
+        /*
+         * デスクトップ
+         * 元のデザインから約75%程度にコンパクト化
+         */
         .mitsubachi-header-inner {
           display: flex;
-          width: min(1180px, calc(100% - 48px));
-          min-height: 116px;
+          width: min(960px, calc(100% - 64px));
+          min-height: 88px;
           margin: 0 auto;
           align-items: center;
           justify-content: space-between;
-          gap: 48px;
+          gap: 36px;
           box-sizing: border-box;
         }
 
@@ -223,7 +226,7 @@ export default function Header() {
           flex: 0 0 auto;
           align-items: center;
           color: inherit;
-          font-size: clamp(48px, 4.5vw, 62px);
+          font-size: clamp(38px, 3.5vw, 47px);
           font-weight: 400;
           line-height: 1;
           letter-spacing: 0;
@@ -245,7 +248,7 @@ export default function Header() {
           flex: 0 1 auto;
           align-items: center;
           justify-content: flex-end;
-          gap: clamp(22px, 2.7vw, 38px);
+          gap: clamp(18px, 2.1vw, 29px);
         }
 
         .mitsubachi-desktop-nav-link {
@@ -253,12 +256,12 @@ export default function Header() {
           display: inline-flex;
           flex: 0 0 auto;
           align-items: center;
-          padding: 12px 0;
+          padding: 10px 0;
           color: #6a6a64;
-          font-size: 15px;
+          font-size: 12px;
           font-weight: 600;
           line-height: 1.4;
-          letter-spacing: 0.035em;
+          letter-spacing: 0.045em;
           text-decoration: none;
           white-space: nowrap;
           transition:
@@ -269,7 +272,7 @@ export default function Header() {
         .mitsubachi-desktop-nav-link::after {
           position: absolute;
           right: 0;
-          bottom: 5px;
+          bottom: 4px;
           left: 0;
           height: 1px;
           background: #353532;
@@ -293,24 +296,24 @@ export default function Header() {
         .mitsubachi-desktop-order-link {
           display: inline-flex;
           min-width: max-content;
-          min-height: 48px;
+          min-height: 40px;
           flex: 0 0 auto;
           align-items: center;
           justify-content: center;
-          gap: 10px;
-          padding: 0 22px;
+          gap: 8px;
+          padding: 0 18px;
           box-sizing: border-box;
           border: 1px solid #d9d8d2;
           border-radius: 999px;
           background: #ffffff;
           color: #3f3f3a;
-          font-size: 15px;
+          font-size: 12px;
           font-weight: 600;
           line-height: 1.4;
-          letter-spacing: 0.035em;
+          letter-spacing: 0.045em;
           text-decoration: none;
           white-space: nowrap;
-          box-shadow: 0 8px 24px rgba(52, 52, 45, 0.045);
+          box-shadow: 0 6px 18px rgba(52, 52, 45, 0.04);
           transition:
             color 180ms ease,
             border-color 180ms ease,
@@ -325,13 +328,13 @@ export default function Header() {
           background: #343431;
           color: #ffffff;
           transform: translateY(-2px);
-          box-shadow: 0 12px 28px rgba(52, 52, 45, 0.1);
+          box-shadow: 0 10px 24px rgba(52, 52, 45, 0.1);
         }
 
         .mitsubachi-desktop-order-arrow {
           display: inline-block;
           flex: 0 0 auto;
-          font-size: 17px;
+          font-size: 15px;
           font-weight: 400;
           line-height: 1;
           transition: transform 180ms ease;
@@ -350,6 +353,10 @@ export default function Header() {
           display: none;
         }
 
+        /*
+         * タブレット・スマートフォン
+         * 現在のデザインを維持
+         */
         @media (max-width: 900px) {
           .mitsubachi-site-header {
             position: sticky;

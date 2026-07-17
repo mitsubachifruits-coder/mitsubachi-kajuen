@@ -302,9 +302,13 @@ export default function AboutPage() {
           box-sizing: border-box;
         }
 
+        /*
+         * デスクトップ
+         * 元デザインの約75%を基準にコンパクト化
+         */
         .about-page {
           min-height: 100vh;
-          padding: 128px 0 120px;
+          padding: 96px 0 90px;
           overflow: hidden;
           background:
             radial-gradient(
@@ -322,19 +326,19 @@ export default function AboutPage() {
         }
 
         .about-container {
-          width: min(1180px, calc(100% - 48px));
+          width: min(960px, calc(100% - 64px));
           margin: 0 auto;
         }
 
         .about-hero {
-          margin-bottom: 104px;
+          margin-bottom: 78px;
         }
 
         .about-label,
         .section-label {
-          margin: 0 0 28px;
+          margin: 0 0 21px;
           color: #92928b;
-          font-size: 12px;
+          font-size: 9px;
           font-weight: 700;
           line-height: 1.5;
           letter-spacing: 0.25em;
@@ -349,7 +353,7 @@ export default function AboutPage() {
           display: inline-flex;
           max-width: 100%;
           align-items: center;
-          font-size: clamp(58px, 7.2vw, 98px);
+          font-size: clamp(46px, 5.4vw, 74px);
           font-weight: 400;
           line-height: 1;
           letter-spacing: 0;
@@ -358,17 +362,19 @@ export default function AboutPage() {
 
         .about-introduction {
           display: grid;
-          grid-template-columns: minmax(340px, 0.85fr) minmax(0, 1.15fr);
-          gap: clamp(60px, 9vw, 130px);
+          grid-template-columns:
+            minmax(270px, 0.85fr)
+            minmax(0, 1.15fr);
+          gap: clamp(48px, 7vw, 98px);
           align-items: start;
-          padding: 76px 0 104px;
+          padding: 57px 0 78px;
           border-top: 1px solid #deddd7;
         }
 
         .introduction-lead {
           margin: 0;
           color: #31312d;
-          font-size: clamp(30px, 3.3vw, 44px);
+          font-size: clamp(24px, 2.5vw, 33px);
           font-weight: 400;
           line-height: 1.55;
           letter-spacing: -0.035em;
@@ -380,7 +386,7 @@ export default function AboutPage() {
 
         .introduction-copy {
           color: #696963;
-          font-size: clamp(17px, 1.7vw, 21px);
+          font-size: clamp(14px, 1.3vw, 16px);
           line-height: 2.05;
         }
 
@@ -389,18 +395,20 @@ export default function AboutPage() {
         }
 
         .introduction-copy p + p {
-          margin-top: 30px;
+          margin-top: 23px;
         }
 
         .visitor-notice {
           display: grid;
-          grid-template-columns: minmax(320px, 0.9fr) minmax(0, 1.1fr);
-          gap: clamp(48px, 8vw, 110px);
+          grid-template-columns:
+            minmax(255px, 0.9fr)
+            minmax(0, 1.1fr);
+          gap: clamp(38px, 6vw, 82px);
           align-items: end;
-          margin-bottom: 128px;
-          padding: 56px;
+          margin-bottom: 96px;
+          padding: 42px;
           border: 1px solid #f1e4ad;
-          border-radius: 34px;
+          border-radius: 26px;
           background:
             radial-gradient(
               circle at 90% 10%,
@@ -409,13 +417,13 @@ export default function AboutPage() {
             ),
             #fff8d6;
           color: #76520a;
-          box-shadow: 0 24px 70px rgba(83, 68, 22, 0.07);
+          box-shadow: 0 18px 52px rgba(83, 68, 22, 0.07);
         }
 
         .visitor-notice-label {
-          margin: 0 0 20px;
+          margin: 0 0 15px;
           color: #997520;
-          font-size: 11px;
+          font-size: 8px;
           font-weight: 700;
           line-height: 1.5;
           letter-spacing: 0.2em;
@@ -424,7 +432,7 @@ export default function AboutPage() {
         .visitor-notice-title {
           margin: 0;
           color: #5f420a;
-          font-size: clamp(38px, 4.7vw, 62px);
+          font-size: clamp(30px, 3.5vw, 47px);
           font-weight: 400;
           line-height: 1.25;
           letter-spacing: -0.045em;
@@ -435,28 +443,28 @@ export default function AboutPage() {
         }
 
         .visitor-notice-text {
-          margin: 0 0 30px;
+          margin: 0 0 23px;
           color: #765b20;
-          font-size: 16px;
+          font-size: 12px;
           line-height: 2;
         }
 
         .dark-button {
           display: inline-flex;
-          min-height: 54px;
+          min-height: 42px;
           align-items: center;
           justify-content: center;
-          gap: 24px;
-          padding: 0 25px;
+          gap: 18px;
+          padding: 0 20px;
           border-radius: 999px;
           background: #343431;
           color: #ffffff;
-          font-size: 14px;
+          font-size: 11px;
           font-weight: 700;
           line-height: 1.5;
           text-align: center;
           text-decoration: none;
-          box-shadow: 0 12px 30px rgba(52, 52, 49, 0.16);
+          box-shadow: 0 9px 23px rgba(52, 52, 49, 0.14);
           transition:
             transform 180ms ease,
             opacity 180ms ease;
@@ -468,28 +476,28 @@ export default function AboutPage() {
         }
 
         .location-section {
-          margin-bottom: 128px;
+          margin-bottom: 96px;
         }
 
         .section-heading {
           display: grid;
-          grid-template-columns: minmax(0, 1fr) minmax(300px, 460px);
-          gap: 60px;
+          grid-template-columns: minmax(0, 1fr) minmax(240px, 345px);
+          gap: 46px;
           align-items: end;
-          margin-bottom: 46px;
-          padding-bottom: 30px;
+          margin-bottom: 35px;
+          padding-bottom: 23px;
           border-bottom: 1px solid #deddd7;
         }
 
         .section-label {
-          margin-bottom: 12px;
-          font-size: 11px;
+          margin-bottom: 9px;
+          font-size: 8px;
         }
 
         .section-title {
           margin: 0;
           color: #31312d;
-          font-size: clamp(40px, 5vw, 66px);
+          font-size: clamp(32px, 3.8vw, 50px);
           font-weight: 400;
           line-height: 1.2;
           letter-spacing: -0.045em;
@@ -498,14 +506,14 @@ export default function AboutPage() {
         .section-description {
           margin: 0;
           color: #777770;
-          font-size: 14px;
+          font-size: 11px;
           line-height: 2;
         }
 
         .location-grid {
           display: grid;
           grid-template-columns: repeat(2, minmax(0, 1fr));
-          gap: 30px;
+          gap: 23px;
           align-items: stretch;
         }
 
@@ -513,26 +521,26 @@ export default function AboutPage() {
           display: flex;
           min-width: 0;
           flex-direction: column;
-          padding: 36px;
+          padding: 27px;
           overflow: hidden;
           border: 1px solid #e5e4de;
-          border-radius: 30px;
+          border-radius: 23px;
           background: rgba(255, 255, 255, 0.94);
-          box-shadow: 0 18px 54px rgba(52, 52, 45, 0.055);
+          box-shadow: 0 14px 40px rgba(52, 52, 45, 0.05);
         }
 
         .location-card-header {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          gap: 20px;
-          margin-bottom: 30px;
+          gap: 15px;
+          margin-bottom: 23px;
         }
 
         .location-label {
           margin: 0;
           color: #8d8d86;
-          font-size: 11px;
+          font-size: 8px;
           font-weight: 700;
           line-height: 1.5;
           letter-spacing: 0.22em;
@@ -540,24 +548,24 @@ export default function AboutPage() {
 
         .location-number {
           color: #b1b0aa;
-          font-size: 11px;
+          font-size: 8px;
           font-weight: 700;
           letter-spacing: 0.14em;
         }
 
         .location-title {
-          margin: 0 0 24px;
+          margin: 0 0 18px;
           color: #30302c;
-          font-size: clamp(36px, 4.3vw, 56px);
+          font-size: clamp(29px, 3.2vw, 42px);
           font-weight: 400;
           line-height: 1.18;
           letter-spacing: -0.05em;
         }
 
         .location-role {
-          margin: 0 0 16px;
+          margin: 0 0 12px;
           color: #454540;
-          font-size: 16px;
+          font-size: 12px;
           font-weight: 700;
           line-height: 1.7;
         }
@@ -565,36 +573,36 @@ export default function AboutPage() {
         .location-address {
           margin: 0;
           color: #777770;
-          font-size: 14px;
+          font-size: 11px;
           font-style: normal;
           line-height: 1.9;
         }
 
         .farm-note {
-          margin: 24px 0 0;
-          padding: 17px 19px;
-          border-radius: 17px;
+          margin: 18px 0 0;
+          padding: 13px 15px;
+          border-radius: 13px;
           background: #f5f5f1;
           color: #777770;
-          font-size: 13px;
+          font-size: 10px;
           line-height: 1.8;
         }
 
         .map-wrapper {
           width: 100%;
           margin-top: auto;
-          padding-top: 30px;
+          padding-top: 23px;
           overflow: hidden;
-          border-radius: 21px;
+          border-radius: 16px;
         }
 
         .map-frame {
           display: block;
           width: 100%;
-          height: 340px;
+          height: 255px;
           overflow: hidden;
           border: 0;
-          border-radius: 21px;
+          border-radius: 16px;
           filter: saturate(0.75);
         }
 
@@ -602,12 +610,12 @@ export default function AboutPage() {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          gap: 20px;
-          margin-top: 22px;
-          padding-top: 20px;
+          gap: 15px;
+          margin-top: 17px;
+          padding-top: 15px;
           border-top: 1px solid #ecece7;
           color: #3f3f3a;
-          font-size: 14px;
+          font-size: 11px;
           font-weight: 700;
           line-height: 1.6;
           text-decoration: none;
@@ -615,13 +623,14 @@ export default function AboutPage() {
 
         .map-link span:last-child {
           display: inline-flex;
-          width: 38px;
-          height: 38px;
+          width: 30px;
+          height: 30px;
           flex-shrink: 0;
           align-items: center;
           justify-content: center;
           border: 1px solid #deddd7;
           border-radius: 999px;
+          font-size: 12px;
           transition:
             background 180ms ease,
             color 180ms ease;
@@ -633,7 +642,7 @@ export default function AboutPage() {
         }
 
         .farm-information {
-          padding-top: 112px;
+          padding-top: 84px;
           border-top: 1px solid #deddd7;
         }
 
@@ -644,32 +653,32 @@ export default function AboutPage() {
         .information-grid {
           display: grid;
           grid-template-columns: repeat(3, minmax(0, 1fr));
-          gap: 20px;
+          gap: 15px;
         }
 
         .information-item {
           min-width: 0;
-          min-height: 210px;
-          padding: 28px;
+          min-height: 158px;
+          padding: 21px;
           border: 1px solid #e5e4de;
-          border-radius: 24px;
+          border-radius: 18px;
           background: #ffffff;
-          box-shadow: 0 14px 40px rgba(52, 52, 45, 0.04);
+          box-shadow: 0 11px 30px rgba(52, 52, 45, 0.04);
         }
 
         .information-number {
-          margin: 0 0 46px;
+          margin: 0 0 35px;
           color: #b0afa9;
-          font-size: 10px;
+          font-size: 8px;
           font-weight: 700;
           line-height: 1.5;
           letter-spacing: 0.16em;
         }
 
         .information-label {
-          margin: 0 0 10px;
+          margin: 0 0 8px;
           color: #8b8b84;
-          font-size: 11px;
+          font-size: 8px;
           font-weight: 700;
           line-height: 1.5;
           letter-spacing: 0.18em;
@@ -680,7 +689,7 @@ export default function AboutPage() {
           margin: 0;
           overflow-wrap: anywhere;
           color: #30302c;
-          font-size: clamp(18px, 2vw, 24px);
+          font-size: clamp(15px, 1.5vw, 18px);
           font-weight: 700;
           line-height: 1.55;
         }
@@ -694,24 +703,24 @@ export default function AboutPage() {
         }
 
         .about-closing {
-          margin-top: 128px;
-          padding: 104px 24px 30px;
+          margin-top: 96px;
+          padding: 78px 18px 23px;
           border-top: 1px solid #deddd7;
           text-align: center;
         }
 
         .closing-label {
-          margin: 0 0 24px;
+          margin: 0 0 18px;
           color: #92928b;
-          font-size: 11px;
+          font-size: 8px;
           font-weight: 700;
           line-height: 1.5;
           letter-spacing: 0.24em;
         }
 
         .closing-title {
-          margin: 0 0 24px;
-          font-size: clamp(38px, 5.5vw, 68px);
+          margin: 0 0 18px;
+          font-size: clamp(30px, 4.1vw, 51px);
           font-weight: 700;
           line-height: 1.2;
         }
@@ -727,13 +736,17 @@ export default function AboutPage() {
         }
 
         .closing-description {
-          max-width: 620px;
+          max-width: 465px;
           margin: 0 auto;
           color: #777770;
-          font-size: 15px;
+          font-size: 12px;
           line-height: 2;
         }
 
+        /*
+         * タブレット
+         * 900px以下は元のデザインを維持
+         */
         @media (max-width: 900px) {
           .about-page {
             padding: 104px 0 90px;
@@ -747,6 +760,16 @@ export default function AboutPage() {
             margin-bottom: 78px;
           }
 
+          .about-label,
+          .section-label {
+            margin-bottom: 28px;
+            font-size: 12px;
+          }
+
+          .color-logo {
+            font-size: clamp(58px, 7.2vw, 98px);
+          }
+
           .about-introduction {
             grid-template-columns: 1fr;
             gap: 40px;
@@ -755,10 +778,16 @@ export default function AboutPage() {
 
           .introduction-lead {
             max-width: 680px;
+            font-size: clamp(30px, 3.3vw, 44px);
           }
 
           .introduction-copy {
             max-width: 680px;
+            font-size: clamp(17px, 1.7vw, 21px);
+          }
+
+          .introduction-copy p + p {
+            margin-top: 30px;
           }
 
           .visitor-notice {
@@ -766,11 +795,52 @@ export default function AboutPage() {
             gap: 38px;
             margin-bottom: 100px;
             padding: 44px;
+            border-radius: 34px;
+          }
+
+          .visitor-notice-label {
+            margin-bottom: 20px;
+            font-size: 11px;
+          }
+
+          .visitor-notice-title {
+            font-size: clamp(38px, 4.7vw, 62px);
+          }
+
+          .visitor-notice-text {
+            margin-bottom: 30px;
+            font-size: 16px;
+          }
+
+          .dark-button {
+            min-height: 54px;
+            gap: 24px;
+            padding: 0 25px;
+            font-size: 14px;
+          }
+
+          .location-section {
+            margin-bottom: 128px;
           }
 
           .section-heading {
             grid-template-columns: 1fr;
             gap: 22px;
+            margin-bottom: 46px;
+            padding-bottom: 30px;
+          }
+
+          .section-label {
+            margin-bottom: 12px;
+            font-size: 11px;
+          }
+
+          .section-title {
+            font-size: clamp(40px, 5vw, 66px);
+          }
+
+          .section-description {
+            font-size: 14px;
           }
 
           .location-grid {
@@ -780,29 +850,120 @@ export default function AboutPage() {
 
           .location-card {
             padding: 32px;
+            border-radius: 30px;
+          }
+
+          .location-card-header {
+            margin-bottom: 30px;
+          }
+
+          .location-label,
+          .location-number {
+            font-size: 11px;
+          }
+
+          .location-title {
+            margin-bottom: 24px;
+            font-size: clamp(36px, 4.3vw, 56px);
           }
 
           .location-title br {
             display: none;
           }
 
+          .location-role {
+            margin-bottom: 16px;
+            font-size: 16px;
+          }
+
+          .location-address {
+            font-size: 14px;
+          }
+
+          .farm-note {
+            margin-top: 24px;
+            padding: 17px 19px;
+            border-radius: 17px;
+            font-size: 13px;
+          }
+
+          .map-wrapper {
+            padding-top: 30px;
+            border-radius: 21px;
+          }
+
           .map-frame {
             height: 360px;
+            border-radius: 21px;
+          }
+
+          .map-link {
+            gap: 20px;
+            margin-top: 22px;
+            padding-top: 20px;
+            font-size: 14px;
+          }
+
+          .map-link span:last-child {
+            width: 38px;
+            height: 38px;
+            font-size: inherit;
+          }
+
+          .farm-information {
+            padding-top: 112px;
           }
 
           .information-grid {
             grid-template-columns: 1fr;
+            gap: 20px;
           }
 
           .information-item {
             min-height: auto;
+            padding: 28px;
+            border-radius: 24px;
           }
 
           .information-number {
             margin-bottom: 30px;
+            font-size: 10px;
+          }
+
+          .information-label {
+            margin-bottom: 10px;
+            font-size: 11px;
+          }
+
+          .information-value {
+            font-size: clamp(18px, 2vw, 24px);
+          }
+
+          .about-closing {
+            margin-top: 128px;
+            padding: 104px 24px 30px;
+          }
+
+          .closing-label {
+            margin-bottom: 24px;
+            font-size: 11px;
+          }
+
+          .closing-title {
+            margin-bottom: 24px;
+            font-size: clamp(38px, 5.5vw, 68px);
+          }
+
+          .closing-description {
+            max-width: 620px;
+            font-size: 15px;
           }
         }
 
+        /*
+         * スマートフォン
+         * 現在のデザインを維持
+         */
         @media (max-width: 560px) {
           .about-page {
             padding: 76px 0 68px;
@@ -961,6 +1122,14 @@ export default function AboutPage() {
 
           .closing-title {
             font-size: 29px;
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .dark-button,
+          .map-link span:last-child,
+          .information-link {
+            transition: none;
           }
         }
       `}</style>

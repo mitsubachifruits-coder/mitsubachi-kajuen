@@ -373,13 +373,17 @@ export default function FruitsPage() {
           color: #3f3f46;
         }
 
+        /*
+         * デスクトップ
+         * 元デザインの約75%を基準にコンパクト化
+         */
         .pageContainer {
-          width: min(1180px, calc(100% - 48px));
+          width: min(960px, calc(100% - 64px));
           margin: 0 auto;
         }
 
         .heroSection {
-          padding: 150px 0 120px;
+          padding: 112px 0 90px;
           background:
             radial-gradient(
               circle at 85% 15%,
@@ -395,48 +399,49 @@ export default function FruitsPage() {
         }
 
         .eyebrow {
-          margin: 0 0 30px;
+          margin: 0 0 23px;
           color: #8a8a84;
-          font-size: 12px;
+          font-size: 9px;
           font-weight: 600;
+          line-height: 1.5;
           letter-spacing: 0.24em;
         }
 
         .heroTitle {
-          max-width: 900px;
+          max-width: 700px;
           margin: 0;
           color: #282825;
-          font-size: clamp(54px, 8vw, 104px);
+          font-size: clamp(43px, 6vw, 78px);
           font-weight: 400;
           line-height: 1.08;
           letter-spacing: -0.055em;
         }
 
         .heroDescription {
-          max-width: 700px;
-          margin: 48px 0 0;
+          max-width: 540px;
+          margin: 36px 0 0;
           color: #696963;
-          font-size: clamp(17px, 2vw, 22px);
+          font-size: clamp(14px, 1.5vw, 17px);
           line-height: 2;
         }
 
         .heroDescription .colorLogo {
-          margin: 0 6px;
+          margin: 0 5px;
           white-space: nowrap;
         }
 
         .heroMeta {
           display: flex;
           align-items: center;
-          gap: 18px;
-          margin-top: 52px;
+          gap: 14px;
+          margin-top: 39px;
           color: #8b8b84;
-          font-size: 13px;
+          font-size: 10px;
           letter-spacing: 0.08em;
         }
 
         .metaDivider {
-          width: 36px;
+          width: 27px;
           height: 1px;
           background: #cfcec8;
         }
@@ -449,11 +454,12 @@ export default function FruitsPage() {
           border-bottom: 1px solid #e9e8e2;
           background: rgba(250, 250, 249, 0.94);
           backdrop-filter: blur(16px);
+          -webkit-backdrop-filter: blur(16px);
         }
 
         .categoryNavigationInner {
           display: flex;
-          width: min(1180px, calc(100% - 48px));
+          width: min(960px, calc(100% - 64px));
           margin: 0 auto;
           overflow-x: auto;
           scrollbar-width: none;
@@ -465,9 +471,9 @@ export default function FruitsPage() {
 
         .categoryNavigationLink {
           flex: 0 0 auto;
-          padding: 22px 25px;
+          padding: 17px 19px;
           color: #74746e;
-          font-size: 13px;
+          font-size: 10px;
           letter-spacing: 0.08em;
           text-decoration: none;
           white-space: nowrap;
@@ -485,59 +491,63 @@ export default function FruitsPage() {
         }
 
         .productsArea {
-          padding: 40px 0 160px;
+          padding: 30px 0 120px;
         }
 
         .categorySection {
-          padding: 110px 0 0;
-          scroll-margin-top: 150px;
+          padding: 82px 0 0;
+          scroll-margin-top: 125px;
         }
 
         .categoryHeader {
           display: grid;
-          grid-template-columns: minmax(0, 1fr) minmax(300px, 500px);
-          gap: 60px;
+          grid-template-columns:
+            minmax(0, 1fr)
+            minmax(240px, 375px);
+          gap: 46px;
           align-items: end;
-          margin-bottom: 48px;
-          padding-bottom: 32px;
+          margin-bottom: 36px;
+          padding-bottom: 24px;
           border-bottom: 1px solid #deddd7;
         }
 
         .categoryEnglishName {
-          margin: 0 0 16px;
+          margin: 0 0 12px;
           color: #999992;
-          font-size: 11px;
+          font-size: 8px;
           font-weight: 600;
+          line-height: 1.5;
           letter-spacing: 0.2em;
         }
 
         .categoryTitle {
           margin: 0;
           color: #2d2d29;
-          font-size: clamp(42px, 6vw, 72px);
+          font-size: clamp(34px, 4.5vw, 54px);
           font-weight: 400;
+          line-height: 1.2;
           letter-spacing: -0.04em;
         }
 
         .categoryDescription {
           margin: 0;
           color: #777770;
-          font-size: 15px;
+          font-size: 12px;
           line-height: 2;
         }
 
         .productGrid {
           display: grid;
           grid-template-columns: repeat(2, minmax(0, 1fr));
-          gap: 30px;
+          gap: 23px;
         }
 
         .productCard {
           overflow: hidden;
           border: 1px solid #e5e4de;
-          border-radius: 24px;
+          border-radius: 18px;
           background: #ffffff;
-          box-shadow: 0 12px 40px rgba(52, 52, 45, 0.035);
+          box-shadow: 0 9px 30px rgba(52, 52, 45, 0.035);
           transition:
             transform 220ms ease,
             box-shadow 220ms ease;
@@ -545,13 +555,13 @@ export default function FruitsPage() {
 
         .productCard:hover {
           transform: translateY(-4px);
-          box-shadow: 0 22px 55px rgba(52, 52, 45, 0.08);
+          box-shadow: 0 17px 42px rgba(52, 52, 45, 0.08);
         }
 
         .productVisual {
           position: relative;
           display: flex;
-          min-height: 320px;
+          min-height: 240px;
           align-items: center;
           justify-content: center;
           overflow: hidden;
@@ -565,18 +575,19 @@ export default function FruitsPage() {
         }
 
         .productVisual::before {
-          width: 240px;
-          height: 240px;
+          width: 180px;
+          height: 180px;
           border: 1px solid rgba(255, 255, 255, 0.55);
           background: rgba(255, 255, 255, 0.18);
           backdrop-filter: blur(6px);
+          -webkit-backdrop-filter: blur(6px);
         }
 
         .productVisual::after {
-          right: -70px;
-          bottom: -90px;
-          width: 230px;
-          height: 230px;
+          right: -53px;
+          bottom: -68px;
+          width: 173px;
+          height: 173px;
           background: rgba(255, 255, 255, 0.18);
         }
 
@@ -618,10 +629,10 @@ export default function FruitsPage() {
 
         .visualNumber {
           position: absolute;
-          top: 24px;
-          left: 26px;
+          top: 18px;
+          left: 20px;
           color: rgba(255, 255, 255, 0.78);
-          font-size: 12px;
+          font-size: 9px;
           letter-spacing: 0.16em;
         }
 
@@ -629,45 +640,47 @@ export default function FruitsPage() {
           position: relative;
           z-index: 2;
           color: rgba(255, 255, 255, 0.95);
-          font-size: clamp(58px, 8vw, 96px);
+          font-size: clamp(46px, 6vw, 72px);
           font-weight: 400;
+          line-height: 1;
           letter-spacing: -0.08em;
-          text-shadow: 0 8px 30px rgba(48, 48, 40, 0.08);
+          text-shadow: 0 6px 23px rgba(48, 48, 40, 0.08);
         }
 
         .visualEnglishName {
           position: absolute;
-          right: 25px;
-          bottom: 22px;
+          right: 19px;
+          bottom: 17px;
           z-index: 2;
           color: rgba(255, 255, 255, 0.75);
-          font-size: 10px;
+          font-size: 8px;
           font-weight: 600;
           letter-spacing: 0.22em;
         }
 
         .productInformation {
-          padding: 30px 30px 28px;
+          padding: 23px 23px 21px;
         }
 
         .productBadges {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          gap: 12px;
-          margin-bottom: 24px;
+          gap: 9px;
+          margin-bottom: 18px;
         }
 
         .productBadge {
           display: inline-flex;
+          min-height: 22px;
           align-items: center;
-          min-height: 28px;
-          padding: 4px 11px;
+          padding: 3px 9px;
           border: 1px solid #d9e4cb;
           border-radius: 999px;
           background: #f5f9ef;
           color: #667351;
-          font-size: 11px;
+          font-size: 8px;
+          line-height: 1.4;
           letter-spacing: 0.08em;
         }
 
@@ -679,22 +692,23 @@ export default function FruitsPage() {
 
         .productStatus {
           color: #aaa9a2;
-          font-size: 11px;
+          font-size: 8px;
           letter-spacing: 0.08em;
         }
 
         .productName {
           margin: 0;
           color: #31312e;
-          font-size: clamp(22px, 3vw, 29px);
+          font-size: clamp(18px, 2.2vw, 22px);
           font-weight: 400;
+          line-height: 1.4;
           letter-spacing: -0.025em;
         }
 
         .productSpecification {
-          margin: 12px 0 0;
+          margin: 9px 0 0;
           color: #777770;
-          font-size: 15px;
+          font-size: 12px;
           line-height: 1.7;
         }
 
@@ -702,33 +716,34 @@ export default function FruitsPage() {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          gap: 20px;
-          margin-top: 30px;
-          padding-top: 22px;
+          gap: 15px;
+          margin-top: 23px;
+          padding-top: 17px;
           border-top: 1px solid #eeeeea;
         }
 
         .productPrice {
           margin: 0;
           color: #999993;
-          font-size: 12px;
+          font-size: 9px;
           letter-spacing: 0.04em;
         }
 
         .productArrow {
           display: inline-flex;
-          width: 38px;
-          height: 38px;
+          width: 30px;
+          height: 30px;
+          flex: 0 0 auto;
           align-items: center;
           justify-content: center;
           border: 1px solid #deddd8;
           border-radius: 999px;
           color: #777770;
-          font-size: 17px;
+          font-size: 14px;
         }
 
         .closingSection {
-          padding: 130px 0 150px;
+          padding: 98px 0 112px;
           border-top: 1px solid #e4e3dd;
           background: #f4f3ef;
         }
@@ -738,27 +753,28 @@ export default function FruitsPage() {
         }
 
         .closingEnglish {
-          margin: 0 0 28px;
+          margin: 0 0 21px;
           color: #92928b;
-          font-size: 11px;
+          font-size: 8px;
           font-weight: 600;
+          line-height: 1.5;
           letter-spacing: 0.24em;
         }
 
         .closingTitle {
           margin: 0;
           color: #343431;
-          font-size: clamp(38px, 6vw, 70px);
+          font-size: clamp(30px, 4.5vw, 53px);
           font-weight: 400;
           line-height: 1.35;
           letter-spacing: -0.045em;
         }
 
         .closingDescription {
-          max-width: 700px;
-          margin: 36px auto 48px;
+          max-width: 540px;
+          margin: 27px auto 36px;
           color: #777770;
-          font-size: 15px;
+          font-size: 12px;
           line-height: 2.1;
         }
 
@@ -766,36 +782,217 @@ export default function FruitsPage() {
           display: inline-flex;
           font-size: inherit;
           font-weight: 400;
+          line-height: inherit;
           letter-spacing: 0;
         }
 
         .closingInner > .colorLogo {
-          font-size: clamp(30px, 5vw, 52px);
+          font-size: clamp(24px, 3.8vw, 39px);
         }
 
+        /*
+         * タブレット
+         * 900px以下は元のデザイン・サイズ感に戻す
+         */
         @media (max-width: 900px) {
+          .pageContainer {
+            width: min(1180px, calc(100% - 48px));
+          }
+
+          .heroSection {
+            padding: 150px 0 120px;
+          }
+
+          .eyebrow {
+            margin-bottom: 30px;
+            font-size: 12px;
+          }
+
+          .heroTitle {
+            max-width: 900px;
+            font-size: clamp(54px, 8vw, 104px);
+          }
+
+          .heroDescription {
+            max-width: 700px;
+            margin-top: 48px;
+            font-size: clamp(17px, 2vw, 22px);
+          }
+
+          .heroDescription .colorLogo {
+            margin-right: 6px;
+            margin-left: 6px;
+          }
+
+          .heroMeta {
+            gap: 18px;
+            margin-top: 52px;
+            font-size: 13px;
+          }
+
+          .metaDivider {
+            width: 36px;
+          }
+
           .categoryNavigation {
-            top: 72px;
+            top: 94px;
+          }
+
+          .categoryNavigationInner {
+            width: min(1180px, calc(100% - 48px));
+          }
+
+          .categoryNavigationLink {
+            padding: 22px 25px;
+            font-size: 13px;
+          }
+
+          .categoryNavigationLink:first-child {
+            padding-left: 0;
+          }
+
+          .productsArea {
+            padding: 40px 0 160px;
+          }
+
+          .categorySection {
+            padding-top: 110px;
+            scroll-margin-top: 160px;
           }
 
           .categoryHeader {
             grid-template-columns: 1fr;
             gap: 24px;
+            margin-bottom: 48px;
+            padding-bottom: 32px;
+          }
+
+          .categoryEnglishName {
+            margin-bottom: 16px;
+            font-size: 11px;
+          }
+
+          .categoryTitle {
+            font-size: clamp(42px, 6vw, 72px);
           }
 
           .categoryDescription {
             max-width: 620px;
+            font-size: 15px;
           }
 
           .productGrid {
             gap: 20px;
           }
 
+          .productCard {
+            border-radius: 24px;
+          }
+
           .productVisual {
             min-height: 270px;
           }
+
+          .productVisual::before {
+            width: 210px;
+            height: 210px;
+          }
+
+          .productVisual::after {
+            right: -61px;
+            bottom: -78px;
+            width: 205px;
+            height: 205px;
+          }
+
+          .visualNumber {
+            top: 24px;
+            left: 26px;
+            font-size: 12px;
+          }
+
+          .visualFruitName {
+            font-size: clamp(58px, 8vw, 96px);
+          }
+
+          .visualEnglishName {
+            right: 25px;
+            bottom: 22px;
+            font-size: 10px;
+          }
+
+          .productInformation {
+            padding: 30px 30px 28px;
+          }
+
+          .productBadges {
+            gap: 12px;
+            margin-bottom: 24px;
+          }
+
+          .productBadge {
+            min-height: 28px;
+            padding: 4px 11px;
+            font-size: 11px;
+          }
+
+          .productStatus {
+            font-size: 11px;
+          }
+
+          .productName {
+            font-size: clamp(22px, 3vw, 29px);
+          }
+
+          .productSpecification {
+            margin-top: 12px;
+            font-size: 15px;
+          }
+
+          .productFooter {
+            gap: 20px;
+            margin-top: 30px;
+            padding-top: 22px;
+          }
+
+          .productPrice {
+            font-size: 12px;
+          }
+
+          .productArrow {
+            width: 38px;
+            height: 38px;
+            font-size: 17px;
+          }
+
+          .closingSection {
+            padding: 130px 0 150px;
+          }
+
+          .closingEnglish {
+            margin-bottom: 28px;
+            font-size: 11px;
+          }
+
+          .closingTitle {
+            font-size: clamp(38px, 6vw, 70px);
+          }
+
+          .closingDescription {
+            max-width: 700px;
+            margin: 36px auto 48px;
+            font-size: 15px;
+          }
+
+          .closingInner > .colorLogo {
+            font-size: clamp(30px, 5vw, 52px);
+          }
         }
 
+        /*
+         * スマートフォン
+         * 現在のデザインを維持
+         */
         @media (max-width: 680px) {
           .pageContainer {
             width: min(100% - 32px, 1180px);
@@ -824,17 +1021,25 @@ export default function FruitsPage() {
             margin-top: 38px;
           }
 
+          .categoryNavigation {
+            top: 88px;
+          }
+
           .categoryNavigationInner {
             width: calc(100% - 32px);
           }
 
           .categoryNavigationLink {
-            padding: 18px 18px;
+            padding: 18px;
+          }
+
+          .categoryNavigationLink:first-child {
+            padding-left: 0;
           }
 
           .categorySection {
             padding-top: 80px;
-            scroll-margin-top: 125px;
+            scroll-margin-top: 135px;
           }
 
           .categoryHeader {
@@ -855,6 +1060,11 @@ export default function FruitsPage() {
 
           .productVisual {
             min-height: 280px;
+          }
+
+          .productVisual::before {
+            width: 210px;
+            height: 210px;
           }
 
           .visualFruitName {
@@ -885,6 +1095,17 @@ export default function FruitsPage() {
 
           .visualFruitName {
             font-size: 62px;
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          html {
+            scroll-behavior: auto;
+          }
+
+          .categoryNavigationLink,
+          .productCard {
+            transition: none;
           }
         }
       `}</style>
