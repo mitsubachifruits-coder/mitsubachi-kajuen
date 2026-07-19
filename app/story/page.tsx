@@ -79,7 +79,7 @@ const historyItems: HistoryItem[] = [
       {
         src: "/images/story/thefruitkingdomhigashine.jpg",
         alt: "果樹王国ひがしね",
-        caption: "若木原入植地からはじまった果樹王国ひがしね",
+        caption: "若木からはじまった果樹王国ひがしね",
         objectPosition: "center 42%",
       },
     ],
