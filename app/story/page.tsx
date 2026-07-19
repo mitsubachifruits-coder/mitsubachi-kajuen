@@ -1,60 +1,118 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "物語 | みつばち果樹園",
   description:
-    "山形県東根市神町若木地区の開拓の歴史と、みつばち果樹園が受け継ぐ物語をご紹介します。",
+    "山形県東根市若木地区の開拓の歴史と、その精神を受け継ぐみつばち果樹園の物語をご紹介します。",
 };
 
-const historyItems = [
+type HistoryImage = {
+  src: string;
+  alt: string;
+  caption: string;
+  objectPosition?: string;
+};
+
+type HistoryItem = {
+  number: string;
+  year?: string;
+  englishTitle: string;
+  title: string;
+  paragraphs: string[];
+  images?: HistoryImage[];
+};
+
+type CurrentActivity = {
+  number: string;
+  englishTitle: string;
+  title: string;
+  description: string;
+};
+
+const historyItems: HistoryItem[] = [
   {
     number: "01",
-    englishTitle: "THE BEGINNING",
-    title: "何もない土地から。",
+    year: "1930s",
+    englishTitle: "THE ORIGIN",
+    title: "集められた開拓者たち。",
     paragraphs: [
-      "この地に開拓者たちが入植し、何もない場所から農地づくりが始まりました。",
-      "道路を切り開き、遠くの堰から水を引き、冬には雪を溶かして飲み水にする。重い唐鍬を振るいながら、大地を少しずつ耕していく。その毎日は、想像を超える厳しさでした。",
-      "それでも開拓者たちは、お互いに支え合い、一歩ずつ未来を切り拓いていきました。",
+      "昭和12年（1937年）4月20日、55人の開拓者たちは新たな暮らしと未来を築くため、若木の地へ入植しました。目の前に広がっていたのは、果樹園でも整えられた農地でもなく、どこまでも続く原野と松林。道も水も十分ではない土地で彼らは大地を耕し、若木を「人が暮らし、作物を育つ土地」へと変えていく歩みを始めました。",
+    ],
+    images: [
+      {
+        src: "/images/story/osanagi-entrance-ceremony.jpg",
+        alt: "昭和12年4月20日に行われた若木地区の入植式",
+        caption: "昭和12年4月20日　若木地区入植式",
+        objectPosition: "center center",
+      },
     ],
   },
   {
-    number: "02",
-    englishTitle: "HARDSHIP",
-    title: "何度失っても。",
-    paragraphs: [
-      "しかし、その努力は戦争によって何度も試されます。",
-      "開墾した土地は軍に接収され、終戦間近には空襲を経験。戦後もアメリカ軍による接収で、多くの農家が立ち退きを余儀なくされました。",
-      "ようやく育てた畑や作物が、ブルドーザーで踏みならされるという、あまりにも過酷な現実もありました。",
-    ],
-  },
+  number: "02",
+  year: "1940s",
+  englishTitle: "WAR & UNION",
+  title: "戦争が団結を固くする。",
+  paragraphs: [
+    "開拓者たちの入植は、第二次世界大戦によって試されます。苦労して切り拓いた土地は接収され、努力が一瞬で水の泡に。",
+    "先の見えない苦しさの中で、祈りを支えに互いを励まし、力を合わせながら、この土地で生きるという決意をつないでいきました。",
+    "そして開拓者たちは固く結束し、長い年月をかけて農地を取り戻します。若木の歩みを支えたのは、一人ではなく、みんなで未来を切り拓くという団結の精神でした。",
+  ],
+  images: [
+    {
+      src: "/images/story/osanagi-prayer.jpg",
+      alt: "原野に立ち祈りを捧げる若木地区の入植者たち",
+      caption: "入植者の団結の祈り",
+      objectPosition: "center 42%",
+    },
+
+  ],
+},
   {
-    number: "03",
-    englishTitle: "RETURN",
-    title: "土地を取り戻す。",
-    paragraphs: [
-      "それでも、この土地を諦めることはありませんでした。",
-      "開拓者たちは力を合わせ、土地の返還を求め続け、長い年月をかけて農地を取り戻します。",
-      "取り戻した土地を再び人の手で耕し、次の世代へつなぐための歩みが始まりました。",
-    ],
-  },
-  {
-    number: "04",
-    englishTitle: "GROWTH",
-    title: "果樹の里へ。",
-    paragraphs: [
-      "その挑戦の先に植えられたのが、りんご、ぶどう、ラ・フランス、そしてさくらんぼでした。",
-      "こうして若木地区は、東根を代表する果樹産地へと成長し、「果樹王国ひがしね」の歴史を支える地域の一つとなりました。",
-    ],
-  },
+  number: "03",
+  year: "2000s",
+  englishTitle: "FRUIT KINGDOM HIGASHINE",
+  title: "若木原入植地からはじまった、「果樹王国ひがしね」。",
+  paragraphs: [
+    "「果樹王国ひがしね」は若木入植地から生まれました。戦争や数々の試練を乗り越えた先人たちの「後世に伝えたい」という想いは東根市全域に伝わり、取り戻した土地には、りんご、ぶどう、ラ・フランス、そしてさくらんぼが植えられていきました。そして現在の果樹王国ひがしねが築き上げられたのです。",
+  ],
+  images: [
+    {
+      src: "/images/story/thefruitkingdomhigashine.jpg",
+      alt: "果樹王国ひがしね",
+      caption: "若木原入植地からはじまった果樹王国ひがしね",
+      objectPosition: "center 42%",
+    },
+
+  ],
+},
+{
+  number: "04",
+  year: "2011",
+  englishTitle: "MITSUBACHI KAJUEN",
+  title: "みつばち果樹園、はじまる。",
+  paragraphs: [
+    "私たちの先祖は、若木を開拓した55人の一人です。「何もないところから未来をつくる。困難なときほど支え合う。」土地を失っても何度も立ち上がった先人たちの開拓と団結の精神を受け継ぎ、 今の時代の果樹園づくりに挑戦しています。",
+  ],
+  images: [
+    {
+      src: "/images/story/mitsubachikajuenlogo.jpg",
+      alt: "みつばち果樹園ロゴ",
+      caption: "みつばち果樹園",
+      objectPosition: "center 42%",
+    },
+
+  ],
+},
 ];
 
-const currentActivities = [
+const currentActivities: CurrentActivity[] = [
   {
     number: "01",
     englishTitle: "GIFT",
     title: "全国への発送",
     description:
-      "山形の旬の果物を、大切な方への贈り物として全国へお届けしています。",
+      "この土地で育った旬の果物を、全国へお届けしています。",
   },
   {
     number: "02",
@@ -68,7 +126,7 @@ const currentActivities = [
     englishTitle: "GLOBAL",
     title: "海外への挑戦",
     description:
-      "山形の果物のおいしさと、この土地の物語を世界へ届けることに挑戦しています。",
+      "果物のおいしさと、この土地の物語を世界へ届けていきます。",
   },
 ];
 
@@ -90,44 +148,13 @@ export default function StoryPage() {
             <p className="story-hero-description">
               果樹園になる前、
               <br />
-              この土地には物語がありました。
+              若木の地には開拓と団結の物語がありました。
             </p>
 
             <p className="story-hero-location">
               OSANAGI
               <br />
               HIGASHINE
-            </p>
-          </div>
-        </section>
-
-        {/* 導入 */}
-        <section className="story-introduction">
-          <div className="introduction-heading">
-            <p className="section-label">THE LAND</p>
-
-            <h2 className="introduction-title">
-              原野と松林から、
-              <br />
-              果樹の里へ。
-            </h2>
-          </div>
-
-          <div className="introduction-copy">
-            <p>
-              みつばち果樹園がある、
-              山形県東根市神町若木地区。
-            </p>
-
-            <p>
-              今では「果樹王国ひがしね」の一翼を担うこの土地も、
-              かつては果樹園ではありませんでした。
-            </p>
-
-            <p className="introduction-emphasis">
-              広がっていたのは、
-              <br />
-              どこまでも続く原野と松林。
             </p>
           </div>
         </section>
@@ -141,22 +168,63 @@ export default function StoryPage() {
               <h2 className="section-title">
                 土地をつくった
                 <br />
-                人たちの記憶。
+                先人たちの開拓史。
               </h2>
             </div>
 
             <p className="section-description">
-              一つの果樹園が生まれるまでには、
+              若木の歴史と、
               <br />
-              何世代にもわたる時間がありました。
+              みつばち果樹園へ続く歩み。
             </p>
           </div>
 
           <div className="history-list">
             {historyItems.map((item) => (
-              <article className="history-item" key={item.number}>
+              <article
+                className={`history-item ${
+                  item.images ? "history-item-with-images" : ""
+                }`}
+                key={item.number}
+              >
                 <div className="history-meta">
-                  <p className="history-number">{item.number}</p>
+                  <div className="history-meta-inner">
+                    <div className="history-number-group">
+                      <p className="history-number">{item.number}</p>
+
+                      {item.year && (
+                        <p className="history-year">{item.year}</p>
+                      )}
+                    </div>
+
+                    {item.images && (
+                      <div className="history-images">
+                        {item.images.map((image) => (
+                          <figure className="history-figure" key={image.src}>
+                            <div className="history-image-frame">
+                              <Image
+                                src={image.src}
+                                alt={image.alt}
+                                fill
+                                priority={
+                                  image.src ===
+                                  "/images/story/osanagi-entrance-ceremony.jpg"
+                                }
+                                sizes="(max-width: 560px) calc(100vw - 32px), (max-width: 900px) 240px, 240px"
+                                className="history-image"
+                                style={{
+                                  objectPosition:
+                                    image.objectPosition ?? "center center",
+                                }}
+                              />
+                            </div>
+
+                            <figcaption>{image.caption}</figcaption>
+                          </figure>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 </div>
 
                 <div className="history-content">
@@ -174,51 +242,6 @@ export default function StoryPage() {
                 </div>
               </article>
             ))}
-          </div>
-        </section>
-
-        {/* 大きな引用 */}
-        <section className="story-quote">
-          <p className="story-quote-label">THE SPIRIT OF OSANAGI</p>
-
-          <blockquote>
-            <span>土地を失っても、</span>
-            <br />
-            <span>未来まで手放すことはなかった。</span>
-          </blockquote>
-
-          <p className="story-quote-description">
-            支え合い、何度でも立ち上がった先人たちの精神は、
-            今もこの土地で生き続けています。
-          </p>
-        </section>
-
-        {/* みつばち果樹園 */}
-        <section className="inheritance-section">
-          <div className="inheritance-heading">
-            <p className="section-label">INHERITANCE</p>
-
-            <h2 className="inheritance-title">
-              三代目として、
-              <br />
-              受け継ぐ。
-            </h2>
-          </div>
-
-          <div className="inheritance-copy">
-            <p>
-              みつばち果樹園は、その開拓の歴史を受け継ぐ農家の一つです。
-            </p>
-
-            <p>
-              私たちは三代目として、この土地に刻まれた先人たちの挑戦を受け継ぎながら、新しい時代の農業にも挑戦しています。
-            </p>
-
-            <p>
-              受け継ぐだけではなく、新しい価値を生み出し、
-              この土地の魅力を未来へ届けていくことも、
-              私たちの使命だと考えています。
-            </p>
           </div>
         </section>
 
@@ -267,25 +290,11 @@ export default function StoryPage() {
         <section className="story-closing">
           <p className="closing-label">TO THE FUTURE</p>
 
-          <div className="closing-copy">
-            <p>さくらんぼの木も。</p>
-
-            <p>みつばち果樹園も。</p>
-          </div>
-
           <h2 className="closing-title">
-            ゼロから共に切り拓いた
-            <br />
-            先人たちの熱い想いを、
+            切り拓いた歴史を、
             <br />
             これからも一粒一粒に。
           </h2>
-
-          <p className="closing-description">
-            この土地で生まれた果物と物語を、
-            <br />
-            次の世代へ届けていきます。
-          </p>
         </section>
       </div>
 
@@ -294,10 +303,6 @@ export default function StoryPage() {
           box-sizing: border-box;
         }
 
-        /*
-         * デスクトップ
-         * 元デザインの約75%を基準にコンパクト化
-         */
         .story-page {
           min-height: 100vh;
           padding: 96px 0 90px;
@@ -469,9 +474,30 @@ export default function StoryPage() {
           border-bottom: 1px solid #deddd7;
         }
 
+        .history-item-with-images {
+          grid-template-columns:
+            minmax(220px, 0.43fr)
+            minmax(0, 1fr);
+          padding-top: 68px;
+          padding-bottom: 68px;
+        }
+
         .history-meta {
           display: flex;
           align-items: flex-start;
+        }
+
+        .history-meta-inner {
+          width: 100%;
+        }
+
+        .history-number-group {
+          display: flex;
+          align-items: flex-end;
+          justify-content: space-between;
+          gap: 16px;
+          padding-bottom: 13px;
+          border-bottom: 1px solid #deddd7;
         }
 
         .history-number {
@@ -479,11 +505,67 @@ export default function StoryPage() {
           color: #aaa9a2;
           font-size: 8px;
           font-weight: 700;
+          line-height: 1;
           letter-spacing: 0.18em;
+        }
+
+        .history-year {
+          margin: 0;
+          color: #30302c;
+          font-size: clamp(25px, 2.8vw, 37px);
+          font-weight: 400;
+          line-height: 0.9;
+          letter-spacing: -0.05em;
+        }
+
+        .history-images {
+          display: grid;
+          gap: 25px;
+          margin-top: 27px;
+        }
+
+        .history-figure {
+          margin: 0;
+        }
+
+        .history-image-frame {
+          position: relative;
+          width: 100%;
+          aspect-ratio: 4 / 3;
+          overflow: hidden;
+          border: 1px solid rgba(72, 68, 59, 0.08);
+          border-radius: 4px;
+          background: #e9e6de;
+          box-shadow: 0 13px 32px rgba(45, 42, 34, 0.08);
+        }
+
+        .history-image {
+          object-fit: cover;
+          filter: saturate(0.78) contrast(1.03);
+          transition:
+            transform 700ms cubic-bezier(0.22, 1, 0.36, 1),
+            filter 700ms cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .history-figure:hover .history-image {
+          transform: scale(1.025);
+          filter: saturate(0.9) contrast(1.04);
+        }
+
+        .history-figure figcaption {
+          margin-top: 10px;
+          color: #85857e;
+          font-size: 8px;
+          line-height: 1.7;
+          letter-spacing: 0.05em;
         }
 
         .history-content {
           max-width: 570px;
+        }
+
+        .history-item-with-images .history-content {
+          padding-top: 2px;
         }
 
         .history-english-title {
@@ -557,7 +639,7 @@ export default function StoryPage() {
         }
 
         .story-quote-description {
-          max-width: 500px;
+          max-width: 560px;
           margin: 33px 0 0;
           color: #777770;
           font-size: 12px;
@@ -601,6 +683,17 @@ export default function StoryPage() {
 
         .inheritance-copy p + p {
           margin-top: 24px;
+        }
+
+        .inheritance-copy .inheritance-emphasis {
+          margin-top: 36px;
+          margin-bottom: 36px;
+          padding: 25px 0 25px 24px;
+          border-left: 1px solid #c9c8c0;
+          color: #30302c;
+          font-size: clamp(18px, 2vw, 25px);
+          line-height: 1.7;
+          letter-spacing: -0.025em;
         }
 
         .activities-section {
@@ -706,10 +799,15 @@ export default function StoryPage() {
           line-height: 2;
         }
 
-        /*
-         * タブレット
-         * 900px以下は元のデザイン・サイズ感を維持
-         */
+        .closing-signature {
+          margin: 56px 0 0;
+          color: #aaa9a2;
+          font-size: 8px;
+          font-weight: 700;
+          line-height: 1.7;
+          letter-spacing: 0.24em;
+        }
+
         @media (max-width: 900px) {
           .story-page {
             padding: 104px 0 90px;
@@ -778,6 +876,13 @@ export default function StoryPage() {
             font-size: clamp(28px, 3.4vw, 44px);
           }
 
+          .inheritance-copy .inheritance-emphasis {
+            margin-top: 44px;
+            margin-bottom: 44px;
+            padding: 30px 0 30px 28px;
+            font-size: clamp(24px, 3.4vw, 36px);
+          }
+
           .history-section,
           .activities-section {
             padding: 112px 0 132px;
@@ -809,8 +914,25 @@ export default function StoryPage() {
             padding: 76px 0;
           }
 
+          .history-item-with-images {
+            grid-template-columns: 240px minmax(0, 1fr);
+          }
+
           .history-number {
             font-size: 11px;
+          }
+
+          .history-year {
+            font-size: 34px;
+          }
+
+          .history-images {
+            gap: 28px;
+            margin-top: 30px;
+          }
+
+          .history-figure figcaption {
+            font-size: 10px;
           }
 
           .history-content {
@@ -912,12 +1034,13 @@ export default function StoryPage() {
             margin-top: 44px;
             font-size: 15px;
           }
+
+          .closing-signature {
+            margin-top: 70px;
+            font-size: 10px;
+          }
         }
 
-        /*
-         * スマートフォン
-         * 現在のデザインを維持
-         */
         @media (max-width: 560px) {
           .story-page {
             padding: 76px 0 68px;
@@ -980,6 +1103,14 @@ export default function StoryPage() {
             font-size: clamp(27px, 8.5vw, 38px);
           }
 
+          .inheritance-copy .inheritance-emphasis {
+            margin-top: 38px;
+            margin-bottom: 38px;
+            padding: 22px 0 22px 20px;
+            font-size: clamp(21px, 6.8vw, 29px);
+            line-height: 1.65;
+          }
+
           .history-section,
           .activities-section {
             padding: 78px 0 92px;
@@ -993,10 +1124,37 @@ export default function StoryPage() {
             display: none;
           }
 
-          .history-item {
+          .history-item,
+          .history-item-with-images {
             grid-template-columns: 1fr;
             gap: 24px;
             padding: 52px 0;
+          }
+
+          .history-number-group {
+            align-items: flex-end;
+            padding-bottom: 16px;
+          }
+
+          .history-year {
+            font-size: 42px;
+          }
+
+          .history-images {
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-top: 28px;
+          }
+
+          .history-image-frame {
+            aspect-ratio: 4 / 3;
+            border-radius: 3px;
+          }
+
+          .history-figure figcaption {
+            margin-top: 11px;
+            font-size: 10px;
+            line-height: 1.8;
           }
 
           .history-title {
@@ -1062,6 +1220,12 @@ export default function StoryPage() {
           .closing-description {
             margin-top: 34px;
             font-size: 14px;
+          }
+
+          .closing-signature {
+            margin-top: 54px;
+            font-size: 8px;
+            line-height: 1.8;
           }
         }
 
