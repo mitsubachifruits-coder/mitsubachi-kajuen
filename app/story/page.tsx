@@ -71,7 +71,7 @@ const historyItems: HistoryItem[] = [
     number: "03",
     year: "2000s",
     englishTitle: "FRUIT KINGDOM HIGASHINE",
-    title: "若木からはじまった、「果樹王国ひがしね」。",
+    title: "若木からはじまった「果樹王国ひがしね」。",
     paragraphs: [
       "「果樹王国ひがしね」は若木入植地から生まれました。戦争や数々の試練を乗り越えた先人たちの「後世に伝えたい」という想いは東根市全域に伝わり、取り戻した土地には、りんご、ぶどう、ラ・フランス、そしてさくらんぼが植えられていきました。そして現在の果樹王国ひがしねが築き上げられたのです。",
     ],
@@ -79,7 +79,7 @@ const historyItems: HistoryItem[] = [
       {
         src: "/images/story/thefruitkingdomhigashine.jpg",
         alt: "果樹王国ひがしね",
-        caption: "若木からはじまった果樹王国ひがしね",
+        caption: "若木からはじまった「果樹王国ひがしね」",
         objectPosition: "center 42%",
       },
     ],
