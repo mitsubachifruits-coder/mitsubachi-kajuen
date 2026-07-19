@@ -24,10 +24,10 @@ type HistoryItem = {
 };
 
 type CurrentActivity = {
-  number: string;
-  englishTitle: string;
+  englishTitle: "GIFT" | "SHOP" | "GLOBAL";
   title: string;
   description: string;
+  theme: "gift" | "shop" | "global";
 };
 
 const historyItems: HistoryItem[] = [
@@ -37,7 +37,7 @@ const historyItems: HistoryItem[] = [
     englishTitle: "THE ORIGIN",
     title: "集められた開拓者たち。",
     paragraphs: [
-      "昭和12年（1937年）4月20日、55人の開拓者たちは新たな暮らしと未来を築くため、若木の地へ入植しました。目の前に広がっていたのは、果樹園でも整えられた農地でもなく、どこまでも続く原野と松林。道も水も十分ではない土地で彼らは大地を耕し、若木を「人が暮らし、作物を育つ土地」へと変えていく歩みを始めました。",
+      "昭和12年（1937年）4月20日、55人の開拓者たちは新たな暮らしと未来を築くため、若木の地へ入植しました。目の前に広がっていたのは、果樹園でも整えられた農地でもなく、どこまでも続く原野と松林。道も水も十分ではない土地で彼らは大地を耕し、若木を「人が暮らし、作物を育てる土地」へと変えていく歩みを始めました。",
     ],
     images: [
       {
@@ -49,86 +49,101 @@ const historyItems: HistoryItem[] = [
     ],
   },
   {
-  number: "02",
-  year: "1940s",
-  englishTitle: "WAR & UNION",
-  title: "戦争が団結を固くする。",
-  paragraphs: [
-    "開拓者たちの入植は、第二次世界大戦によって試されます。苦労して切り拓いた土地は接収され、努力が一瞬で水の泡に。",
-    "先の見えない苦しさの中で、祈りを支えに互いを励まし、力を合わせながら、この土地で生きるという決意をつないでいきました。",
-    "そして開拓者たちは固く結束し、長い年月をかけて農地を取り戻します。若木の歩みを支えたのは、一人ではなく、みんなで未来を切り拓くという団結の精神でした。",
-  ],
-  images: [
-    {
-      src: "/images/story/osanagi-prayer.jpg",
-      alt: "原野に立ち祈りを捧げる若木地区の入植者たち",
-      caption: "入植者の団結の祈り",
-      objectPosition: "center 42%",
-    },
-
-  ],
-},
+    number: "02",
+    year: "1940s",
+    englishTitle: "WAR & UNION",
+    title: "戦争が団結を固くする。",
+    paragraphs: [
+      "開拓者たちの入植は、第二次世界大戦によって試されます。苦労して切り拓いた土地は接収され、努力が一瞬で水の泡に。",
+      "先の見えない苦しさの中で、祈りを支えに互いを励まし、力を合わせながら、この土地で生きるという決意をつないでいきました。",
+      "そして開拓者たちは固く結束し、長い年月をかけて農地を取り戻します。若木の歩みを支えたのは、一人ではなく、みんなで未来を切り拓くという団結の精神でした。",
+    ],
+    images: [
+      {
+        src: "/images/story/osanagi-prayer.jpg",
+        alt: "原野に立ち祈りを捧げる若木地区の入植者たち",
+        caption: "入植者の団結の祈り",
+        objectPosition: "center 42%",
+      },
+    ],
+  },
   {
-  number: "03",
-  year: "2000s",
-  englishTitle: "FRUIT KINGDOM HIGASHINE",
-  title: "若木原入植地からはじまった、「果樹王国ひがしね」。",
-  paragraphs: [
-    "「果樹王国ひがしね」は若木入植地から生まれました。戦争や数々の試練を乗り越えた先人たちの「後世に伝えたい」という想いは東根市全域に伝わり、取り戻した土地には、りんご、ぶどう、ラ・フランス、そしてさくらんぼが植えられていきました。そして現在の果樹王国ひがしねが築き上げられたのです。",
-  ],
-  images: [
-    {
-      src: "/images/story/thefruitkingdomhigashine.jpg",
-      alt: "果樹王国ひがしね",
-      caption: "若木原入植地からはじまった果樹王国ひがしね",
-      objectPosition: "center 42%",
-    },
-
-  ],
-},
-{
-  number: "04",
-  year: "2011",
-  englishTitle: "MITSUBACHI KAJUEN",
-  title: "みつばち果樹園、はじまる。",
-  paragraphs: [
-    "私たちの先祖は、若木を開拓した55人の一人です。「何もないところから未来をつくる。困難なときほど支え合う。」土地を失っても何度も立ち上がった先人たちの開拓と団結の精神を受け継ぎ、 今の時代の果樹園づくりに挑戦しています。",
-  ],
-  images: [
-    {
-      src: "/images/story/mitsubachikajuenlogo.jpg",
-      alt: "みつばち果樹園ロゴ",
-      caption: "みつばち果樹園",
-      objectPosition: "center 42%",
-    },
-
-  ],
-},
+    number: "03",
+    year: "2000s",
+    englishTitle: "FRUIT KINGDOM HIGASHINE",
+    title: "若木原入植地からはじまった、「果樹王国ひがしね」。",
+    paragraphs: [
+      "「果樹王国ひがしね」は若木入植地から生まれました。戦争や数々の試練を乗り越えた先人たちの「後世に伝えたい」という想いは東根市全域に伝わり、取り戻した土地には、りんご、ぶどう、ラ・フランス、そしてさくらんぼが植えられていきました。そして現在の果樹王国ひがしねが築き上げられたのです。",
+    ],
+    images: [
+      {
+        src: "/images/story/thefruitkingdomhigashine.jpg",
+        alt: "果樹王国ひがしね",
+        caption: "若木原入植地からはじまった果樹王国ひがしね",
+        objectPosition: "center 42%",
+      },
+    ],
+  },
+  {
+    number: "04",
+    year: "2011",
+    englishTitle: "MITSUBACHI KAJUEN",
+    title: "みつばち果樹園、はじまる。",
+    paragraphs: [
+      "私たちの先祖は、若木を開拓した55人の一人です。「何もないところから未来をつくる。困難なときほど支え合う。」土地を失っても何度も立ち上がった先人たちの開拓と団結の精神を受け継ぎ、今の時代の果樹園づくりに挑戦しています。",
+    ],
+    images: [
+      {
+        src: "/images/story/mitsubachikajuenlogo.jpg",
+        alt: "みつばち果樹園ロゴ",
+        caption: "みつばち果樹園",
+        objectPosition: "center 42%",
+      },
+    ],
+  },
 ];
 
 const currentActivities: CurrentActivity[] = [
   {
-    number: "01",
     englishTitle: "GIFT",
     title: "全国への発送",
     description:
       "この土地で育った旬の果物を、全国へお届けしています。",
+    theme: "gift",
   },
   {
-    number: "02",
     englishTitle: "SHOP",
     title: "みつばちフルーツ",
     description:
       "地域のお客様と直接つながる場所として、直営店を運営しています。",
+    theme: "shop",
   },
   {
-    number: "03",
     englishTitle: "GLOBAL",
     title: "海外への挑戦",
     description:
       "果物のおいしさと、この土地の物語を世界へ届けていきます。",
+    theme: "global",
   },
 ];
+
+function MitsubachiFruitsLogo() {
+  return (
+    <span
+      className="mitsubachi-fruits-logo"
+      aria-label="みつばちフルーツ"
+    >
+      <span style={{ color: "#FF3131" }}>み</span>
+      <span style={{ color: "#006DFF" }}>つ</span>
+      <span style={{ color: "#00BF63" }}>ば</span>
+      <span style={{ color: "#FFDE59" }}>ち</span>
+      <span style={{ color: "#8C52FF" }}>フ</span>
+      <span style={{ color: "#00A1FF" }}>ル</span>
+      <span style={{ color: "#FF66C4" }}>ー</span>
+      <span style={{ color: "#FF3131" }}>ツ</span>
+    </span>
+  );
+}
 
 export default function StoryPage() {
   return (
@@ -267,16 +282,21 @@ export default function StoryPage() {
 
           <div className="activities-grid">
             {currentActivities.map((activity) => (
-              <article className="activity-card" key={activity.number}>
-                <div className="activity-card-header">
-                  <p className="activity-number">{activity.number}</p>
+              <article
+                className={`activity-card activity-card-${activity.theme}`}
+                key={activity.englishTitle}
+              >
+                <p className="activity-english-title">
+                  {activity.englishTitle}
+                </p>
 
-                  <p className="activity-english-title">
-                    {activity.englishTitle}
-                  </p>
-                </div>
-
-                <h3 className="activity-title">{activity.title}</h3>
+                {activity.theme === "shop" ? (
+                  <h3 className="activity-title activity-title-logo">
+                    <MitsubachiFruitsLogo />
+                  </h3>
+                ) : (
+                  <h3 className="activity-title">{activity.title}</h3>
+                )}
 
                 <p className="activity-description">
                   {activity.description}
@@ -696,9 +716,12 @@ export default function StoryPage() {
           letter-spacing: -0.025em;
         }
 
+        /*
+          直前の歴史項目にある下線を使用するため、
+          activities-sectionのborder-topは入れていません。
+        */
         .activities-section {
           padding: 84px 0 99px;
-          border-top: 1px solid #deddd7;
         }
 
         .activities-grid {
@@ -708,43 +731,133 @@ export default function StoryPage() {
         }
 
         .activity-card {
+          position: relative;
           display: flex;
           min-height: 248px;
           flex-direction: column;
           padding: 23px;
+          overflow: hidden;
           border: 1px solid #e5e4de;
           border-radius: 19px;
           background: rgba(255, 255, 255, 0.95);
           box-shadow: 0 11px 32px rgba(52, 52, 45, 0.04);
+          transition:
+            transform 400ms cubic-bezier(0.22, 1, 0.36, 1),
+            box-shadow 400ms cubic-bezier(0.22, 1, 0.36, 1),
+            border-color 400ms ease;
         }
 
-        .activity-card-header {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 15px;
+        .activity-card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 18px 42px rgba(52, 52, 45, 0.08);
         }
 
-        .activity-number,
+        .activity-card-gift {
+          background:
+            radial-gradient(
+              circle at 96% 3%,
+              rgba(255, 49, 49, 0.09),
+              transparent 42%
+            ),
+            rgba(255, 255, 255, 0.96);
+        }
+
+        .activity-card-shop {
+          background:
+            radial-gradient(
+              circle at 94% 4%,
+              rgba(255, 222, 89, 0.16),
+              transparent 40%
+            ),
+            radial-gradient(
+              circle at 5% 100%,
+              rgba(0, 191, 99, 0.06),
+              transparent 34%
+            ),
+            rgba(255, 255, 255, 0.96);
+        }
+
+        .activity-card-global {
+          background:
+            radial-gradient(
+              circle at 96% 3%,
+              rgba(0, 109, 255, 0.09),
+              transparent 42%
+            ),
+            rgba(255, 255, 255, 0.96);
+        }
+
+        .activity-card-gift:hover {
+          border-color: rgba(255, 49, 49, 0.22);
+        }
+
+        .activity-card-shop:hover {
+          border-color: rgba(0, 191, 99, 0.2);
+        }
+
+        .activity-card-global:hover {
+          border-color: rgba(0, 109, 255, 0.22);
+        }
+
         .activity-english-title {
+          position: relative;
+          z-index: 1;
           margin: 0;
-          color: #999992;
-          font-size: 8px;
-          font-weight: 700;
-          line-height: 1.5;
-          letter-spacing: 0.18em;
+          font-size: 13px;
+          font-weight: 800;
+          line-height: 1;
+          letter-spacing: 0.25em;
+        }
+
+        .activity-card-gift .activity-english-title {
+          color: #3f3f3a;
+        }
+
+        .activity-card-shop .activity-english-title {
+          color: #3f3f3a;
+        }
+
+        .activity-card-global .activity-english-title {
+          color: #3f3f3a;
         }
 
         .activity-title {
+          position: relative;
+          z-index: 1;
           margin: auto 0 18px;
           color: #30302c;
           font-size: clamp(22px, 2.3vw, 29px);
-          font-weight: 400;
+          font-weight: 500;
           line-height: 1.35;
           letter-spacing: -0.04em;
         }
 
+        .activity-card-gift .activity-title {
+          color: #ff3131;
+        }
+
+        .activity-card-global .activity-title {
+          color: #006dff;
+        }
+
+        .activity-title-logo {
+          letter-spacing: -0.07em;
+        }
+
+        .mitsubachi-fruits-logo {
+          display: flex;
+          align-items: baseline;
+          flex-wrap: nowrap;
+          white-space: nowrap;
+        }
+
+        .mitsubachi-fruits-logo span {
+          display: inline-block;
+        }
+
         .activity-description {
+          position: relative;
+          z-index: 1;
           margin: 0;
           padding-top: 17px;
           border-top: 1px solid #ecece7;
@@ -989,18 +1102,18 @@ export default function StoryPage() {
             border-radius: 25px;
           }
 
-          .activity-card-header {
-            gap: 20px;
-          }
-
-          .activity-number,
           .activity-english-title {
-            font-size: 10px;
+            font-size: 13px;
+            letter-spacing: 0.25em;
           }
 
           .activity-title {
             margin-bottom: 24px;
             font-size: clamp(28px, 3vw, 39px);
+          }
+
+          .activity-title-logo {
+            letter-spacing: -0.065em;
           }
 
           .activity-description {
@@ -1194,8 +1307,17 @@ export default function StoryPage() {
             border-radius: 21px;
           }
 
+          .activity-english-title {
+            font-size: 12px;
+          }
+
           .activity-title {
             font-size: 30px;
+          }
+
+          .activity-title-logo {
+            font-size: 29px;
+            letter-spacing: -0.075em;
           }
 
           .story-closing {
@@ -1241,6 +1363,14 @@ export default function StoryPage() {
           .story-quote {
             padding-right: 20px;
             padding-left: 20px;
+          }
+
+          .activity-title {
+            font-size: 27px;
+          }
+
+          .activity-title-logo {
+            font-size: 26px;
           }
         }
       `}</style>
