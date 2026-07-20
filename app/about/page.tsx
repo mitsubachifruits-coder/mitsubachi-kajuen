@@ -14,7 +14,10 @@ function ColorLogo({ className = "" }: { className?: string }) {
   return (
     <span className={`color-logo ${className}`}>
       {letters.map((letter, index) => (
-        <span key={`${letter}-${index}`} style={{ color: logoColors[index] }}>
+        <span
+          key={`${letter}-${index}`}
+          style={{ color: logoColors[index] }}
+        >
           {letter}
         </span>
       ))}
@@ -111,7 +114,9 @@ export default function About() {
               <section className="location-card">
                 <p className="location-label">SHOP</p>
 
-                <h2 className="location-title">みつばちフルーツ</h2>
+                <h2 className="location-title">
+                  みつばちフルーツ
+                </h2>
 
                 <p>
                   <strong>直営店・ご来店はこちら</strong>
@@ -147,7 +152,9 @@ export default function About() {
               <section className="location-card">
                 <p className="location-label">FARM</p>
 
-                <h2 className="location-title">みつばち果樹園</h2>
+                <h2 className="location-title">
+                  みつばち果樹園
+                </h2>
 
                 <p>
                   <strong>農園・作業場</strong>
@@ -191,7 +198,9 @@ export default function About() {
             <hr className="about-divider" />
 
             <section className="farm-information">
-              <h2 className="farm-information-title">みつばち果樹園</h2>
+              <h2 className="farm-information-title">
+                みつばち果樹園
+              </h2>
 
               <div className="information-grid">
                 <div className="information-item">
@@ -212,7 +221,9 @@ export default function About() {
 
                 <div className="information-item">
                   <p className="information-label">FAX</p>
-                  <p className="information-value">0237-51-4041</p>
+                  <p className="information-value">
+                    0237-51-4041
+                  </p>
                 </div>
               </div>
             </section>
@@ -388,12 +399,14 @@ export default function About() {
           line-height: 1.8;
         }
 
+        /*
+         * Googleマップ
+         * iframe本体に角丸を設定しています。
+         */
         .map-wrapper {
           width: 100%;
           margin-top: auto;
           padding-top: 24px;
-          border-radius: 22px;
-          overflow: hidden;
         }
 
         .map-frame {
@@ -401,6 +414,10 @@ export default function About() {
           width: 100%;
           height: 300px;
           border: 0;
+          border-radius: 22px;
+          overflow: hidden;
+          clip-path: inset(0 round 22px);
+          background: #f3f3f3;
         }
 
         .map-link {
@@ -616,11 +633,12 @@ export default function About() {
 
           .map-wrapper {
             padding-top: 18px;
-            border-radius: 18px;
           }
 
           .map-frame {
             height: 240px;
+            border-radius: 18px;
+            clip-path: inset(0 round 18px);
           }
 
           .map-link {
