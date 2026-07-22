@@ -7,6 +7,8 @@ export const metadata: Metadata = {
     "みつばち果樹園で育てている、さくらんぼ、すいか、桃、ぶどう、りんご、ラ・フランスなど、山形の季節の果物をご紹介します。",
 };
 
+const SHOPIFY_STORE_URL = "https://q2cxkf-4m.myshopify.com";
+
 type Product = {
   id: string;
   name: string;
@@ -357,12 +359,25 @@ export default function FruitsPage() {
                             <span className="productPriceNumber">
                               {formatPrice(product.price)}円
                             </span>
+
                             <span className="productPriceTax">（税込）</span>
                           </p>
 
-                          <span className="productArrow" aria-hidden="true">
-                            →
-                          </span>
+                          <a
+                            href={`${SHOPIFY_STORE_URL}/products/${product.id}`}
+                            className="purchaseButton"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={`${product.name} ${product.specification}を購入する`}
+                          >
+                            <span className="purchaseButtonText">購入する</span>
+                            <span
+                              className="purchaseButtonArrow"
+                              aria-hidden="true"
+                            >
+                              →
+                            </span>
+                          </a>
                         </div>
                       </div>
                     </article>
@@ -505,9 +520,7 @@ export default function FruitsPage() {
           letter-spacing: 0.08em;
           text-decoration: none;
           white-space: nowrap;
-          transition:
-            color 180ms ease,
-            background 180ms ease;
+          transition: color 180ms ease;
         }
 
         .categoryNavigationLink:first-child {
@@ -704,6 +717,8 @@ export default function FruitsPage() {
 
         .productPrice {
           display: flex;
+          min-width: 0;
+          flex: 1 1 auto;
           align-items: baseline;
           gap: 4px;
           margin: 0;
@@ -715,26 +730,91 @@ export default function FruitsPage() {
           font-size: 17px;
           font-weight: 500;
           letter-spacing: 0.01em;
+          white-space: nowrap;
         }
 
         .productPriceTax {
           color: #999993;
           font-size: 8px;
           letter-spacing: 0.04em;
+          white-space: nowrap;
         }
 
-        .productArrow {
+        .purchaseButton {
           display: inline-flex;
-          width: 30px;
-          height: 30px;
+          min-width: 112px;
+          min-height: 42px;
           flex: 0 0 auto;
           align-items: center;
           justify-content: center;
+          gap: 10px;
+          padding: 8px 10px 8px 15px;
           border: 1px solid #deddd8;
           border-radius: 999px;
-          color: #777770;
-          font-size: 14px;
+          background: #ffffff;
+          color: #3f3f3a;
+          font-size: 10px;
+          font-weight: 500;
           line-height: 1;
+          letter-spacing: 0.06em;
+          text-decoration: none;
+          box-shadow: 0 4px 14px rgba(52, 52, 45, 0.025);
+          transition:
+            transform 200ms ease,
+            background 200ms ease,
+            border-color 200ms ease,
+            color 200ms ease,
+            box-shadow 200ms ease;
+        }
+
+        .purchaseButton:hover {
+          transform: translateY(-2px);
+          border-color: #ff3131;
+          background: #ff3131;
+          color: #ffffff;
+          box-shadow: 0 9px 22px rgba(255, 49, 49, 0.18);
+        }
+
+        .purchaseButton:active {
+          transform: scale(0.97);
+          border-color: #ff3131;
+          background: #ff3131;
+          color: #ffffff;
+          box-shadow: 0 4px 12px rgba(255, 49, 49, 0.16);
+        }
+
+        .purchaseButtonText {
+          white-space: nowrap;
+        }
+
+        .purchaseButtonArrow {
+          display: inline-flex;
+          width: 27px;
+          height: 27px;
+          flex: 0 0 auto;
+          align-items: center;
+          justify-content: center;
+          border-radius: 999px;
+          background: #f3f3ef;
+          color: #777770;
+          font-size: 13px;
+          line-height: 1;
+          transition:
+            transform 200ms ease,
+            background 200ms ease,
+            color 200ms ease;
+        }
+
+        .purchaseButton:hover .purchaseButtonArrow,
+        .purchaseButton:active .purchaseButtonArrow {
+          transform: translateX(2px);
+          background: rgba(255, 255, 255, 0.2);
+          color: #ffffff;
+        }
+
+        .purchaseButton:focus-visible {
+          outline: 3px solid rgba(255, 49, 49, 0.24);
+          outline-offset: 3px;
         }
 
         .closingSection {
@@ -917,7 +997,7 @@ export default function FruitsPage() {
           }
 
           .productFooter {
-            gap: 20px;
+            gap: 18px;
             margin-top: 30px;
             padding-top: 22px;
           }
@@ -930,10 +1010,18 @@ export default function FruitsPage() {
             font-size: 10px;
           }
 
-          .productArrow {
-            width: 38px;
-            height: 38px;
-            font-size: 17px;
+          .purchaseButton {
+            min-width: 134px;
+            min-height: 50px;
+            gap: 12px;
+            padding: 9px 11px 9px 18px;
+            font-size: 13px;
+          }
+
+          .purchaseButtonArrow {
+            width: 32px;
+            height: 32px;
+            font-size: 15px;
           }
 
           .closingSection {
@@ -1053,6 +1141,24 @@ export default function FruitsPage() {
             padding: 25px 23px 23px;
           }
 
+          .productFooter {
+            gap: 12px;
+          }
+
+          .purchaseButton {
+            min-width: 124px;
+            min-height: 46px;
+            gap: 9px;
+            padding: 8px 9px 8px 15px;
+            font-size: 12px;
+          }
+
+          .purchaseButtonArrow {
+            width: 30px;
+            height: 30px;
+            font-size: 14px;
+          }
+
           .closingSection {
             padding-top: 95px !important;
             padding-bottom: 110px !important;
@@ -1067,6 +1173,14 @@ export default function FruitsPage() {
           .fruitsPage {
             padding-top: 0 !important;
             padding-bottom: 0 !important;
+          }
+
+          .productPriceNumber {
+            font-size: 18px;
+          }
+
+          .purchaseButton {
+            min-width: 116px;
           }
         }
 
@@ -1090,12 +1204,30 @@ export default function FruitsPage() {
             bottom: 15px;
             font-size: 9px;
           }
+
+          .productFooter {
+            gap: 9px;
+          }
+
+          .purchaseButton {
+            min-width: 108px;
+            padding-left: 13px;
+            font-size: 11px;
+          }
+
+          .purchaseButtonArrow {
+            width: 28px;
+            height: 28px;
+            font-size: 13px;
+          }
         }
 
         @media (prefers-reduced-motion: reduce) {
           .categoryNavigationLink,
           .productCard,
-          .productImage {
+          .productImage,
+          .purchaseButton,
+          .purchaseButtonArrow {
             transition: none;
           }
         }
