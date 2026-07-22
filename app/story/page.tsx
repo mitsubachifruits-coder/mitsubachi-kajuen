@@ -130,7 +130,7 @@ const currentActivities: CurrentActivity[] = [
 function MitsubachiFruitsLogo() {
   return (
     <span
-      className="mitsubachi-fruits-logo"
+      className="mitsubachiFruitsLogo"
       aria-label="みつばちフルーツ"
     >
       <span style={{ color: "#FF3131" }}>み</span>
@@ -147,246 +147,284 @@ function MitsubachiFruitsLogo() {
 
 export default function StoryPage() {
   return (
-    <main className="story-page">
-      <div className="story-container">
-        {/* ファーストビュー */}
-        <section className="story-hero">
-          <p className="story-label">STORY</p>
+    <>
+      <main className="storyPage">
+        <section className="storyHero">
+          <div className="pageContainer">
+            <p className="storyLabel">STORY</p>
 
-          <h1 className="story-title">
-            ゼロから
-            <br />
-            つくられた。
-          </h1>
-
-          <div className="story-hero-bottom">
-            <p className="story-hero-description">
-              果樹園になる前、
+            <h1 className="storyTitle">
+              ゼロから
               <br />
-              若木の地には開拓と団結の物語がありました。
-            </p>
+              つくられた。
+            </h1>
 
-            <p className="story-hero-location">
-              OSANAGI
-              <br />
-              HIGASHINE
-            </p>
+            <div className="storyHeroBottom">
+              <p className="storyHeroDescription">
+                果樹園になる前、
+                <br />
+                若木の地には開拓と団結の物語がありました。
+              </p>
+
+              <p className="storyHeroLocation">
+                OSANAGI
+                <br />
+                HIGASHINE
+              </p>
+            </div>
           </div>
         </section>
 
-        {/* 歴史 */}
-        <section className="history-section">
-          <div className="section-heading">
-            <div>
-              <p className="section-label">OUR HISTORY</p>
+        <div className="storyContent">
+          <div className="pageContainer">
+            <section className="historySection">
+              <div className="sectionHeading">
+                <div>
+                  <p className="sectionLabel">OUR HISTORY</p>
 
-              <h2 className="section-title">
-                土地をつくった
-                <br />
-                先人たちの開拓史。
-              </h2>
-            </div>
+                  <h2 className="sectionTitle">
+                    土地をつくった
+                    <br />
+                    先人たちの開拓史。
+                  </h2>
+                </div>
 
-            <p className="section-description">
-              若木の歴史と、
-              <br />
-              みつばち果樹園へ続く歩み。
-            </p>
-          </div>
+                <p className="sectionDescription">
+                  若木の歴史と、
+                  <br />
+                  みつばち果樹園へ続く歩み。
+                </p>
+              </div>
 
-          <div className="history-list">
-            {historyItems.map((item) => (
-              <article
-                className={`history-item ${
-                  item.images ? "history-item-with-images" : ""
-                }`}
-                key={item.number}
-              >
-                <div className="history-meta">
-                  <div className="history-meta-inner">
-                    <div className="history-number-group">
-                      <p className="history-number">{item.number}</p>
+              <div className="historyList">
+                {historyItems.map((item) => (
+                  <article
+                    className={`historyItem ${
+                      item.images ? "historyItemWithImages" : ""
+                    }`}
+                    key={item.number}
+                  >
+                    <div className="historyMeta">
+                      <div className="historyMetaInner">
+                        <div className="historyNumberGroup">
+                          <p className="historyNumber">
+                            {item.number}
+                          </p>
 
-                      {item.year && (
-                        <p className="history-year">{item.year}</p>
-                      )}
+                          {item.year && (
+                            <p className="historyYear">
+                              {item.year}
+                            </p>
+                          )}
+                        </div>
+
+                        {item.images && (
+                          <div className="historyImages">
+                            {item.images.map((image) => (
+                              <figure
+                                className="historyFigure"
+                                key={image.src}
+                              >
+                                <div className="historyImageFrame">
+                                  <Image
+                                    src={image.src}
+                                    alt={image.alt}
+                                    fill
+                                    priority={
+                                      image.src ===
+                                      "/images/story/osanagi-entrance-ceremony.jpg"
+                                    }
+                                    sizes="(max-width: 680px) calc(100vw - 32px), (max-width: 900px) 290px, 240px"
+                                    className="historyImage"
+                                    style={{
+                                      objectPosition:
+                                        image.objectPosition ??
+                                        "center center",
+                                    }}
+                                  />
+                                </div>
+
+                                <figcaption>
+                                  {image.caption}
+                                </figcaption>
+                              </figure>
+                            ))}
+                          </div>
+                        )}
+                      </div>
                     </div>
 
-                    {item.images && (
-                      <div className="history-images">
-                        {item.images.map((image) => (
-                          <figure className="history-figure" key={image.src}>
-                            <div className="history-image-frame">
-                              <Image
-                                src={image.src}
-                                alt={image.alt}
-                                fill
-                                priority={
-                                  image.src ===
-                                  "/images/story/osanagi-entrance-ceremony.jpg"
-                                }
-                                sizes="(max-width: 560px) calc(100vw - 32px), (max-width: 900px) 240px, 240px"
-                                className="history-image"
-                                style={{
-                                  objectPosition:
-                                    image.objectPosition ?? "center center",
-                                }}
-                              />
-                            </div>
+                    <div className="historyContent">
+                      <p className="historyEnglishTitle">
+                        {item.englishTitle}
+                      </p>
 
-                            <figcaption>{image.caption}</figcaption>
-                          </figure>
-                        ))}
+                      <h3 className="historyTitle">
+                        {item.title}
+                      </h3>
+
+                      <div className="historyText">
+                        {item.paragraphs.map(
+                          (paragraph, index) => (
+                            <p key={`${item.number}-${index}`}>
+                              {paragraph}
+                            </p>
+                          )
+                        )}
                       </div>
-                    )}
-                  </div>
-                </div>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </section>
 
-                <div className="history-content">
-                  <p className="history-english-title">
-                    {item.englishTitle}
+            <section className="activitiesSection">
+              <div className="sectionHeading">
+                <div>
+                  <p className="sectionLabel">
+                    OUR CHALLENGE
                   </p>
 
-                  <h3 className="history-title">{item.title}</h3>
-
-                  <div className="history-text">
-                    {item.paragraphs.map((paragraph, index) => (
-                      <p key={`${item.number}-${index}`}>{paragraph}</p>
-                    ))}
-                  </div>
+                  <h2 className="sectionTitle">
+                    受け継ぎ、
+                    <br />
+                    その先へ。
+                  </h2>
                 </div>
-              </article>
-            ))}
+
+                <p className="sectionDescription">
+                  土地の歴史を大切にしながら、
+                  <br />
+                  新しい果樹園の形をつくっています。
+                </p>
+              </div>
+
+              <div className="activitiesGrid">
+                {currentActivities.map((activity) => (
+                  <article
+                    className={`activityCard activityCard-${activity.theme}`}
+                    key={activity.englishTitle}
+                  >
+                    <p className="activityEnglishTitle">
+                      {activity.englishTitle}
+                    </p>
+
+                    {activity.theme === "shop" ? (
+                      <h3 className="activityTitle activityTitleLogo">
+                        <MitsubachiFruitsLogo />
+                      </h3>
+                    ) : (
+                      <h3 className="activityTitle">
+                        {activity.title}
+                      </h3>
+                    )}
+
+                    <p className="activityDescription">
+                      {activity.description}
+                    </p>
+                  </article>
+                ))}
+              </div>
+            </section>
           </div>
-        </section>
+        </div>
 
-        {/* 現在の取り組み */}
-        <section className="activities-section">
-          <div className="section-heading">
-            <div>
-              <p className="section-label">OUR CHALLENGE</p>
-
-              <h2 className="section-title">
-                受け継ぎ、
-                <br />
-                その先へ。
-              </h2>
-            </div>
-
-            <p className="section-description">
-              土地の歴史を大切にしながら、
-              <br />
-              新しい果樹園の形をつくっています。
+        <section className="storyClosing">
+          <div className="pageContainer closingInner">
+            <p className="closingLabel">
+              TO THE FUTURE
             </p>
-          </div>
 
-          <div className="activities-grid">
-            {currentActivities.map((activity) => (
-              <article
-                className={`activity-card activity-card-${activity.theme}`}
-                key={activity.englishTitle}
-              >
-                <p className="activity-english-title">
-                  {activity.englishTitle}
-                </p>
-
-                {activity.theme === "shop" ? (
-                  <h3 className="activity-title activity-title-logo">
-                    <MitsubachiFruitsLogo />
-                  </h3>
-                ) : (
-                  <h3 className="activity-title">{activity.title}</h3>
-                )}
-
-                <p className="activity-description">
-                  {activity.description}
-                </p>
-              </article>
-            ))}
+            <h2 className="closingTitle">
+              切り拓いた歴史を、
+              <br />
+              これからも一粒一粒に。
+            </h2>
           </div>
         </section>
-
-        {/* 結び */}
-        <section className="story-closing">
-          <p className="closing-label">TO THE FUTURE</p>
-
-          <h2 className="closing-title">
-            切り拓いた歴史を、
-            <br />
-            これからも一粒一粒に。
-          </h2>
-        </section>
-      </div>
+      </main>
 
       <style>{`
-        * {
+        .storyPage,
+        .storyPage * {
           box-sizing: border-box;
         }
 
-        .story-page {
+        .storyPage {
+          width: 100%;
           min-height: 100vh;
-          padding: 96px 0 90px;
+          margin: 0;
+          padding: 0;
           overflow: hidden;
-          background:
-            radial-gradient(
-              circle at 88% 4%,
-              rgba(255, 222, 89, 0.14),
-              transparent 23%
-            ),
-            radial-gradient(
-              circle at 5% 24%,
-              rgba(0, 191, 99, 0.06),
-              transparent 22%
-            ),
-            #fafaf9;
+          background: #fafaf9;
           color: #3f3f3a;
         }
 
-        .story-container {
+        .pageContainer {
           width: min(960px, calc(100% - 64px));
           margin: 0 auto;
         }
 
-        .story-hero {
-          padding-bottom: 84px;
+        /* =========================================
+           HERO
+        ========================================= */
+
+        .storyHero {
+          padding: 112px 0 90px;
+          background:
+            radial-gradient(
+              circle at 88% 8%,
+              rgba(255, 222, 89, 0.18),
+              transparent 25%
+            ),
+            radial-gradient(
+              circle at 8% 88%,
+              rgba(0, 191, 99, 0.08),
+              transparent 30%
+            ),
+            #fafaf9;
         }
 
-        .story-label,
-        .section-label {
-          margin: 0 0 21px;
+        .storyLabel,
+        .sectionLabel {
+          margin: 0;
           color: #92928b;
-          font-size: 8px;
+          font-size: 9px;
           font-weight: 700;
           line-height: 1.5;
-          letter-spacing: 0.25em;
+          letter-spacing: 0.24em;
         }
 
-        .story-title {
+        .storyLabel {
+          margin-bottom: 23px;
+        }
+
+        .storyTitle {
           max-width: 760px;
           margin: 0;
           color: #2f2f2b;
-          font-size: clamp(45px, 5.4vw, 74px);
+          font-size: clamp(43px, 6vw, 78px);
           font-weight: 400;
-          line-height: 1.06;
+          line-height: 1.08;
           letter-spacing: -0.055em;
         }
 
-        .story-hero-bottom {
+        .storyHeroBottom {
           display: flex;
           align-items: flex-end;
           justify-content: space-between;
           gap: 45px;
-          margin-top: 39px;
+          margin-top: 36px;
         }
 
-        .story-hero-description {
+        .storyHeroDescription {
           margin: 0;
-          color: #6c6c66;
-          font-size: clamp(13px, 1.2vw, 16px);
-          line-height: 1.9;
+          color: #696963;
+          font-size: clamp(14px, 1.5vw, 17px);
+          line-height: 2;
         }
 
-        .story-hero-location {
+        .storyHeroLocation {
           margin: 0;
           color: #a1a19a;
           font-size: 8px;
@@ -396,95 +434,63 @@ export default function StoryPage() {
           text-align: right;
         }
 
-        .story-introduction {
-          display: grid;
-          grid-template-columns:
-            minmax(270px, 0.9fr)
-            minmax(0, 1.1fr);
-          gap: clamp(48px, 7vw, 98px);
-          align-items: start;
-          padding: 66px 0 92px;
-          border-top: 1px solid #deddd7;
+        /* =========================================
+           CONTENT
+        ========================================= */
+
+        .storyContent {
+          padding: 30px 0 120px;
         }
 
-        .introduction-heading {
-          position: sticky;
-          top: 120px;
+        /* =========================================
+           SECTION HEADER
+        ========================================= */
+
+        .historySection {
+          padding: 82px 0 0;
         }
 
-        .introduction-title {
-          margin: 0;
-          color: #30302c;
-          font-size: clamp(30px, 3.6vw, 48px);
-          font-weight: 400;
-          line-height: 1.28;
-          letter-spacing: -0.05em;
-        }
-
-        .introduction-copy {
-          color: #62625c;
-          font-size: clamp(14px, 1.3vw, 16px);
-          line-height: 2.1;
-        }
-
-        .introduction-copy p {
-          margin: 0;
-        }
-
-        .introduction-copy p + p {
-          margin-top: 24px;
-        }
-
-        .introduction-copy .introduction-emphasis {
-          margin-top: 39px;
-          color: #30302c;
-          font-size: clamp(22px, 2.6vw, 33px);
-          line-height: 1.55;
-          letter-spacing: -0.035em;
-        }
-
-        .history-section {
-          padding: 84px 0 99px;
-          border-top: 1px solid #deddd7;
-        }
-
-        .section-heading {
+        .sectionHeading {
           display: grid;
           grid-template-columns:
             minmax(0, 1fr)
-            minmax(240px, 340px);
-          gap: 45px;
+            minmax(240px, 375px);
+          gap: 46px;
           align-items: end;
-          margin-bottom: 47px;
+          margin-bottom: 36px;
           padding-bottom: 24px;
           border-bottom: 1px solid #deddd7;
         }
 
-        .section-label {
-          margin-bottom: 9px;
+        .sectionLabel {
+          margin-bottom: 12px;
         }
 
-        .section-title {
+        .sectionTitle {
           margin: 0;
           color: #30302c;
-          font-size: clamp(32px, 3.8vw, 50px);
+          font-size: clamp(34px, 4.5vw, 54px);
           font-weight: 400;
-          line-height: 1.23;
-          letter-spacing: -0.05em;
+          line-height: 1.2;
+          letter-spacing: -0.04em;
         }
 
-        .section-description {
+        .sectionDescription {
           margin: 0;
           color: #777770;
-          font-size: 11px;
+          font-size: 12px;
           line-height: 2;
         }
 
-        .history-list {
+        /* =========================================
+           HISTORY
+        ========================================= */
+
+        .historyList {
           border-top: 1px solid #deddd7;
         }
 
-        .history-item {
+        .historyItem {
           display: grid;
           grid-template-columns:
             minmax(128px, 0.3fr)
@@ -494,7 +500,7 @@ export default function StoryPage() {
           border-bottom: 1px solid #deddd7;
         }
 
-        .history-item-with-images {
+        .historyItemWithImages {
           grid-template-columns:
             minmax(220px, 0.43fr)
             minmax(0, 1fr);
@@ -502,16 +508,16 @@ export default function StoryPage() {
           padding-bottom: 68px;
         }
 
-        .history-meta {
+        .historyMeta {
           display: flex;
           align-items: flex-start;
         }
 
-        .history-meta-inner {
+        .historyMetaInner {
           width: 100%;
         }
 
-        .history-number-group {
+        .historyNumberGroup {
           display: flex;
           align-items: flex-end;
           justify-content: space-between;
@@ -520,7 +526,7 @@ export default function StoryPage() {
           border-bottom: 1px solid #deddd7;
         }
 
-        .history-number {
+        .historyNumber {
           margin: 0;
           color: #aaa9a2;
           font-size: 8px;
@@ -529,7 +535,7 @@ export default function StoryPage() {
           letter-spacing: 0.18em;
         }
 
-        .history-year {
+        .historyYear {
           margin: 0;
           color: #30302c;
           font-size: clamp(25px, 2.8vw, 37px);
@@ -538,17 +544,17 @@ export default function StoryPage() {
           letter-spacing: -0.05em;
         }
 
-        .history-images {
+        .historyImages {
           display: grid;
           gap: 25px;
           margin-top: 27px;
         }
 
-        .history-figure {
+        .historyFigure {
           margin: 0;
         }
 
-        .history-image-frame {
+        .historyImageFrame {
           position: relative;
           width: 100%;
           aspect-ratio: 4 / 3;
@@ -559,7 +565,7 @@ export default function StoryPage() {
           box-shadow: 0 13px 32px rgba(45, 42, 34, 0.08);
         }
 
-        .history-image {
+        .historyImage {
           object-fit: cover;
           filter: saturate(0.78) contrast(1.03);
           transition:
@@ -567,12 +573,12 @@ export default function StoryPage() {
             filter 700ms cubic-bezier(0.22, 1, 0.36, 1);
         }
 
-        .history-figure:hover .history-image {
+        .historyFigure:hover .historyImage {
           transform: scale(1.025);
           filter: saturate(0.9) contrast(1.04);
         }
 
-        .history-figure figcaption {
+        .historyFigure figcaption {
           margin-top: 10px;
           color: #85857e;
           font-size: 8px;
@@ -580,15 +586,15 @@ export default function StoryPage() {
           letter-spacing: 0.05em;
         }
 
-        .history-content {
+        .historyContent {
           max-width: 570px;
         }
 
-        .history-item-with-images .history-content {
+        .historyItemWithImages .historyContent {
           padding-top: 2px;
         }
 
-        .history-english-title {
+        .historyEnglishTitle {
           margin: 0 0 12px;
           color: #999992;
           font-size: 8px;
@@ -597,7 +603,7 @@ export default function StoryPage() {
           letter-spacing: 0.22em;
         }
 
-        .history-title {
+        .historyTitle {
           margin: 0 0 26px;
           color: #30302c;
           font-size: clamp(26px, 3.2vw, 41px);
@@ -606,131 +612,35 @@ export default function StoryPage() {
           letter-spacing: -0.045em;
         }
 
-        .history-text {
+        .historyText {
           color: #696963;
           font-size: 12px;
           line-height: 2.05;
         }
 
-        .history-text p {
+        .historyText p {
           margin: 0;
         }
 
-        .history-text p + p {
+        .historyText p + p {
           margin-top: 19px;
         }
 
-        .story-quote {
-          margin: 0 0 99px;
-          padding: 63px 51px;
-          border: 1px solid #e5e4de;
-          border-radius: 26px;
-          background:
-            radial-gradient(
-              circle at 90% 10%,
-              rgba(255, 222, 89, 0.2),
-              transparent 37%
-            ),
-            radial-gradient(
-              circle at 8% 90%,
-              rgba(0, 191, 99, 0.08),
-              transparent 34%
-            ),
-            #f4f3ef;
-          box-shadow: 0 18px 52px rgba(52, 52, 45, 0.05);
+        /* =========================================
+           ACTIVITIES
+        ========================================= */
+
+        .activitiesSection {
+          padding: 110px 0 0;
         }
 
-        .story-quote-label {
-          margin: 0 0 29px;
-          color: #92928b;
-          font-size: 8px;
-          font-weight: 700;
-          line-height: 1.5;
-          letter-spacing: 0.24em;
-        }
-
-        .story-quote blockquote {
-          margin: 0;
-          color: #30302c;
-          font-size: clamp(32px, 4.4vw, 56px);
-          font-weight: 400;
-          line-height: 1.3;
-          letter-spacing: -0.055em;
-        }
-
-        .story-quote-description {
-          max-width: 560px;
-          margin: 33px 0 0;
-          color: #777770;
-          font-size: 12px;
-          line-height: 2;
-        }
-
-        .inheritance-section {
-          display: grid;
-          grid-template-columns:
-            minmax(270px, 0.9fr)
-            minmax(0, 1.1fr);
-          gap: clamp(48px, 7vw, 98px);
-          align-items: start;
-          padding: 84px 0 99px;
-          border-top: 1px solid #deddd7;
-        }
-
-        .inheritance-heading {
-          position: sticky;
-          top: 120px;
-        }
-
-        .inheritance-title {
-          margin: 0;
-          color: #30302c;
-          font-size: clamp(32px, 3.8vw, 50px);
-          font-weight: 400;
-          line-height: 1.28;
-          letter-spacing: -0.05em;
-        }
-
-        .inheritance-copy {
-          color: #62625c;
-          font-size: clamp(14px, 1.3vw, 16px);
-          line-height: 2.1;
-        }
-
-        .inheritance-copy p {
-          margin: 0;
-        }
-
-        .inheritance-copy p + p {
-          margin-top: 24px;
-        }
-
-        .inheritance-copy .inheritance-emphasis {
-          margin-top: 36px;
-          margin-bottom: 36px;
-          padding: 25px 0 25px 24px;
-          border-left: 1px solid #c9c8c0;
-          color: #30302c;
-          font-size: clamp(18px, 2vw, 25px);
-          line-height: 1.7;
-          letter-spacing: -0.025em;
-        }
-
-        /*
-          直前の歴史項目にある下線を使用するため、
-          activities-sectionのborder-topは入れていません。
-        */
-        .activities-section {
-          padding: 84px 0 99px;
-        }
-
-        .activities-grid {
+        .activitiesGrid {
           display: grid;
           grid-template-columns: repeat(3, minmax(0, 1fr));
           gap: 15px;
         }
 
-        .activity-card {
+        .activityCard {
           position: relative;
           display: flex;
           min-height: 248px;
@@ -747,12 +657,12 @@ export default function StoryPage() {
             border-color 400ms ease;
         }
 
-        .activity-card:hover {
+        .activityCard:hover {
           transform: translateY(-4px);
           box-shadow: 0 18px 42px rgba(52, 52, 45, 0.08);
         }
 
-        .activity-card-gift {
+        .activityCard-gift {
           background:
             radial-gradient(
               circle at 96% 3%,
@@ -762,7 +672,7 @@ export default function StoryPage() {
             rgba(255, 255, 255, 0.96);
         }
 
-        .activity-card-shop {
+        .activityCard-shop {
           background:
             radial-gradient(
               circle at 94% 4%,
@@ -777,7 +687,7 @@ export default function StoryPage() {
             rgba(255, 255, 255, 0.96);
         }
 
-        .activity-card-global {
+        .activityCard-global {
           background:
             radial-gradient(
               circle at 96% 3%,
@@ -787,41 +697,30 @@ export default function StoryPage() {
             rgba(255, 255, 255, 0.96);
         }
 
-        .activity-card-gift:hover {
+        .activityCard-gift:hover {
           border-color: rgba(255, 49, 49, 0.22);
         }
 
-        .activity-card-shop:hover {
+        .activityCard-shop:hover {
           border-color: rgba(0, 191, 99, 0.2);
         }
 
-        .activity-card-global:hover {
+        .activityCard-global:hover {
           border-color: rgba(0, 109, 255, 0.22);
         }
 
-        .activity-english-title {
+        .activityEnglishTitle {
           position: relative;
           z-index: 1;
           margin: 0;
+          color: #3f3f3a;
           font-size: 13px;
           font-weight: 800;
           line-height: 1;
           letter-spacing: 0.25em;
         }
 
-        .activity-card-gift .activity-english-title {
-          color: #3f3f3a;
-        }
-
-        .activity-card-shop .activity-english-title {
-          color: #3f3f3a;
-        }
-
-        .activity-card-global .activity-english-title {
-          color: #3f3f3a;
-        }
-
-        .activity-title {
+        .activityTitle {
           position: relative;
           z-index: 1;
           margin: auto 0 18px;
@@ -832,30 +731,30 @@ export default function StoryPage() {
           letter-spacing: -0.04em;
         }
 
-        .activity-card-gift .activity-title {
+        .activityCard-gift .activityTitle {
           color: #ff3131;
         }
 
-        .activity-card-global .activity-title {
+        .activityCard-global .activityTitle {
           color: #006dff;
         }
 
-        .activity-title-logo {
+        .activityTitleLogo {
           letter-spacing: -0.07em;
         }
 
-        .mitsubachi-fruits-logo {
+        .mitsubachiFruitsLogo {
           display: flex;
           align-items: baseline;
           flex-wrap: nowrap;
           white-space: nowrap;
         }
 
-        .mitsubachi-fruits-logo span {
+        .mitsubachiFruitsLogo span {
           display: inline-block;
         }
 
-        .activity-description {
+        .activityDescription {
           position: relative;
           z-index: 1;
           margin: 0;
@@ -866,14 +765,22 @@ export default function StoryPage() {
           line-height: 1.9;
         }
 
-        .story-closing {
-          padding: 92px 18px 30px;
-          border-top: 1px solid #deddd7;
+        /* =========================================
+           CLOSING
+        ========================================= */
+
+        .storyClosing {
+          padding: 98px 0 112px;
+          border-top: 1px solid #e4e3dd;
+          background: #f4f3ef;
+        }
+
+        .closingInner {
           text-align: center;
         }
 
-        .closing-label {
-          margin: 0 0 27px;
+        .closingLabel {
+          margin: 0 0 21px;
           color: #92928b;
           font-size: 8px;
           font-weight: 700;
@@ -881,499 +788,458 @@ export default function StoryPage() {
           letter-spacing: 0.24em;
         }
 
-        .closing-copy {
-          margin-bottom: 39px;
-          color: #777770;
-          font-size: 12px;
-          line-height: 2;
-        }
-
-        .closing-copy p {
-          margin: 0;
-        }
-
-        .closing-copy p + p {
-          margin-top: 6px;
-        }
-
-        .closing-title {
+        .closingTitle {
           margin: 0;
           color: #30302c;
-          font-size: clamp(32px, 4.2vw, 54px);
+          font-size: clamp(30px, 4.5vw, 53px);
           font-weight: 400;
-          line-height: 1.36;
-          letter-spacing: -0.055em;
+          line-height: 1.35;
+          letter-spacing: -0.045em;
         }
 
-        .closing-description {
-          margin: 33px auto 0;
-          color: #777770;
-          font-size: 12px;
-          line-height: 2;
-        }
-
-        .closing-signature {
-          margin: 56px 0 0;
-          color: #aaa9a2;
-          font-size: 8px;
-          font-weight: 700;
-          line-height: 1.7;
-          letter-spacing: 0.24em;
-        }
+        /* =========================================
+           TABLET
+           Fruits・Aboutと同じサイズ感
+        ========================================= */
 
         @media (max-width: 900px) {
-          .story-page {
-            padding: 104px 0 90px;
+          .pageContainer {
+            width: min(1180px, calc(100% - 48px));
           }
 
-          .story-container {
-            width: min(100% - 40px, 1180px);
+          .storyHero {
+            padding: 150px 0 120px;
           }
 
-          .story-hero {
-            padding-bottom: 90px;
+          .storyLabel {
+            margin-bottom: 30px;
+            font-size: 12px;
           }
 
-          .story-label,
-          .section-label {
-            margin-bottom: 28px;
+          .storyTitle {
+            max-width: 900px;
+            font-size: clamp(54px, 8vw, 104px);
+          }
+
+          .storyHeroBottom {
+            gap: 60px;
+            margin-top: 48px;
+          }
+
+          .storyHeroDescription {
+            max-width: 700px;
+            font-size: clamp(17px, 2vw, 22px);
+          }
+
+          .storyHeroLocation {
             font-size: 11px;
           }
 
-          .story-title {
-            max-width: 980px;
-            font-size: clamp(50px, 9.6vw, 78px);
+          .storyContent {
+            padding: 40px 0 160px;
           }
 
-          .story-hero-bottom {
-            gap: 60px;
-            margin-top: 52px;
+          .historySection {
+            padding-top: 110px;
           }
 
-          .story-hero-description {
-            font-size: clamp(16px, 1.6vw, 21px);
-          }
-
-          .story-hero-location {
-            font-size: 10px;
-          }
-
-          .story-introduction,
-          .inheritance-section {
+          .sectionHeading {
             grid-template-columns: 1fr;
-            gap: 42px;
-            padding: 78px 0 100px;
-          }
-
-          .introduction-heading,
-          .inheritance-heading {
-            position: static;
-          }
-
-          .introduction-title {
-            font-size: clamp(38px, 4.8vw, 64px);
-          }
-
-          .introduction-copy,
-          .inheritance-copy {
-            font-size: clamp(17px, 1.7vw, 21px);
-          }
-
-          .introduction-copy p + p,
-          .inheritance-copy p + p {
-            margin-top: 32px;
-          }
-
-          .introduction-copy .introduction-emphasis {
-            margin-top: 52px;
-            font-size: clamp(28px, 3.4vw, 44px);
-          }
-
-          .inheritance-copy .inheritance-emphasis {
-            margin-top: 44px;
-            margin-bottom: 44px;
-            padding: 30px 0 30px 28px;
-            font-size: clamp(24px, 3.4vw, 36px);
-          }
-
-          .history-section,
-          .activities-section {
-            padding: 112px 0 132px;
-          }
-
-          .section-heading {
-            grid-template-columns: 1fr;
-            gap: 22px;
-            margin-bottom: 62px;
+            gap: 24px;
+            margin-bottom: 48px;
             padding-bottom: 32px;
           }
 
-          .section-label {
-            margin-bottom: 12px;
-          }
-
-          .section-title,
-          .inheritance-title {
-            font-size: clamp(40px, 5vw, 66px);
-          }
-
-          .section-description {
-            font-size: 14px;
-          }
-
-          .history-item {
-            grid-template-columns: 130px minmax(0, 1fr);
-            gap: 44px;
-            padding: 76px 0;
-          }
-
-          .history-item-with-images {
-            grid-template-columns: 240px minmax(0, 1fr);
-          }
-
-          .history-number {
+          .sectionLabel {
+            margin-bottom: 16px;
             font-size: 11px;
           }
 
-          .history-year {
-            font-size: 34px;
+          .sectionTitle {
+            font-size: clamp(42px, 6vw, 72px);
           }
 
-          .history-images {
-            gap: 28px;
-            margin-top: 30px;
+          .sectionDescription {
+            max-width: 700px;
+            font-size: 15px;
           }
 
-          .history-figure figcaption {
+          .historyItem {
+            grid-template-columns:
+              minmax(150px, 0.3fr)
+              minmax(0, 1fr);
+            gap: 52px;
+            padding: 76px 0;
+          }
+
+          .historyItemWithImages {
+            grid-template-columns:
+              minmax(270px, 0.43fr)
+              minmax(0, 1fr);
+            padding-top: 84px;
+            padding-bottom: 84px;
+          }
+
+          .historyNumberGroup {
+            padding-bottom: 18px;
+          }
+
+          .historyNumber {
+            font-size: 11px;
+          }
+
+          .historyYear {
+            font-size: clamp(34px, 4vw, 48px);
+          }
+
+          .historyImages {
+            gap: 30px;
+            margin-top: 34px;
+          }
+
+          .historyFigure figcaption {
+            margin-top: 13px;
             font-size: 10px;
           }
 
-          .history-content {
+          .historyContent {
             max-width: 760px;
           }
 
-          .history-english-title {
+          .historyEnglishTitle {
             margin-bottom: 16px;
-            font-size: 10px;
+            font-size: 11px;
           }
 
-          .history-title {
+          .historyTitle {
             margin-bottom: 34px;
             font-size: clamp(32px, 4.2vw, 54px);
           }
 
-          .history-text {
+          .historyText {
             font-size: 16px;
           }
 
-          .history-text p + p {
+          .historyText p + p {
             margin-top: 25px;
           }
 
-          .story-quote {
-            margin-bottom: 132px;
-            padding: 66px 48px;
-            border-radius: 34px;
+          .activitiesSection {
+            padding-top: 145px;
           }
 
-          .story-quote-label {
-            margin-bottom: 38px;
-            font-size: 11px;
-          }
-
-          .story-quote blockquote {
-            font-size: clamp(40px, 5.8vw, 74px);
-          }
-
-          .story-quote-description {
-            max-width: 650px;
-            margin-top: 44px;
-            font-size: 15px;
-          }
-
-          .activities-grid {
+          .activitiesGrid {
             grid-template-columns: 1fr;
             gap: 20px;
           }
 
-          .activity-card {
-            min-height: 260px;
-            padding: 30px;
+          .activityCard {
+            min-height: 280px;
+            padding: 32px;
             border-radius: 25px;
           }
 
-          .activity-english-title {
+          .activityEnglishTitle {
             font-size: 13px;
-            letter-spacing: 0.25em;
           }
 
-          .activity-title {
+          .activityTitle {
             margin-bottom: 24px;
-            font-size: clamp(28px, 3vw, 39px);
+            font-size: clamp(29px, 4vw, 42px);
           }
 
-          .activity-title-logo {
-            letter-spacing: -0.065em;
-          }
-
-          .activity-description {
+          .activityDescription {
             padding-top: 22px;
-            font-size: 14px;
+            font-size: 15px;
           }
 
-          .story-closing {
-            padding: 122px 24px 40px;
+          .storyClosing {
+            padding: 130px 0 150px;
           }
 
-          .closing-label {
-            margin-bottom: 36px;
+          .closingLabel {
+            margin-bottom: 28px;
             font-size: 11px;
           }
 
-          .closing-copy {
-            margin-bottom: 52px;
-            font-size: 16px;
-          }
-
-          .closing-copy p + p {
-            margin-top: 8px;
-          }
-
-          .closing-title {
-            font-size: clamp(40px, 5.6vw, 72px);
-          }
-
-          .closing-description {
-            margin-top: 44px;
-            font-size: 15px;
-          }
-
-          .closing-signature {
-            margin-top: 70px;
-            font-size: 10px;
+          .closingTitle {
+            font-size: clamp(38px, 6vw, 70px);
           }
         }
 
-        @media (max-width: 560px) {
-          .story-page {
-            padding: 76px 0 68px;
+        /* =========================================
+           MOBILE BASE
+        ========================================= */
+
+        @media (max-width: 768px) {
+          .storyPage {
+            padding: 0 !important;
           }
 
-          .story-container {
-            width: calc(100% - 32px);
+          .storyHero,
+          .storyContent,
+          .storyClosing {
+            padding-right: 0 !important;
+            padding-left: 0 !important;
           }
 
-          .story-hero {
-            padding-bottom: 68px;
+          .storyTitle {
+            font-size: clamp(48px, 15vw, 72px) !important;
+            line-height: 1.13 !important;
           }
 
-          .story-label {
-            margin-bottom: 22px;
+          .sectionTitle {
+            font-size: 48px !important;
+            line-height: 1.2 !important;
+          }
+
+          .closingTitle {
+            font-size: clamp(36px, 10vw, 54px) !important;
+            line-height: 1.35 !important;
+          }
+
+          .historyItem,
+          .historyItemWithImages {
+            grid-template-columns: 1fr;
+          }
+        }
+
+        /* =========================================
+           SMARTPHONE
+           Fruits・Aboutと同じ左右16px
+        ========================================= */
+
+        @media (max-width: 680px) {
+          .pageContainer {
+            width: min(100% - 32px, 1180px);
+          }
+
+          .storyHero {
+            padding-top: 105px !important;
+            padding-bottom: 85px !important;
+          }
+
+          .storyLabel {
+            margin-bottom: 23px;
             font-size: 10px;
           }
 
-          .story-title {
-            font-size: clamp(42px, 12.8vw, 60px);
-            line-height: 1.1;
-          }
-
-          .story-hero-bottom {
+          .storyHeroBottom {
             align-items: flex-start;
             flex-direction: column;
             gap: 26px;
-            margin-top: 38px;
+            margin-top: 34px;
           }
 
-          .story-hero-description {
-            font-size: 15px;
+          .storyHeroDescription {
+            font-size: 16px;
+            line-height: 1.9;
           }
 
-          .story-hero-location {
+          .storyHeroDescription br {
+            display: none;
+          }
+
+          .storyHeroLocation {
             font-size: 9px;
             text-align: left;
           }
 
-          .story-introduction,
-          .inheritance-section {
-            gap: 32px;
-            padding: 60px 0 78px;
+          .storyContent {
+            padding-top: 30px;
+            padding-bottom: 110px;
           }
 
-          .introduction-title,
-          .inheritance-title,
-          .section-title {
-            font-size: clamp(35px, 11vw, 48px);
+          .historySection {
+            padding-top: 80px;
           }
 
-          .introduction-copy,
-          .inheritance-copy {
-            font-size: 16px;
-            line-height: 1.95;
+          .sectionHeading {
+            margin-bottom: 28px;
           }
 
-          .introduction-copy .introduction-emphasis {
-            margin-top: 42px;
-            font-size: clamp(27px, 8.5vw, 38px);
-          }
-
-          .inheritance-copy .inheritance-emphasis {
-            margin-top: 38px;
-            margin-bottom: 38px;
-            padding: 22px 0 22px 20px;
-            font-size: clamp(21px, 6.8vw, 29px);
-            line-height: 1.65;
-          }
-
-          .history-section,
-          .activities-section {
-            padding: 78px 0 92px;
-          }
-
-          .section-heading {
-            margin-bottom: 38px;
-          }
-
-          .section-description br {
+          .sectionDescription br {
             display: none;
           }
 
-          .history-item,
-          .history-item-with-images {
-            grid-template-columns: 1fr;
-            gap: 24px;
-            padding: 52px 0;
+          .historyItem,
+          .historyItemWithImages {
+            gap: 27px;
+            padding: 58px 0;
           }
 
-          .history-number-group {
-            align-items: flex-end;
+          .historyNumberGroup {
             padding-bottom: 16px;
           }
 
-          .history-year {
+          .historyNumber {
+            font-size: 10px;
+          }
+
+          .historyYear {
             font-size: 42px;
           }
 
-          .history-images {
+          .historyImages {
             grid-template-columns: 1fr;
             gap: 30px;
             margin-top: 28px;
           }
 
-          .history-image-frame {
+          .historyImageFrame {
             aspect-ratio: 4 / 3;
-            border-radius: 3px;
+            border-radius: 4px;
           }
 
-          .history-figure figcaption {
+          .historyFigure figcaption {
             margin-top: 11px;
             font-size: 10px;
             line-height: 1.8;
           }
 
-          .history-title {
+          .historyEnglishTitle {
+            margin-bottom: 14px;
+            font-size: 10px;
+          }
+
+          .historyTitle {
             margin-bottom: 26px;
             font-size: clamp(30px, 9vw, 40px);
           }
 
-          .history-text {
+          .historyText {
             font-size: 15px;
             line-height: 1.95;
           }
 
-          .story-quote {
-            margin-bottom: 94px;
-            padding: 48px 24px;
-            border-radius: 25px;
+          .historyText p + p {
+            margin-top: 22px;
           }
 
-          .story-quote-label {
-            margin-bottom: 28px;
-            font-size: 9px;
+          .activitiesSection {
+            padding-top: 100px;
           }
 
-          .story-quote blockquote {
-            font-size: clamp(31px, 9.8vw, 44px);
-            line-height: 1.4;
+          .activitiesGrid {
+            gap: 20px;
           }
 
-          .story-quote-description {
-            margin-top: 32px;
-            font-size: 14px;
-          }
-
-          .activity-card {
+          .activityCard {
             min-height: 260px;
             padding: 25px;
             border-radius: 21px;
           }
 
-          .activity-english-title {
+          .activityEnglishTitle {
             font-size: 12px;
           }
 
-          .activity-title {
+          .activityTitle {
             font-size: 30px;
           }
 
-          .activity-title-logo {
+          .activityTitleLogo {
             font-size: 29px;
             letter-spacing: -0.075em;
           }
 
-          .story-closing {
-            padding: 88px 0 20px;
+          .activityDescription {
+            font-size: 14px;
           }
 
-          .closing-label {
-            margin-bottom: 28px;
+          .storyClosing {
+            padding-top: 95px !important;
+            padding-bottom: 110px !important;
+          }
+
+          .closingLabel {
+            margin-bottom: 24px;
             font-size: 9px;
-          }
-
-          .closing-copy {
-            margin-bottom: 42px;
-            font-size: 14px;
-          }
-
-          .closing-title {
-            font-size: clamp(33px, 10.2vw, 46px);
-            line-height: 1.42;
-          }
-
-          .closing-description {
-            margin-top: 34px;
-            font-size: 14px;
-          }
-
-          .closing-signature {
-            margin-top: 54px;
-            font-size: 8px;
-            line-height: 1.8;
           }
         }
 
-        @media (max-width: 380px) {
-          .story-container {
-            width: calc(100% - 28px);
+        @media (max-width: 480px) {
+          .storyPage {
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
           }
 
-          .story-title {
-            font-size: 40px;
+          .storyHeroDescription {
+            font-size: 15px;
           }
 
-          .story-quote {
-            padding-right: 20px;
-            padding-left: 20px;
+          .historyText {
+            font-size: 14px;
           }
 
-          .activity-title {
+          .activityDescription {
+            font-size: 13px;
+          }
+        }
+
+        @media (max-width: 420px) {
+          .storyTitle {
+            font-size: 46px !important;
+          }
+
+          .sectionTitle {
+            font-size: 42px !important;
+          }
+
+          .historyYear {
+            font-size: 38px;
+          }
+
+          .historyTitle {
+            font-size: 30px;
+          }
+
+          .activityCard {
+            padding: 23px 21px;
+          }
+
+          .activityTitle {
+            font-size: 28px;
+          }
+
+          .activityTitleLogo {
             font-size: 27px;
           }
 
-          .activity-title-logo {
+          .closingTitle {
+            font-size: 34px !important;
+          }
+        }
+
+        @media (max-width: 360px) {
+          .storyTitle {
+            font-size: 42px !important;
+          }
+
+          .sectionTitle {
+            font-size: 39px !important;
+          }
+
+          .historyTitle {
+            font-size: 28px;
+          }
+
+          .activityTitle {
             font-size: 26px;
+          }
+
+          .activityTitleLogo {
+            font-size: 25px;
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .historyImage,
+          .activityCard {
+            transition: none;
           }
         }
       `}</style>
-    </main>
+    </>
   );
 }
