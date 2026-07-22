@@ -152,26 +152,28 @@ function StatusBadge({
 
 export default function OrderPage() {
   return (
-    <>
-      <main className="orderPage">
-        <div className="orderContainer">
-          {/* ページ上部 */}
-          <section className="heroSection">
-            <p className="englishLabel">ORDER</p>
+    <main className="orderPage">
+      {/* ページ上部 */}
+      <section className="heroSection">
+        <div className="pageContainer">
+          <p className="englishLabel">ORDER</p>
 
-            <h1 className="heroTitle">
-              果樹園から、
-              <br />
-              旬のおいしさを。
-            </h1>
+          <h1 className="heroTitle">
+            果樹園から、
+            <br />
+            旬のおいしさを。
+          </h1>
 
-            <p className="heroText">
-              みつばち果樹園で育てた季節の果物を、
-              <br className="desktopBreak" />
-              山形県東根市からお届けします。
-            </p>
-          </section>
+          <p className="heroText">
+            みつばち果樹園で育てた季節の果物を、
+            <br className="desktopBreak" />
+            山形県東根市からお届けします。
+          </p>
+        </div>
+      </section>
 
+      <div className="orderContent">
+        <div className="pageContainer">
           {/* 受付停止のお知らせ */}
           <section className="orderNotice">
             <div className="noticeStatus">
@@ -222,7 +224,9 @@ export default function OrderPage() {
               <article className="guideCard">
                 <p className="guideNumber">01</p>
 
-                <h3 className="guideTitle">販売開始のお知らせ</h3>
+                <h3 className="guideTitle">
+                  販売開始のお知らせ
+                </h3>
 
                 <p className="guideText">
                   果物が旬を迎え、発送の準備が整いましたら、
@@ -244,7 +248,9 @@ export default function OrderPage() {
               <article className="guideCard">
                 <p className="guideNumber">03</p>
 
-                <h3 className="guideTitle">果樹園から発送</h3>
+                <h3 className="guideTitle">
+                  果樹園から発送
+                </h3>
 
                 <p className="guideText">
                   収穫後、一つひとつ状態を確認し、
@@ -258,7 +264,9 @@ export default function OrderPage() {
           <section className="seasonSection">
             <div className="sectionHeading">
               <div>
-                <p className="englishLabel">SEASONAL FRUITS</p>
+                <p className="englishLabel">
+                  SEASONAL FRUITS
+                </p>
 
                 <h2 className="sectionTitle">
                   季節の商品
@@ -377,7 +385,10 @@ export default function OrderPage() {
               お問い合わせページよりご連絡ください。
             </p>
 
-            <Link href="/contact" className="contactButton">
+            <Link
+              href="/contact"
+              className="contactButton"
+            >
               お問い合わせはこちら
               <span aria-hidden="true">→</span>
             </Link>
@@ -398,65 +409,91 @@ export default function OrderPage() {
             </p>
           </section>
         </div>
-      </main>
+      </div>
 
       <style>{`
-        * {
+        .orderPage,
+        .orderPage * {
           box-sizing: border-box;
         }
 
-        /*
-         * デスクトップ
-         * 元デザインの約75%を基準にコンパクト化
-         */
         .orderPage {
+          width: 100%;
           min-height: 100vh;
-          padding: 90px 24px 75px;
+          margin: 0;
+          padding: 0;
           overflow: hidden;
           background: #fafaf9;
           color: #2f2f2f;
         }
 
-        .orderContainer {
-          width: 100%;
-          max-width: 900px;
+        .pageContainer {
+          width: min(960px, calc(100% - 64px));
           margin: 0 auto;
         }
 
+        /* =========================================
+           HERO
+        ========================================= */
+
+        .heroSection {
+          padding: 112px 0 90px;
+          background:
+            radial-gradient(
+              circle at 90% 8%,
+              rgba(255, 222, 89, 0.15),
+              transparent 25%
+            ),
+            radial-gradient(
+              circle at 4% 90%,
+              rgba(0, 191, 99, 0.055),
+              transparent 25%
+            ),
+            #fafaf9;
+        }
+
         .englishLabel {
-          margin: 0 0 14px;
-          color: #888;
+          margin: 0 0 21px;
+          color: #92928b;
           font-size: 9px;
           font-weight: 700;
           line-height: 1.5;
-          letter-spacing: 0.22em;
-        }
-
-        .heroSection {
-          margin-bottom: 54px;
+          letter-spacing: 0.24em;
         }
 
         .heroTitle {
-          max-width: 700px;
-          margin: 0 0 23px;
-          color: #2f2f2f;
-          font-size: clamp(35px, 5.6vw, 62px);
+          max-width: 760px;
+          margin: 0;
+          color: #2f2f2b;
+          font-size: clamp(43px, 6vw, 78px);
           font-weight: 700;
-          line-height: 1.18;
-          letter-spacing: 0.01em;
+          line-height: 1.14;
+          letter-spacing: -0.035em;
         }
 
         .heroText {
-          max-width: 540px;
-          margin: 0;
-          color: #666;
-          font-size: 13px;
+          max-width: 570px;
+          margin: 37px 0 0;
+          color: #696963;
+          font-size: clamp(14px, 1.5vw, 17px);
           line-height: 2;
         }
 
+        /* =========================================
+           CONTENT
+        ========================================= */
+
+        .orderContent {
+          padding: 82px 0 120px;
+        }
+
+        /* =========================================
+           NOTICE
+        ========================================= */
+
         .orderNotice {
           position: relative;
-          margin-bottom: 84px;
+          margin-bottom: 110px;
           padding: 48px;
           overflow: hidden;
           border: 1px solid #ecece8;
@@ -512,18 +549,18 @@ export default function OrderPage() {
         .noticeTitle {
           position: relative;
           z-index: 1;
-          max-width: 600px;
+          max-width: 650px;
           margin: 0 0 18px;
           color: #2f2f2f;
-          font-size: clamp(25px, 3.8vw, 39px);
+          font-size: clamp(27px, 4vw, 43px);
           line-height: 1.45;
-          letter-spacing: 0.01em;
+          letter-spacing: -0.025em;
         }
 
         .noticeText {
           position: relative;
           z-index: 1;
-          max-width: 540px;
+          max-width: 570px;
           margin: 0;
           color: #606060;
           font-size: 12px;
@@ -533,7 +570,7 @@ export default function OrderPage() {
         .noticeSupplement {
           position: relative;
           z-index: 1;
-          max-width: 540px;
+          max-width: 570px;
           margin-top: 27px;
           padding-top: 23px;
           border-top: 1px solid #ecece8;
@@ -550,33 +587,48 @@ export default function OrderPage() {
           margin-top: 5px;
         }
 
+        /* =========================================
+           SECTION HEADING
+        ========================================= */
+
         .guideSection,
         .seasonSection {
-          margin-bottom: 84px;
+          margin-bottom: 110px;
         }
 
         .sectionHeading {
           display: flex;
           align-items: flex-end;
           justify-content: space-between;
-          gap: 23px;
-          margin-bottom: 27px;
+          gap: 30px;
+          margin-bottom: 34px;
+          padding-bottom: 23px;
+          border-bottom: 1px solid #deddd7;
+        }
+
+        .sectionHeading .englishLabel {
+          margin-bottom: 11px;
         }
 
         .sectionTitle {
           margin: 0;
           color: #2f2f2f;
-          font-size: clamp(24px, 3.4vw, 36px);
+          font-size: clamp(32px, 4vw, 50px);
           line-height: 1.3;
+          letter-spacing: -0.035em;
         }
 
         .sectionSideText {
-          margin: 0 0 4px;
+          margin: 0 0 5px;
           color: #999;
           font-size: 10px;
           line-height: 1.8;
           text-align: right;
         }
+
+        /* =========================================
+           GUIDE
+        ========================================= */
 
         .guideGrid {
           display: grid;
@@ -586,15 +638,16 @@ export default function OrderPage() {
 
         .guideCard {
           min-width: 0;
+          min-height: 225px;
           padding: 26px;
           border: 1px solid #ecece8;
           border-radius: 21px;
-          background: #fff;
+          background: #ffffff;
           box-shadow: 0 14px 38px rgba(0, 0, 0, 0.04);
         }
 
         .guideNumber {
-          margin: 0 0 23px;
+          margin: 0 0 32px;
           color: #c7c7c1;
           font-size: 10px;
           font-weight: 700;
@@ -615,6 +668,10 @@ export default function OrderPage() {
           line-height: 1.95;
         }
 
+        /* =========================================
+           SEASONAL PRODUCTS
+        ========================================= */
+
         .seasonGrid {
           display: grid;
           grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -625,7 +682,7 @@ export default function OrderPage() {
           position: relative;
           display: flex;
           min-width: 0;
-          min-height: 233px;
+          min-height: 245px;
           flex-direction: column;
           padding: 26px;
           overflow: hidden;
@@ -682,7 +739,7 @@ export default function OrderPage() {
         .productName {
           margin: 0;
           color: #2f2f2f;
-          font-size: clamp(20px, 2.4vw, 26px);
+          font-size: clamp(20px, 2.4vw, 27px);
           line-height: 1.4;
         }
 
@@ -714,7 +771,7 @@ export default function OrderPage() {
 
         .status-受付中 {
           background: #2f2f2f;
-          color: #fff;
+          color: #ffffff;
         }
 
         .status-受付終了 {
@@ -770,30 +827,38 @@ export default function OrderPage() {
           opacity: 0.75;
         }
 
+        /* =========================================
+           INFORMATION
+        ========================================= */
+
         .informationSection {
           display: grid;
           grid-template-columns:
             minmax(0, 0.85fr)
             minmax(0, 1.15fr);
           gap: 53px;
-          margin-bottom: 84px;
+          margin-bottom: 110px;
           padding: 48px;
           border-radius: 27px;
           background: #f1f1ed;
         }
 
+        .informationHeading .englishLabel {
+          margin-bottom: 14px;
+        }
+
         .informationTitle {
           margin: 0;
           color: #2f2f2f;
-          font-size: clamp(24px, 3.4vw, 36px);
-          line-height: 1.45;
+          font-size: clamp(30px, 4vw, 47px);
+          line-height: 1.4;
+          letter-spacing: -0.035em;
         }
 
         .informationList {
           display: flex;
           flex-direction: column;
           justify-content: center;
-          gap: 0;
         }
 
         .informationItem {
@@ -828,17 +893,28 @@ export default function OrderPage() {
           background: #ffde59;
         }
 
+        /* =========================================
+           CONTACT CTA
+        ========================================= */
+
         .contactCta {
-          margin-bottom: 90px;
-          padding: 54px 24px;
+          margin-bottom: 110px;
+          padding: 58px 24px;
           border-radius: 27px;
-          background: #2f2f2f;
-          color: #fff;
+          background:
+            radial-gradient(
+              circle at 90% 10%,
+              rgba(255, 222, 89, 0.1),
+              transparent 30%
+            ),
+            #2f2f2f;
+          color: #ffffff;
           text-align: center;
+          box-shadow: 0 18px 52px rgba(52, 52, 45, 0.14);
         }
 
         .contactCtaLabel {
-          margin: 0 0 12px;
+          margin: 0 0 14px;
           color: #bdbdb8;
           font-size: 9px;
           font-weight: 700;
@@ -847,28 +923,29 @@ export default function OrderPage() {
 
         .contactCtaTitle {
           margin: 0 0 18px;
-          color: #fff;
-          font-size: clamp(25px, 3.8vw, 38px);
+          color: #ffffff;
+          font-size: clamp(28px, 4vw, 44px);
           line-height: 1.45;
+          letter-spacing: -0.035em;
         }
 
         .contactCtaText {
-          max-width: 510px;
-          margin: 0 auto 26px;
+          max-width: 540px;
+          margin: 0 auto 28px;
           color: #d1d1cd;
-          font-size: 11px;
+          font-size: 12px;
           line-height: 2;
         }
 
         .contactButton {
           display: inline-flex;
-          min-height: 42px;
+          min-height: 46px;
           align-items: center;
           justify-content: center;
           gap: 14px;
-          padding: 0 21px;
+          padding: 0 22px;
           border-radius: 999px;
-          background: #fff;
+          background: #ffffff;
           color: #2f2f2f;
           font-size: 11px;
           font-weight: 700;
@@ -879,17 +956,21 @@ export default function OrderPage() {
         }
 
         .contactButton:hover {
-          transform: translateY(-2px);
           opacity: 0.92;
+          transform: translateY(-3px);
         }
 
+        /* =========================================
+           CLOSING
+        ========================================= */
+
         .closingSection {
-          padding: 18px 15px 32px;
+          padding: 12px 15px 30px;
           text-align: center;
         }
 
         .closingLabel {
-          margin: 0 0 21px;
+          margin: 0 0 22px;
           color: #aaa;
           font-size: 9px;
           font-weight: 700;
@@ -911,15 +992,11 @@ export default function OrderPage() {
         }
 
         .closingMessage {
-          margin: 0 0 32px;
+          margin: 0;
           color: #3f3f46;
           font-size: clamp(18px, 2.6vw, 26px);
           font-weight: 700;
           line-height: 1.75;
-        }
-
-        .closingBee {
-          margin-bottom: 15px;
         }
 
         .colorBeeMyFriends {
@@ -931,48 +1008,42 @@ export default function OrderPage() {
           letter-spacing: 0;
         }
 
-        .closingText {
-          margin: 0;
-          color: #888;
-          font-size: 11px;
-          line-height: 1.9;
-        }
+        /* =========================================
+           TABLET
+           Fruits・About・Story・Contactと同じ基準
+        ========================================= */
 
-        /*
-         * タブレット
-         * 900px以下は元のサイズ感に戻す
-         */
         @media (max-width: 900px) {
-          .orderPage {
-            padding: 120px 24px 100px;
-          }
-
-          .orderContainer {
-            max-width: 1100px;
-          }
-
-          .englishLabel {
-            margin-bottom: 18px;
-            font-size: 12px;
+          .pageContainer {
+            width: min(1180px, calc(100% - 48px));
           }
 
           .heroSection {
-            margin-bottom: 72px;
+            padding: 150px 0 120px;
+          }
+
+          .englishLabel {
+            margin-bottom: 28px;
+            font-size: 12px;
           }
 
           .heroTitle {
-            max-width: 900px;
-            margin-bottom: 30px;
-            font-size: clamp(44px, 7.5vw, 82px);
+            max-width: 940px;
+            font-size: clamp(54px, 8vw, 104px);
           }
 
           .heroText {
             max-width: 720px;
-            font-size: 17px;
+            margin-top: 48px;
+            font-size: clamp(17px, 2vw, 22px);
+          }
+
+          .orderContent {
+            padding: 110px 0 160px;
           }
 
           .orderNotice {
-            margin-bottom: 112px;
+            margin-bottom: 145px;
             padding: 64px;
             border-radius: 36px;
           }
@@ -1001,7 +1072,7 @@ export default function OrderPage() {
           .noticeTitle {
             max-width: 780px;
             margin-bottom: 24px;
-            font-size: clamp(31px, 5vw, 52px);
+            font-size: clamp(36px, 5.5vw, 62px);
           }
 
           .noticeText {
@@ -1022,16 +1093,21 @@ export default function OrderPage() {
 
           .guideSection,
           .seasonSection {
-            margin-bottom: 112px;
+            margin-bottom: 145px;
           }
 
           .sectionHeading {
             gap: 30px;
-            margin-bottom: 36px;
+            margin-bottom: 46px;
+            padding-bottom: 30px;
+          }
+
+          .sectionHeading .englishLabel {
+            margin-bottom: 14px;
           }
 
           .sectionTitle {
-            font-size: clamp(30px, 4.5vw, 48px);
+            font-size: clamp(42px, 6vw, 72px);
           }
 
           .sectionSideText {
@@ -1046,21 +1122,22 @@ export default function OrderPage() {
 
           .guideCard {
             min-height: auto;
-            padding: 34px;
-            border-radius: 28px;
+            padding: 36px;
+            border-radius: 30px;
           }
 
           .guideNumber {
-            margin-bottom: 30px;
+            margin-bottom: 42px;
             font-size: 13px;
           }
 
           .guideTitle {
             margin-bottom: 16px;
-            font-size: 23px;
+            font-size: 25px;
           }
 
           .guideText {
+            max-width: 650px;
             font-size: 14px;
           }
 
@@ -1069,7 +1146,7 @@ export default function OrderPage() {
           }
 
           .seasonCard {
-            min-height: 310px;
+            min-height: 330px;
             padding: 34px;
             border-radius: 28px;
           }
@@ -1129,13 +1206,17 @@ export default function OrderPage() {
           .informationSection {
             grid-template-columns: 1fr;
             gap: 48px;
-            margin-bottom: 112px;
+            margin-bottom: 145px;
             padding: 64px;
             border-radius: 36px;
           }
 
+          .informationHeading .englishLabel {
+            margin-bottom: 18px;
+          }
+
           .informationTitle {
-            font-size: clamp(30px, 4.5vw, 48px);
+            font-size: clamp(40px, 5.5vw, 66px);
           }
 
           .informationItem {
@@ -1155,19 +1236,19 @@ export default function OrderPage() {
           }
 
           .contactCta {
-            margin-bottom: 120px;
+            margin-bottom: 145px;
             padding: 72px 32px;
             border-radius: 36px;
           }
 
           .contactCtaLabel {
-            margin-bottom: 16px;
+            margin-bottom: 18px;
             font-size: 12px;
           }
 
           .contactCtaTitle {
             margin-bottom: 24px;
-            font-size: clamp(31px, 5vw, 50px);
+            font-size: clamp(38px, 5.5vw, 62px);
           }
 
           .contactCtaText {
@@ -1184,7 +1265,7 @@ export default function OrderPage() {
           }
 
           .closingSection {
-            padding: 24px 20px 42px;
+            padding: 20px 20px 42px;
           }
 
           .closingLabel {
@@ -1198,53 +1279,77 @@ export default function OrderPage() {
           }
 
           .closingMessage {
-            margin-bottom: 42px;
             font-size: clamp(22px, 3.5vw, 34px);
-          }
-
-          .closingBee {
-            margin-bottom: 20px;
           }
 
           .colorBeeMyFriends {
             font-size: clamp(23px, 4vw, 34px);
           }
-
-          .closingText {
-            font-size: 14px;
-          }
         }
 
-        /*
-         * スマートフォン
-         * 現在のデザインを維持
-         */
-        @media (max-width: 720px) {
+        /* =========================================
+           MOBILE BASE
+        ========================================= */
+
+        @media (max-width: 768px) {
           .orderPage {
-            padding: 88px 18px 72px;
+            padding: 0 !important;
           }
 
-          .heroSection {
-            margin-bottom: 50px;
+          .heroSection,
+          .orderContent {
+            padding-right: 0 !important;
+            padding-left: 0 !important;
           }
 
           .heroTitle {
-            margin-bottom: 24px;
-            font-size: clamp(40px, 12vw, 58px);
-            line-height: 1.24;
+            font-size: clamp(48px, 15vw, 72px) !important;
+            line-height: 1.16 !important;
+          }
+
+          .sectionTitle {
+            font-size: 48px !important;
+            line-height: 1.2 !important;
+          }
+        }
+
+        /* =========================================
+           SMARTPHONE
+           左右16px・Hero 105px / 85px
+        ========================================= */
+
+        @media (max-width: 680px) {
+          .pageContainer {
+            width: min(100% - 32px, 1180px);
+          }
+
+          .heroSection {
+            padding-top: 105px !important;
+            padding-bottom: 85px !important;
+          }
+
+          .englishLabel {
+            margin-bottom: 23px;
+            font-size: 10px;
           }
 
           .heroText {
-            font-size: 15px;
-            line-height: 1.95;
+            margin-top: 34px;
+            font-size: 16px;
+            line-height: 1.9;
           }
 
           .desktopBreak {
             display: none;
           }
 
+          .orderContent {
+            padding-top: 85px !important;
+            padding-bottom: 110px !important;
+          }
+
           .orderNotice {
-            margin-bottom: 84px;
+            margin-bottom: 100px;
             padding: 38px 24px;
             border-radius: 28px;
           }
@@ -1254,12 +1359,16 @@ export default function OrderPage() {
           }
 
           .noticeTitle {
-            font-size: clamp(27px, 8vw, 38px);
+            font-size: clamp(28px, 8.5vw, 40px);
             line-height: 1.5;
           }
 
           .noticeText {
             font-size: 14px;
+          }
+
+          .noticeText br {
+            display: none;
           }
 
           .noticeSupplement {
@@ -1270,16 +1379,21 @@ export default function OrderPage() {
 
           .guideSection,
           .seasonSection {
-            margin-bottom: 84px;
+            margin-bottom: 100px;
           }
 
           .sectionHeading {
             display: block;
-            margin-bottom: 28px;
+            margin-bottom: 30px;
+            padding-bottom: 25px;
+          }
+
+          .sectionHeading .englishLabel {
+            margin-bottom: 12px;
           }
 
           .sectionSideText {
-            margin-top: 14px;
+            margin-top: 16px;
             text-align: left;
           }
 
@@ -1293,11 +1407,15 @@ export default function OrderPage() {
           }
 
           .guideNumber {
-            margin-bottom: 22px;
+            margin-bottom: 30px;
           }
 
           .guideTitle {
             font-size: 21px;
+          }
+
+          .guideText {
+            font-size: 13px;
           }
 
           .seasonGrid {
@@ -1325,25 +1443,33 @@ export default function OrderPage() {
             font-size: 10px;
           }
 
+          .productDescription {
+            font-size: 13px;
+          }
+
           .informationSection {
             gap: 38px;
-            margin-bottom: 84px;
+            margin-bottom: 100px;
             padding: 38px 24px;
             border-radius: 28px;
           }
 
           .informationTitle {
-            font-size: 31px;
+            font-size: 40px;
+          }
+
+          .informationItem p {
+            font-size: 13px;
           }
 
           .contactCta {
-            margin-bottom: 88px;
+            margin-bottom: 100px;
             padding: 52px 24px;
             border-radius: 28px;
           }
 
           .contactCtaTitle {
-            font-size: 30px;
+            font-size: clamp(31px, 9vw, 42px);
           }
 
           .contactCtaText {
@@ -1368,7 +1494,6 @@ export default function OrderPage() {
           }
 
           .closingMessage {
-            margin-bottom: 34px;
             font-size: 23px;
           }
 
@@ -1377,14 +1502,35 @@ export default function OrderPage() {
           }
         }
 
-        @media (max-width: 430px) {
-          .orderPage {
-            padding-right: 14px;
-            padding-left: 14px;
+        @media (max-width: 480px) {
+          .heroText {
+            font-size: 15px;
           }
 
+          .noticeTitle br {
+            display: none;
+          }
+
+          .sectionTitle {
+            font-size: 44px !important;
+          }
+
+          .informationTitle {
+            font-size: 37px;
+          }
+
+          .contactCtaText {
+            font-size: 13px;
+          }
+        }
+
+        @media (max-width: 420px) {
           .heroTitle {
-            font-size: 39px;
+            font-size: 46px !important;
+          }
+
+          .sectionTitle {
+            font-size: 41px !important;
           }
 
           .orderNotice,
@@ -1392,15 +1538,9 @@ export default function OrderPage() {
           .seasonCard,
           .informationSection,
           .contactCta {
+            padding-right: 20px;
+            padding-left: 20px;
             border-radius: 22px;
-          }
-
-          .orderNotice {
-            padding: 32px 20px;
-          }
-
-          .noticeTitle {
-            font-size: 27px;
           }
 
           .seasonCardTop {
@@ -1420,6 +1560,14 @@ export default function OrderPage() {
             margin-top: 4px;
           }
 
+          .informationTitle {
+            font-size: 34px;
+          }
+
+          .contactCtaTitle {
+            font-size: 31px;
+          }
+
           .closingLogo {
             font-size: 36px;
           }
@@ -1429,12 +1577,51 @@ export default function OrderPage() {
           }
         }
 
+        @media (max-width: 360px) {
+          .pageContainer {
+            width: calc(100% - 28px);
+          }
+
+          .heroTitle {
+            font-size: 42px !important;
+          }
+
+          .sectionTitle {
+            font-size: 38px !important;
+          }
+
+          .orderNotice,
+          .guideCard,
+          .seasonCard,
+          .informationSection,
+          .contactCta {
+            padding-right: 18px;
+            padding-left: 18px;
+          }
+
+          .noticeTitle {
+            font-size: 26px;
+          }
+
+          .informationTitle {
+            font-size: 31px;
+          }
+
+          .contactCtaTitle {
+            font-size: 28px;
+          }
+
+          .closingLogo {
+            font-size: 33px;
+          }
+        }
+
         @media (prefers-reduced-motion: reduce) {
           .contactButton {
             transition: none;
           }
         }
       `}</style>
-    </>
+    </main>
   );
 }
