@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "季節の果物 | みつばち果樹園",
@@ -11,6 +12,7 @@ type Product = {
   name: string;
   grade: string;
   specification: string;
+  price: number;
 };
 
 type Category = {
@@ -18,66 +20,72 @@ type Category = {
   name: string;
   englishName: string;
   description: string;
-  visualText: string;
   products: Product[];
 };
 
 const categories: Category[] = [
   {
     id: "watermelon",
-    name: "スイカ",
+    name: "すいか",
     englishName: "WATERMELON",
     description:
-      "山形の夏を代表する、みずみずしく甘いスイカをお届けします。",
-    visualText: "西瓜",
+      "山形の夏を代表する、みずみずしく甘い尾花沢すいかをお届けします。",
     products: [
       {
         id: "yamagata-watermelon-wakeari-medium-1",
-        name: "山形産スイカ",
+        name: "尾花沢すいか",
         grade: "訳あり",
         specification: "中玉・1玉",
+        price: 3000,
       },
       {
         id: "yamagata-watermelon-wakeari-medium-2",
-        name: "山形産スイカ",
+        name: "尾花沢すいか",
         grade: "訳あり",
         specification: "中玉・2玉",
+        price: 4200,
       },
       {
         id: "yamagata-watermelon-wakeari-large-1",
-        name: "山形産スイカ",
+        name: "尾花沢すいか",
         grade: "訳あり",
         specification: "大玉・1玉",
+        price: 3300,
       },
       {
         id: "yamagata-watermelon-wakeari-large-2",
-        name: "山形産スイカ",
+        name: "尾花沢すいか",
         grade: "訳あり",
         specification: "大玉・2玉",
+        price: 4800,
       },
       {
         id: "obanazawa-watermelon-medium-1",
-        name: "尾花沢スイカ",
+        name: "尾花沢すいか",
         grade: "秀品",
         specification: "中玉・1玉",
+        price: 3600,
       },
       {
         id: "obanazawa-watermelon-medium-2",
-        name: "尾花沢スイカ",
+        name: "尾花沢すいか",
         grade: "秀品",
         specification: "中玉・2玉",
+        price: 5400,
       },
       {
         id: "obanazawa-watermelon-large-1",
-        name: "尾花沢スイカ",
+        name: "尾花沢すいか",
         grade: "秀品",
         specification: "大玉・1玉",
+        price: 4200,
       },
       {
         id: "obanazawa-watermelon-large-2",
-        name: "尾花沢スイカ",
+        name: "尾花沢すいか",
         grade: "秀品",
         specification: "大玉・2玉",
+        price: 6600,
       },
     ],
   },
@@ -87,19 +95,20 @@ const categories: Category[] = [
     englishName: "PEACH",
     description:
       "芳醇な香りと、口いっぱいに広がるやさしい甘さをお楽しみください。",
-    visualText: "桃",
     products: [
       {
         id: "kawanakajima-hakuto-5kg",
         name: "川中島白桃",
         grade: "秀品",
         specification: "5kg",
+        price: 5100,
       },
       {
         id: "omakase-hakuto-5kg",
-        name: "おまかせ白桃",
+        name: "白桃",
         grade: "秀品",
         specification: "5kg",
+        price: 4500,
       },
     ],
   },
@@ -109,31 +118,34 @@ const categories: Category[] = [
     englishName: "GRAPE",
     description:
       "粒の大きさ、豊かな香り、上品な甘さを大切に選別しています。",
-    visualText: "葡萄",
     products: [
       {
         id: "pione-700g",
         name: "ピオーネ",
         grade: "秀品",
         specification: "1房・約700g",
+        price: 3000,
       },
       {
         id: "pione-2kg",
         name: "ピオーネ",
         grade: "秀品",
         specification: "2〜6房・約2kg",
+        price: 4200,
       },
       {
         id: "shine-muscat-700g",
         name: "シャインマスカット",
         grade: "秀品",
         specification: "1房・約700g",
+        price: 2700,
       },
       {
         id: "shine-muscat-2kg",
         name: "シャインマスカット",
         grade: "秀品",
         specification: "2〜6房・約2kg",
+        price: 3900,
       },
     ],
   },
@@ -143,25 +155,27 @@ const categories: Category[] = [
     englishName: "APPLE",
     description:
       "山形の寒暖差が育てた、香り豊かで歯ごたえのよいりんごです。",
-    visualText: "林檎",
     products: [
       {
         id: "fuji-apple-10-18",
         name: "ふじりんご",
         grade: "秀品",
         specification: "10〜18玉",
+        price: 3600,
       },
       {
         id: "fuji-apple-20-36",
         name: "ふじりんご",
         grade: "秀品",
         specification: "20〜36玉",
+        price: 4800,
       },
       {
         id: "fuji-apple-wakeari-10kg",
         name: "ふじりんご",
         grade: "訳あり",
         specification: "10kg",
+        price: 3000,
       },
     ],
   },
@@ -171,13 +185,13 @@ const categories: Category[] = [
     englishName: "LA FRANCE",
     description:
       "とろけるような果肉と芳醇な香りを持つ、山形を代表する西洋梨です。",
-    visualText: "洋梨",
     products: [
       {
         id: "la-france-5kg",
         name: "ラ・フランス",
         grade: "秀品",
         specification: "5kg",
+        price: 4500,
       },
     ],
   },
@@ -187,19 +201,20 @@ const categories: Category[] = [
     englishName: "CHERRY",
     description:
       "山形県東根市から、一粒一粒大切に選別したさくらんぼをお届けします。",
-    visualText: "桜桃",
     products: [
       {
         id: "satonishiki-l-1kg",
         name: "佐藤錦",
         grade: "秀品",
         specification: "Lサイズ・1kg・バラ詰め",
+        price: 6000,
       },
       {
         id: "benishuho-2l-1kg",
         name: "紅秀峰",
         grade: "秀品",
         specification: "2Lサイズ・1kg・バラ詰め",
+        price: 7500,
       },
     ],
   },
@@ -219,6 +234,10 @@ function ColorLogo() {
   );
 }
 
+function formatPrice(price: number) {
+  return new Intl.NumberFormat("ja-JP").format(price);
+}
+
 export default function FruitsPage() {
   const productCount = categories.reduce(
     (total, category) => total + category.products.length,
@@ -227,7 +246,7 @@ export default function FruitsPage() {
 
   return (
     <>
-      <main>
+      <main className="fruitsPage">
         <section className="heroSection">
           <div className="pageContainer">
             <p className="eyebrow">FRUITS FROM YAMAGATA</p>
@@ -294,15 +313,19 @@ export default function FruitsPage() {
                 <div className="productGrid">
                   {category.products.map((product, productIndex) => (
                     <article className="productCard" key={product.id}>
-                      <div
-                        className={`productVisual productVisual-${category.id}`}
-                      >
+                      <div className="productVisual">
+                        <Image
+                          src={`/images/fruits/${product.id}.jpg`}
+                          alt={`${product.name} ${product.grade} ${product.specification}`}
+                          fill
+                          sizes="(max-width: 680px) calc(100vw - 32px), (max-width: 900px) 50vw, 480px"
+                          className="productImage"
+                        />
+
+                        <div className="productImageOverlay" />
+
                         <span className="visualNumber">
                           {String(productIndex + 1).padStart(2, "0")}
-                        </span>
-
-                        <span className="visualFruitName">
-                          {category.visualText}
                         </span>
 
                         <span className="visualEnglishName">
@@ -321,8 +344,6 @@ export default function FruitsPage() {
                           >
                             {product.grade}
                           </span>
-
-                          <span className="productStatus">販売準備中</span>
                         </div>
 
                         <h3 className="productName">{product.name}</h3>
@@ -332,7 +353,12 @@ export default function FruitsPage() {
                         </p>
 
                         <div className="productFooter">
-                          <p className="productPrice">価格は販売時に表示</p>
+                          <p className="productPrice">
+                            <span className="productPriceNumber">
+                              {formatPrice(product.price)}円
+                            </span>
+                            <span className="productPriceTax">（税込）</span>
+                          </p>
 
                           <span className="productArrow" aria-hidden="true">
                             →
@@ -362,29 +388,22 @@ export default function FruitsPage() {
               <br />
               商品の販売開始まで、どうぞ楽しみにお待ちください。
             </p>
+
+            <ColorLogo />
           </div>
         </section>
       </main>
 
       <style>{`
-        html {
-          scroll-behavior: smooth;
-        }
-
-        * {
-          box-sizing: border-box;
-        }
-
-        body {
+        .fruitsPage {
+          width: 100%;
           margin: 0;
+          padding: 0;
+          overflow: hidden;
           background: #fafaf9;
           color: #3f3f46;
         }
 
-        /*
-         * デスクトップ
-         * 元デザインの約75%を基準にコンパクト化
-         */
         .pageContainer {
           width: min(960px, calc(100% - 64px));
           margin: 0 auto;
@@ -482,6 +501,7 @@ export default function FruitsPage() {
           padding: 17px 19px;
           color: #74746e;
           font-size: 10px;
+          line-height: 1.5;
           letter-spacing: 0.08em;
           text-decoration: none;
           white-space: nowrap;
@@ -568,91 +588,48 @@ export default function FruitsPage() {
 
         .productVisual {
           position: relative;
-          display: flex;
-          min-height: 240px;
-          align-items: center;
-          justify-content: center;
+          width: 100%;
+          aspect-ratio: 3 / 2;
           overflow: hidden;
+          background: #eeeeea;
         }
 
-        .productVisual::before,
-        .productVisual::after {
+        .productImage {
+          object-fit: cover;
+          object-position: center;
+          transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .productCard:hover .productImage {
+          transform: scale(1.045);
+        }
+
+        .productImageOverlay {
           position: absolute;
-          content: "";
-          border-radius: 999px;
-        }
-
-        .productVisual::before {
-          width: 180px;
-          height: 180px;
-          border: 1px solid rgba(255, 255, 255, 0.55);
-          background: rgba(255, 255, 255, 0.18);
-          backdrop-filter: blur(6px);
-          -webkit-backdrop-filter: blur(6px);
-        }
-
-        .productVisual::after {
-          right: -53px;
-          bottom: -68px;
-          width: 173px;
-          height: 173px;
-          background: rgba(255, 255, 255, 0.18);
-        }
-
-        .productVisual-watermelon {
+          inset: 0;
+          z-index: 1;
+          pointer-events: none;
           background:
-            radial-gradient(circle at 70% 30%, #dff5c6, transparent 32%),
-            linear-gradient(135deg, #75b867 0%, #a9cf7d 55%, #edf4ca 100%);
-        }
-
-        .productVisual-peach {
-          background:
-            radial-gradient(circle at 72% 28%, #fff0dc, transparent 30%),
-            linear-gradient(135deg, #f2b39e 0%, #ffd0b8 55%, #fff0d7 100%);
-        }
-
-        .productVisual-grape {
-          background:
-            radial-gradient(circle at 70% 28%, #ece1ff, transparent 30%),
-            linear-gradient(135deg, #74619d 0%, #a28bc6 55%, #d8cbed 100%);
-        }
-
-        .productVisual-apple {
-          background:
-            radial-gradient(circle at 70% 28%, #ffd7cc, transparent 30%),
-            linear-gradient(135deg, #c8544e 0%, #e57d6d 55%, #f6c1a7 100%);
-        }
-
-        .productVisual-la-france {
-          background:
-            radial-gradient(circle at 70% 28%, #f5f4cf, transparent 30%),
-            linear-gradient(135deg, #a7a85e 0%, #cccf8c 55%, #eef0c8 100%);
-        }
-
-        .productVisual-cherry {
-          background:
-            radial-gradient(circle at 70% 28%, #ffd7d9, transparent 30%),
-            linear-gradient(135deg, #af3039 0%, #dd5660 55%, #f7b2ad 100%);
+            linear-gradient(
+              180deg,
+              rgba(20, 20, 16, 0.15) 0%,
+              rgba(20, 20, 16, 0) 34%,
+              rgba(20, 20, 16, 0) 62%,
+              rgba(20, 20, 16, 0.3) 100%
+            );
         }
 
         .visualNumber {
           position: absolute;
           top: 18px;
           left: 20px;
-          color: rgba(255, 255, 255, 0.78);
-          font-size: 9px;
-          letter-spacing: 0.16em;
-        }
-
-        .visualFruitName {
-          position: relative;
           z-index: 2;
           color: rgba(255, 255, 255, 0.95);
-          font-size: clamp(46px, 6vw, 72px);
-          font-weight: 400;
-          line-height: 1;
-          letter-spacing: -0.08em;
-          text-shadow: 0 6px 23px rgba(48, 48, 40, 0.08);
+          font-size: 9px;
+          font-weight: 600;
+          line-height: 1.5;
+          letter-spacing: 0.16em;
+          text-shadow: 0 2px 12px rgba(0, 0, 0, 0.28);
         }
 
         .visualEnglishName {
@@ -660,10 +637,12 @@ export default function FruitsPage() {
           right: 19px;
           bottom: 17px;
           z-index: 2;
-          color: rgba(255, 255, 255, 0.75);
+          color: rgba(255, 255, 255, 0.95);
           font-size: 8px;
           font-weight: 600;
+          line-height: 1.5;
           letter-spacing: 0.22em;
+          text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
         }
 
         .productInformation {
@@ -673,8 +652,7 @@ export default function FruitsPage() {
         .productBadges {
           display: flex;
           align-items: center;
-          justify-content: space-between;
-          gap: 9px;
+          min-height: 22px;
           margin-bottom: 18px;
         }
 
@@ -696,12 +674,6 @@ export default function FruitsPage() {
           border-color: #ead9bf;
           background: #fff8ed;
           color: #8a6a42;
-        }
-
-        .productStatus {
-          color: #aaa9a2;
-          font-size: 8px;
-          letter-spacing: 0.08em;
         }
 
         .productName {
@@ -731,9 +703,23 @@ export default function FruitsPage() {
         }
 
         .productPrice {
+          display: flex;
+          align-items: baseline;
+          gap: 4px;
           margin: 0;
+          color: #31312e;
+          line-height: 1.5;
+        }
+
+        .productPriceNumber {
+          font-size: 17px;
+          font-weight: 500;
+          letter-spacing: 0.01em;
+        }
+
+        .productPriceTax {
           color: #999993;
-          font-size: 9px;
+          font-size: 8px;
           letter-spacing: 0.04em;
         }
 
@@ -748,6 +734,7 @@ export default function FruitsPage() {
           border-radius: 999px;
           color: #777770;
           font-size: 14px;
+          line-height: 1;
         }
 
         .closingSection {
@@ -798,10 +785,6 @@ export default function FruitsPage() {
           font-size: clamp(24px, 3.8vw, 39px);
         }
 
-        /*
-         * タブレット
-         * 900px以下は元のデザイン・サイズ感に戻す
-         */
         @media (max-width: 900px) {
           .pageContainer {
             width: min(1180px, calc(100% - 48px));
@@ -897,30 +880,10 @@ export default function FruitsPage() {
             border-radius: 24px;
           }
 
-          .productVisual {
-            min-height: 270px;
-          }
-
-          .productVisual::before {
-            width: 210px;
-            height: 210px;
-          }
-
-          .productVisual::after {
-            right: -61px;
-            bottom: -78px;
-            width: 205px;
-            height: 205px;
-          }
-
           .visualNumber {
             top: 24px;
             left: 26px;
             font-size: 12px;
-          }
-
-          .visualFruitName {
-            font-size: clamp(58px, 8vw, 96px);
           }
 
           .visualEnglishName {
@@ -934,17 +897,13 @@ export default function FruitsPage() {
           }
 
           .productBadges {
-            gap: 12px;
+            min-height: 28px;
             margin-bottom: 24px;
           }
 
           .productBadge {
             min-height: 28px;
             padding: 4px 11px;
-            font-size: 11px;
-          }
-
-          .productStatus {
             font-size: 11px;
           }
 
@@ -963,8 +922,12 @@ export default function FruitsPage() {
             padding-top: 22px;
           }
 
-          .productPrice {
-            font-size: 12px;
+          .productPriceNumber {
+            font-size: 22px;
+          }
+
+          .productPriceTax {
+            font-size: 10px;
           }
 
           .productArrow {
@@ -997,22 +960,42 @@ export default function FruitsPage() {
           }
         }
 
-        /*
-         * スマートフォン
-         * 現在のデザインを維持
-         */
+        @media (max-width: 768px) {
+          .fruitsPage {
+            padding: 0 !important;
+          }
+
+          .heroSection,
+          .categorySection,
+          .closingSection {
+            padding-right: 0 !important;
+            padding-left: 0 !important;
+          }
+
+          .heroTitle {
+            font-size: clamp(48px, 15vw, 72px) !important;
+            line-height: 1.13 !important;
+          }
+
+          .categoryTitle {
+            font-size: 48px !important;
+            line-height: 1.2 !important;
+          }
+
+          .closingTitle {
+            font-size: clamp(36px, 10vw, 54px) !important;
+            line-height: 1.35 !important;
+          }
+        }
+
         @media (max-width: 680px) {
           .pageContainer {
             width: min(100% - 32px, 1180px);
           }
 
           .heroSection {
-            padding: 105px 0 85px;
-          }
-
-          .heroTitle {
-            font-size: clamp(48px, 15vw, 72px);
-            line-height: 1.13;
+            padding-top: 105px !important;
+            padding-bottom: 85px !important;
           }
 
           .heroDescription {
@@ -1045,17 +1028,17 @@ export default function FruitsPage() {
             padding-left: 0;
           }
 
+          .productsArea {
+            padding-bottom: 110px;
+          }
+
           .categorySection {
-            padding-top: 80px;
+            padding-top: 80px !important;
             scroll-margin-top: 135px;
           }
 
           .categoryHeader {
             margin-bottom: 28px;
-          }
-
-          .categoryTitle {
-            font-size: 48px;
           }
 
           .productGrid {
@@ -1066,25 +1049,13 @@ export default function FruitsPage() {
             border-radius: 20px;
           }
 
-          .productVisual {
-            min-height: 280px;
-          }
-
-          .productVisual::before {
-            width: 210px;
-            height: 210px;
-          }
-
-          .visualFruitName {
-            font-size: 72px;
-          }
-
           .productInformation {
             padding: 25px 23px 23px;
           }
 
           .closingSection {
-            padding: 95px 0 110px;
+            padding-top: 95px !important;
+            padding-bottom: 110px !important;
           }
 
           .closingDescription br {
@@ -1092,27 +1063,39 @@ export default function FruitsPage() {
           }
         }
 
+        @media (max-width: 480px) {
+          .fruitsPage {
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+          }
+        }
+
         @media (max-width: 420px) {
           .heroTitle {
-            font-size: 46px;
+            font-size: 46px !important;
           }
 
-          .productVisual {
-            min-height: 245px;
+          .categoryTitle {
+            font-size: 42px !important;
           }
 
-          .visualFruitName {
-            font-size: 62px;
+          .visualNumber {
+            top: 17px;
+            left: 18px;
+            font-size: 10px;
+          }
+
+          .visualEnglishName {
+            right: 18px;
+            bottom: 15px;
+            font-size: 9px;
           }
         }
 
         @media (prefers-reduced-motion: reduce) {
-          html {
-            scroll-behavior: auto;
-          }
-
           .categoryNavigationLink,
-          .productCard {
+          .productCard,
+          .productImage {
             transition: none;
           }
         }
