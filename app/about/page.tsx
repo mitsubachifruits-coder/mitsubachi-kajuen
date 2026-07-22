@@ -161,7 +161,7 @@ export default function AboutPage() {
                   </p>
 
                   <h2 className="sectionTitle">
-                    お店と農園
+                    お店と果樹園
                   </h2>
                 </div>
 
@@ -233,7 +233,7 @@ export default function AboutPage() {
                   </h3>
 
                   <p className="locationType">
-                    農園・作業場
+                    果樹園・作業場
                   </p>
 
                   <address className="locationAddress">
@@ -282,7 +282,7 @@ export default function AboutPage() {
                   </p>
 
                   <h2 className="sectionTitle">
-                    果樹園情報
+                    インフォメーション
                   </h2>
                 </div>
 
@@ -354,8 +354,6 @@ export default function AboutPage() {
             </h2>
 
             <p className="closingDescription">
-              みつばちが育んだ、自然の恵み。
-              <br />
               また会いたくなる、果樹園で。
             </p>
 
