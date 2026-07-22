@@ -21,418 +21,456 @@ const informationItems = [
 
 export default function ContactPage() {
   return (
-    <main className="contact-page">
-      <div className="contact-container">
-        {/* ファーストビュー */}
-        <section className="contact-hero">
-          <p className="contact-label">CONTACT</p>
+    <main className="contactPage">
+      {/* ファーストビュー */}
+      <section className="contactHero">
+        <div className="pageContainer">
+          <p className="contactLabel">CONTACT</p>
 
-          <h1 className="contact-title">お問い合わせ</h1>
+          <h1 className="contactTitle">お問い合わせ</h1>
 
-          <div className="contact-hero-bottom">
-            <p className="contact-description">
+          <div className="contactHeroBottom">
+            <p className="contactDescription">
               商品やご注文、配送、ご来店について、
               <br />
               ご不明なことがございましたら
               お気軽にお問い合わせください。
             </p>
 
-            <p className="contact-location">
+            <p className="contactLocation">
               FROM OUR FARM
               <br />
               YAMAGATA
             </p>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* お問い合わせ前の案内 */}
-        <section className="contact-notice">
-          <div className="notice-heading">
-            <p className="notice-label">BEFORE CONTACT</p>
+      <div className="contactContent">
+        <div className="pageContainer">
+          {/* お問い合わせ前の案内 */}
+          <section className="contactNotice">
+            <div className="noticeHeading">
+              <p className="noticeLabel">BEFORE CONTACT</p>
 
-            <h2 className="notice-title">
-              ご注文内容が
-              <br />
-              分かるものを、
-              <br />
-              お手元に。
-            </h2>
-          </div>
-
-          <div className="notice-content">
-            <p className="notice-text">
-              ご注文後のお問い合わせは、
-              お名前・電話番号・商品名・発送先などを
-              お知らせいただくと、確認がスムーズです。
-            </p>
-
-            <div className="notice-points">
-              <span>お名前</span>
-              <span>電話番号</span>
-              <span>商品名</span>
-              <span>発送先</span>
-            </div>
-          </div>
-        </section>
-
-        {/* お問い合わせ方法 */}
-        <section className="methods-section">
-          <div className="section-heading">
-            <div>
-              <p className="section-label">CONTACT METHODS</p>
-
-              <h2 className="section-title">
-                お問い合わせ
+              <h2 className="noticeTitle">
+                ご注文内容が
                 <br />
-                方法
+                分かるものを、
+                <br />
+                お手元に。
               </h2>
             </div>
 
-            <p className="section-description">
-              ご都合のよい方法から、
-              <br />
-              お問い合わせください。
-            </p>
-          </div>
+            <div className="noticeContent">
+              <p className="noticeText">
+                ご注文後のお問い合わせは、
+                お名前・電話番号・商品名・発送先などを
+                お知らせいただくと、確認がスムーズです。
+              </p>
 
-          <div className="contact-grid">
-            {/* 電話 */}
-            <article className="contact-card">
-              <div className="card-header">
-                <p className="card-number">01</p>
-                <p className="card-english">TELEPHONE</p>
+              <div className="noticePoints">
+                <span>お名前</span>
+                <span>電話番号</span>
+                <span>商品名</span>
+                <span>発送先</span>
               </div>
+            </div>
+          </section>
 
-              <div className="card-content">
-                <h3 className="card-title">お電話</h3>
+          {/* お問い合わせ方法 */}
+          <section className="methodsSection">
+            <div className="sectionHeading">
+              <div>
+                <p className="sectionLabel">CONTACT METHODS</p>
 
-                <p className="card-text">
-                  商品、ご注文、発送状況などについて、
-                  お気軽にお問い合わせください。
-                </p>
-              </div>
-
-              <div className="card-footer">
-                <a href="tel:09082515523" className="telephone-link">
-                  090-8251-5523
-                </a>
-
-                <p className="card-note">
-                  園主：中川 敏浩
+                <h2 className="sectionTitle">
+                  お問い合わせ
                   <br />
-                  作業中は電話に出られない場合があります。
-                </p>
-
-                <a
-                  href="tel:09082515523"
-                  className="round-link"
-                  aria-label="みつばち果樹園へ電話をかける"
-                >
-                  <span>電話をかける</span>
-
-                  <span className="round-arrow" aria-hidden="true">
-                    →
-                  </span>
-                </a>
-              </div>
-            </article>
-
-            {/* メール */}
-            <article className="contact-card">
-              <div className="card-header">
-                <p className="card-number">02</p>
-                <p className="card-english">EMAIL</p>
+                  方法
+                </h2>
               </div>
 
-              <div className="card-content">
-                <h3 className="card-title">メール</h3>
+              <p className="sectionDescription">
+                ご都合のよい方法から、
+                <br />
+                お問い合わせください。
+              </p>
+            </div>
 
-                <p className="card-text">
-                  営業時間外のお問い合わせや、
-                  写真を添付したい場合はこちらをご利用ください。
-                </p>
-              </div>
-
-              <div className="card-footer">
-                <a
-                  href="mailto:mitsubachi-kajuen@ae.auone-net.jp"
-                  className="email-link"
-                >
-                  mitsubachi-kajuen@
-                  <br />
-                  ae.auone-net.jp
-                </a>
-
-                <p className="card-note">
-                  内容を確認後、順次返信いたします。
-                  <br />
-                  返信までお時間をいただく場合があります。
-                </p>
-
-                <a
-                  href="mailto:mitsubachi-kajuen@ae.auone-net.jp"
-                  className="round-link"
-                  aria-label="みつばち果樹園へメールを送る"
-                >
-                  <span>メールを送る</span>
-
-                  <span className="round-arrow" aria-hidden="true">
-                    →
-                  </span>
-                </a>
-              </div>
-            </article>
-
-            {/* FAX */}
-            <article className="contact-card">
-              <div className="card-header">
-                <p className="card-number">03</p>
-                <p className="card-english">FAX</p>
-              </div>
-
-              <div className="card-content">
-                <h3 className="card-title">ファックス</h3>
-
-                <p className="card-text">
-                  贈答品や複数のお届け先へのご注文など、
-                  紙でのご連絡にも対応しています。
-                </p>
-              </div>
-
-              <div className="card-footer">
-                <p className="fax-number">0237-51-4041</p>
-
-                <p className="card-note">
-                  お名前と電話番号を必ずご記入ください。
-                  <br />
-                  ご注文内容も分かる範囲でお知らせください。
-                </p>
-
-                <div className="status-line">
-                  <span className="status-dot" aria-hidden="true" />
-                  <span>FAX受付中</span>
+            <div className="contactGrid">
+              {/* 電話 */}
+              <article className="contactCard">
+                <div className="cardHeader">
+                  <p className="cardNumber">01</p>
+                  <p className="cardEnglish">TELEPHONE</p>
                 </div>
-              </div>
-            </article>
 
-            {/* Instagram */}
-            <article className="contact-card instagram-card">
-              <div className="card-header">
-                <p className="card-number">04</p>
-                <p className="card-english">INSTAGRAM</p>
-              </div>
+                <div className="cardContent">
+                  <h3 className="cardTitle">お電話</h3>
 
-              <div className="card-content">
-                <h3 className="card-title">Instagram</h3>
+                  <p className="cardText">
+                    商品、ご注文、発送状況などについて、
+                    お気軽にお問い合わせください。
+                  </p>
+                </div>
 
-                <p className="card-text">
-                  果樹園の日々や、季節の果物、
-                  販売情報などを発信しています。
-                </p>
-              </div>
+                <div className="cardFooter">
+                  <a
+                    href="tel:09082515523"
+                    className="telephoneLink"
+                  >
+                    090-8251-5523
+                  </a>
 
-              <div className="card-footer">
-                <a
-                  href={instagramUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="instagram-account"
-                  aria-label="みつばち果樹園のInstagramを見る"
-                >
-                  <span className="instagram-icon" aria-hidden="true">
-                    <svg
-                      width="25"
-                      height="25"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
+                  <p className="cardNote">
+                    園主：中川 敏浩
+                    <br />
+                    作業中は電話に出られない場合があります。
+                  </p>
+
+                  <a
+                    href="tel:09082515523"
+                    className="roundLink"
+                    aria-label="みつばち果樹園へ電話をかける"
+                  >
+                    <span>電話をかける</span>
+
+                    <span
+                      className="roundArrow"
+                      aria-hidden="true"
                     >
-                      <rect
-                        x="3"
-                        y="3"
-                        width="18"
-                        height="18"
-                        rx="5"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                      />
+                      →
+                    </span>
+                  </a>
+                </div>
+              </article>
 
-                      <circle
-                        cx="12"
-                        cy="12"
-                        r="4"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                      />
+              {/* メール */}
+              <article className="contactCard">
+                <div className="cardHeader">
+                  <p className="cardNumber">02</p>
+                  <p className="cardEnglish">EMAIL</p>
+                </div>
 
-                      <circle
-                        cx="17.5"
-                        cy="6.5"
-                        r="1.2"
-                        fill="currentColor"
-                      />
-                    </svg>
-                  </span>
+                <div className="cardContent">
+                  <h3 className="cardTitle">メール</h3>
 
-                  <span>@mitsubachi_kajuen</span>
-                </a>
+                  <p className="cardText">
+                    営業時間外のお問い合わせや、
+                    写真を添付したい場合はこちらをご利用ください。
+                  </p>
+                </div>
 
-                <p className="card-note">
-                  DMの確認には、
-                  お時間をいただく場合があります。
-                </p>
+                <div className="cardFooter">
+                  <a
+                    href="mailto:mitsubachi-kajuen@ae.auone-net.jp"
+                    className="emailLink"
+                  >
+                    mitsubachi-kajuen@
+                    <br />
+                    ae.auone-net.jp
+                  </a>
 
-                <a
-                  href={instagramUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="round-link"
-                  aria-label="みつばち果樹園のInstagramを開く"
-                >
-                  <span>Instagramを見る</span>
+                  <p className="cardNote">
+                    内容を確認後、順次返信いたします。
+                    <br />
+                    返信までお時間をいただく場合があります。
+                  </p>
 
-                  <span className="round-arrow" aria-hidden="true">
-                    ↗
-                  </span>
-                </a>
+                  <a
+                    href="mailto:mitsubachi-kajuen@ae.auone-net.jp"
+                    className="roundLink"
+                    aria-label="みつばち果樹園へメールを送る"
+                  >
+                    <span>メールを送る</span>
+
+                    <span
+                      className="roundArrow"
+                      aria-hidden="true"
+                    >
+                      →
+                    </span>
+                  </a>
+                </div>
+              </article>
+
+              {/* FAX */}
+              <article className="contactCard">
+                <div className="cardHeader">
+                  <p className="cardNumber">03</p>
+                  <p className="cardEnglish">FAX</p>
+                </div>
+
+                <div className="cardContent">
+                  <h3 className="cardTitle">ファックス</h3>
+
+                  <p className="cardText">
+                    贈答品や複数のお届け先へのご注文など、
+                    紙でのご連絡にも対応しています。
+                  </p>
+                </div>
+
+                <div className="cardFooter">
+                  <p className="faxNumber">0237-51-4041</p>
+
+                  <p className="cardNote">
+                    お名前と電話番号を必ずご記入ください。
+                    <br />
+                    ご注文内容も分かる範囲でお知らせください。
+                  </p>
+
+                  <div className="statusLine">
+                    <span
+                      className="statusDot"
+                      aria-hidden="true"
+                    />
+                    <span>FAX受付中</span>
+                  </div>
+                </div>
+              </article>
+
+              {/* Instagram */}
+              <article className="contactCard instagramCard">
+                <div className="cardHeader">
+                  <p className="cardNumber">04</p>
+                  <p className="cardEnglish">INSTAGRAM</p>
+                </div>
+
+                <div className="cardContent">
+                  <h3 className="cardTitle">Instagram</h3>
+
+                  <p className="cardText">
+                    果樹園の日々や、季節の果物、
+                    販売情報などを発信しています。
+                  </p>
+                </div>
+
+                <div className="cardFooter">
+                  <a
+                    href={instagramUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="instagramAccount"
+                    aria-label="みつばち果樹園のInstagramを見る"
+                  >
+                    <span
+                      className="instagramIcon"
+                      aria-hidden="true"
+                    >
+                      <svg
+                        width="25"
+                        height="25"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <rect
+                          x="3"
+                          y="3"
+                          width="18"
+                          height="18"
+                          rx="5"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                        />
+
+                        <circle
+                          cx="12"
+                          cy="12"
+                          r="4"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                        />
+
+                        <circle
+                          cx="17.5"
+                          cy="6.5"
+                          r="1.2"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </span>
+
+                    <span>@mitsubachi_kajuen</span>
+                  </a>
+
+                  <p className="cardNote">
+                    DMの確認には、
+                    お時間をいただく場合があります。
+                  </p>
+
+                  <a
+                    href={instagramUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="roundLink"
+                    aria-label="みつばち果樹園のInstagramを開く"
+                  >
+                    <span>Instagramを見る</span>
+
+                    <span
+                      className="roundArrow"
+                      aria-hidden="true"
+                    >
+                      ↗
+                    </span>
+                  </a>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          {/* 必要事項 */}
+          <section className="informationSection">
+            <div className="informationHeading">
+              <div>
+                <p className="sectionLabel">INFORMATION</p>
+
+                <h2 className="informationTitle">
+                  お問い合わせの際に
+                  <br />
+                  お知らせください。
+                </h2>
               </div>
-            </article>
-          </div>
-        </section>
 
-        {/* 必要事項 */}
-        <section className="information-section">
-          <div className="information-heading">
-            <div>
-              <p className="section-label">INFORMATION</p>
-
-              <h2 className="information-title">
-                お問い合わせの際に
+              <p className="informationDescription">
+                分かる範囲で構いません。
                 <br />
-                お知らせください。
-              </h2>
+                ご注文確認に必要な情報です。
+              </p>
             </div>
 
-            <p className="information-description">
-              分かる範囲で構いません。
-              <br />
-              ご注文確認に必要な情報です。
-            </p>
-          </div>
+            <div className="informationGrid">
+              {informationItems.map((item, index) => (
+                <div
+                  className="informationItem"
+                  key={item}
+                >
+                  <p className="informationNumber">
+                    {String(index + 1).padStart(2, "0")}
+                  </p>
 
-          <div className="information-grid">
-            {informationItems.map((item, index) => (
-              <div className="information-item" key={item}>
-                <p className="information-number">
-                  {String(index + 1).padStart(2, "0")}
-                </p>
+                  <p className="informationValue">
+                    {item}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </section>
 
-                <p className="information-value">{item}</p>
-              </div>
-            ))}
-          </div>
-        </section>
+          {/* 注文ページへの導線 */}
+          <section className="orderSection">
+            <div className="orderContent">
+              <p className="orderLabel">ORDER</p>
 
-        {/* 注文ページへの導線 */}
-        <section className="order-section">
-          <div className="order-content">
-            <p className="order-label">ORDER</p>
+              <h2 className="orderTitle">
+                商品のご注文について
+              </h2>
 
-            <h2 className="order-title">
-              商品のご注文について
-            </h2>
+              <p className="orderDescription">
+                オンライン注文の受付状況や、
+                現在販売している商品については、
+                注文ページをご確認ください。
+              </p>
+            </div>
 
-            <p className="order-description">
-              オンライン注文の受付状況や、
-              現在販売している商品については、
-              注文ページをご確認ください。
-            </p>
-          </div>
+            <Link href="/order" className="orderLink">
+              <span>注文ページを見る</span>
 
-          <Link href="/order" className="order-link">
-            <span>注文ページを見る</span>
-
-            <span className="order-arrow" aria-hidden="true">
-              →
-            </span>
-          </Link>
-        </section>
+              <span
+                className="orderArrow"
+                aria-hidden="true"
+              >
+                →
+              </span>
+            </Link>
+          </section>
+        </div>
       </div>
 
       <style>{`
-        * {
+        .contactPage,
+        .contactPage * {
           box-sizing: border-box;
         }
 
-        /*
-         * デスクトップ
-         * 元デザインの約75%を基準にコンパクト化
-         */
-        .contact-page {
+        .contactPage {
+          width: 100%;
           min-height: 100vh;
-          padding: 96px 0 90px;
+          margin: 0;
+          padding: 0;
           overflow: hidden;
-          background:
-            radial-gradient(
-              circle at 88% 4%,
-              rgba(255, 222, 89, 0.14),
-              transparent 23%
-            ),
-            radial-gradient(
-              circle at 4% 30%,
-              rgba(0, 191, 99, 0.06),
-              transparent 23%
-            ),
-            #fafaf9;
+          background: #fafaf9;
           color: #3f3f3a;
         }
 
-        .contact-container {
+        .pageContainer {
           width: min(960px, calc(100% - 64px));
           margin: 0 auto;
         }
 
-        .contact-hero {
-          padding-bottom: 84px;
+        /* =========================================
+           HERO
+        ========================================= */
+
+        .contactHero {
+          padding: 112px 0 90px;
+          background:
+            radial-gradient(
+              circle at 88% 8%,
+              rgba(255, 222, 89, 0.16),
+              transparent 25%
+            ),
+            radial-gradient(
+              circle at 6% 88%,
+              rgba(0, 191, 99, 0.07),
+              transparent 28%
+            ),
+            #fafaf9;
         }
 
-        .contact-label,
-        .section-label {
-          margin: 0 0 21px;
+        .contactLabel,
+        .sectionLabel {
+          margin: 0;
           color: #92928b;
-          font-size: 8px;
+          font-size: 9px;
           font-weight: 700;
           line-height: 1.5;
-          letter-spacing: 0.25em;
+          letter-spacing: 0.24em;
         }
 
-        .contact-title {
+        .contactLabel {
+          margin-bottom: 23px;
+        }
+
+        .contactTitle {
           max-width: 760px;
           margin: 0;
           color: #2f2f2b;
-          font-size: clamp(45px, 5.4vw, 74px);
+          font-size: clamp(43px, 6vw, 78px);
           font-weight: 400;
-          line-height: 1.06;
+          line-height: 1.08;
           letter-spacing: -0.055em;
         }
 
-        .contact-hero-bottom {
+        .contactHeroBottom {
           display: flex;
           align-items: flex-end;
           justify-content: space-between;
           gap: 45px;
-          margin-top: 39px;
+          margin-top: 36px;
         }
 
-        .contact-description {
-          max-width: 540px;
+        .contactDescription {
+          max-width: 570px;
           margin: 0;
-          color: #6c6c66;
-          font-size: clamp(13px, 1.2vw, 16px);
-          line-height: 1.9;
+          color: #696963;
+          font-size: clamp(14px, 1.5vw, 17px);
+          line-height: 2;
         }
 
-        .contact-location {
+        .contactLocation {
           margin: 0;
           color: #a1a19a;
           font-size: 8px;
@@ -442,14 +480,26 @@ export default function ContactPage() {
           text-align: right;
         }
 
-        .contact-notice {
+        /* =========================================
+           CONTENT
+        ========================================= */
+
+        .contactContent {
+          padding: 82px 0 120px;
+        }
+
+        /* =========================================
+           NOTICE
+        ========================================= */
+
+        .contactNotice {
           display: grid;
           grid-template-columns:
             minmax(250px, 0.9fr)
             minmax(0, 1.1fr);
           gap: clamp(38px, 6vw, 82px);
           align-items: end;
-          margin-bottom: 96px;
+          margin-bottom: 110px;
           padding: 42px;
           border: 1px solid #f1e4ad;
           border-radius: 26px;
@@ -464,7 +514,7 @@ export default function ContactPage() {
           box-shadow: 0 18px 52px rgba(83, 68, 22, 0.07);
         }
 
-        .notice-label {
+        .noticeLabel {
           margin: 0 0 15px;
           color: #997520;
           font-size: 8px;
@@ -473,7 +523,7 @@ export default function ContactPage() {
           letter-spacing: 0.2em;
         }
 
-        .notice-title {
+        .noticeTitle {
           margin: 0;
           color: #5f420a;
           font-size: clamp(30px, 3.5vw, 47px);
@@ -482,25 +532,25 @@ export default function ContactPage() {
           letter-spacing: -0.045em;
         }
 
-        .notice-content {
+        .noticeContent {
           min-width: 0;
         }
 
-        .notice-text {
+        .noticeText {
           margin: 0;
           color: #765b20;
           font-size: 12px;
           line-height: 2;
         }
 
-        .notice-points {
+        .noticePoints {
           display: flex;
+          flex-wrap: wrap;
           gap: 8px;
           margin-top: 23px;
-          flex-wrap: wrap;
         }
 
-        .notice-points span {
+        .noticePoints span {
           display: inline-flex;
           min-height: 26px;
           align-items: center;
@@ -513,49 +563,63 @@ export default function ContactPage() {
           font-weight: 700;
         }
 
-        .methods-section {
-          margin-bottom: 96px;
+        /* =========================================
+           SECTION HEADING
+        ========================================= */
+
+        .methodsSection {
+          margin-bottom: 110px;
         }
 
-        .section-heading {
+        .sectionHeading,
+        .informationHeading {
           display: grid;
           grid-template-columns:
             minmax(0, 1fr)
-            minmax(240px, 340px);
-          gap: 45px;
+            minmax(240px, 375px);
+          gap: 46px;
           align-items: end;
-          margin-bottom: 35px;
-          padding-bottom: 23px;
+        }
+
+        .sectionHeading {
+          margin-bottom: 36px;
+          padding-bottom: 24px;
           border-bottom: 1px solid #deddd7;
         }
 
-        .section-label {
-          margin-bottom: 9px;
+        .sectionLabel {
+          margin-bottom: 12px;
         }
 
-        .section-title {
+        .sectionTitle,
+        .informationTitle {
           margin: 0;
           color: #30302c;
-          font-size: clamp(32px, 3.8vw, 50px);
+          font-size: clamp(34px, 4.5vw, 54px);
           font-weight: 400;
-          line-height: 1.23;
-          letter-spacing: -0.05em;
+          line-height: 1.2;
+          letter-spacing: -0.04em;
         }
 
-        .section-description {
+        .sectionDescription,
+        .informationDescription {
           margin: 0;
           color: #777770;
-          font-size: 11px;
+          font-size: 12px;
           line-height: 2;
         }
 
-        .contact-grid {
+        /* =========================================
+           CONTACT CARDS
+        ========================================= */
+
+        .contactGrid {
           display: grid;
           grid-template-columns: repeat(2, minmax(0, 1fr));
           gap: 23px;
         }
 
-        .contact-card {
+        .contactCard {
           display: flex;
           min-width: 0;
           min-height: 345px;
@@ -566,16 +630,16 @@ export default function ContactPage() {
           background: rgba(255, 255, 255, 0.95);
           box-shadow: 0 14px 41px rgba(52, 52, 45, 0.055);
           transition:
-            transform 200ms ease,
-            box-shadow 200ms ease;
+            transform 400ms cubic-bezier(0.22, 1, 0.36, 1),
+            box-shadow 400ms cubic-bezier(0.22, 1, 0.36, 1);
         }
 
-        .contact-card:hover {
+        .contactCard:hover {
           box-shadow: 0 20px 52px rgba(52, 52, 45, 0.09);
-          transform: translateY(-3px);
+          transform: translateY(-4px);
         }
 
-        .card-header {
+        .cardHeader {
           display: flex;
           align-items: center;
           justify-content: space-between;
@@ -583,8 +647,8 @@ export default function ContactPage() {
           margin-bottom: 42px;
         }
 
-        .card-number,
-        .card-english {
+        .cardNumber,
+        .cardEnglish {
           margin: 0;
           color: #999992;
           font-size: 8px;
@@ -593,11 +657,11 @@ export default function ContactPage() {
           letter-spacing: 0.18em;
         }
 
-        .card-content {
+        .cardContent {
           max-width: 330px;
         }
 
-        .card-title {
+        .cardTitle {
           margin: 0 0 17px;
           color: #30302c;
           font-size: clamp(27px, 3vw, 39px);
@@ -606,20 +670,20 @@ export default function ContactPage() {
           letter-spacing: -0.045em;
         }
 
-        .card-text {
+        .cardText {
           margin: 0;
           color: #777770;
           font-size: 12px;
           line-height: 1.95;
         }
 
-        .card-footer {
+        .cardFooter {
           margin-top: auto;
           padding-top: 35px;
         }
 
-        .telephone-link,
-        .fax-number {
+        .telephoneLink,
+        .faxNumber {
           display: block;
           margin: 0;
           overflow-wrap: anywhere;
@@ -631,7 +695,7 @@ export default function ContactPage() {
           text-decoration: none;
         }
 
-        .email-link {
+        .emailLink {
           display: inline-block;
           overflow-wrap: anywhere;
           color: #30302c;
@@ -642,19 +706,19 @@ export default function ContactPage() {
           text-decoration: none;
         }
 
-        .telephone-link:hover,
-        .email-link:hover {
+        .telephoneLink:hover,
+        .emailLink:hover {
           opacity: 0.68;
         }
 
-        .card-note {
+        .cardNote {
           margin: 14px 0 0;
           color: #8b8b84;
           font-size: 10px;
           line-height: 1.85;
         }
 
-        .round-link {
+        .roundLink {
           display: flex;
           align-items: center;
           justify-content: space-between;
@@ -668,7 +732,7 @@ export default function ContactPage() {
           text-decoration: none;
         }
 
-        .round-arrow {
+        .roundArrow {
           display: inline-flex;
           width: 30px;
           height: 30px;
@@ -683,13 +747,13 @@ export default function ContactPage() {
             transform 180ms ease;
         }
 
-        .round-link:hover .round-arrow {
+        .roundLink:hover .roundArrow {
           background: #343431;
           color: #ffffff;
           transform: translateX(3px);
         }
 
-        .status-line {
+        .statusLine {
           display: flex;
           align-items: center;
           gap: 8px;
@@ -701,7 +765,7 @@ export default function ContactPage() {
           font-weight: 700;
         }
 
-        .status-dot {
+        .statusDot {
           width: 7px;
           height: 7px;
           flex-shrink: 0;
@@ -710,7 +774,7 @@ export default function ContactPage() {
           box-shadow: 0 0 0 4px rgba(0, 191, 99, 0.1);
         }
 
-        .instagram-account {
+        .instagramAccount {
           display: inline-flex;
           align-items: center;
           gap: 11px;
@@ -720,7 +784,7 @@ export default function ContactPage() {
           text-decoration: none;
         }
 
-        .instagram-icon {
+        .instagramIcon {
           display: inline-flex;
           width: 38px;
           height: 38px;
@@ -738,49 +802,31 @@ export default function ContactPage() {
           box-shadow: 0 7px 18px rgba(176, 55, 104, 0.2);
         }
 
-        .instagram-icon svg {
+        .instagramIcon svg {
           width: 19px;
           height: 19px;
         }
 
-        .information-section {
-          padding: 84px 0 99px;
+        /* =========================================
+           INFORMATION
+        ========================================= */
+
+        .informationSection {
+          padding: 110px 0;
           border-top: 1px solid #deddd7;
         }
 
-        .information-heading {
-          display: grid;
-          grid-template-columns:
-            minmax(0, 1fr)
-            minmax(240px, 340px);
-          gap: 45px;
-          align-items: end;
-          margin-bottom: 35px;
+        .informationHeading {
+          margin-bottom: 36px;
         }
 
-        .information-title {
-          margin: 0;
-          color: #30302c;
-          font-size: clamp(32px, 3.8vw, 50px);
-          font-weight: 400;
-          line-height: 1.28;
-          letter-spacing: -0.05em;
-        }
-
-        .information-description {
-          margin: 0;
-          color: #777770;
-          font-size: 11px;
-          line-height: 2;
-        }
-
-        .information-grid {
+        .informationGrid {
           display: grid;
           grid-template-columns: repeat(3, minmax(0, 1fr));
           gap: 15px;
         }
 
-        .information-item {
+        .informationItem {
           min-width: 0;
           min-height: 135px;
           padding: 21px;
@@ -790,7 +836,7 @@ export default function ContactPage() {
           box-shadow: 0 11px 30px rgba(52, 52, 45, 0.04);
         }
 
-        .information-number {
+        .informationNumber {
           margin: 0 0 36px;
           color: #b0afa9;
           font-size: 8px;
@@ -798,7 +844,7 @@ export default function ContactPage() {
           letter-spacing: 0.16em;
         }
 
-        .information-value {
+        .informationValue {
           margin: 0;
           color: #30302c;
           font-size: clamp(15px, 1.7vw, 20px);
@@ -806,7 +852,11 @@ export default function ContactPage() {
           line-height: 1.55;
         }
 
-        .order-section {
+        /* =========================================
+           ORDER LINK
+        ========================================= */
+
+        .orderSection {
           display: flex;
           align-items: center;
           justify-content: space-between;
@@ -824,11 +874,11 @@ export default function ContactPage() {
           box-shadow: 0 18px 52px rgba(52, 52, 45, 0.16);
         }
 
-        .order-content {
+        .orderContent {
           max-width: 525px;
         }
 
-        .order-label {
+        .orderLabel {
           margin: 0 0 14px;
           color: #bdbdb6;
           font-size: 8px;
@@ -836,7 +886,7 @@ export default function ContactPage() {
           letter-spacing: 0.22em;
         }
 
-        .order-title {
+        .orderTitle {
           margin: 0;
           font-size: clamp(27px, 3.4vw, 44px);
           font-weight: 400;
@@ -844,7 +894,7 @@ export default function ContactPage() {
           letter-spacing: -0.045em;
         }
 
-        .order-description {
+        .orderDescription {
           max-width: 465px;
           margin: 21px 0 0;
           color: #d1d1cc;
@@ -852,7 +902,7 @@ export default function ContactPage() {
           line-height: 2;
         }
 
-        .order-link {
+        .orderLink {
           display: inline-flex;
           min-width: 173px;
           min-height: 48px;
@@ -872,12 +922,12 @@ export default function ContactPage() {
             opacity 180ms ease;
         }
 
-        .order-link:hover {
+        .orderLink:hover {
           opacity: 0.9;
           transform: translateY(-3px);
         }
 
-        .order-arrow {
+        .orderArrow {
           display: inline-flex;
           width: 32px;
           height: 32px;
@@ -889,227 +939,230 @@ export default function ContactPage() {
           color: #ffffff;
         }
 
-        /*
-         * タブレット
-         * 900px以下は元のデザイン・サイズ感に戻す
-         */
+        /* =========================================
+           TABLET
+           Fruits・About・Storyと同じサイズ感
+        ========================================= */
+
         @media (max-width: 900px) {
-          .contact-page {
-            padding: 104px 0 90px;
+          .pageContainer {
+            width: min(1180px, calc(100% - 48px));
           }
 
-          .contact-container {
-            width: min(100% - 40px, 1180px);
+          .contactHero {
+            padding: 150px 0 120px;
           }
 
-          .contact-hero {
-            padding-bottom: 90px;
+          .contactLabel {
+            margin-bottom: 30px;
+            font-size: 12px;
           }
 
-          .contact-label,
-          .section-label {
-            margin-bottom: 28px;
+          .contactTitle {
+            max-width: 980px;
+            font-size: clamp(54px, 8vw, 104px);
+          }
+
+          .contactHeroBottom {
+            gap: 60px;
+            margin-top: 48px;
+          }
+
+          .contactDescription {
+            max-width: 720px;
+            font-size: clamp(17px, 2vw, 22px);
+          }
+
+          .contactLocation {
             font-size: 11px;
           }
 
-          .contact-title {
-            max-width: 980px;
-            font-size: clamp(50px, 9.6vw, 78px);
+          .contactContent {
+            padding: 110px 0 160px;
           }
 
-          .contact-hero-bottom {
-            gap: 60px;
-            margin-top: 52px;
-          }
-
-          .contact-description {
-            max-width: 720px;
-            font-size: clamp(16px, 1.6vw, 21px);
-          }
-
-          .contact-location {
-            font-size: 10px;
-          }
-
-          .contact-notice {
+          .contactNotice {
             grid-template-columns: 1fr;
             gap: 38px;
-            margin-bottom: 100px;
-            padding: 44px;
+            margin-bottom: 145px;
+            padding: 48px;
             border-radius: 34px;
           }
 
-          .notice-label {
+          .noticeLabel {
             margin-bottom: 20px;
             font-size: 11px;
           }
 
-          .notice-title {
-            font-size: clamp(38px, 4.7vw, 62px);
+          .noticeTitle {
+            font-size: clamp(42px, 6vw, 72px);
           }
 
-          .notice-text {
+          .noticeText {
+            max-width: 760px;
             font-size: 16px;
           }
 
-          .notice-points {
+          .noticePoints {
             gap: 10px;
             margin-top: 30px;
           }
 
-          .notice-points span {
+          .noticePoints span {
             min-height: 34px;
             padding: 5px 14px;
             font-size: 12px;
           }
 
-          .methods-section {
-            margin-bottom: 128px;
+          .methodsSection {
+            margin-bottom: 145px;
           }
 
-          .section-heading,
-          .information-heading {
+          .sectionHeading,
+          .informationHeading {
             grid-template-columns: 1fr;
-            gap: 22px;
-            margin-bottom: 46px;
+            gap: 24px;
+            margin-bottom: 48px;
           }
 
-          .section-heading {
-            padding-bottom: 30px;
+          .sectionHeading {
+            padding-bottom: 32px;
           }
 
-          .section-label {
-            margin-bottom: 12px;
+          .sectionLabel {
+            margin-bottom: 16px;
+            font-size: 11px;
           }
 
-          .section-title,
-          .information-title {
-            font-size: clamp(40px, 5vw, 66px);
+          .sectionTitle,
+          .informationTitle {
+            font-size: clamp(42px, 6vw, 72px);
           }
 
-          .section-description,
-          .information-description {
-            font-size: 14px;
+          .sectionDescription,
+          .informationDescription {
+            max-width: 700px;
+            font-size: 15px;
           }
 
-          .contact-grid {
+          .contactGrid {
             grid-template-columns: 1fr;
-            gap: 30px;
+            gap: 24px;
           }
 
-          .contact-card {
+          .contactCard {
             min-height: 420px;
             padding: 36px;
             border-radius: 30px;
           }
 
-          .card-header {
+          .cardHeader {
             gap: 20px;
             margin-bottom: 56px;
           }
 
-          .card-number,
-          .card-english {
+          .cardNumber,
+          .cardEnglish {
             font-size: 10px;
           }
 
-          .card-content {
-            max-width: 440px;
+          .cardContent {
+            max-width: 540px;
           }
 
-          .card-title {
+          .cardTitle {
             margin-bottom: 22px;
-            font-size: clamp(34px, 4vw, 52px);
+            font-size: clamp(34px, 4.5vw, 56px);
           }
 
-          .card-text {
+          .cardText {
             font-size: 15px;
           }
 
-          .card-footer {
+          .cardFooter {
             padding-top: 46px;
           }
 
-          .telephone-link,
-          .fax-number {
+          .telephoneLink,
+          .faxNumber {
             font-size: clamp(25px, 3.4vw, 40px);
           }
 
-          .email-link {
+          .emailLink {
             font-size: clamp(18px, 2.5vw, 28px);
           }
 
-          .card-note {
+          .cardNote {
             margin-top: 18px;
             font-size: 13px;
           }
 
-          .round-link {
+          .roundLink {
             gap: 20px;
             margin-top: 28px;
             padding-top: 22px;
             font-size: 14px;
           }
 
-          .round-arrow {
+          .roundArrow {
             width: 40px;
             height: 40px;
           }
 
-          .status-line {
+          .statusLine {
             gap: 10px;
             margin-top: 30px;
             padding-top: 24px;
             font-size: 13px;
           }
 
-          .status-dot {
+          .statusDot {
             width: 9px;
             height: 9px;
             box-shadow: 0 0 0 5px rgba(0, 191, 99, 0.1);
           }
 
-          .instagram-account {
+          .instagramAccount {
             gap: 15px;
             font-size: clamp(16px, 2.1vw, 22px);
           }
 
-          .instagram-icon {
+          .instagramIcon {
             width: 50px;
             height: 50px;
             border-radius: 15px;
           }
 
-          .instagram-icon svg {
+          .instagramIcon svg {
             width: 25px;
             height: 25px;
           }
 
-          .information-section {
-            padding: 112px 0 132px;
+          .informationSection {
+            padding: 145px 0;
           }
 
-          .information-grid {
+          .informationGrid {
             grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 20px;
           }
 
-          .information-item {
+          .informationItem {
             min-height: 180px;
             padding: 28px;
             border-radius: 24px;
           }
 
-          .information-number {
+          .informationNumber {
             margin-bottom: 48px;
             font-size: 10px;
           }
 
-          .information-value {
+          .informationValue {
             font-size: clamp(18px, 2.2vw, 26px);
           }
 
-          .order-section {
+          .orderSection {
             align-items: flex-start;
             flex-direction: column;
             gap: 44px;
@@ -1117,26 +1170,26 @@ export default function ContactPage() {
             border-radius: 34px;
           }
 
-          .order-content {
+          .orderContent {
             max-width: 700px;
           }
 
-          .order-label {
+          .orderLabel {
             margin-bottom: 18px;
             font-size: 11px;
           }
 
-          .order-title {
+          .orderTitle {
             font-size: clamp(34px, 4.5vw, 58px);
           }
 
-          .order-description {
+          .orderDescription {
             max-width: 620px;
             margin-top: 28px;
             font-size: 15px;
           }
 
-          .order-link {
+          .orderLink {
             min-width: 230px;
             min-height: 64px;
             gap: 28px;
@@ -1144,197 +1197,294 @@ export default function ContactPage() {
             font-size: 14px;
           }
 
-          .order-arrow {
+          .orderArrow {
             width: 42px;
             height: 42px;
           }
         }
 
-        /*
-         * スマートフォン
-         * 現在のデザインを維持
-         */
-        @media (max-width: 560px) {
-          .contact-page {
-            padding: 76px 0 68px;
+        /* =========================================
+           MOBILE BASE
+        ========================================= */
+
+        @media (max-width: 768px) {
+          .contactPage {
+            padding: 0 !important;
           }
 
-          .contact-container {
-            width: calc(100% - 32px);
+          .contactHero,
+          .contactContent {
+            padding-right: 0 !important;
+            padding-left: 0 !important;
           }
 
-          .contact-hero {
-            padding-bottom: 68px;
+          .contactTitle {
+            font-size: clamp(48px, 15vw, 72px) !important;
+            line-height: 1.13 !important;
           }
 
-          .contact-label {
-            margin-bottom: 22px;
+          .sectionTitle,
+          .informationTitle {
+            font-size: 48px !important;
+            line-height: 1.2 !important;
+          }
+        }
+
+        /* =========================================
+           SMARTPHONE
+           Fruits・About・Storyと同じ左右16px
+        ========================================= */
+
+        @media (max-width: 680px) {
+          .pageContainer {
+            width: min(100% - 32px, 1180px);
+          }
+
+          .contactHero {
+            padding-top: 105px !important;
+            padding-bottom: 85px !important;
+          }
+
+          .contactLabel {
+            margin-bottom: 23px;
             font-size: 10px;
           }
 
-          .contact-title {
-            font-size: clamp(42px, 12.8vw, 60px);
-          }
-
-          .contact-hero-bottom {
+          .contactHeroBottom {
             align-items: flex-start;
             flex-direction: column;
             gap: 26px;
-            margin-top: 38px;
+            margin-top: 34px;
           }
 
-          .contact-description {
-            font-size: 15px;
+          .contactDescription {
+            font-size: 16px;
+            line-height: 1.9;
           }
 
-          .contact-description br {
+          .contactDescription br {
             display: none;
           }
 
-          .contact-location {
+          .contactLocation {
             font-size: 9px;
             text-align: left;
           }
 
-          .contact-notice {
+          .contactContent {
+            padding-top: 85px !important;
+            padding-bottom: 110px !important;
+          }
+
+          .contactNotice {
             gap: 30px;
-            margin-bottom: 80px;
+            margin-bottom: 100px;
             padding: 30px 24px;
             border-radius: 25px;
           }
 
-          .notice-title {
+          .noticeLabel {
+            font-size: 9px;
+          }
+
+          .noticeTitle {
             font-size: clamp(34px, 10vw, 46px);
           }
 
-          .notice-text {
+          .noticeText {
             font-size: 15px;
             line-height: 1.9;
           }
 
-          .methods-section {
-            margin-bottom: 86px;
+          .noticePoints {
+            margin-top: 25px;
           }
 
-          .section-heading {
-            margin-bottom: 28px;
+          .methodsSection {
+            margin-bottom: 100px;
           }
 
-          .section-title,
-          .information-title {
-            font-size: clamp(35px, 11vw, 48px);
+          .sectionHeading,
+          .informationHeading {
+            margin-bottom: 30px;
           }
 
-          .section-description br,
-          .information-description br {
+          .sectionDescription br,
+          .informationDescription br {
             display: none;
           }
 
-          .contact-grid {
+          .contactGrid {
             gap: 20px;
           }
 
-          .contact-card {
+          .contactCard {
             min-height: 410px;
             padding: 25px 21px;
             border-radius: 23px;
           }
 
-          .card-header {
+          .cardHeader {
             margin-bottom: 44px;
           }
 
-          .card-title {
+          .cardTitle {
             font-size: clamp(32px, 10vw, 43px);
           }
 
-          .card-footer {
+          .cardText {
+            font-size: 14px;
+          }
+
+          .cardFooter {
             padding-top: 38px;
           }
 
-          .telephone-link,
-          .fax-number {
+          .telephoneLink,
+          .faxNumber {
             font-size: clamp(24px, 8vw, 34px);
           }
 
-          .email-link {
+          .emailLink {
             font-size: clamp(17px, 5.4vw, 23px);
           }
 
-          .instagram-account {
+          .cardNote {
+            font-size: 12px;
+          }
+
+          .instagramAccount {
             align-items: flex-start;
             flex-direction: column;
           }
 
-          .information-section {
-            padding: 78px 0 92px;
+          .informationSection {
+            padding: 100px 0;
           }
 
-          .information-grid {
+          .informationGrid {
             grid-template-columns: 1fr;
             gap: 14px;
           }
 
-          .information-item {
+          .informationItem {
             min-height: 150px;
             padding: 23px;
             border-radius: 20px;
           }
 
-          .information-number {
+          .informationNumber {
             margin-bottom: 35px;
           }
 
-          .order-section {
+          .informationValue {
+            font-size: 20px;
+          }
+
+          .orderSection {
             gap: 36px;
             padding: 40px 24px;
             border-radius: 25px;
           }
 
-          .order-title {
+          .orderTitle {
             font-size: clamp(32px, 10vw, 44px);
           }
 
-          .order-description {
+          .orderDescription {
             font-size: 14px;
           }
 
-          .order-link {
+          .orderLink {
             width: 100%;
             min-width: 0;
           }
         }
 
-        @media (max-width: 380px) {
-          .contact-container {
+        @media (max-width: 480px) {
+          .contactDescription {
+            font-size: 15px;
+          }
+
+          .contactCard {
+            min-height: 390px;
+          }
+
+          .cardText {
+            font-size: 13px;
+          }
+
+          .orderDescription {
+            font-size: 13px;
+          }
+        }
+
+        @media (max-width: 420px) {
+          .contactTitle {
+            font-size: 46px !important;
+          }
+
+          .sectionTitle,
+          .informationTitle {
+            font-size: 42px !important;
+          }
+
+          .contactNotice,
+          .contactCard,
+          .orderSection {
+            padding-right: 20px;
+            padding-left: 20px;
+          }
+
+          .telephoneLink,
+          .faxNumber {
+            font-size: 24px;
+          }
+
+          .emailLink {
+            font-size: 17px;
+          }
+
+          .orderTitle {
+            font-size: 34px;
+          }
+        }
+
+        @media (max-width: 360px) {
+          .pageContainer {
             width: calc(100% - 28px);
           }
 
-          .contact-title {
-            font-size: 40px;
+          .contactTitle {
+            font-size: 42px !important;
           }
 
-          .contact-notice,
-          .contact-card,
-          .order-section {
+          .sectionTitle,
+          .informationTitle {
+            font-size: 39px !important;
+          }
+
+          .contactNotice,
+          .contactCard,
+          .orderSection {
             padding-right: 18px;
             padding-left: 18px;
           }
 
-          .telephone-link,
-          .fax-number {
-            font-size: 23px;
+          .telephoneLink,
+          .faxNumber {
+            font-size: 22px;
           }
 
-          .email-link {
-            font-size: 16px;
+          .emailLink {
+            font-size: 15px;
           }
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .contact-card,
-          .round-arrow,
-          .order-link {
+          .contactCard,
+          .roundArrow,
+          .orderLink {
             transition: none;
           }
         }
