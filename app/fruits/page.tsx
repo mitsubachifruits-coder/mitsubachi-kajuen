@@ -403,8 +403,6 @@ export default function FruitsPage() {
               <br />
               商品の販売開始まで、どうぞ楽しみにお待ちください。
             </p>
-
-            <ColorLogo />
           </div>
         </section>
       </main>

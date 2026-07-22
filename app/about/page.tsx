@@ -356,8 +356,6 @@ export default function AboutPage() {
             <p className="closingDescription">
               また会いたくなる、果樹園で。
             </p>
-
-            <ColorLogo className="closingLogo" />
           </div>
         </section>
       </main>
