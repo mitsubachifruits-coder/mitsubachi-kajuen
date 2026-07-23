@@ -240,6 +240,31 @@ function formatPrice(price: number) {
   return new Intl.NumberFormat("ja-JP").format(price);
 }
 
+/**
+ * Shopifyの商品ハンドルを作成します。
+ *
+ * 例：
+ * 訳あり + 尾花沢すいか + 中玉・1玉
+ * ↓
+ * 訳あり-尾花沢すいか-中玉-1玉
+ */
+function createShopifyProductHandle(product: Product) {
+  return `${product.grade}-${product.name}-${product.specification}`
+    .trim()
+    .replace(/[・･]/g, "-")
+    .replace(/[〜～~]/g, "-")
+    .replace(/[／/]/g, "-")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+function createShopifyProductUrl(product: Product) {
+  const handle = createShopifyProductHandle(product);
+
+  return `${SHOPIFY_STORE_URL}/products/${handle}`;
+}
+
 export default function FruitsPage() {
   const productCount = categories.reduce(
     (total, category) => total + category.products.length,
@@ -364,13 +389,14 @@ export default function FruitsPage() {
                           </p>
 
                           <a
-                            href={`${SHOPIFY_STORE_URL}/products/${product.id}`}
+                            href={createShopifyProductUrl(product)}
                             className="purchaseButton"
                             target="_blank"
                             rel="noopener noreferrer"
-                            aria-label={`${product.name} ${product.specification}を購入する`}
+                            aria-label={`${product.name} ${product.grade} ${product.specification}を購入する`}
                           >
                             <span className="purchaseButtonText">購入する</span>
+
                             <span
                               className="purchaseButtonArrow"
                               aria-hidden="true"
