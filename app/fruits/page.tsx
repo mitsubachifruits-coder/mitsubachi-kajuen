@@ -7,6 +7,8 @@ export const metadata: Metadata = {
     "みつばち果樹園で育てている、さくらんぼ、すいか、桃、ぶどう、りんご、ラ・フランスなど、山形の季節の果物をご紹介します。",
 };
 
+export const dynamic = "force-dynamic";
+
 const SHOPIFY_STORE_URL = "https://q2cxkf-4m.myshopify.com";
 
 type Product = {
@@ -34,34 +36,6 @@ const categories: Category[] = [
       "山形の夏を代表する、みずみずしく甘い尾花沢すいかをお届けします。",
     products: [
       {
-        id: "yamagata-watermelon-wakeari-medium-1",
-        name: "尾花沢すいか",
-        grade: "訳あり",
-        specification: "中玉・1玉",
-        price: 3000,
-      },
-      {
-        id: "yamagata-watermelon-wakeari-medium-2",
-        name: "尾花沢すいか",
-        grade: "訳あり",
-        specification: "中玉・2玉",
-        price: 4200,
-      },
-      {
-        id: "yamagata-watermelon-wakeari-large-1",
-        name: "尾花沢すいか",
-        grade: "訳あり",
-        specification: "大玉・1玉",
-        price: 3300,
-      },
-      {
-        id: "yamagata-watermelon-wakeari-large-2",
-        name: "尾花沢すいか",
-        grade: "訳あり",
-        specification: "大玉・2玉",
-        price: 4800,
-      },
-      {
         id: "obanazawa-watermelon-medium-1",
         name: "尾花沢すいか",
         grade: "秀品",
@@ -88,6 +62,34 @@ const categories: Category[] = [
         grade: "秀品",
         specification: "大玉・2玉",
         price: 6600,
+      },
+      {
+        id: "yamagata-watermelon-wakeari-medium-1",
+        name: "尾花沢すいか",
+        grade: "訳あり",
+        specification: "中玉・1玉",
+        price: 3000,
+      },
+      {
+        id: "yamagata-watermelon-wakeari-medium-2",
+        name: "尾花沢すいか",
+        grade: "訳あり",
+        specification: "中玉・2玉",
+        price: 4200,
+      },
+      {
+        id: "yamagata-watermelon-wakeari-large-1",
+        name: "尾花沢すいか",
+        grade: "訳あり",
+        specification: "大玉・1玉",
+        price: 3300,
+      },
+      {
+        id: "yamagata-watermelon-wakeari-large-2",
+        name: "尾花沢すいか",
+        grade: "訳あり",
+        specification: "大玉・2玉",
+        price: 4800,
       },
     ],
   },
@@ -236,18 +238,29 @@ function ColorLogo() {
   );
 }
 
+function shuffleCategories(items: Category[]) {
+  const shuffledItems = [...items];
+
+  for (
+    let currentIndex = shuffledItems.length - 1;
+    currentIndex > 0;
+    currentIndex--
+  ) {
+    const randomIndex = Math.floor(Math.random() * (currentIndex + 1));
+
+    [shuffledItems[currentIndex], shuffledItems[randomIndex]] = [
+      shuffledItems[randomIndex],
+      shuffledItems[currentIndex],
+    ];
+  }
+
+  return shuffledItems;
+}
+
 function formatPrice(price: number) {
   return new Intl.NumberFormat("ja-JP").format(price);
 }
 
-/**
- * Shopifyの商品ハンドルを作成します。
- *
- * 例：
- * 訳あり + 尾花沢すいか + 中玉・1玉
- * ↓
- * 訳あり-尾花沢すいか-中玉-1玉
- */
 function createShopifyProductHandle(product: Product) {
   return `${product.grade}-${product.name}-${product.specification}`
     .trim()
@@ -266,6 +279,8 @@ function createShopifyProductUrl(product: Product) {
 }
 
 export default function FruitsPage() {
+  const randomizedCategories = shuffleCategories(categories);
+
   const productCount = categories.reduce(
     (total, category) => total + category.products.length,
     0
@@ -302,7 +317,7 @@ export default function FruitsPage() {
 
         <nav className="categoryNavigation" aria-label="商品カテゴリー">
           <div className="categoryNavigationInner">
-            {categories.map((category) => (
+            {randomizedCategories.map((category) => (
               <a
                 key={category.id}
                 href={`#${category.id}`}
@@ -316,7 +331,7 @@ export default function FruitsPage() {
 
         <div className="productsArea">
           <div className="pageContainer">
-            {categories.map((category, categoryIndex) => (
+            {randomizedCategories.map((category, categoryIndex) => (
               <section
                 key={category.id}
                 id={category.id}
