@@ -24,6 +24,9 @@ type Category = {
   name: string;
   englishName: string;
   description: string;
+  preorder?: {
+    shippingPeriod: string;
+  };
   products: Product[];
 };
 
@@ -99,6 +102,9 @@ const categories: Category[] = [
     englishName: "PEACH",
     description:
       "芳醇な香りと、口いっぱいに広がるやさしい甘さをお楽しみください。",
+    preorder: {
+      shippingPeriod: "2027年8月〜9月",
+    },
     products: [
       {
         id: "kawanakajima-hakuto-5kg",
@@ -122,6 +128,9 @@ const categories: Category[] = [
     englishName: "GRAPE",
     description:
       "粒の大きさ、豊かな香り、上品な甘さを大切に選別しています。",
+    preorder: {
+      shippingPeriod: "2027年9月〜10月",
+    },
     products: [
       {
         id: "pione-700g",
@@ -159,6 +168,9 @@ const categories: Category[] = [
     englishName: "APPLE",
     description:
       "山形の寒暖差が育てた、香り豊かで歯ごたえのよいりんごです。",
+    preorder: {
+      shippingPeriod: "2027年11月〜12月",
+    },
     products: [
       {
         id: "fuji-apple-10-18",
@@ -189,6 +201,9 @@ const categories: Category[] = [
     englishName: "LA FRANCE",
     description:
       "とろけるような果肉と芳醇な香りを持つ、山形を代表する西洋梨です。",
+    preorder: {
+      shippingPeriod: "2027年11月〜12月",
+    },
     products: [
       {
         id: "la-france-5kg",
@@ -205,6 +220,9 @@ const categories: Category[] = [
     englishName: "CHERRY",
     description:
       "山形県東根市から、一粒一粒大切に選別したさくらんぼをお届けします。",
+    preorder: {
+      shippingPeriod: "2027年6月〜7月",
+    },
     products: [
       {
         id: "satonishiki-l-1kg",
@@ -376,6 +394,25 @@ export default function FruitsPage() {
                       </div>
 
                       <div className="productInformation">
+                        {category.preorder && (
+                          <div
+                            className="preorderPanel"
+                            aria-label={`予約注文品・${category.preorder.shippingPeriod}発送予定`}
+                          >
+                            <span className="preorderBadge">予約注文品</span>
+
+                            <span className="preorderSchedule">
+                              <span className="preorderScheduleLabel">
+                                発送予定
+                              </span>
+
+                              <span className="preorderSchedulePeriod">
+                                {category.preorder.shippingPeriod}
+                              </span>
+                            </span>
+                          </div>
+                        )}
+
                         <div className="productBadges">
                           <span
                             className={
@@ -701,6 +738,68 @@ export default function FruitsPage() {
           padding: 23px 23px 21px;
         }
 
+        .preorderPanel {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 12px;
+          margin: 0 0 16px;
+          padding: 11px 12px;
+          border: 1px solid rgba(255, 49, 49, 0.18);
+          border-radius: 12px;
+          background:
+            linear-gradient(
+              135deg,
+              rgba(255, 49, 49, 0.075),
+              rgba(255, 222, 89, 0.09)
+            ),
+            #fffdfb;
+        }
+
+        .preorderBadge {
+          display: inline-flex;
+          min-height: 24px;
+          flex: 0 0 auto;
+          align-items: center;
+          justify-content: center;
+          padding: 4px 9px;
+          border-radius: 999px;
+          background: #ff3131;
+          color: #ffffff;
+          font-size: 8px;
+          font-weight: 600;
+          line-height: 1.2;
+          letter-spacing: 0.08em;
+          white-space: nowrap;
+          box-shadow: 0 5px 14px rgba(255, 49, 49, 0.14);
+        }
+
+        .preorderSchedule {
+          display: flex;
+          min-width: 0;
+          flex-direction: column;
+          align-items: flex-end;
+          gap: 2px;
+          text-align: right;
+        }
+
+        .preorderScheduleLabel {
+          color: #a07f77;
+          font-size: 7px;
+          font-weight: 600;
+          line-height: 1.3;
+          letter-spacing: 0.13em;
+        }
+
+        .preorderSchedulePeriod {
+          color: #5e4640;
+          font-size: 11px;
+          font-weight: 600;
+          line-height: 1.4;
+          letter-spacing: 0.02em;
+          white-space: nowrap;
+        }
+
         .productBadges {
           display: flex;
           align-items: center;
@@ -1015,6 +1114,31 @@ export default function FruitsPage() {
             padding: 30px 30px 28px;
           }
 
+          .preorderPanel {
+            gap: 15px;
+            margin-bottom: 21px;
+            padding: 14px 15px;
+            border-radius: 15px;
+          }
+
+          .preorderBadge {
+            min-height: 29px;
+            padding: 5px 11px;
+            font-size: 10px;
+          }
+
+          .preorderSchedule {
+            gap: 3px;
+          }
+
+          .preorderScheduleLabel {
+            font-size: 9px;
+          }
+
+          .preorderSchedulePeriod {
+            font-size: 14px;
+          }
+
           .productBadges {
             min-height: 28px;
             margin-bottom: 24px;
@@ -1180,6 +1304,15 @@ export default function FruitsPage() {
             padding: 25px 23px 23px;
           }
 
+          .preorderPanel {
+            margin-bottom: 18px;
+            padding: 12px 13px;
+          }
+
+          .preorderSchedulePeriod {
+            font-size: 13px;
+          }
+
           .productFooter {
             gap: 12px;
           }
@@ -1242,6 +1375,25 @@ export default function FruitsPage() {
             right: 18px;
             bottom: 15px;
             font-size: 9px;
+          }
+
+          .preorderPanel {
+            gap: 8px;
+            padding: 10px 11px;
+          }
+
+          .preorderBadge {
+            min-height: 26px;
+            padding: 5px 9px;
+            font-size: 9px;
+          }
+
+          .preorderScheduleLabel {
+            font-size: 8px;
+          }
+
+          .preorderSchedulePeriod {
+            font-size: 12px;
           }
 
           .productFooter {
