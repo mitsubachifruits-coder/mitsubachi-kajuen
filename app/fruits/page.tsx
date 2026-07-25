@@ -103,7 +103,7 @@ const categories: Category[] = [
     description:
       "芳醇な香りと、口いっぱいに広がるやさしい甘さをお楽しみください。",
     preorder: {
-      shippingPeriod: "2027年8月〜9月",
+      shippingPeriod: "2026年8月〜9月",
     },
     products: [
       {
@@ -129,7 +129,7 @@ const categories: Category[] = [
     description:
       "粒の大きさ、豊かな香り、上品な甘さを大切に選別しています。",
     preorder: {
-      shippingPeriod: "2027年9月〜10月",
+      shippingPeriod: "2026年9月〜10月",
     },
     products: [
       {
@@ -169,7 +169,7 @@ const categories: Category[] = [
     description:
       "山形の寒暖差が育てた、香り豊かで歯ごたえのよいりんごです。",
     preorder: {
-      shippingPeriod: "2027年11月〜12月",
+      shippingPeriod: "2026年11月〜12月",
     },
     products: [
       {
@@ -202,7 +202,7 @@ const categories: Category[] = [
     description:
       "とろけるような果肉と芳醇な香りを持つ、山形を代表する西洋梨です。",
     preorder: {
-      shippingPeriod: "2027年11月〜12月",
+      shippingPeriod: "2026年11月〜12月",
     },
     products: [
       {
@@ -394,6 +394,24 @@ export default function FruitsPage() {
                       </div>
 
                       <div className="productInformation">
+                        <div className="productBadges">
+                          <span
+                            className={
+                              product.grade === "訳あり"
+                                ? "productBadge productBadgeWakeari"
+                                : "productBadge"
+                            }
+                          >
+                            {product.grade}
+                          </span>
+                        </div>
+
+                        <h3 className="productName">{product.name}</h3>
+
+                        <p className="productSpecification">
+                          {product.specification}
+                        </p>
+
                         {category.preorder && (
                           <div
                             className="preorderPanel"
@@ -412,24 +430,6 @@ export default function FruitsPage() {
                             </span>
                           </div>
                         )}
-
-                        <div className="productBadges">
-                          <span
-                            className={
-                              product.grade === "訳あり"
-                                ? "productBadge productBadgeWakeari"
-                                : "productBadge"
-                            }
-                          >
-                            {product.grade}
-                          </span>
-                        </div>
-
-                        <h3 className="productName">{product.name}</h3>
-
-                        <p className="productSpecification">
-                          {product.specification}
-                        </p>
 
                         <div className="productFooter">
                           <p className="productPrice">
@@ -738,12 +738,55 @@ export default function FruitsPage() {
           padding: 23px 23px 21px;
         }
 
+        .productBadges {
+          display: flex;
+          align-items: center;
+          min-height: 22px;
+          margin-bottom: 18px;
+        }
+
+        .productBadge {
+          display: inline-flex;
+          min-height: 22px;
+          align-items: center;
+          padding: 3px 9px;
+          border: 1px solid #d9e4cb;
+          border-radius: 999px;
+          background: #f5f9ef;
+          color: #667351;
+          font-size: 8px;
+          line-height: 1.4;
+          letter-spacing: 0.08em;
+        }
+
+        .productBadgeWakeari {
+          border-color: #ead9bf;
+          background: #fff8ed;
+          color: #8a6a42;
+        }
+
+        .productName {
+          margin: 0;
+          color: #31312e;
+          font-size: clamp(18px, 2.2vw, 22px);
+          font-weight: 400;
+          line-height: 1.4;
+          letter-spacing: -0.025em;
+        }
+
+        .productSpecification {
+          margin: 9px 0 0;
+          color: #777770;
+          font-size: 12px;
+          line-height: 1.7;
+        }
+
         .preorderPanel {
           display: flex;
           align-items: center;
           justify-content: space-between;
           gap: 12px;
-          margin: 0 0 16px;
+          margin: 18px 0 0;
           padding: 11px 12px;
           border: 1px solid rgba(255, 49, 49, 0.18);
           border-radius: 12px;
@@ -798,49 +841,6 @@ export default function FruitsPage() {
           line-height: 1.4;
           letter-spacing: 0.02em;
           white-space: nowrap;
-        }
-
-        .productBadges {
-          display: flex;
-          align-items: center;
-          min-height: 22px;
-          margin-bottom: 18px;
-        }
-
-        .productBadge {
-          display: inline-flex;
-          min-height: 22px;
-          align-items: center;
-          padding: 3px 9px;
-          border: 1px solid #d9e4cb;
-          border-radius: 999px;
-          background: #f5f9ef;
-          color: #667351;
-          font-size: 8px;
-          line-height: 1.4;
-          letter-spacing: 0.08em;
-        }
-
-        .productBadgeWakeari {
-          border-color: #ead9bf;
-          background: #fff8ed;
-          color: #8a6a42;
-        }
-
-        .productName {
-          margin: 0;
-          color: #31312e;
-          font-size: clamp(18px, 2.2vw, 22px);
-          font-weight: 400;
-          line-height: 1.4;
-          letter-spacing: -0.025em;
-        }
-
-        .productSpecification {
-          margin: 9px 0 0;
-          color: #777770;
-          font-size: 12px;
-          line-height: 1.7;
         }
 
         .productFooter {
@@ -1114,9 +1114,29 @@ export default function FruitsPage() {
             padding: 30px 30px 28px;
           }
 
+          .productBadges {
+            min-height: 28px;
+            margin-bottom: 24px;
+          }
+
+          .productBadge {
+            min-height: 28px;
+            padding: 4px 11px;
+            font-size: 11px;
+          }
+
+          .productName {
+            font-size: clamp(22px, 3vw, 29px);
+          }
+
+          .productSpecification {
+            margin-top: 12px;
+            font-size: 15px;
+          }
+
           .preorderPanel {
             gap: 15px;
-            margin-bottom: 21px;
+            margin-top: 22px;
             padding: 14px 15px;
             border-radius: 15px;
           }
@@ -1137,26 +1157,6 @@ export default function FruitsPage() {
 
           .preorderSchedulePeriod {
             font-size: 14px;
-          }
-
-          .productBadges {
-            min-height: 28px;
-            margin-bottom: 24px;
-          }
-
-          .productBadge {
-            min-height: 28px;
-            padding: 4px 11px;
-            font-size: 11px;
-          }
-
-          .productName {
-            font-size: clamp(22px, 3vw, 29px);
-          }
-
-          .productSpecification {
-            margin-top: 12px;
-            font-size: 15px;
           }
 
           .productFooter {
@@ -1305,7 +1305,7 @@ export default function FruitsPage() {
           }
 
           .preorderPanel {
-            margin-bottom: 18px;
+            margin-top: 19px;
             padding: 12px 13px;
           }
 
