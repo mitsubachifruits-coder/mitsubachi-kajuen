@@ -52,7 +52,7 @@ const historyItems: HistoryItem[] = [
     number: "02",
     year: "1940s",
     englishTitle: "WAR & PRAYER",
-    title: "戦争と祈り",
+    title: "戦争と祈り。",
     paragraphs: [
       "開拓者たちの入植は、第二次世界大戦によって試されます。苦労して切り拓いた土地は接収され、努力が一瞬で水の泡に。",
       "先の見えない苦しさの中で、祈りを支えに互いを励まし、力を合わせながら、この土地で生きるという決意をつないでいきました。",
@@ -70,7 +70,7 @@ const historyItems: HistoryItem[] = [
     number: "04",
     year: "1950s",
     englishTitle: "UNITED STRONG",
-    title: "深まった団結",
+    title: "深まった団結。",
     paragraphs: [
       "そして開拓者たちは固く結束し、長い年月をかけて農地を取り戻します。若木の歩みを支えたのは、一人ではなく、みんなで未来を切り拓くという団結の精神でした。",
     ],
