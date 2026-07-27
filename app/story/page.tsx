@@ -51,12 +51,11 @@ const historyItems: HistoryItem[] = [
   {
     number: "02",
     year: "1940s",
-    englishTitle: "WAR & UNION",
-    title: "戦争が団結を固くする。",
+    englishTitle: "WAR & PRAYER",
+    title: "戦争と祈り",
     paragraphs: [
       "開拓者たちの入植は、第二次世界大戦によって試されます。苦労して切り拓いた土地は接収され、努力が一瞬で水の泡に。",
       "先の見えない苦しさの中で、祈りを支えに互いを励まし、力を合わせながら、この土地で生きるという決意をつないでいきました。",
-      "そして開拓者たちは固く結束し、長い年月をかけて農地を取り戻します。若木の歩みを支えたのは、一人ではなく、みんなで未来を切り拓くという団結の精神でした。",
     ],
     images: [
       {
@@ -67,8 +66,25 @@ const historyItems: HistoryItem[] = [
       },
     ],
   },
+    {
+    number: "04",
+    year: "1950s",
+    englishTitle: "UNITED STRONG",
+    title: "深まった団結",
+    paragraphs: [
+      "そして開拓者たちは固く結束し、長い年月をかけて農地を取り戻します。若木の歩みを支えたのは、一人ではなく、みんなで未来を切り拓くという団結の精神でした。",
+    ],
+    images: [
+      {
+        src: "/images/story/osanagi-pioneers.jpg",
+        alt: "取り戻した土地とさくらんぼの木々を見つめる開拓者たち",
+        caption: "取り戻した土地とさくらんぼの木々を見つめる開拓者たち",
+        objectPosition: "center 42%",
+      },
+    ],
+  },
   {
-    number: "03",
+    number: "05",
     year: "2000s",
     englishTitle: "FRUIT KINGDOM HIGASHINE",
     title: "若木からはじまった「果樹王国ひがしね」。",
@@ -85,7 +101,7 @@ const historyItems: HistoryItem[] = [
     ],
   },
   {
-    number: "04",
+    number: "06",
     year: "2011",
     englishTitle: "MITSUBACHI KAJUEN",
     title: "みつばち果樹園、はじまる。",
