@@ -361,21 +361,6 @@ export default function OrderPage() {
               <span aria-hidden="true">→</span>
             </Link>
           </section>
-
-          {/* クロージング */}
-          <section className="closingSection">
-            <p className="closingLabel">THANK YOU</p>
-
-            <h2 className="closingLogo">
-              <ColorLogo />
-            </h2>
-
-            <p className="closingMessage">
-              ご注文ページの完成まで、
-              <br />
-              もう少々お待ちください。
-            </p>
-          </section>
         </div>
       </div>
 
