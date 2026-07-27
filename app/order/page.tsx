@@ -26,7 +26,7 @@ const seasonalProducts: SeasonalProduct[] = [
     season: "6月中旬〜6月下旬",
     description:
       "上品な甘みとほどよい酸味を楽しめる、山形を代表するさくらんぼです。",
-    status: "受付終了",
+    status: "受付中",
     accent: "#ff6b6b",
   },
   {
@@ -36,7 +36,7 @@ const seasonalProducts: SeasonalProduct[] = [
     season: "6月下旬〜7月上旬",
     description:
       "大粒でしっかりとした果肉と、濃厚な甘みが特徴のさくらんぼです。",
-    status: "受付終了",
+    status: "受付中",
     accent: "#d94a64",
   },
   {
@@ -46,7 +46,7 @@ const seasonalProducts: SeasonalProduct[] = [
     season: "6月下旬〜7月上旬",
     description:
       "存在感のある大きな実と鮮やかな紅色が美しい、山形生まれのさくらんぼです。",
-    status: "受付終了",
+    status: "受付前",
     accent: "#c72c48",
   },
   {
@@ -56,7 +56,7 @@ const seasonalProducts: SeasonalProduct[] = [
     season: "7月下旬〜8月中旬",
     description:
       "夏の昼夜の寒暖差によって育まれた、甘くみずみずしい山形のすいかです。",
-    status: "受付前",
+    status: "受付中",
     accent: "#00a86b",
   },
   {
@@ -66,7 +66,7 @@ const seasonalProducts: SeasonalProduct[] = [
     season: "8月中旬〜8月下旬",
     description:
       "しっかりとした果肉と豊かな甘みを楽しめる、夏を代表する白桃です。",
-    status: "受付前",
+    status: "受付中",
     accent: "#ff8fa3",
   },
   {
@@ -76,7 +76,7 @@ const seasonalProducts: SeasonalProduct[] = [
     season: "11月〜12月",
     description:
       "甘みと酸味のバランスがよく、豊かな香りとみずみずしさを楽しめるりんごです。",
-    status: "受付前",
+    status: "受付中",
     accent: "#e9553f",
   },
 ];
@@ -171,40 +171,8 @@ export default function OrderPage() {
           </p>
         </div>
       </section>
-
       <div className="orderContent">
         <div className="pageContainer">
-          {/* 受付停止のお知らせ */}
-          <section className="orderNotice">
-            <div className="noticeStatus">
-              <span className="noticeStatusDot" />
-
-              <span>現在の受付状況</span>
-            </div>
-
-            <h2 className="noticeTitle">
-              オンラインでのご注文は、
-              <br />
-              現在受付を停止しています。
-            </h2>
-
-            <p className="noticeText">
-              次回の販売に向けて、準備を進めています。
-              <br />
-              受付を再開しましたら、こちらのページでご案内いたします。
-            </p>
-
-            <div className="noticeSupplement">
-              <p>
-                果物は自然の中で育つため、収穫時期や販売数量が
-                前後する場合があります。
-              </p>
-
-              <p>
-                一番おいしい時期を見極めながら、順次受付を開始します。
-              </p>
-            </div>
-          </section>
 
           {/* ご注文の流れ */}
           <section className="guideSection">

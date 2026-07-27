@@ -478,8 +478,6 @@ export default function FruitsPage() {
 
             <p className="closingDescription">
               天候や収穫状況により、販売期間や内容が変更となる場合があります。
-              <br />
-              商品の販売開始まで、どうぞ楽しみにお待ちください。
             </p>
           </div>
         </section>
