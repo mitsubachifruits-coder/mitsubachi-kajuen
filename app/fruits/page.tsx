@@ -221,7 +221,7 @@ const categories: Category[] = [
     description:
       "山形県東根市から、一粒一粒大切に選別したさくらんぼをお届けします。",
     preorder: {
-      shippingPeriod: "2027年6月〜7月",
+      shippingPeriod: "来年6月〜7月",
     },
     products: [
       {
