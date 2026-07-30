@@ -103,7 +103,7 @@ const categories: Category[] = [
     description:
       "芳醇な香りと、口いっぱいに広がるやさしい甘さをお楽しみください。",
     preorder: {
-      shippingPeriod: "2026年8月〜9月",
+      shippingPeriod: "8月〜9月",
     },
     products: [
       {
@@ -129,7 +129,7 @@ const categories: Category[] = [
     description:
       "粒の大きさ、豊かな香り、上品な甘さを大切に選別しています。",
     preorder: {
-      shippingPeriod: "2026年9月〜10月",
+      shippingPeriod: "9月〜10月",
     },
     products: [
       {
@@ -169,7 +169,7 @@ const categories: Category[] = [
     description:
       "山形の寒暖差が育てた、香り豊かで歯ごたえのよいりんごです。",
     preorder: {
-      shippingPeriod: "2026年11月〜12月",
+      shippingPeriod: "11月〜12月",
     },
     products: [
       {
@@ -202,7 +202,7 @@ const categories: Category[] = [
     description:
       "とろけるような果肉と芳醇な香りを持つ、山形を代表する西洋梨です。",
     preorder: {
-      shippingPeriod: "2026年11月〜12月",
+      shippingPeriod: "11月〜12月",
     },
     products: [
       {
