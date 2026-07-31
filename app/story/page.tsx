@@ -114,7 +114,7 @@ const historyItems: HistoryItem[] = [
       {
         src: "/images/story/mitsubachikajuenlogo.jpg",
         alt: "みつばち果樹園ロゴ",
-        caption: "みつばち果樹園",
+        caption: "みつばち果樹園ロゴ",
         objectPosition: "center 42%",
       },
     ],
