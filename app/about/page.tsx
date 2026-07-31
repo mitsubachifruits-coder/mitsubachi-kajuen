@@ -251,7 +251,7 @@ export default function AboutPage() {
 
                   <div className="mapWrapper">
                     <iframe
-                      src="https://www.google.com/maps?q=山形県東根市若木通り1-13&output=embed"
+                      src="https://www.google.com/maps?q=みつばち果樹園&output=embed"
                       title="みつばち果樹園 Googleマップ"
                       width="100%"
                       height="300"
