@@ -11,11 +11,6 @@ const navigationItems = [
     number: "01",
   },
   {
-    label: "Fruits",
-    href: "/fruits",
-    number: "02",
-  },
-  {
     label: "Story",
     href: "/story",
     number: "03",

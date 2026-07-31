@@ -98,7 +98,6 @@ export default function Footer() {
               aria-label="フッターナビゲーション"
             >
               <Link href="/about">About</Link>
-              <Link href="/fruits">Fruits</Link>
               <Link href="/story">Story</Link>
               <Link href="/contact">Contact</Link>
               <Link href="/order">Order</Link>
