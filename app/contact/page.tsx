@@ -369,7 +369,6 @@ export default function ContactPage() {
               </h2>
 
               <p className="orderDescription">
-                オンライン注文の受付状況や、
                 現在販売している商品については、
                 注文ページをご確認ください。
               </p>
