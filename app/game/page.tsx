@@ -1,14 +1,18 @@
 "use client";
 
 import Link from "next/link";
-import {
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
-type GameStatus = "ready" | "playing" | "gameover";
+type Status = "ready" | "playing" | "gameover";
+
+type ItemType =
+  | "flower"
+  | "cherry"
+  | "watermelon"
+  | "peach"
+  | "grape"
+  | "apple"
+  | "laFrance";
 
 type Obstacle = {
   x: number;
@@ -18,12 +22,12 @@ type Obstacle = {
   passed: boolean;
 };
 
-type Collectible = {
+type Item = {
   id: number;
   x: number;
   y: number;
   radius: number;
-  type: "flower" | "cherry";
+  type: ItemType;
   collected: boolean;
   rotation: number;
 };
@@ -39,8 +43,8 @@ type Particle = {
   color: string;
 };
 
-type GameState = {
-  status: GameStatus;
+type Game = {
+  status: Status;
   width: number;
   height: number;
   beeX: number;
@@ -49,16 +53,13 @@ type GameState = {
   score: number;
   elapsed: number;
   spawnTimer: number;
-  collectibleId: number;
+  nextItemId: number;
   obstacles: Obstacle[];
-  collectibles: Collectible[];
+  items: Item[];
   particles: Particle[];
 };
 
 const COLORS = {
-  background: "#fafaf9",
-  text: "#27272a",
-  muted: "#71717a",
   red: "#ff4b4b",
   blue: "#3578e5",
   green: "#28a867",
@@ -70,19 +71,41 @@ const COLORS = {
   trunkLight: "#a97a52",
   leaf: "#4d8d61",
   leafLight: "#69a878",
-  flowerCenter: "#f0b929",
+};
+
+const ITEM_POOL: ItemType[] = [
+  "flower",
+  "flower",
+  "flower",
+  "flower",
+  "cherry",
+  "watermelon",
+  "peach",
+  "grape",
+  "apple",
+  "laFrance",
+];
+
+const ITEM_COLORS: Record<ItemType, string> = {
+  flower: COLORS.yellow,
+  cherry: COLORS.red,
+  watermelon: COLORS.green,
+  peach: "#f39a70",
+  grape: COLORS.purple,
+  apple: "#e74646",
+  laFrance: "#a5b85d",
 };
 
 const clamp = (value: number, min: number, max: number) =>
   Math.min(Math.max(value, min), max);
 
-const randomBetween = (min: number, max: number) =>
+const random = (min: number, max: number) =>
   min + Math.random() * (max - min);
 
-const createInitialGame = (
+const initialGame = (
   width = 960,
   height = 560,
-): GameState => ({
+): Game => ({
   status: "ready",
   width,
   height,
@@ -92,124 +115,112 @@ const createInitialGame = (
   score: 0,
   elapsed: 0,
   spawnTimer: 0.8,
-  collectibleId: 0,
+  nextItemId: 0,
   obstacles: [],
-  collectibles: [],
+  items: [],
   particles: [],
 });
 
-function roundedRectangle(
-  context: CanvasRenderingContext2D,
+function roundedRect(
+  ctx: CanvasRenderingContext2D,
   x: number,
   y: number,
   width: number,
   height: number,
   radius: number,
 ) {
-  const safeRadius = Math.min(radius, width / 2, height / 2);
+  const r = Math.min(radius, width / 2, height / 2);
 
-  context.beginPath();
-  context.moveTo(x + safeRadius, y);
-  context.lineTo(x + width - safeRadius, y);
-  context.quadraticCurveTo(
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.lineTo(x + width - r, y);
+  ctx.quadraticCurveTo(
     x + width,
     y,
     x + width,
-    y + safeRadius,
+    y + r,
   );
-  context.lineTo(x + width, y + height - safeRadius);
-  context.quadraticCurveTo(
+  ctx.lineTo(x + width, y + height - r);
+  ctx.quadraticCurveTo(
     x + width,
     y + height,
-    x + width - safeRadius,
+    x + width - r,
     y + height,
   );
-  context.lineTo(x + safeRadius, y + height);
-  context.quadraticCurveTo(
+  ctx.lineTo(x + r, y + height);
+  ctx.quadraticCurveTo(
     x,
     y + height,
     x,
-    y + height - safeRadius,
+    y + height - r,
   );
-  context.lineTo(x, y + safeRadius);
-  context.quadraticCurveTo(x, y, x + safeRadius, y);
-  context.closePath();
+  ctx.lineTo(x, y + r);
+  ctx.quadraticCurveTo(x, y, x + r, y);
+  ctx.closePath();
 }
 
-function circlesOverlap(
-  x1: number,
-  y1: number,
-  radius1: number,
-  x2: number,
-  y2: number,
-  radius2: number,
-) {
-  const dx = x1 - x2;
-  const dy = y1 - y2;
-  const distanceSquared = dx * dx + dy * dy;
-  const radiusSum = radius1 + radius2;
-
-  return distanceSquared < radiusSum * radiusSum;
-}
-
-function circleIntersectsRectangle(
-  circleX: number,
-  circleY: number,
+function circleHitsRect(
+  cx: number,
+  cy: number,
   radius: number,
-  rectangleX: number,
-  rectangleY: number,
-  rectangleWidth: number,
-  rectangleHeight: number,
+  x: number,
+  y: number,
+  width: number,
+  height: number,
 ) {
-  const nearestX = clamp(
-    circleX,
-    rectangleX,
-    rectangleX + rectangleWidth,
-  );
-
-  const nearestY = clamp(
-    circleY,
-    rectangleY,
-    rectangleY + rectangleHeight,
-  );
-
-  const dx = circleX - nearestX;
-  const dy = circleY - nearestY;
+  const nearestX = clamp(cx, x, x + width);
+  const nearestY = clamp(cy, y, y + height);
+  const dx = cx - nearestX;
+  const dy = cy - nearestY;
 
   return dx * dx + dy * dy < radius * radius;
 }
 
+function circlesHit(
+  x1: number,
+  y1: number,
+  r1: number,
+  x2: number,
+  y2: number,
+  r2: number,
+) {
+  const dx = x1 - x2;
+  const dy = y1 - y2;
+
+  return dx * dx + dy * dy < (r1 + r2) ** 2;
+}
+
 export default function GamePage() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const gameFrameRef = useRef<HTMLDivElement | null>(null);
+  const frameRef = useRef<HTMLDivElement | null>(null);
+  const animationRef = useRef<number | null>(null);
+  const previousTimeRef = useRef(0);
+  const audioRef = useRef<AudioContext | null>(null);
+  const soundRef = useRef(true);
+  const gameRef = useRef<Game>(initialGame());
 
-  const animationFrameRef = useRef<number | null>(null);
-  const lastFrameTimeRef = useRef<number>(0);
-  const audioContextRef = useRef<AudioContext | null>(null);
-
-  const soundEnabledRef = useRef(true);
-  const gameRef = useRef<GameState>(createInitialGame());
-
-  const [status, setStatus] = useState<GameStatus>("ready");
+  const [status, setStatus] = useState<Status>("ready");
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
   const [soundEnabled, setSoundEnabled] = useState(true);
 
   useEffect(() => {
-    soundEnabledRef.current = soundEnabled;
+    soundRef.current = soundEnabled;
   }, [soundEnabled]);
 
   useEffect(() => {
     try {
-      const savedScore = Number(
-        window.localStorage.getItem("mitsubachi-bee-flight-best"),
+      const saved = Number(
+        window.localStorage.getItem(
+          "mitsubachi-bee-flight-best",
+        ),
       );
 
-      if (Number.isFinite(savedScore)) {
-        setBestScore(savedScore);
+      if (Number.isFinite(saved)) {
+        setBestScore(saved);
       }
     } catch {
-      // localStorageが使用できない環境では保存を行いません。
+      // localStorageを利用できない環境でもゲームは動作します。
     }
   }, []);
 
@@ -217,10 +228,13 @@ export default function GamePage() {
     (
       frequency: number,
       duration: number,
-      volume = 0.035,
+      volume = 0.03,
       type: OscillatorType = "sine",
     ) => {
-      if (!soundEnabledRef.current || typeof window === "undefined") {
+      if (
+        !soundRef.current ||
+        typeof window === "undefined"
+      ) {
         return;
       }
 
@@ -237,59 +251,64 @@ export default function GamePage() {
           return;
         }
 
-        if (!audioContextRef.current) {
-          audioContextRef.current = new AudioContextClass();
+        if (!audioRef.current) {
+          audioRef.current = new AudioContextClass();
         }
 
-        const audioContext = audioContextRef.current;
+        const audio = audioRef.current;
 
-        if (audioContext.state === "suspended") {
-          void audioContext.resume();
+        if (audio.state === "suspended") {
+          void audio.resume();
         }
 
-        const oscillator = audioContext.createOscillator();
-        const gainNode = audioContext.createGain();
-        const startTime = audioContext.currentTime;
+        const oscillator = audio.createOscillator();
+        const gain = audio.createGain();
+        const now = audio.currentTime;
 
         oscillator.type = type;
-        oscillator.frequency.setValueAtTime(frequency, startTime);
-
-        gainNode.gain.setValueAtTime(volume, startTime);
-        gainNode.gain.exponentialRampToValueAtTime(
-          0.0001,
-          startTime + duration,
+        oscillator.frequency.setValueAtTime(
+          frequency,
+          now,
         );
 
-        oscillator.connect(gainNode);
-        gainNode.connect(audioContext.destination);
+        gain.gain.setValueAtTime(volume, now);
+        gain.gain.exponentialRampToValueAtTime(
+          0.0001,
+          now + duration,
+        );
 
-        oscillator.start(startTime);
-        oscillator.stop(startTime + duration);
+        oscillator.connect(gain);
+        gain.connect(audio.destination);
+
+        oscillator.start(now);
+        oscillator.stop(now + duration);
       } catch {
-        // 音声再生に対応していない場合でもゲームは継続します。
+        // 音声非対応でもゲームは動作します。
       }
     },
     [],
   );
 
   const resetGame = useCallback(
-    (beginImmediately: boolean) => {
-      const currentGame = gameRef.current;
+    (startImmediately: boolean) => {
+      const current = gameRef.current;
 
-      const nextGame = createInitialGame(
-        currentGame.width,
-        currentGame.height,
+      const next = initialGame(
+        current.width,
+        current.height,
       );
 
-      if (beginImmediately) {
-        nextGame.status = "playing";
-        nextGame.beeVelocity = -340;
+      if (startImmediately) {
+        next.status = "playing";
+        next.beeVelocity = -340;
       }
 
-      gameRef.current = nextGame;
+      gameRef.current = next;
 
       setScore(0);
-      setStatus(beginImmediately ? "playing" : "ready");
+      setStatus(
+        startImmediately ? "playing" : "ready",
+      );
     },
     [],
   );
@@ -305,8 +324,11 @@ export default function GamePage() {
       game.status = "gameover";
       setStatus("gameover");
 
-      setBestScore((previousBest) => {
-        const nextBest = Math.max(previousBest, finalScore);
+      setBestScore((currentBest) => {
+        const nextBest = Math.max(
+          currentBest,
+          finalScore,
+        );
 
         try {
           window.localStorage.setItem(
@@ -320,35 +342,41 @@ export default function GamePage() {
         return nextBest;
       });
 
-      playTone(180, 0.28, 0.05, "sine");
+      playTone(180, 0.28, 0.05);
 
       window.setTimeout(() => {
-        playTone(120, 0.32, 0.035, "sine");
+        playTone(120, 0.32, 0.035);
       }, 110);
     },
     [playTone],
   );
 
-  const handleFlight = useCallback(() => {
+  const fly = useCallback(() => {
     const game = gameRef.current;
 
-    if (game.status === "ready" || game.status === "gameover") {
+    if (
+      game.status === "ready" ||
+      game.status === "gameover"
+    ) {
       resetGame(true);
-      playTone(480, 0.08, 0.025, "sine");
+      playTone(480, 0.08, 0.025);
       return;
     }
 
     game.beeVelocity = -365;
 
-    playTone(520, 0.045, 0.012, "triangle");
+    playTone(
+      520,
+      0.045,
+      0.012,
+      "triangle",
+    );
   }, [playTone, resetGame]);
 
-  const toggleSound = useCallback(() => {
-    setSoundEnabled((current) => !current);
-  }, []);
-
   useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
+    const onKeyDown = (
+      event: KeyboardEvent,
+    ) => {
       if (
         event.code === "Space" ||
         event.code === "ArrowUp" ||
@@ -357,55 +385,84 @@ export default function GamePage() {
         event.preventDefault();
 
         if (!event.repeat) {
-          handleFlight();
+          fly();
         }
       }
     };
 
-    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener(
+      "keydown",
+      onKeyDown,
+    );
 
     return () => {
-      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener(
+        "keydown",
+        onKeyDown,
+      );
     };
-  }, [handleFlight]);
+  }, [fly]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    const frame = gameFrameRef.current;
+    const frame = frameRef.current;
 
     if (!canvas || !frame) {
       return;
     }
 
-    const context = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d");
 
-    if (!context) {
+    if (!ctx) {
       return;
     }
 
-    const resizeCanvas = () => {
-      const rectangle = frame.getBoundingClientRect();
-      const width = Math.max(280, rectangle.width);
-      const height = Math.max(420, rectangle.height);
-      const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+    const resize = () => {
+      const rect =
+        frame.getBoundingClientRect();
+
+      const width = Math.max(
+        280,
+        rect.width,
+      );
+
+      const height = Math.max(
+        420,
+        rect.height,
+      );
+
+      const ratio = Math.min(
+        window.devicePixelRatio || 1,
+        2,
+      );
 
       const game = gameRef.current;
-      const previousWidth = game.width || width;
-      const previousHeight = game.height || height;
 
-      const xRatio = width / previousWidth;
-      const yRatio = height / previousHeight;
+      const oldWidth =
+        game.width || width;
 
-      canvas.width = Math.floor(width * pixelRatio);
-      canvas.height = Math.floor(height * pixelRatio);
+      const oldHeight =
+        game.height || height;
+
+      const scaleX = width / oldWidth;
+      const scaleY = height / oldHeight;
+
+      canvas.width = Math.floor(
+        width * ratio,
+      );
+
+      canvas.height = Math.floor(
+        height * ratio,
+      );
+
       canvas.style.width = `${width}px`;
       canvas.style.height = `${height}px`;
 
-      context.setTransform(
-        pixelRatio,
+      ctx.setTransform(
+        ratio,
         0,
         0,
-        pixelRatio,
+        ratio,
         0,
         0,
       );
@@ -413,17 +470,19 @@ export default function GamePage() {
       game.width = width;
       game.height = height;
       game.beeX = width * 0.27;
-      game.beeY *= yRatio;
+      game.beeY *= scaleY;
 
-      game.obstacles.forEach((obstacle) => {
-        obstacle.x *= xRatio;
-        obstacle.gapY *= yRatio;
-        obstacle.gapHeight *= yRatio;
-      });
+      game.obstacles.forEach(
+        (obstacle) => {
+          obstacle.x *= scaleX;
+          obstacle.gapY *= scaleY;
+          obstacle.gapHeight *= scaleY;
+        },
+      );
 
-      game.collectibles.forEach((collectible) => {
-        collectible.x *= xRatio;
-        collectible.y *= yRatio;
+      game.items.forEach((item) => {
+        item.x *= scaleX;
+        item.y *= scaleY;
       });
 
       if (game.status !== "playing") {
@@ -431,28 +490,38 @@ export default function GamePage() {
       }
     };
 
-    const resizeObserver = new ResizeObserver(resizeCanvas);
-    resizeObserver.observe(frame);
-    resizeCanvas();
+    const observer =
+      new ResizeObserver(resize);
 
-    const createParticles = (
-      game: GameState,
+    observer.observe(frame);
+    resize();
+
+    const addParticles = (
+      game: Game,
       x: number,
       y: number,
       color: string,
       amount: number,
     ) => {
-      for (let index = 0; index < amount; index += 1) {
-        const angle = randomBetween(0, Math.PI * 2);
-        const speed = randomBetween(45, 145);
-        const life = randomBetween(0.45, 0.8);
+      for (
+        let index = 0;
+        index < amount;
+        index += 1
+      ) {
+        const angle = random(
+          0,
+          Math.PI * 2,
+        );
+
+        const speed = random(45, 145);
+        const life = random(0.45, 0.8);
 
         game.particles.push({
           x,
           y,
           vx: Math.cos(angle) * speed,
           vy: Math.sin(angle) * speed,
-          size: randomBetween(2.5, 6),
+          size: random(2.5, 6),
           life,
           maxLife: life,
           color,
@@ -461,7 +530,7 @@ export default function GamePage() {
     };
 
     const addScore = (
-      game: GameState,
+      game: Game,
       amount: number,
       x?: number,
       y?: number,
@@ -471,214 +540,306 @@ export default function GamePage() {
       setScore(game.score);
 
       if (
-        typeof x === "number" &&
-        typeof y === "number" &&
+        x !== undefined &&
+        y !== undefined &&
         color
       ) {
-        createParticles(game, x, y, color, amount === 5 ? 18 : 10);
+        addParticles(
+          game,
+          x,
+          y,
+          color,
+          amount === 5 ? 18 : 10,
+        );
       }
     };
 
-    const spawnObstacle = (game: GameState) => {
-      const obstacleWidth = clamp(
+    const spawnObstacle = (
+      game: Game,
+    ) => {
+      const width = clamp(
         game.width * 0.082,
         56,
         82,
       );
 
-      const minimumGap = game.width < 600 ? 174 : 188;
-      const maximumGap = game.width < 600 ? 208 : 230;
+      const minGap =
+        game.width < 600 ? 174 : 188;
+
+      const maxGap =
+        game.width < 600 ? 208 : 230;
 
       const gapHeight = clamp(
         game.height * 0.34,
-        minimumGap,
-        maximumGap,
+        minGap,
+        maxGap,
       );
 
-      const safeMargin = Math.max(70, game.height * 0.13);
-      const minimumGapY = safeMargin + gapHeight / 2;
-      const maximumGapY =
-        game.height - safeMargin - gapHeight / 2;
-
-      const gapY = randomBetween(
-        minimumGapY,
-        Math.max(minimumGapY, maximumGapY),
+      const safeMargin = Math.max(
+        70,
+        game.height * 0.13,
       );
 
-      const x = game.width + obstacleWidth + 20;
+      const minY =
+        safeMargin + gapHeight / 2;
+
+      const maxY =
+        game.height -
+        safeMargin -
+        gapHeight / 2;
+
+      const gapY = random(
+        minY,
+        Math.max(minY, maxY),
+      );
+
+      const x =
+        game.width + width + 20;
 
       game.obstacles.push({
         x,
-        width: obstacleWidth,
+        width,
         gapY,
         gapHeight,
         passed: false,
       });
 
-      const collectibleType =
-        Math.random() < 0.14 ? "cherry" : "flower";
+      const type =
+        ITEM_POOL[
+          Math.floor(
+            Math.random() *
+              ITEM_POOL.length,
+          )
+        ];
 
-      game.collectibles.push({
-        id: game.collectibleId,
-        x: x + obstacleWidth / 2,
+      const radius =
+        type === "flower"
+          ? 13
+          : type === "watermelon"
+            ? 18
+            : type === "grape"
+              ? 17
+              : type === "laFrance"
+                ? 16
+                : 15;
+
+      game.items.push({
+        id: game.nextItemId,
+        x: x + width / 2,
         y:
           gapY +
-          randomBetween(
+          random(
             -gapHeight * 0.24,
             gapHeight * 0.24,
           ),
-        radius: collectibleType === "cherry" ? 15 : 13,
-        type: collectibleType,
+        radius,
+        type,
         collected: false,
-        rotation: randomBetween(0, Math.PI * 2),
+        rotation: random(
+          0,
+          Math.PI * 2,
+        ),
       });
 
-      game.collectibleId += 1;
+      game.nextItemId += 1;
     };
 
-    const updateGame = (deltaTime: number) => {
+    const update = (delta: number) => {
       const game = gameRef.current;
 
-      game.elapsed += deltaTime;
+      game.elapsed += delta;
 
       if (game.status !== "playing") {
         game.beeY =
           game.height * 0.48 +
-          Math.sin(game.elapsed * 2.5) * 7;
+          Math.sin(
+            game.elapsed * 2.5,
+          ) *
+            7;
 
         return;
       }
 
       const gravity = 940;
+
       const speed =
-        185 + Math.min(game.score * 2.2, 105);
-      const beeRadius = game.width < 600 ? 14 : 16;
+        185 +
+        Math.min(
+          game.score * 2.2,
+          105,
+        );
 
-      game.beeVelocity += gravity * deltaTime;
-      game.beeY += game.beeVelocity * deltaTime;
+      const beeRadius =
+        game.width < 600 ? 14 : 16;
 
-      game.spawnTimer -= deltaTime;
+      game.beeVelocity +=
+        gravity * delta;
+
+      game.beeY +=
+        game.beeVelocity * delta;
+
+      game.spawnTimer -= delta;
 
       if (game.spawnTimer <= 0) {
         spawnObstacle(game);
 
         game.spawnTimer = clamp(
-          1.72 - game.score * 0.012,
+          1.72 -
+            game.score * 0.012,
           1.28,
           1.72,
         );
       }
 
-      game.obstacles.forEach((obstacle) => {
-        obstacle.x -= speed * deltaTime;
+      game.obstacles.forEach(
+        (obstacle) => {
+          obstacle.x -= speed * delta;
 
-        const gapTop = obstacle.gapY - obstacle.gapHeight / 2;
-        const gapBottom =
-          obstacle.gapY + obstacle.gapHeight / 2;
+          const gapTop =
+            obstacle.gapY -
+            obstacle.gapHeight / 2;
 
-        const hitsTopTree = circleIntersectsRectangle(
-          game.beeX,
-          game.beeY,
-          beeRadius,
-          obstacle.x,
-          0,
-          obstacle.width,
-          gapTop,
-        );
+          const gapBottom =
+            obstacle.gapY +
+            obstacle.gapHeight / 2;
 
-        const hitsBottomTree = circleIntersectsRectangle(
-          game.beeX,
-          game.beeY,
-          beeRadius,
-          obstacle.x,
-          gapBottom,
-          obstacle.width,
-          game.height - gapBottom,
-        );
+          const topHit =
+            circleHitsRect(
+              game.beeX,
+              game.beeY,
+              beeRadius,
+              obstacle.x,
+              0,
+              obstacle.width,
+              gapTop,
+            );
 
-        if (hitsTopTree || hitsBottomTree) {
-          finishGame(game.score);
-        }
+          const bottomHit =
+            circleHitsRect(
+              game.beeX,
+              game.beeY,
+              beeRadius,
+              obstacle.x,
+              gapBottom,
+              obstacle.width,
+              game.height -
+                gapBottom,
+            );
+
+          if (topHit || bottomHit) {
+            finishGame(game.score);
+          }
+
+          if (
+            !obstacle.passed &&
+            obstacle.x +
+              obstacle.width <
+              game.beeX
+          ) {
+            obstacle.passed = true;
+            addScore(game, 1);
+
+            playTone(
+              650,
+              0.055,
+              0.018,
+            );
+          }
+        },
+      );
+
+      game.items.forEach((item) => {
+        item.x -= speed * delta;
+        item.rotation += delta * 1.8;
 
         if (
-          !obstacle.passed &&
-          obstacle.x + obstacle.width < game.beeX
-        ) {
-          obstacle.passed = true;
-          addScore(game, 1);
-          playTone(650, 0.055, 0.018, "sine");
-        }
-      });
-
-      game.collectibles.forEach((collectible) => {
-        collectible.x -= speed * deltaTime;
-        collectible.rotation += deltaTime * 1.8;
-
-        if (
-          !collectible.collected &&
-          circlesOverlap(
+          !item.collected &&
+          circlesHit(
             game.beeX,
             game.beeY,
             beeRadius + 2,
-            collectible.x,
-            collectible.y,
-            collectible.radius,
+            item.x,
+            item.y,
+            item.radius,
           )
         ) {
-          collectible.collected = true;
+          item.collected = true;
 
-          const amount =
-            collectible.type === "cherry" ? 5 : 1;
-
-          const color =
-            collectible.type === "cherry"
-              ? COLORS.red
-              : COLORS.yellow;
+          const fruit =
+            item.type !== "flower";
 
           addScore(
             game,
-            amount,
-            collectible.x,
-            collectible.y,
-            color,
+            fruit ? 5 : 1,
+            item.x,
+            item.y,
+            ITEM_COLORS[item.type],
           );
 
-          if (collectible.type === "cherry") {
-            playTone(860, 0.11, 0.035, "sine");
+          if (fruit) {
+            playTone(
+              860,
+              0.11,
+              0.035,
+            );
 
             window.setTimeout(() => {
-              playTone(1080, 0.12, 0.025, "sine");
+              playTone(
+                1080,
+                0.12,
+                0.025,
+              );
             }, 65);
           } else {
-            playTone(760, 0.075, 0.025, "sine");
+            playTone(
+              760,
+              0.075,
+              0.025,
+            );
           }
         }
       });
 
-      game.particles.forEach((particle) => {
-        particle.x += particle.vx * deltaTime;
-        particle.y += particle.vy * deltaTime;
-        particle.vy += 110 * deltaTime;
-        particle.life -= deltaTime;
-      });
+      game.particles.forEach(
+        (particle) => {
+          particle.x +=
+            particle.vx * delta;
 
-      game.obstacles = game.obstacles.filter(
-        (obstacle) => obstacle.x + obstacle.width > -100,
+          particle.y +=
+            particle.vy * delta;
+
+          particle.vy +=
+            110 * delta;
+
+          particle.life -= delta;
+        },
       );
 
-      game.collectibles = game.collectibles.filter(
-        (collectible) =>
-          collectible.x + collectible.radius > -100 &&
-          !collectible.collected,
+      game.obstacles =
+        game.obstacles.filter(
+          (obstacle) =>
+            obstacle.x +
+              obstacle.width >
+            -100,
+        );
+
+      game.items = game.items.filter(
+        (item) =>
+          item.x + item.radius >
+            -100 &&
+          !item.collected,
       );
 
-      game.particles = game.particles.filter(
-        (particle) => particle.life > 0,
-      );
+      game.particles =
+        game.particles.filter(
+          (particle) =>
+            particle.life > 0,
+        );
 
       if (
         game.beeY - beeRadius < 0 ||
-        game.beeY + beeRadius > game.height
+        game.beeY + beeRadius >
+          game.height
       ) {
         finishGame(game.score);
       }
@@ -690,103 +851,153 @@ export default function GamePage() {
       scale: number,
       opacity: number,
     ) => {
-      context.save();
-      context.globalAlpha = opacity;
-      context.fillStyle = "#ffffff";
+      ctx.save();
 
-      context.beginPath();
-      context.arc(x, y, 22 * scale, 0, Math.PI * 2);
-      context.arc(
+      ctx.globalAlpha = opacity;
+      ctx.fillStyle = "#ffffff";
+
+      ctx.beginPath();
+
+      ctx.arc(
+        x,
+        y,
+        22 * scale,
+        0,
+        Math.PI * 2,
+      );
+
+      ctx.arc(
         x + 26 * scale,
         y - 10 * scale,
         29 * scale,
         0,
         Math.PI * 2,
       );
-      context.arc(
+
+      ctx.arc(
         x + 58 * scale,
         y,
         23 * scale,
         0,
         Math.PI * 2,
       );
-      context.arc(
+
+      ctx.arc(
         x + 30 * scale,
         y + 9 * scale,
         34 * scale,
         0,
         Math.PI * 2,
       );
-      context.fill();
 
-      context.restore();
+      ctx.fill();
+      ctx.restore();
     };
 
-    const drawBackground = (game: GameState) => {
-      const skyGradient = context.createLinearGradient(
+    const drawBackground = (
+      game: Game,
+    ) => {
+      const sky =
+        ctx.createLinearGradient(
+          0,
+          0,
+          0,
+          game.height,
+        );
+
+      sky.addColorStop(
+        0,
+        "#eaf5f5",
+      );
+
+      sky.addColorStop(
+        0.57,
+        "#f7f3df",
+      );
+
+      sky.addColorStop(
+        1,
+        "#edf1dc",
+      );
+
+      ctx.fillStyle = sky;
+
+      ctx.fillRect(
         0,
         0,
-        0,
+        game.width,
         game.height,
       );
 
-      skyGradient.addColorStop(0, "#eaf5f5");
-      skyGradient.addColorStop(0.57, "#f7f3df");
-      skyGradient.addColorStop(1, "#edf1dc");
+      const sunX =
+        game.width * 0.81;
 
-      context.fillStyle = skyGradient;
-      context.fillRect(0, 0, game.width, game.height);
+      const sunY =
+        game.height * 0.17;
 
-      const sunX = game.width * 0.81;
-      const sunY = game.height * 0.17;
-      const sunRadius = clamp(game.width * 0.045, 28, 48);
-
-      const sunGradient = context.createRadialGradient(
-        sunX,
-        sunY,
-        0,
-        sunX,
-        sunY,
-        sunRadius * 2.8,
+      const sunRadius = clamp(
+        game.width * 0.045,
+        28,
+        48,
       );
 
-      sunGradient.addColorStop(
+      const glow =
+        ctx.createRadialGradient(
+          sunX,
+          sunY,
+          0,
+          sunX,
+          sunY,
+          sunRadius * 2.8,
+        );
+
+      glow.addColorStop(
         0,
-        "rgba(255, 220, 102, 0.55)",
+        "rgba(255,220,102,.55)",
       );
-      sunGradient.addColorStop(
+
+      glow.addColorStop(
         0.3,
-        "rgba(255, 220, 102, 0.18)",
-      );
-      sunGradient.addColorStop(
-        1,
-        "rgba(255, 220, 102, 0)",
+        "rgba(255,220,102,.18)",
       );
 
-      context.fillStyle = sunGradient;
-      context.beginPath();
-      context.arc(
+      glow.addColorStop(
+        1,
+        "rgba(255,220,102,0)",
+      );
+
+      ctx.fillStyle = glow;
+
+      ctx.beginPath();
+
+      ctx.arc(
         sunX,
         sunY,
         sunRadius * 2.8,
         0,
         Math.PI * 2,
       );
-      context.fill();
 
-      context.fillStyle = "rgba(244, 196, 48, 0.78)";
-      context.beginPath();
-      context.arc(
+      ctx.fill();
+
+      ctx.fillStyle =
+        "rgba(244,196,48,.78)";
+
+      ctx.beginPath();
+
+      ctx.arc(
         sunX,
         sunY,
         sunRadius,
         0,
         Math.PI * 2,
       );
-      context.fill();
+
+      ctx.fill();
 
       const cloudOffset =
-        (game.elapsed * 10) % (game.width + 300);
+        (game.elapsed * 10) %
+        (game.width + 300);
 
       drawCloud(
         game.width - cloudOffset,
@@ -797,76 +1008,106 @@ export default function GamePage() {
 
       drawCloud(
         game.width * 0.42 -
-          ((game.elapsed * 6) % (game.width + 250)),
+          ((game.elapsed * 6) %
+            (game.width + 250)),
         game.height * 0.31,
         0.5,
         0.35,
       );
 
-      context.fillStyle = "#b9d0a6";
-      context.beginPath();
-      context.moveTo(0, game.height * 0.75);
+      ctx.fillStyle = "#b9d0a6";
 
-      context.quadraticCurveTo(
+      ctx.beginPath();
+
+      ctx.moveTo(
+        0,
+        game.height * 0.75,
+      );
+
+      ctx.quadraticCurveTo(
         game.width * 0.18,
         game.height * 0.61,
         game.width * 0.38,
         game.height * 0.76,
       );
 
-      context.quadraticCurveTo(
+      ctx.quadraticCurveTo(
         game.width * 0.6,
         game.height * 0.58,
         game.width * 0.82,
         game.height * 0.75,
       );
 
-      context.quadraticCurveTo(
+      ctx.quadraticCurveTo(
         game.width * 0.91,
         game.height * 0.69,
         game.width,
         game.height * 0.72,
       );
 
-      context.lineTo(game.width, game.height);
-      context.lineTo(0, game.height);
-      context.closePath();
-      context.fill();
+      ctx.lineTo(
+        game.width,
+        game.height,
+      );
 
-      context.fillStyle = "#94b887";
-      context.beginPath();
-      context.moveTo(0, game.height * 0.84);
+      ctx.lineTo(0, game.height);
+      ctx.closePath();
+      ctx.fill();
 
-      context.quadraticCurveTo(
+      ctx.fillStyle = "#94b887";
+
+      ctx.beginPath();
+
+      ctx.moveTo(
+        0,
+        game.height * 0.84,
+      );
+
+      ctx.quadraticCurveTo(
         game.width * 0.22,
         game.height * 0.67,
         game.width * 0.46,
         game.height * 0.84,
       );
 
-      context.quadraticCurveTo(
+      ctx.quadraticCurveTo(
         game.width * 0.73,
         game.height * 0.66,
         game.width,
         game.height * 0.82,
       );
 
-      context.lineTo(game.width, game.height);
-      context.lineTo(0, game.height);
-      context.closePath();
-      context.fill();
+      ctx.lineTo(
+        game.width,
+        game.height,
+      );
 
-      context.fillStyle = "rgba(250, 250, 249, 0.42)";
+      ctx.lineTo(0, game.height);
+      ctx.closePath();
+      ctx.fill();
 
-      for (let index = 0; index < 7; index += 1) {
-        const rowY =
-          game.height * 0.79 + index * game.height * 0.035;
+      ctx.fillStyle =
+        "rgba(250,250,249,.42)";
 
-        context.fillRect(
+      for (
+        let index = 0;
+        index < 7;
+        index += 1
+      ) {
+        const y =
+          game.height * 0.79 +
+          index *
+            game.height *
+            0.035;
+
+        ctx.fillRect(
           0,
-          rowY,
+          y,
           game.width,
-          Math.max(1, game.height * 0.004),
+          Math.max(
+            1,
+            game.height * 0.004,
+          ),
         );
       }
     };
@@ -875,136 +1116,191 @@ export default function GamePage() {
       x: number,
       y: number,
       width: number,
-      direction: "top" | "bottom",
+      direction:
+        | "top"
+        | "bottom",
     ) => {
       const clusterY =
-        direction === "top" ? y - 1 : y + 1;
-      const leafRadius = width * 0.34;
+        direction === "top"
+          ? y - 1
+          : y + 1;
 
-      context.fillStyle = COLORS.leaf;
+      const radius = width * 0.34;
 
-      const leafPositions = [
+      const positions = [
         [-0.05, 0],
-        [0.25, direction === "top" ? -0.05 : 0.05],
+        [
+          0.25,
+          direction === "top"
+            ? -0.05
+            : 0.05,
+        ],
         [0.52, 0],
-        [0.83, direction === "top" ? -0.03 : 0.03],
+        [
+          0.83,
+          direction === "top"
+            ? -0.03
+            : 0.03,
+        ],
         [1.05, 0],
       ];
 
-      leafPositions.forEach(([xOffset, yOffset], index) => {
-        context.beginPath();
+      ctx.fillStyle = COLORS.leaf;
 
-        context.ellipse(
-          x + width * xOffset,
-          clusterY + leafRadius * yOffset,
-          leafRadius * (index % 2 === 0 ? 0.95 : 1.12),
-          leafRadius * 0.73,
-          index * 0.4,
-          0,
-          Math.PI * 2,
-        );
+      positions.forEach(
+        (
+          [offsetX, offsetY],
+          index,
+        ) => {
+          ctx.beginPath();
 
-        context.fill();
-      });
+          ctx.ellipse(
+            x + width * offsetX,
+            clusterY +
+              radius * offsetY,
+            radius *
+              (index % 2 === 0
+                ? 0.95
+                : 1.12),
+            radius * 0.73,
+            index * 0.4,
+            0,
+            Math.PI * 2,
+          );
 
-      context.fillStyle = COLORS.leafLight;
+          ctx.fill();
+        },
+      );
 
-      context.beginPath();
-      context.ellipse(
+      ctx.fillStyle =
+        COLORS.leafLight;
+
+      ctx.beginPath();
+
+      ctx.ellipse(
         x + width * 0.52,
         clusterY +
           (direction === "top"
-            ? -leafRadius * 0.2
-            : leafRadius * 0.2),
-        leafRadius * 0.8,
-        leafRadius * 0.46,
+            ? -radius * 0.2
+            : radius * 0.2),
+        radius * 0.8,
+        radius * 0.46,
         -0.35,
         0,
         Math.PI * 2,
       );
-      context.fill();
+
+      ctx.fill();
     };
 
     const drawObstacle = (
-      game: GameState,
+      game: Game,
       obstacle: Obstacle,
     ) => {
-      const gapTop =
-        obstacle.gapY - obstacle.gapHeight / 2;
+      const top =
+        obstacle.gapY -
+        obstacle.gapHeight / 2;
 
-      const gapBottom =
-        obstacle.gapY + obstacle.gapHeight / 2;
+      const bottom =
+        obstacle.gapY +
+        obstacle.gapHeight / 2;
 
-      context.save();
+      ctx.save();
+      ctx.fillStyle = COLORS.trunk;
 
-      context.fillStyle = COLORS.trunk;
-
-      if (gapTop > 0) {
-        roundedRectangle(
-          context,
+      if (top > 0) {
+        roundedRect(
+          ctx,
           obstacle.x,
           -16,
           obstacle.width,
-          gapTop + 16,
+          top + 16,
           obstacle.width * 0.24,
         );
-        context.fill();
+
+        ctx.fill();
       }
 
-      if (gapBottom < game.height) {
-        roundedRectangle(
-          context,
+      if (bottom < game.height) {
+        roundedRect(
+          ctx,
           obstacle.x,
-          gapBottom,
+          bottom,
           obstacle.width,
-          game.height - gapBottom + 16,
+          game.height -
+            bottom +
+            16,
           obstacle.width * 0.24,
         );
-        context.fill();
+
+        ctx.fill();
       }
 
-      context.strokeStyle = COLORS.trunkLight;
-      context.lineWidth = Math.max(1.5, obstacle.width * 0.035);
-      context.globalAlpha = 0.55;
+      ctx.strokeStyle =
+        COLORS.trunkLight;
 
-      const barkLineX1 = obstacle.x + obstacle.width * 0.3;
-      const barkLineX2 = obstacle.x + obstacle.width * 0.68;
+      ctx.lineWidth = Math.max(
+        1.5,
+        obstacle.width * 0.035,
+      );
 
-      context.beginPath();
-      context.moveTo(barkLineX1, 0);
-      context.lineTo(barkLineX1, Math.max(0, gapTop - 12));
-      context.stroke();
+      ctx.globalAlpha = 0.55;
 
-      context.beginPath();
-      context.moveTo(barkLineX2, gapBottom + 12);
-      context.lineTo(barkLineX2, game.height);
-      context.stroke();
+      ctx.beginPath();
 
-      context.globalAlpha = 1;
+      ctx.moveTo(
+        obstacle.x +
+          obstacle.width * 0.3,
+        0,
+      );
+
+      ctx.lineTo(
+        obstacle.x +
+          obstacle.width * 0.3,
+        Math.max(0, top - 12),
+      );
+
+      ctx.stroke();
+
+      ctx.beginPath();
+
+      ctx.moveTo(
+        obstacle.x +
+          obstacle.width * 0.68,
+        bottom + 12,
+      );
+
+      ctx.lineTo(
+        obstacle.x +
+          obstacle.width * 0.68,
+        game.height,
+      );
+
+      ctx.stroke();
+
+      ctx.globalAlpha = 1;
 
       drawLeaves(
         obstacle.x,
-        gapTop,
+        top,
         obstacle.width,
         "top",
       );
 
       drawLeaves(
         obstacle.x,
-        gapBottom,
+        bottom,
         obstacle.width,
         "bottom",
       );
 
-      context.restore();
+      ctx.restore();
     };
 
-    const drawFlower = (collectible: Collectible) => {
-      context.save();
-      context.translate(collectible.x, collectible.y);
-      context.rotate(collectible.rotation);
-
-      const petalColors = [
+    const drawFlower = (
+      item: Item,
+    ) => {
+      const colors = [
         COLORS.red,
         COLORS.blue,
         COLORS.green,
@@ -1012,159 +1308,783 @@ export default function GamePage() {
         "#f08ab3",
       ];
 
-      for (let index = 0; index < 5; index += 1) {
-        const angle =
-          (Math.PI * 2 * index) / 5 - Math.PI / 2;
+      ctx.save();
 
-        const petalX =
-          Math.cos(angle) * collectible.radius * 0.68;
+      ctx.translate(
+        item.x,
+        item.y,
+      );
 
-        const petalY =
-          Math.sin(angle) * collectible.radius * 0.68;
+      ctx.rotate(item.rotation);
 
-        context.fillStyle = petalColors[index];
+      colors.forEach(
+        (color, index) => {
+          const angle =
+            (Math.PI *
+              2 *
+              index) /
+              5 -
+            Math.PI / 2;
 
-        context.beginPath();
-        context.ellipse(
-          petalX,
-          petalY,
-          collectible.radius * 0.42,
-          collectible.radius * 0.62,
-          angle + Math.PI / 2,
-          0,
-          Math.PI * 2,
-        );
-        context.fill();
-      }
+          ctx.fillStyle = color;
 
-      context.fillStyle = COLORS.flowerCenter;
-      context.beginPath();
-      context.arc(
+          ctx.beginPath();
+
+          ctx.ellipse(
+            Math.cos(angle) *
+              item.radius *
+              0.68,
+            Math.sin(angle) *
+              item.radius *
+              0.68,
+            item.radius * 0.42,
+            item.radius * 0.62,
+            angle + Math.PI / 2,
+            0,
+            Math.PI * 2,
+          );
+
+          ctx.fill();
+        },
+      );
+
+      ctx.fillStyle = "#f0b929";
+
+      ctx.beginPath();
+
+      ctx.arc(
         0,
         0,
-        collectible.radius * 0.38,
+        item.radius * 0.38,
         0,
         Math.PI * 2,
       );
-      context.fill();
 
-      context.restore();
+      ctx.fill();
+      ctx.restore();
     };
 
-    const drawCherry = (collectible: Collectible) => {
-      context.save();
-      context.translate(collectible.x, collectible.y);
+    const drawCherry = (
+      item: Item,
+    ) => {
+      ctx.save();
 
-      context.strokeStyle = "#557a44";
-      context.lineWidth = 2;
-      context.lineCap = "round";
+      ctx.translate(
+        item.x,
+        item.y,
+      );
 
-      context.beginPath();
-      context.moveTo(0, -2);
-      context.quadraticCurveTo(
+      ctx.strokeStyle = "#557a44";
+      ctx.lineWidth = 2;
+      ctx.lineCap = "round";
+
+      ctx.beginPath();
+
+      ctx.moveTo(0, -2);
+
+      ctx.quadraticCurveTo(
         -2,
         -12,
         -8,
         -18,
       );
 
-      context.moveTo(1, -2);
-      context.quadraticCurveTo(
+      ctx.moveTo(1, -2);
+
+      ctx.quadraticCurveTo(
         4,
         -13,
         9,
         -18,
       );
 
-      context.stroke();
+      ctx.stroke();
 
-      context.fillStyle = COLORS.red;
+      ctx.fillStyle = COLORS.red;
 
-      context.beginPath();
-      context.arc(-6, 3, 8, 0, Math.PI * 2);
-      context.fill();
+      ctx.beginPath();
 
-      context.beginPath();
-      context.arc(7, 4, 8, 0, Math.PI * 2);
-      context.fill();
+      ctx.arc(
+        -6,
+        3,
+        8,
+        0,
+        Math.PI * 2,
+      );
 
-      context.fillStyle = "rgba(255, 255, 255, 0.58)";
+      ctx.fill();
 
-      context.beginPath();
-      context.arc(-8, 0, 2, 0, Math.PI * 2);
-      context.fill();
+      ctx.beginPath();
 
-      context.beginPath();
-      context.arc(5, 1, 2, 0, Math.PI * 2);
-      context.fill();
+      ctx.arc(
+        7,
+        4,
+        8,
+        0,
+        Math.PI * 2,
+      );
 
-      context.restore();
+      ctx.fill();
+
+      ctx.fillStyle =
+        "rgba(255,255,255,.58)";
+
+      ctx.beginPath();
+
+      ctx.arc(
+        -8,
+        0,
+        2,
+        0,
+        Math.PI * 2,
+      );
+
+      ctx.fill();
+
+      ctx.beginPath();
+
+      ctx.arc(
+        5,
+        1,
+        2,
+        0,
+        Math.PI * 2,
+      );
+
+      ctx.fill();
+
+      ctx.restore();
     };
 
-    const drawCollectibles = (game: GameState) => {
-      game.collectibles.forEach((collectible) => {
-        if (collectible.collected) {
-          return;
-        }
+    const drawWatermelon = (
+      item: Item,
+    ) => {
+      ctx.save();
 
-        if (collectible.type === "cherry") {
-          drawCherry(collectible);
-        } else {
-          drawFlower(collectible);
-        }
-      });
+      ctx.translate(
+        item.x,
+        item.y,
+      );
+
+      ctx.rotate(
+        Math.sin(item.rotation) *
+          0.08,
+      );
+
+      ctx.fillStyle = "#278c56";
+
+      ctx.beginPath();
+
+      ctx.ellipse(
+        0,
+        0,
+        17,
+        14,
+        0,
+        0,
+        Math.PI * 2,
+      );
+
+      ctx.fill();
+
+      ctx.strokeStyle = "#b4d65d";
+      ctx.lineWidth = 2.4;
+
+      [-9, -4, 2, 8].forEach(
+        (x) => {
+          ctx.beginPath();
+
+          ctx.moveTo(x, -11);
+
+          ctx.quadraticCurveTo(
+            x + 3,
+            0,
+            x,
+            11,
+          );
+
+          ctx.stroke();
+        },
+      );
+
+      ctx.fillStyle =
+        "rgba(255,255,255,.35)";
+
+      ctx.beginPath();
+
+      ctx.ellipse(
+        -6,
+        -6,
+        4,
+        2,
+        -0.4,
+        0,
+        Math.PI * 2,
+      );
+
+      ctx.fill();
+      ctx.restore();
     };
 
-    const drawParticles = (game: GameState) => {
-      game.particles.forEach((particle) => {
-        const opacity = clamp(
-          particle.life / particle.maxLife,
+    const drawPeach = (
+      item: Item,
+    ) => {
+      ctx.save();
+
+      ctx.translate(
+        item.x,
+        item.y,
+      );
+
+      ctx.rotate(
+        Math.sin(item.rotation) *
+          0.08,
+      );
+
+      const gradient =
+        ctx.createRadialGradient(
+          -5,
+          -6,
+          2,
           0,
-          1,
+          0,
+          18,
         );
 
-        context.save();
-        context.globalAlpha = opacity;
-        context.fillStyle = particle.color;
+      gradient.addColorStop(
+        0,
+        "#ffd0a1",
+      );
 
-        context.beginPath();
-        context.arc(
-          particle.x,
-          particle.y,
-          particle.size * opacity,
+      gradient.addColorStop(
+        0.58,
+        "#f5a171",
+      );
+
+      gradient.addColorStop(
+        1,
+        "#e67868",
+      );
+
+      ctx.fillStyle = gradient;
+
+      ctx.beginPath();
+
+      ctx.arc(
+        0,
+        1,
+        15,
+        0,
+        Math.PI * 2,
+      );
+
+      ctx.fill();
+
+      ctx.strokeStyle =
+        "rgba(157,82,67,.45)";
+
+      ctx.lineWidth = 1.4;
+
+      ctx.beginPath();
+
+      ctx.moveTo(0, -12);
+
+      ctx.quadraticCurveTo(
+        4,
+        0,
+        1,
+        14,
+      );
+
+      ctx.stroke();
+
+      ctx.strokeStyle = "#557a44";
+      ctx.lineWidth = 2;
+
+      ctx.beginPath();
+
+      ctx.moveTo(0, -13);
+      ctx.lineTo(2, -19);
+      ctx.stroke();
+
+      ctx.fillStyle = "#67a35e";
+
+      ctx.beginPath();
+
+      ctx.ellipse(
+        7,
+        -16,
+        6,
+        3,
+        -0.4,
+        0,
+        Math.PI * 2,
+      );
+
+      ctx.fill();
+      ctx.restore();
+    };
+
+    const drawGrape = (
+      item: Item,
+    ) => {
+      const grapes = [
+        [-7, -8],
+        [0, -9],
+        [7, -8],
+        [-10, -1],
+        [-3, -1],
+        [4, -1],
+        [10, -1],
+        [-7, 6],
+        [0, 6],
+        [7, 6],
+        [-3, 13],
+        [3, 13],
+        [0, 19],
+      ];
+
+      ctx.save();
+
+      ctx.translate(
+        item.x,
+        item.y,
+      );
+
+      ctx.rotate(
+        Math.sin(item.rotation) *
+          0.06,
+      );
+
+      ctx.strokeStyle = "#557a44";
+      ctx.lineWidth = 2;
+
+      ctx.beginPath();
+
+      ctx.moveTo(0, -17);
+      ctx.lineTo(0, -11);
+      ctx.stroke();
+
+      grapes.forEach(([x, y]) => {
+        ctx.fillStyle = "#6d4ac5";
+
+        ctx.beginPath();
+
+        ctx.arc(
+          x,
+          y,
+          5.4,
           0,
           Math.PI * 2,
         );
-        context.fill();
 
-        context.restore();
+        ctx.fill();
+
+        ctx.fillStyle =
+          "rgba(255,255,255,.24)";
+
+        ctx.beginPath();
+
+        ctx.arc(
+          x - 1.5,
+          y - 1.5,
+          1.3,
+          0,
+          Math.PI * 2,
+        );
+
+        ctx.fill();
+      });
+
+      ctx.fillStyle = "#67a35e";
+
+      ctx.beginPath();
+
+      ctx.ellipse(
+        7,
+        -15,
+        7,
+        3.5,
+        -0.45,
+        0,
+        Math.PI * 2,
+      );
+
+      ctx.fill();
+      ctx.restore();
+    };
+
+    const drawApple = (
+      item: Item,
+    ) => {
+      ctx.save();
+
+      ctx.translate(
+        item.x,
+        item.y,
+      );
+
+      ctx.rotate(
+        Math.sin(item.rotation) *
+          0.07,
+      );
+
+      const gradient =
+        ctx.createRadialGradient(
+          -5,
+          -6,
+          2,
+          0,
+          1,
+          18,
+        );
+
+      gradient.addColorStop(
+        0,
+        "#ff8585",
+      );
+
+      gradient.addColorStop(
+        0.65,
+        "#e74646",
+      );
+
+      gradient.addColorStop(
+        1,
+        "#bd2f38",
+      );
+
+      ctx.fillStyle = gradient;
+
+      ctx.beginPath();
+
+      ctx.arc(
+        -6,
+        1,
+        11,
+        0,
+        Math.PI * 2,
+      );
+
+      ctx.fill();
+
+      ctx.beginPath();
+
+      ctx.arc(
+        6,
+        1,
+        11,
+        0,
+        Math.PI * 2,
+      );
+
+      ctx.fill();
+
+      ctx.strokeStyle = "#654a32";
+      ctx.lineWidth = 2.2;
+
+      ctx.beginPath();
+
+      ctx.moveTo(0, -8);
+      ctx.lineTo(2, -18);
+      ctx.stroke();
+
+      ctx.fillStyle = "#5d9b56";
+
+      ctx.beginPath();
+
+      ctx.ellipse(
+        8,
+        -14,
+        7,
+        3.5,
+        -0.45,
+        0,
+        Math.PI * 2,
+      );
+
+      ctx.fill();
+
+      ctx.fillStyle =
+        "rgba(255,255,255,.38)";
+
+      ctx.beginPath();
+
+      ctx.ellipse(
+        -7,
+        -4,
+        3,
+        5,
+        -0.5,
+        0,
+        Math.PI * 2,
+      );
+
+      ctx.fill();
+      ctx.restore();
+    };
+
+    const drawLaFrance = (
+      item: Item,
+    ) => {
+      ctx.save();
+
+      ctx.translate(
+        item.x,
+        item.y,
+      );
+
+      ctx.rotate(
+        Math.sin(item.rotation) *
+          0.08,
+      );
+
+      const gradient =
+        ctx.createRadialGradient(
+          -5,
+          -5,
+          2,
+          0,
+          3,
+          20,
+        );
+
+      gradient.addColorStop(
+        0,
+        "#d9dc87",
+      );
+
+      gradient.addColorStop(
+        0.6,
+        "#adb85e",
+      );
+
+      gradient.addColorStop(
+        1,
+        "#879447",
+      );
+
+      ctx.fillStyle = gradient;
+
+      ctx.beginPath();
+
+      ctx.moveTo(0, -13);
+
+      ctx.bezierCurveTo(
+        -5,
+        -9,
+        -5,
+        -4,
+        -7,
+        0,
+      );
+
+      ctx.bezierCurveTo(
+        -17,
+        8,
+        -12,
+        19,
+        0,
+        21,
+      );
+
+      ctx.bezierCurveTo(
+        12,
+        19,
+        17,
+        8,
+        7,
+        0,
+      );
+
+      ctx.bezierCurveTo(
+        5,
+        -4,
+        5,
+        -9,
+        0,
+        -13,
+      );
+
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.strokeStyle = "#604b33";
+      ctx.lineWidth = 2.2;
+
+      ctx.beginPath();
+
+      ctx.moveTo(0, -12);
+
+      ctx.quadraticCurveTo(
+        1,
+        -18,
+        4,
+        -21,
+      );
+
+      ctx.stroke();
+
+      ctx.fillStyle = "#5f934f";
+
+      ctx.beginPath();
+
+      ctx.ellipse(
+        9,
+        -17,
+        7,
+        3.4,
+        -0.45,
+        0,
+        Math.PI * 2,
+      );
+
+      ctx.fill();
+
+      ctx.fillStyle =
+        "rgba(255,255,255,.3)";
+
+      ctx.beginPath();
+
+      ctx.ellipse(
+        -5,
+        3,
+        3,
+        6,
+        -0.35,
+        0,
+        Math.PI * 2,
+      );
+
+      ctx.fill();
+
+      ctx.fillStyle =
+        "rgba(100,78,44,.32)";
+
+      [
+        [-4, 9],
+        [5, 12],
+        [-7, 14],
+        [5, 4],
+      ].forEach(([x, y]) => {
+        ctx.beginPath();
+
+        ctx.arc(
+          x,
+          y,
+          0.8,
+          0,
+          Math.PI * 2,
+        );
+
+        ctx.fill();
+      });
+
+      ctx.restore();
+    };
+
+    const drawItems = (
+      game: Game,
+    ) => {
+      const drawings: Record<
+        ItemType,
+        (item: Item) => void
+      > = {
+        flower: drawFlower,
+        cherry: drawCherry,
+        watermelon: drawWatermelon,
+        peach: drawPeach,
+        grape: drawGrape,
+        apple: drawApple,
+        laFrance: drawLaFrance,
+      };
+
+      game.items.forEach((item) => {
+        if (item.collected) {
+          return;
+        }
+
+        drawings[item.type](item);
       });
     };
 
-    const drawBee = (game: GameState) => {
-      const scale = game.width < 600 ? 0.82 : 1;
+    const drawParticles = (
+      game: Game,
+    ) => {
+      game.particles.forEach(
+        (particle) => {
+          const opacity = clamp(
+            particle.life /
+              particle.maxLife,
+            0,
+            1,
+          );
+
+          ctx.save();
+
+          ctx.globalAlpha = opacity;
+          ctx.fillStyle =
+            particle.color;
+
+          ctx.beginPath();
+
+          ctx.arc(
+            particle.x,
+            particle.y,
+            particle.size *
+              opacity,
+            0,
+            Math.PI * 2,
+          );
+
+          ctx.fill();
+          ctx.restore();
+        },
+      );
+    };
+
+    const drawBee = (
+      game: Game,
+    ) => {
+      const scale =
+        game.width < 600 ? 0.82 : 1;
+
       const rotation = clamp(
         game.beeVelocity / 950,
         -0.35,
         0.5,
       );
 
-      const wingMovement =
-        Math.sin(game.elapsed * 28) * 0.18;
+      const wing =
+        Math.sin(
+          game.elapsed * 28,
+        ) * 0.18;
 
-      context.save();
-      context.translate(game.beeX, game.beeY);
-      context.rotate(rotation);
-      context.scale(scale, scale);
+      ctx.save();
 
-      context.fillStyle = "rgba(255, 255, 255, 0.7)";
-      context.strokeStyle = "rgba(62, 94, 100, 0.18)";
-      context.lineWidth = 1.2;
+      ctx.translate(
+        game.beeX,
+        game.beeY,
+      );
 
-      context.save();
-      context.rotate(-0.5 + wingMovement);
-      context.beginPath();
-      context.ellipse(
+      ctx.rotate(rotation);
+      ctx.scale(scale, scale);
+
+      ctx.fillStyle =
+        "rgba(255,255,255,.7)";
+
+      ctx.strokeStyle =
+        "rgba(62,94,100,.18)";
+
+      ctx.lineWidth = 1.2;
+
+      ctx.save();
+
+      ctx.rotate(-0.5 + wing);
+
+      ctx.beginPath();
+
+      ctx.ellipse(
         -5,
         -13,
         14,
@@ -1173,14 +2093,18 @@ export default function GamePage() {
         0,
         Math.PI * 2,
       );
-      context.fill();
-      context.stroke();
-      context.restore();
 
-      context.save();
-      context.rotate(0.45 - wingMovement);
-      context.beginPath();
-      context.ellipse(
+      ctx.fill();
+      ctx.stroke();
+      ctx.restore();
+
+      ctx.save();
+
+      ctx.rotate(0.45 - wing);
+
+      ctx.beginPath();
+
+      ctx.ellipse(
         7,
         -13,
         14,
@@ -1189,13 +2113,17 @@ export default function GamePage() {
         0,
         Math.PI * 2,
       );
-      context.fill();
-      context.stroke();
-      context.restore();
 
-      context.fillStyle = COLORS.beeYellow;
-      context.beginPath();
-      context.ellipse(
+      ctx.fill();
+      ctx.stroke();
+      ctx.restore();
+
+      ctx.fillStyle =
+        COLORS.beeYellow;
+
+      ctx.beginPath();
+
+      ctx.ellipse(
         0,
         0,
         22,
@@ -1204,11 +2132,14 @@ export default function GamePage() {
         0,
         Math.PI * 2,
       );
-      context.fill();
 
-      context.save();
-      context.beginPath();
-      context.ellipse(
+      ctx.fill();
+
+      ctx.save();
+
+      ctx.beginPath();
+
+      ctx.ellipse(
         0,
         0,
         22,
@@ -1217,98 +2148,184 @@ export default function GamePage() {
         0,
         Math.PI * 2,
       );
-      context.clip();
 
-      context.fillStyle = COLORS.beeBlack;
-      context.fillRect(-9, -18, 5, 36);
-      context.fillRect(3, -18, 5, 36);
+      ctx.clip();
 
-      context.restore();
+      ctx.fillStyle =
+        COLORS.beeBlack;
 
-      context.fillStyle = COLORS.beeBlack;
-      context.beginPath();
-      context.arc(18, -1, 10, 0, Math.PI * 2);
-      context.fill();
+      ctx.fillRect(
+        -9,
+        -18,
+        5,
+        36,
+      );
 
-      context.fillStyle = "#ffffff";
-      context.beginPath();
-      context.arc(21, -4, 3.2, 0, Math.PI * 2);
-      context.fill();
+      ctx.fillRect(
+        3,
+        -18,
+        5,
+        36,
+      );
 
-      context.fillStyle = COLORS.beeBlack;
-      context.beginPath();
-      context.arc(22, -4, 1.4, 0, Math.PI * 2);
-      context.fill();
+      ctx.restore();
 
-      context.strokeStyle = COLORS.beeBlack;
-      context.lineWidth = 1.5;
-      context.lineCap = "round";
+      ctx.fillStyle =
+        COLORS.beeBlack;
 
-      context.beginPath();
-      context.moveTo(19, -9);
-      context.quadraticCurveTo(21, -17, 27, -18);
-      context.stroke();
+      ctx.beginPath();
 
-      context.beginPath();
-      context.moveTo(14, -10);
-      context.quadraticCurveTo(14, -18, 19, -20);
-      context.stroke();
+      ctx.arc(
+        18,
+        -1,
+        10,
+        0,
+        Math.PI * 2,
+      );
 
-      context.fillStyle = COLORS.beeBlack;
-      context.beginPath();
-      context.moveTo(-21, -3);
-      context.lineTo(-29, 0);
-      context.lineTo(-21, 4);
-      context.closePath();
-      context.fill();
+      ctx.fill();
 
-      context.restore();
+      ctx.fillStyle = "#ffffff";
+
+      ctx.beginPath();
+
+      ctx.arc(
+        21,
+        -4,
+        3.2,
+        0,
+        Math.PI * 2,
+      );
+
+      ctx.fill();
+
+      ctx.fillStyle =
+        COLORS.beeBlack;
+
+      ctx.beginPath();
+
+      ctx.arc(
+        22,
+        -4,
+        1.4,
+        0,
+        Math.PI * 2,
+      );
+
+      ctx.fill();
+
+      ctx.strokeStyle =
+        COLORS.beeBlack;
+
+      ctx.lineWidth = 1.5;
+      ctx.lineCap = "round";
+
+      ctx.beginPath();
+
+      ctx.moveTo(19, -9);
+
+      ctx.quadraticCurveTo(
+        21,
+        -17,
+        27,
+        -18,
+      );
+
+      ctx.stroke();
+
+      ctx.beginPath();
+
+      ctx.moveTo(14, -10);
+
+      ctx.quadraticCurveTo(
+        14,
+        -18,
+        19,
+        -20,
+      );
+
+      ctx.stroke();
+
+      ctx.fillStyle =
+        COLORS.beeBlack;
+
+      ctx.beginPath();
+
+      ctx.moveTo(-21, -3);
+      ctx.lineTo(-29, 0);
+      ctx.lineTo(-21, 4);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.restore();
     };
 
     const draw = () => {
       const game = gameRef.current;
 
-      context.clearRect(0, 0, game.width, game.height);
+      ctx.clearRect(
+        0,
+        0,
+        game.width,
+        game.height,
+      );
 
       drawBackground(game);
 
-      game.obstacles.forEach((obstacle) => {
-        drawObstacle(game, obstacle);
-      });
+      game.obstacles.forEach(
+        (obstacle) => {
+          drawObstacle(
+            game,
+            obstacle,
+          );
+        },
+      );
 
-      drawCollectibles(game);
+      drawItems(game);
       drawParticles(game);
       drawBee(game);
     };
 
-    const animate = (currentTime: number) => {
-      if (!lastFrameTimeRef.current) {
-        lastFrameTimeRef.current = currentTime;
+    const animate = (
+      time: number,
+    ) => {
+      if (!previousTimeRef.current) {
+        previousTimeRef.current =
+          time;
       }
 
-      const deltaTime = Math.min(
-        (currentTime - lastFrameTimeRef.current) / 1000,
+      const delta = Math.min(
+        (time -
+          previousTimeRef.current) /
+          1000,
         0.033,
       );
 
-      lastFrameTimeRef.current = currentTime;
+      previousTimeRef.current =
+        time;
 
-      updateGame(deltaTime);
+      update(delta);
       draw();
 
-      animationFrameRef.current =
-        window.requestAnimationFrame(animate);
+      animationRef.current =
+        window.requestAnimationFrame(
+          animate,
+        );
     };
 
-    animationFrameRef.current =
-      window.requestAnimationFrame(animate);
+    animationRef.current =
+      window.requestAnimationFrame(
+        animate,
+      );
 
     return () => {
-      resizeObserver.disconnect();
+      observer.disconnect();
 
-      if (animationFrameRef.current !== null) {
+      if (
+        animationRef.current !== null
+      ) {
         window.cancelAnimationFrame(
-          animationFrameRef.current,
+          animationRef.current,
         );
       }
     };
@@ -1324,28 +2341,37 @@ export default function GamePage() {
             </p>
 
             <h1 className="game-title">
-              Fly Bee!
-              <span>みつばちを飛ばそう</span>
+              Fly Bee.
+              <span>
+                みつばちを飛ばそう。
+              </span>
             </h1>
           </div>
 
-          <Link href="/" className="back-link">
+          <Link
+            href="/"
+            className="back-link"
+          >
             HOME
-            <span aria-hidden="true">↗</span>
+            <span aria-hidden="true">
+              ↗
+            </span>
           </Link>
         </header>
 
         <section className="game-shell">
           <div
-            ref={gameFrameRef}
+            ref={frameRef}
             className="game-frame"
           >
             <canvas
               ref={canvasRef}
               className="game-canvas"
-              aria-label="みつばちを飛ばして、木の間を通り、花やさくらんぼを集めるゲーム"
-              onPointerDown={handleFlight}
-              onContextMenu={(event) =>
+              aria-label="みつばちを飛ばして、木の間を通り、花や果物を集めるゲーム"
+              onPointerDown={fly}
+              onContextMenu={(
+                event,
+              ) =>
                 event.preventDefault()
               }
             />
@@ -1353,20 +2379,29 @@ export default function GamePage() {
             <div className="game-hud">
               <div className="score-box">
                 <span>SCORE</span>
-                <strong>{score}</strong>
+                <strong>
+                  {score}
+                </strong>
               </div>
 
               <button
                 type="button"
                 className="sound-button"
-                onClick={toggleSound}
+                onClick={() =>
+                  setSoundEnabled(
+                    (current) =>
+                      !current,
+                  )
+                }
                 aria-label={
                   soundEnabled
                     ? "効果音をオフにする"
                     : "効果音をオンにする"
                 }
               >
-                {soundEnabled ? "SOUND ON" : "SOUND OFF"}
+                {soundEnabled
+                  ? "SOUND ON"
+                  : "SOUND OFF"}
               </button>
             </div>
 
@@ -1386,43 +2421,60 @@ export default function GamePage() {
                   <p className="panel-description">
                     タップ・クリック・スペースキーで上昇。
                     <br />
-                    木を避けて、花とさくらんぼを集めよう。
+                    木を避けて、花と果物を集めよう。
                   </p>
 
                   <button
                     type="button"
                     className="primary-button"
-                    onClick={handleFlight}
+                    onClick={fly}
                   >
                     START
-                    <span aria-hidden="true">→</span>
+                    <span aria-hidden="true">
+                      →
+                    </span>
                   </button>
 
                   <p className="point-guide">
-                    FLOWER +1&nbsp;&nbsp; / &nbsp;&nbsp;CHERRY +5
+                    FLOWER +1
+                    &nbsp;&nbsp; /
+                    &nbsp;&nbsp;FRUITS +5
                   </p>
                 </div>
               </div>
             )}
 
-            {status === "gameover" && (
+            {status ===
+              "gameover" && (
               <div className="game-overlay">
                 <div className="game-panel gameover-panel">
                   <p className="panel-label">
                     FLIGHT COMPLETE
                   </p>
 
-                  <h2>よく飛びました！</h2>
+                  <h2>
+                    よく飛びました！
+                  </h2>
 
                   <div className="result-grid">
                     <div>
-                      <span>SCORE</span>
-                      <strong>{score}</strong>
+                      <span>
+                        SCORE
+                      </span>
+
+                      <strong>
+                        {score}
+                      </strong>
                     </div>
 
                     <div>
-                      <span>BEST</span>
-                      <strong>{bestScore}</strong>
+                      <span>
+                        BEST
+                      </span>
+
+                      <strong>
+                        {bestScore}
+                      </strong>
                     </div>
                   </div>
 
@@ -1430,10 +2482,12 @@ export default function GamePage() {
                     <button
                       type="button"
                       className="primary-button"
-                      onClick={handleFlight}
+                      onClick={fly}
                     >
                       RETRY
-                      <span aria-hidden="true">↻</span>
+                      <span aria-hidden="true">
+                        ↻
+                      </span>
                     </button>
 
                     <Link
@@ -1441,7 +2495,9 @@ export default function GamePage() {
                       className="secondary-button"
                     >
                       ORDER
-                      <span aria-hidden="true">→</span>
+                      <span aria-hidden="true">
+                        →
+                      </span>
                     </Link>
                   </div>
                 </div>

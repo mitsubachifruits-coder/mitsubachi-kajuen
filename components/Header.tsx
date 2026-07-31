@@ -13,12 +13,12 @@ const navigationItems = [
   {
     label: "Story",
     href: "/story",
-    number: "03",
+    number: "02",
   },
   {
     label: "Contact",
     href: "/contact",
-    number: "04",
+    number: "03",
   },
 ];
 

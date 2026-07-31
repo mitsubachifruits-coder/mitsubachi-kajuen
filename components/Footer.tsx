@@ -101,6 +101,7 @@ export default function Footer() {
               <Link href="/story">Story</Link>
               <Link href="/contact">Contact</Link>
               <Link href="/order">Order</Link>
+              <Link href="/game">🐝</Link>
             </nav>
 
             <nav className="footer-legal-nav" aria-label="法務情報">
