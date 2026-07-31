@@ -198,7 +198,7 @@ export default function AboutPage() {
 
                   <div className="mapWrapper">
                     <iframe
-                      src="https://www.google.com/maps?q=山形県東根市東根甲4694-1&output=embed"
+                      src="https://www.google.com/maps?q=みつばちフルーツ&output=embed"
                       title="みつばちフルーツ Googleマップ"
                       width="100%"
                       height="300"
