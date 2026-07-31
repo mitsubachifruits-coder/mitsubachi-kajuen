@@ -2,7 +2,7 @@ export default function Hero() {
   return (
     <section className="hero">
       <div className="hero-inner">
-        <p className="hero-eyebrow">YAMAGATA・HIGASHINE</p>
+        <p className="hero-eyebrow">MITSUBACHI KAJUEN</p>
 
         <h1 className="hero-title">
           みつばちが育んだ
@@ -20,7 +20,7 @@ export default function Hero() {
           <p className="hero-location">
             FROM
             <br />
-            YAMAGATA
+            YAMAGATA・HIGASHINE
           </p>
         </div>
       </div>
