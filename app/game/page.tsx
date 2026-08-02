@@ -2343,7 +2343,7 @@ export default function GamePage() {
             <h1 className="game-title">
               Fly Bee.
               <span>
-                みつばちを飛ばそう。
+                みつばちの飛行シミュレーションゲーム。
               </span>
             </h1>
           </div>
@@ -2408,14 +2408,9 @@ export default function GamePage() {
             {status === "ready" && (
               <div className="game-overlay">
                 <div className="game-panel">
-                  <p className="panel-label">
-                    MITSUBACHI FLIGHT
-                  </p>
 
                   <h2>
-                    花から花へ、
-                    <br />
-                    みつばちを飛ばそう。
+                    さあ、みつばちを飛ばそう。
                   </h2>
 
                   <p className="panel-description">
