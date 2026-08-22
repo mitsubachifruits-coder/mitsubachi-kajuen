@@ -102,9 +102,7 @@ const categories: Category[] = [
     englishName: "PEACH",
     description:
       "芳醇な香りと、口いっぱいに広がるやさしい甘さをお楽しみください。",
-    preorder: {
-      shippingPeriod: "8月〜9月",
-    },
+      
     products: [
       {
         id: "kawanakajima-hakuto-5kg",
