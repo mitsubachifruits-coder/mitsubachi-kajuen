@@ -5,6 +5,14 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 type Status = "ready" | "playing" | "gameover";
 
+type Coupon = {
+  minScore: number;
+  value: number;
+  unit: "yen" | "percent";
+  code: string;
+  url: string;
+};
+
 type ItemType =
   | "flower"
   | "cherry"
@@ -95,6 +103,98 @@ const ITEM_COLORS: Record<ItemType, string> = {
   apple: "#e74646",
   laFrance: "#a5b85d",
 };
+
+const SHOPIFY_STORE_URL =
+  "https://q2cxkf-4m.myshopify.com";
+
+const COUPONS: Coupon[] = [
+  {
+    minScore: 20,
+    value: 100,
+    unit: "yen",
+    code: "BEE-A7K2",
+    url: `${SHOPIFY_STORE_URL}/discount/BEE-A7K2?redirect=/collections/all`,
+  },
+  {
+    minScore: 40,
+    value: 200,
+    unit: "yen",
+    code: "BEE-M4Q8",
+    url: `${SHOPIFY_STORE_URL}/discount/BEE-M4Q8?redirect=/collections/all`,
+  },
+  {
+    minScore: 60,
+    value: 300,
+    unit: "yen",
+    code: "BEE-H9R3",
+    url: `${SHOPIFY_STORE_URL}/discount/BEE-H9R3?redirect=/collections/all`,
+  },
+  {
+    minScore: 100,
+    value: 500,
+    unit: "yen",
+    code: "BEE-F5N1",
+    url: `${SHOPIFY_STORE_URL}/discount/BEE-F5N1?redirect=/collections/all`,
+  },
+  {
+    minScore: 200,
+    value: 700,
+    unit: "yen",
+    code: "BEE-K8T6",
+    url: `${SHOPIFY_STORE_URL}/discount/BEE-K8T6?redirect=/collections/all`,
+  },
+  {
+    minScore: 300,
+    value: 1000,
+    unit: "yen",
+    code: "BEE-R3P7",
+    url: `${SHOPIFY_STORE_URL}/discount/BEE-R3P7?redirect=/collections/all`,
+  },
+  {
+    minScore: 500,
+    value: 10,
+    unit: "percent",
+    code: "BEE-X6V4",
+    url: `${SHOPIFY_STORE_URL}/discount/BEE-X6V4?redirect=/collections/all`,
+  },
+  {
+    minScore: 750,
+    value: 20,
+    unit: "percent",
+    code: "BEE-Q2W9",
+    url: `${SHOPIFY_STORE_URL}/discount/BEE-Q2W9?redirect=/collections/all`,
+  },
+  {
+    minScore: 1000,
+    value: 50,
+    unit: "percent",
+    code: "BEE-G7LD",
+    url: `${SHOPIFY_STORE_URL}/discount/BEE-G7LD?redirect=/collections/all`,
+  },
+];
+
+const getCouponForScore = (
+  currentScore: number,
+) =>
+  [...COUPONS]
+    .reverse()
+    .find(
+      (coupon) =>
+        currentScore >= coupon.minScore,
+    ) ?? null;
+
+const getNextCouponForScore = (
+  currentScore: number,
+) =>
+  COUPONS.find(
+    (coupon) =>
+      currentScore < coupon.minScore,
+  ) ?? null;
+
+const getCouponLabel = (coupon: Coupon) =>
+  coupon.unit === "percent"
+    ? `${coupon.value}%OFF`
+    : `${coupon.value.toLocaleString("ja-JP")}円OFF`;
 
 const clamp = (value: number, min: number, max: number) =>
   Math.min(Math.max(value, min), max);
@@ -203,6 +303,8 @@ export default function GamePage() {
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
   const [soundEnabled, setSoundEnabled] = useState(true);
+  const [couponCopied, setCouponCopied] =
+    useState(false);
 
   useEffect(() => {
     soundRef.current = soundEnabled;
@@ -306,6 +408,7 @@ export default function GamePage() {
       gameRef.current = next;
 
       setScore(0);
+      setCouponCopied(false);
       setStatus(
         startImmediately ? "playing" : "ready",
       );
@@ -372,6 +475,41 @@ export default function GamePage() {
       "triangle",
     );
   }, [playTone, resetGame]);
+
+  const copyCouponCode = useCallback(
+    async (code: string) => {
+      try {
+        await navigator.clipboard.writeText(
+          code,
+        );
+        setCouponCopied(true);
+      } catch {
+        const textarea =
+          document.createElement("textarea");
+
+        textarea.value = code;
+        textarea.setAttribute(
+          "readonly",
+          "",
+        );
+        textarea.style.position = "fixed";
+        textarea.style.opacity = "0";
+
+        document.body.appendChild(textarea);
+        textarea.select();
+
+        try {
+          document.execCommand("copy");
+          setCouponCopied(true);
+        } finally {
+          document.body.removeChild(
+            textarea,
+          );
+        }
+      }
+    },
+    [],
+  );
 
   useEffect(() => {
     const onKeyDown = (
@@ -2331,6 +2469,12 @@ export default function GamePage() {
     };
   }, [finishGame, playTone]);
 
+  const coupon = getCouponForScore(score);
+  const nextCoupon = getNextCouponForScore(score);
+  const pointsToCoupon = nextCoupon
+    ? Math.max(nextCoupon.minScore - score, 0)
+    : 0;
+
   return (
     <main className="game-page">
       <div className="game-inner">
@@ -2473,6 +2617,79 @@ export default function GamePage() {
                     </div>
                   </div>
 
+                  {coupon ? (
+                    <div className="coupon-card">
+                      <p className="coupon-label">
+                        COUPON UNLOCKED
+                      </p>
+
+                      <p className="coupon-title">
+                        クーポン獲得！
+                      </p>
+
+                      <div className="coupon-amount">
+                        <strong>
+                          {coupon.value.toLocaleString(
+                            "ja-JP",
+                          )}
+                        </strong>
+
+                        <span>
+                          {coupon.unit ===
+                          "percent"
+                            ? "% OFF"
+                            : "円 OFF"}
+                        </span>
+                      </div>
+
+                      <p className="coupon-description">
+                        3,000円以上のお買い物で
+                        <br />
+                        {getCouponLabel(coupon)}になります。
+                      </p>
+
+                      <button
+                        type="button"
+                        className="coupon-code-button"
+                        onClick={() =>
+                          void copyCouponCode(
+                            coupon.code,
+                          )
+                        }
+                        aria-label={`${coupon.code}をコピーする`}
+                      >
+                        <span>
+                          CODE
+                        </span>
+
+                        <strong>
+                          {coupon.code}
+                        </strong>
+
+                        <em>
+                          {couponCopied
+                            ? "COPIED"
+                            : "COPY"}
+                        </em>
+                      </button>
+                    </div>
+                  ) : nextCoupon ? (
+                    <div className="coupon-locked">
+                      <p>
+                        NEXT COUPON
+                      </p>
+
+                      <strong>
+                        あと{pointsToCoupon}点
+                      </strong>
+
+                      <span>
+                        {nextCoupon.minScore}点で
+                        {getCouponLabel(nextCoupon)}クーポン
+                      </span>
+                    </div>
+                  ) : null}
+
                   <div className="result-actions">
                     <button
                       type="button"
@@ -2485,16 +2702,32 @@ export default function GamePage() {
                       </span>
                     </button>
 
-                    <Link
-                      href="/order"
-                      className="secondary-button"
-                    >
-                      ORDER
-                      <span aria-hidden="true">
-                        →
-                      </span>
-                    </Link>
+                    {coupon ? (
+                      <a
+                        href={coupon.url}
+                        className="secondary-button coupon-use-button"
+                      >
+                        USE COUPON
+                        <span aria-hidden="true">
+                          →
+                        </span>
+                      </a>
+                    ) : (
+                      <Link
+                        href="/order"
+                        className="secondary-button"
+                      >
+                        ORDER
+                        <span aria-hidden="true">
+                          →
+                        </span>
+                      </Link>
+                    )}
                   </div>
+
+                  <p className="coupon-note">
+                    クーポンはお一人様1回まで
+                  </p>
                 </div>
               </div>
             )}
@@ -2693,15 +2926,18 @@ export default function GamePage() {
           position: absolute;
           inset: 0;
           z-index: 3;
-          display: grid;
-          place-items: center;
+          display: flex;
+          align-items: flex-start;
+          justify-content: center;
           padding: 72px 24px 30px;
           box-sizing: border-box;
+          overflow-y: auto;
           background: rgba(250, 250, 249, 0.08);
         }
 
         .game-panel {
-          width: min(100%, 430px);
+          width: min(100%, 460px);
+          margin: auto 0;
           padding: 36px 38px 32px;
           box-sizing: border-box;
           border: 1px solid rgba(255, 255, 255, 0.84);
@@ -2837,6 +3073,183 @@ export default function GamePage() {
           color: #27272a;
         }
 
+        .coupon-card {
+          margin-top: 18px;
+          padding: 18px;
+          border: 1px solid rgba(244, 196, 48, 0.55);
+          border-radius: 18px;
+          background:
+            linear-gradient(
+              135deg,
+              rgba(255, 251, 230, 0.96),
+              rgba(255, 255, 255, 0.9)
+            );
+          box-shadow:
+            0 12px 30px rgba(128, 90, 59, 0.08),
+            inset 0 1px 0 rgba(255, 255, 255, 0.9);
+        }
+
+        .coupon-label {
+          margin: 0;
+          font-size: 8px;
+          font-weight: 700;
+          line-height: 1.4;
+          letter-spacing: 0.22em;
+          color: #9a7a12;
+        }
+
+        .coupon-title {
+          margin: 7px 0 0;
+          font-size: 17px;
+          font-weight: 600;
+          line-height: 1.4;
+          letter-spacing: 0.03em;
+          color: #27272a;
+        }
+
+        .coupon-amount {
+          display: flex;
+          align-items: baseline;
+          justify-content: center;
+          gap: 7px;
+          margin-top: 4px;
+        }
+
+        .coupon-amount strong {
+          font-size: 42px;
+          font-weight: 600;
+          line-height: 1;
+          letter-spacing: -0.06em;
+          color: #27272a;
+        }
+
+        .coupon-amount span {
+          font-size: 11px;
+          font-weight: 700;
+          line-height: 1;
+          letter-spacing: 0.12em;
+          color: #52525b;
+        }
+
+        .coupon-description {
+          margin: 9px 0 0;
+          font-size: 10px;
+          font-weight: 400;
+          line-height: 1.7;
+          letter-spacing: 0.04em;
+          color: #71717a;
+        }
+
+        .coupon-code-button {
+          display: grid;
+          width: 100%;
+          min-height: 48px;
+          grid-template-columns: auto 1fr auto;
+          align-items: center;
+          gap: 12px;
+          margin-top: 14px;
+          padding: 0 15px;
+          box-sizing: border-box;
+          border: 1px dashed rgba(39, 39, 42, 0.35);
+          border-radius: 12px;
+          background: rgba(255, 255, 255, 0.72);
+          color: #27272a;
+          font: inherit;
+          cursor: pointer;
+          transition:
+            transform 180ms ease,
+            border-color 180ms ease,
+            background-color 180ms ease;
+        }
+
+        .coupon-code-button:hover {
+          transform: translateY(-1px);
+          border-color: #27272a;
+          background: #ffffff;
+        }
+
+        .coupon-code-button span {
+          font-size: 8px;
+          font-weight: 700;
+          line-height: 1;
+          letter-spacing: 0.18em;
+          color: #8b8b84;
+        }
+
+        .coupon-code-button strong {
+          font-size: 15px;
+          font-weight: 700;
+          line-height: 1;
+          letter-spacing: 0.18em;
+          color: #27272a;
+        }
+
+        .coupon-code-button em {
+          font-size: 8px;
+          font-weight: 700;
+          font-style: normal;
+          line-height: 1;
+          letter-spacing: 0.12em;
+          color: #9a7a12;
+        }
+
+        .coupon-locked {
+          display: flex;
+          margin-top: 18px;
+          padding: 17px 18px;
+          flex-direction: column;
+          align-items: center;
+          gap: 5px;
+          border: 1px solid rgba(113, 113, 122, 0.18);
+          border-radius: 16px;
+          background: rgba(255, 255, 255, 0.5);
+        }
+
+        .coupon-locked p {
+          margin: 0;
+          font-size: 8px;
+          font-weight: 700;
+          line-height: 1;
+          letter-spacing: 0.2em;
+          color: #8b8b84;
+        }
+
+        .coupon-locked strong {
+          font-size: 20px;
+          font-weight: 600;
+          line-height: 1.3;
+          letter-spacing: -0.02em;
+          color: #27272a;
+        }
+
+        .coupon-locked span {
+          font-size: 10px;
+          font-weight: 400;
+          line-height: 1.5;
+          letter-spacing: 0.04em;
+          color: #71717a;
+        }
+
+        .coupon-use-button {
+          border-color: #d7b93d;
+          background: #f4c430;
+          color: #292929;
+        }
+
+        .coupon-use-button:hover {
+          border-color: #c9a91f;
+          background: #f7d65e;
+        }
+
+        .coupon-note {
+          margin: 13px 0 0;
+          font-size: 8px;
+          font-weight: 500;
+          line-height: 1.5;
+          letter-spacing: 0.08em;
+          color: #8b8b84;
+        }
+
         .result-actions {
           display: flex;
           align-items: center;
@@ -2953,7 +3366,7 @@ export default function GamePage() {
           }
 
           .game-panel {
-            width: min(100%, 360px);
+            width: min(100%, 380px);
             padding: 30px 24px 26px;
             border-radius: 20px;
           }
@@ -3028,6 +3441,7 @@ export default function GamePage() {
         @media (prefers-reduced-motion: reduce) {
           .primary-button,
           .secondary-button,
+          .coupon-code-button,
           .back-link,
           .sound-button {
             transition: none;
