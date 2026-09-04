@@ -28,7 +28,7 @@ export default function Footer() {
             <address className="footer-address">
               〒999-3751
               <br />
-              山形県東根市若木通り13-1
+              山形県東根市若木通り1-13
             </address>
 
             <p className="footer-farm-message">
