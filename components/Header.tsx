@@ -182,7 +182,7 @@ export default function Header() {
           </Link>
 
           <div className="mitsubachi-mobile-menu-footer">
-            <p>みつばちと友だちに！🐝</p>
+            <p>Bee my friends! 🐝</p>
             <p>みつばちが育んだ、自然の恵み。</p>
           </div>
         </div>
@@ -375,19 +375,19 @@ export default function Header() {
           .mitsubachi-menu-button {
             position: relative;
             display: inline-flex;
-            min-width: 82px;
-            height: 44px;
+            min-width: 72px;
+            height: 38px;
             flex: 0 0 auto;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            padding: 0 15px;
+            gap: 8px;
+            padding: 0 12px;
             border: 1px solid #d9d8d2;
             border-radius: 999px;
             background: rgba(255, 255, 255, 0.82);
             color: #3f3f3a;
             font-family: inherit;
-            font-size: 12px;
+            font-size: 10px;
             font-weight: 700;
             line-height: 1;
             letter-spacing: 0.08em;
@@ -407,22 +407,22 @@ export default function Header() {
           }
 
           .mitsubachi-menu-button-text {
-            min-width: 32px;
+            min-width: 28px;
             text-align: center;
           }
 
           .mitsubachi-menu-button-icon {
             position: relative;
             display: block;
-            width: 14px;
-            height: 10px;
+            width: 12px;
+            height: 9px;
           }
 
           .mitsubachi-menu-button-icon span {
             position: absolute;
             left: 0;
             display: block;
-            width: 14px;
+            width: 12px;
             height: 1px;
             background: currentColor;
             transition:
@@ -488,9 +488,9 @@ export default function Header() {
           }
 
           .mitsubachi-mobile-menu-label {
-            margin-bottom: 22px;
+            margin-bottom: 18px;
             color: #9a9a92;
-            font-size: 11px;
+            font-size: 9px;
             font-weight: 700;
             line-height: 1.4;
             letter-spacing: 0.28em;
@@ -503,7 +503,7 @@ export default function Header() {
           .mitsubachi-mobile-nav-link {
             display: grid;
             grid-template-columns: 34px minmax(0, 1fr) 24px;
-            min-height: 76px;
+            min-height: 64px;
             align-items: center;
             gap: 12px;
             border-bottom: 1px solid #deddd7;
@@ -524,20 +524,20 @@ export default function Header() {
 
           .mitsubachi-mobile-nav-number {
             color: #aaa9a2;
-            font-size: 10px;
+            font-size: 9px;
             font-weight: 700;
             letter-spacing: 0.1em;
           }
 
           .mitsubachi-mobile-nav-text {
-            font-size: clamp(25px, 6.8vw, 34px);
+            font-size: clamp(20px, 5.4vw, 27px);
             font-weight: 600;
             line-height: 1;
             letter-spacing: -0.025em;
           }
 
           .mitsubachi-mobile-nav-arrow {
-            font-size: 17px;
+            font-size: 14px;
             font-weight: 400;
             text-align: right;
           }
@@ -545,8 +545,8 @@ export default function Header() {
           .mitsubachi-mobile-order-link {
             display: flex;
             width: 100%;
-            min-height: 64px;
-            margin-top: 28px;
+            min-height: 54px;
+            margin-top: 24px;
             align-items: center;
             justify-content: space-between;
             gap: 20px;
@@ -555,7 +555,7 @@ export default function Header() {
             border-radius: 999px;
             background: #343431;
             color: #ffffff;
-            font-size: 17px;
+            font-size: 14px;
             font-weight: 700;
             line-height: 1;
             letter-spacing: 0.03em;
@@ -576,7 +576,7 @@ export default function Header() {
           }
 
           .mitsubachi-mobile-order-arrow {
-            font-size: 21px;
+            font-size: 18px;
             font-weight: 400;
           }
 
@@ -612,11 +612,11 @@ export default function Header() {
           }
 
           .mitsubachi-menu-button {
-            min-width: 74px;
-            height: 42px;
-            gap: 8px;
-            padding: 0 13px;
-            font-size: 11px;
+            min-width: 66px;
+            height: 36px;
+            gap: 7px;
+            padding: 0 10px;
+            font-size: 9px;
           }
 
           .mitsubachi-mobile-menu {
@@ -629,16 +629,16 @@ export default function Header() {
           }
 
           .mitsubachi-mobile-nav-link {
-            min-height: 70px;
+            min-height: 60px;
           }
 
           .mitsubachi-mobile-nav-text {
-            font-size: clamp(24px, 7vw, 31px);
+            font-size: clamp(19px, 5.8vw, 24px);
           }
 
           .mitsubachi-mobile-order-link {
-            min-height: 60px;
-            padding: 0 22px;
+            min-height: 52px;
+            padding: 0 18px;
           }
 
           .mitsubachi-mobile-menu-footer {
@@ -661,8 +661,8 @@ export default function Header() {
           }
 
           .mitsubachi-menu-button {
-            min-width: 68px;
-            padding: 0 11px;
+            min-width: 62px;
+            padding: 0 9px;
           }
         }
 

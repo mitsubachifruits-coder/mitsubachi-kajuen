@@ -475,7 +475,7 @@ export default function Footer() {
 
           .footer-nav a {
             padding: 8px 0;
-            font-size: 15px;
+            font-size: 13px;
             letter-spacing: 0.035em;
           }
 
@@ -543,7 +543,7 @@ export default function Footer() {
           }
 
           .footer-nav a {
-            font-size: 14px;
+            font-size: 12px;
           }
 
           .footer-legal-nav {
