@@ -6,17 +6,17 @@ import { usePathname } from "next/navigation";
 
 const navigationItems = [
   {
-    label: "About",
+    label: "私たちについて",
     href: "/about",
     number: "01",
   },
   {
-    label: "Story",
+    label: "これまでの歩み",
     href: "/story",
     number: "02",
   },
   {
-    label: "Contact",
+    label: "お問い合わせ",
     href: "/contact",
     number: "03",
   },
@@ -85,7 +85,7 @@ export default function Header() {
                 pathname === "/order" ? "is-active" : ""
               }`}
             >
-              <span>Order</span>
+              <span>ご注文</span>
 
               <span
                 className="mitsubachi-desktop-order-arrow"
@@ -108,7 +108,7 @@ export default function Header() {
             aria-controls="mitsubachi-mobile-menu"
           >
             <span className="mitsubachi-menu-button-text">
-              {isMenuOpen ? "Close" : "Menu"}
+              {isMenuOpen ? "閉じる" : "メニュー"}
             </span>
 
             <span
@@ -131,7 +131,7 @@ export default function Header() {
         aria-hidden={!isMenuOpen}
       >
         <div className="mitsubachi-mobile-menu-inner">
-          <div className="mitsubachi-mobile-menu-label">MENU</div>
+          <div className="mitsubachi-mobile-menu-label">メニュー</div>
 
           <nav
             className="mitsubachi-mobile-nav"
@@ -171,7 +171,7 @@ export default function Header() {
             }`}
             tabIndex={isMenuOpen ? 0 : -1}
           >
-            <span>Order</span>
+            <span>ご注文</span>
 
             <span
               className="mitsubachi-mobile-order-arrow"
@@ -182,7 +182,7 @@ export default function Header() {
           </Link>
 
           <div className="mitsubachi-mobile-menu-footer">
-            <p>Bee my friends!🐝</p>
+            <p>みつばちと友だちに！🐝</p>
             <p>みつばちが育んだ、自然の恵み。</p>
           </div>
         </div>

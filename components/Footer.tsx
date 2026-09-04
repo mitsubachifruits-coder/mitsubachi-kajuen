@@ -97,10 +97,10 @@ export default function Footer() {
               className="footer-nav"
               aria-label="フッターナビゲーション"
             >
-              <Link href="/about">About</Link>
-              <Link href="/story">Story</Link>
-              <Link href="/contact">Contact</Link>
-              <Link href="/order">Order</Link>
+              <Link href="/about">私たちについて</Link>
+              <Link href="/story">これまでの歩み</Link>
+              <Link href="/contact">お問い合わせ</Link>
+              <Link href="/order">ご注文</Link>
               <Link href="/game">🐝</Link>
             </nav>
 
