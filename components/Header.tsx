@@ -358,14 +358,14 @@ export default function Header() {
           }
 
           .mitsubachi-header-inner {
-            width: calc(100% - 32px);
+            width: min(100% - 40px, 1180px);
             min-height: 94px;
             gap: 20px;
           }
 
           .mitsubachi-header-logo {
             min-width: 0;
-            font-size: clamp(36px, 9.2vw, 50px);
+            font-size: clamp(38px, 7.5vw, 62px);
           }
 
           .mitsubachi-desktop-nav {
@@ -603,16 +603,17 @@ export default function Header() {
 
         @media (max-width: 560px) {
           .mitsubachi-header-inner {
-            width: calc(100% - 28px);
-            min-height: 88px;
+            width: calc(100% - 32px);
+            min-height: 82px;
+            gap: 10px;
           }
 
           .mitsubachi-header-logo {
-            font-size: clamp(34px, 9.3vw, 44px);
+            font-size: clamp(31px, 8.4vw, 39px);
           }
 
           .mitsubachi-menu-button {
-            min-width: 66px;
+            min-width: 72px;
             height: 36px;
             gap: 7px;
             padding: 0 10px;
@@ -620,7 +621,7 @@ export default function Header() {
           }
 
           .mitsubachi-mobile-menu {
-            inset: 88px 0 0;
+            inset: 82px 0 0;
           }
 
           .mitsubachi-mobile-menu-inner {
@@ -629,11 +630,21 @@ export default function Header() {
           }
 
           .mitsubachi-mobile-nav-link {
-            min-height: 60px;
+            grid-template-columns: 30px minmax(0, 1fr) 20px;
+            min-height: 52px;
+            gap: 10px;
+          }
+
+          .mitsubachi-mobile-nav-number {
+            font-size: 8px;
           }
 
           .mitsubachi-mobile-nav-text {
-            font-size: clamp(19px, 5.8vw, 24px);
+            font-size: clamp(16px, 4.8vw, 19px);
+          }
+
+          .mitsubachi-mobile-nav-arrow {
+            font-size: 12px;
           }
 
           .mitsubachi-mobile-order-link {
@@ -654,10 +665,11 @@ export default function Header() {
         @media (max-width: 390px) {
           .mitsubachi-header-inner {
             width: calc(100% - 24px);
+            gap: 8px;
           }
 
           .mitsubachi-header-logo {
-            font-size: clamp(31px, 9.1vw, 37px);
+            font-size: clamp(29px, 8vw, 32px);
           }
 
           .mitsubachi-menu-button {

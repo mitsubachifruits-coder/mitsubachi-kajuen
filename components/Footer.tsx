@@ -503,7 +503,7 @@ export default function Footer() {
          */
         @media (max-width: 560px) {
           .site-footer {
-            padding: 68px 0 38px;
+            padding: 46px 0 30px;
           }
 
           .footer-inner {
@@ -511,52 +511,119 @@ export default function Footer() {
           }
 
           .footer-main {
-            gap: 52px;
+            gap: 34px;
           }
 
           .footer-logo {
-            font-size: clamp(42px, 12vw, 52px);
+            margin-bottom: 20px;
+            font-size: clamp(31px, 8.4vw, 39px);
+          }
+
+          .footer-catchphrase {
+            margin-bottom: 14px;
+            font-size: 13px;
+          }
+
+          .footer-address {
+            font-size: 11px;
+            line-height: 1.75;
+          }
+
+          .footer-farm-message {
+            margin-top: 12px;
+            font-size: 10px;
+          }
+
+          .footer-navigation-area {
+            gap: 24px;
           }
 
           .instagram-link {
-            min-height: 76px;
-            padding: 12px 14px;
-            border-radius: 19px;
+            width: 100%;
+            min-height: 62px;
+            gap: 11px;
+            padding: 9px 12px;
+            border-radius: 16px;
           }
 
           .instagram-icon {
-            width: 46px;
-            height: 46px;
+            width: 38px;
+            height: 38px;
+            border-radius: 11px;
+          }
+
+          .instagram-icon svg {
+            width: 18px;
+            height: 18px;
+          }
+
+          .instagram-label {
+            font-size: 8px;
           }
 
           .instagram-account {
-            font-size: 14px;
+            font-size: 12px;
           }
 
           .instagram-arrow {
-            width: 36px;
-            height: 36px;
+            width: 31px;
+            height: 31px;
+            font-size: 13px;
           }
 
           .footer-nav {
-            gap: 18px 26px;
+            width: 100%;
+            justify-content: space-between;
+            gap: 8px;
+            flex-wrap: nowrap;
           }
 
           .footer-nav a {
-            font-size: 12px;
+            padding: 5px 0;
+            font-size: 10px;
+            letter-spacing: 0.015em;
           }
 
           .footer-legal-nav {
             align-items: flex-start;
             flex-direction: column;
-            gap: 12px;
+            gap: 9px;
+          }
+
+          .footer-legal-nav a {
+            font-size: 10px;
           }
 
           .footer-bottom {
             align-items: flex-start;
             flex-direction: column;
-            gap: 10px;
-            margin-top: 58px;
+            gap: 7px;
+            margin-top: 38px;
+            padding-top: 18px;
+          }
+
+          .footer-bottom p {
+            font-size: 9px;
+          }
+        }
+
+
+        @media (max-width: 390px) {
+          .footer-inner {
+            width: calc(100% - 24px);
+          }
+
+          .footer-logo {
+            font-size: clamp(29px, 8vw, 32px);
+          }
+
+          .footer-nav {
+            gap: 5px;
+          }
+
+          .footer-nav a {
+            font-size: 9px;
+            letter-spacing: 0;
           }
         }
 
