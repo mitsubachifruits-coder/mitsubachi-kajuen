@@ -189,7 +189,7 @@ const categories: Category[] = [
         name: "ふじりんご",
         grade: "訳あり",
         specification: "10kg",
-        price: 3000,
+        price: 3600,
       },
     ],
   },
