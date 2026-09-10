@@ -208,7 +208,7 @@ const categories: Category[] = [
         name: "ラ・フランス",
         grade: "秀品",
         specification: "5kg",
-        price: 6280,
+        price: 4500,
       },
     ],
   },
@@ -385,6 +385,11 @@ export default function FruitsPage() {
                         <span className="visualNumber">
                           {String(productIndex + 1).padStart(2, "0")}
                         </span>
+
+                        <div className="freeShippingPop" aria-label="全国送料無料・沖縄県除く">
+                          <span className="freeShippingPopMain">全国送料無料</span>
+                          <span className="freeShippingPopNote">※沖縄県除く</span>
+                        </div>
 
                         <span className="visualEnglishName">
                           {category.englishName}
@@ -715,6 +720,44 @@ export default function FruitsPage() {
           line-height: 1.5;
           letter-spacing: 0.16em;
           text-shadow: 0 2px 12px rgba(0, 0, 0, 0.28);
+        }
+
+        .freeShippingPop {
+          position: absolute;
+          top: 16px;
+          right: 16px;
+          z-index: 3;
+          display: inline-flex;
+          min-width: 92px;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 2px;
+          padding: 9px 12px 8px;
+          border: 1px solid rgba(255, 255, 255, 0.42);
+          border-radius: 999px;
+          background: rgba(255, 49, 49, 0.94);
+          color: #ffffff;
+          box-shadow: 0 8px 20px rgba(120, 18, 18, 0.2);
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
+        }
+
+        .freeShippingPopMain {
+          font-size: 10px;
+          font-weight: 700;
+          line-height: 1.15;
+          letter-spacing: 0.06em;
+          white-space: nowrap;
+        }
+
+        .freeShippingPopNote {
+          font-size: 7px;
+          font-weight: 500;
+          line-height: 1.1;
+          letter-spacing: 0.04em;
+          opacity: 0.88;
+          white-space: nowrap;
         }
 
         .visualEnglishName {
@@ -1094,6 +1137,21 @@ export default function FruitsPage() {
             border-radius: 24px;
           }
 
+          .freeShippingPop {
+            top: 20px;
+            right: 20px;
+            min-width: 112px;
+            padding: 11px 14px 10px;
+          }
+
+          .freeShippingPopMain {
+            font-size: 12px;
+          }
+
+          .freeShippingPopNote {
+            font-size: 8px;
+          }
+
           .visualNumber {
             top: 24px;
             left: 26px;
@@ -1359,6 +1417,21 @@ export default function FruitsPage() {
 
           .categoryTitle {
             font-size: 42px !important;
+          }
+
+          .freeShippingPop {
+            top: 14px;
+            right: 14px;
+            min-width: 96px;
+            padding: 9px 11px 8px;
+          }
+
+          .freeShippingPopMain {
+            font-size: 10px;
+          }
+
+          .freeShippingPopNote {
+            font-size: 7px;
           }
 
           .visualNumber {
