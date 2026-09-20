@@ -37,6 +37,9 @@ const categories: Category[] = [
     englishName: "WATERMELON",
     description:
       "山形の夏を代表する、みずみずしく甘い尾花沢すいかをお届けします。",
+          preorder: {
+      shippingPeriod: "来年7月〜8月",
+    },
     products: [
       {
         id: "obanazawa-watermelon-medium-1",
@@ -126,9 +129,6 @@ const categories: Category[] = [
     englishName: "GRAPE",
     description:
       "粒の大きさ、豊かな香り、上品な甘さを大切に選別しています。",
-    preorder: {
-      shippingPeriod: "9月〜10月",
-    },
     products: [
       {
         id: "pione-700g",
