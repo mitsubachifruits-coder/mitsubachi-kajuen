@@ -100,7 +100,11 @@ export default function Footer() {
               <Link href="/about">私たちについて</Link>
               <Link href="/story">これまでの歩み</Link>
               <Link href="/contact">お問い合わせ</Link>
-              <Link href="/order">ご注文</Link>
+              
+              <a href="https://q2cxkf-4m.myshopify.com/">
+                ご注文
+              </a>
+
               <Link href="/game">🐝</Link>
             </nav>
 

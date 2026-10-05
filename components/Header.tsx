@@ -79,11 +79,9 @@ export default function Header() {
               </Link>
             ))}
 
-            <Link
-              href="/order"
-              className={`mitsubachi-desktop-order-link ${
-                pathname === "/order" ? "is-active" : ""
-              }`}
+            <a
+              href="https://q2cxkf-4m.myshopify.com/"
+              className="mitsubachi-desktop-order-link"
             >
               <span>ご注文</span>
 
@@ -92,8 +90,8 @@ export default function Header() {
                 aria-hidden="true"
               >
                 →
-              </span>
-            </Link>
+              </span> 
+            </a>
           </nav>
 
           {/* スマホメニューボタン */}
@@ -164,11 +162,9 @@ export default function Header() {
             ))}
           </nav>
 
-          <Link
-            href="/order"
-            className={`mitsubachi-mobile-order-link ${
-              pathname === "/order" ? "is-active" : ""
-            }`}
+          <a
+            href="https://q2cxkf-4m.myshopify.com/"
+            className="mitsubachi-mobile-order-link"
             tabIndex={isMenuOpen ? 0 : -1}
           >
             <span>ご注文</span>
@@ -179,8 +175,7 @@ export default function Header() {
             >
               →
             </span>
-          </Link>
-
+          </a>
           <div className="mitsubachi-mobile-menu-footer">
             <p>Bee my friends! 🐝</p>
             <p>みつばちが育んだ、自然の恵み。</p>
