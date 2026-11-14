@@ -369,12 +369,12 @@ export default function ContactPage() {
               </h2>
 
               <p className="orderDescription">
-                現在販売している商品については、
-                注文ページをご確認ください。
+                 現在販売している商品については、
+                 注文ページをご確認ください。
               </p>
             </div>
 
-            <Link href="/order" className="orderLink">
+            <a href="https://q2cxkf-4m.myshopify.com" className="orderLink">
               <span>注文ページを見る</span>
 
               <span
@@ -383,7 +383,7 @@ export default function ContactPage() {
               >
                 →
               </span>
-            </Link>
+            </a>
           </section>
         </div>
       </div>
