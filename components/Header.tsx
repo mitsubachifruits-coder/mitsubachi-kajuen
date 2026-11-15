@@ -16,9 +16,14 @@ const navigationItems = [
     number: "02",
   },
   {
+    label: "くだもの図鑑",
+    href: "/fruitpedia",
+    number: "03",
+  },
+  {
     label: "お問い合わせ",
     href: "/contact",
-    number: "03",
+    number: "04",
   },
 ];
 
@@ -238,7 +243,7 @@ export default function Header() {
           flex: 0 1 auto;
           align-items: center;
           justify-content: flex-end;
-          gap: clamp(18px, 2.1vw, 29px);
+          gap: clamp(10px, 1.35vw, 19px);
         }
 
         .mitsubachi-desktop-nav-link {
