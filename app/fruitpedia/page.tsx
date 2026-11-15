@@ -895,6 +895,7 @@ export default function FruitPediaPage() {
   const [isFruitCategoryMenuOpen, setIsFruitCategoryMenuOpen] = useState(false);
   const [search, setSearch] = useState("");
   const [treeKind, setTreeKind] = useState<Kind>("さくらんぼ");
+  const [isTreeCategoryMenuOpen, setIsTreeCategoryMenuOpen] = useState(false);
   const [treeId, setTreeId] = useState("sato");
   const [month, setMonth] = useState(9);
   const [selected, setSelected] = useState<Fruit | null>(null);
@@ -1107,22 +1108,37 @@ export default function FruitPediaPage() {
                   <p className="categoryDescription">交配親と子品種を表示。未確認の関係は結びません。</p>
                 </div>
 
-                <div className="treeKinds">
-                  {treeGroups.map((group) => (
-                    <button
-                      key={group}
-                      className={treeKind === group ? "treeKind active" : "treeKind"} aria-pressed={treeKind === group}
-                      onClick={() => {
-                        setTreeKind(group);
-                        const first = trees.find((tree) => tree.kind === group);
-                        if (first) {
-                          setTreeId(first.id);
-                        }
-                      }}
-                    >
-                      {group}
-                    </button>
-                  ))}
+                <div className="treeCategoryFilter">
+                  <button
+                    type="button"
+                    className="fruitCategoryMenuToggle"
+                    aria-expanded={isTreeCategoryMenuOpen}
+                    aria-controls="fruitpedia-mobile-tree-category-options"
+                    onClick={() => setIsTreeCategoryMenuOpen((open) => !open)}
+                  >
+                    <span className="fruitCategoryToggleCaption">果物の種類</span>
+                    <strong>{treeKind}</strong>
+                    <span className={`fruitCategoryToggleChevron ${isTreeCategoryMenuOpen ? "isOpen" : ""}`} aria-hidden="true">⌄</span>
+                  </button>
+                  <div id="fruitpedia-mobile-tree-category-options" className={`treeKinds ${isTreeCategoryMenuOpen ? "mobileExpanded" : ""}`} aria-label="家系図の果物の種類">
+                    {treeGroups.map((group) => (
+                      <button
+                        key={group}
+                        type="button"
+                        className={treeKind === group ? "treeKind active" : "treeKind"} aria-pressed={treeKind === group}
+                        onClick={() => {
+                          setTreeKind(group);
+                          setIsTreeCategoryMenuOpen(false);
+                          const first = trees.find((tree) => tree.kind === group);
+                          if (first) {
+                            setTreeId(first.id);
+                          }
+                        }}
+                      >
+                        {group}
+                      </button>
+                    ))}
+                  </div>
                 </div>
 
                 <p className="pickerLabel">品種を選ぶ</p>
@@ -1780,7 +1796,7 @@ export default function FruitPediaPage() {
 
 
         /* スマホ用のカテゴリー選択ボタン。PCのフィルター表示は従来どおり。 */
-        .fruitCategoryFilter { display: contents; }
+        .fruitCategoryFilter, .treeCategoryFilter { display: contents; }
         .fruitCategoryMenuToggle { display: none; }
 
         /* ===== FruitPedia smartphone refinement (story/page.tsx inspired) =====
@@ -1828,7 +1844,7 @@ export default function FruitPediaPage() {
           .pediaPage .searchField input { width: 100%; min-height: 46px; font-size: 14px; }
           .pediaPage .filterPills, .pediaPage .treeKinds { gap: 7px; }
           .pediaPage .filterPill, .pediaPage .treeKind { min-height: 38px; padding: 8px 11px; font-size: 11px; }
-          /* 果物一覧のみに折りたたみ式メニューを適用。家系図のカテゴリーは維持。 */
+          /* 果物一覧と家系図で共通の開閉式カテゴリー選択。 */
           .pediaPage .fruitCategoryFilter { display: block; width: 100%; min-width: 0; }
           .pediaPage .fruitCategoryMenuToggle {
             display: flex; width: 100%; min-height: 58px; align-items: center; gap: 12px;
@@ -1842,6 +1858,10 @@ export default function FruitPediaPage() {
           .pediaPage .fruitCategoryFilter .filterPills { display: none; }
           .pediaPage .fruitCategoryFilter .filterPills.mobileExpanded { display: flex; margin-top: 13px; padding: 14px; border: 1px solid #e5e4de; border-radius: 17px; background: #fff; }
           .pediaPage .fruitCategoryFilter .filterPill { font-size: 12px; min-height: 39px; padding: 8px 12px; }
+          .pediaPage .treeCategoryFilter { display: block; width: 100%; min-width: 0; }
+          .pediaPage .treeCategoryFilter .treeKinds { display: none; }
+          .pediaPage .treeCategoryFilter .treeKinds.mobileExpanded { display: flex; margin-top: 13px; padding: 14px; border: 1px solid #e5e4de; border-radius: 17px; background: #fff; }
+          .pediaPage .treeCategoryFilter .treeKind { font-size: 12px; min-height: 39px; padding: 8px 12px; }
           /* fruit/page.tsx の商品一覧と同じ、スマホではカード1列＋左右16px */
           .pediaPage .specimenGrid { grid-template-columns: minmax(0, 1fr); gap: 20px; }
           .pediaPage .calendarGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
@@ -1876,8 +1896,10 @@ export default function FruitPediaPage() {
         }
         @media (max-width: 680px) {
           /* Portalはbody直下なので、ページスコープに依存せずスマホだけ調整 */
-          .modalBackdrop { padding: 12px 12px 20px; }
-          .modalCard { width: min(100%, 580px); max-height: calc(100dvh - 32px); border-radius: 18px; }
+          /* 詳細カード自身はスクロールさせず、全文をそのまま展開する。
+             画面より長い場合は、背景のオーバーレイ全体だけをスクロール。 */
+          .modalBackdrop { padding: max(12px, env(safe-area-inset-top)) 12px max(24px, env(safe-area-inset-bottom)); overflow-y: auto; overflow-x: hidden; display: block; -webkit-overflow-scrolling: touch; }
+          .modalCard { width: min(100%, 580px); max-height: none; height: auto; overflow: visible; border-radius: 18px; margin: 0 auto; }
           .modalVisual { height: clamp(185px, 58vw, 255px); }
           .modalContent { padding: 23px 20px 27px; }
           .modalTitle { font-size: 29px; line-height: 1.35; overflow-wrap: anywhere; }
