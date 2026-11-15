@@ -997,11 +997,11 @@ export default function FruitPediaPage() {
           <div className="pageContainer heroLayout">
             <div className="heroCopy">
               <p className="eyebrow">FRUITPEDIA</p>
-              <h1 className="heroTitle">くだもの図鑑</h1>
+              <h1 className="heroTitle">くだもの事典</h1>
               <p className="heroDescription">
                 くだものを、知る。
                 <br />
-                品種、産地、家系図、旬をまとめた図鑑です。
+                品種、産地、家系図、旬をまとめた事典です。
               </p>
               <div className="heroMeta">
                 <span>掲載 {fruits.length} 件</span>
@@ -1222,7 +1222,7 @@ export default function FruitPediaPage() {
                     <p className="categoryEnglishName">03 / 旬カレンダー</p>
                     <h2 className="categoryTitle">旬カレンダー</h2>
                   </div>
-                  <p className="categoryDescription">月ごとの旬の果物をまとめました。</p>
+                  <p className="categoryDescription">月ごとの旬の果物をまとめています。</p>
                 </div>
 
                 <div className="monthGrid">

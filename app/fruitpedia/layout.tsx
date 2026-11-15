@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: {
-    absolute: "くだもの図鑑 | みつばち果樹園",
+    absolute: "くだもの事典 | みつばち果樹園",
   },
   description:
-    "国内で栽培される果物の品種や産地、家系図、旬を紹介する、みつばち果樹園のくだもの図鑑。",
+    "日本各地で栽培される果物の品種や産地、家系図、旬を紹介する、みつばち果樹園のくだもの事典。",
 };
 
 export default function FruitpediaLayout({
