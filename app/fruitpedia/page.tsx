@@ -892,6 +892,7 @@ const kindDetails: Record<Kind, string> = {
 export default function FruitPediaPage() {
   const [view, setView] = useState<"dictionary" | "tree" | "calendar">("dictionary");
   const [kind, setKind] = useState<Kind | "すべて">("すべて");
+  const [isFruitCategoryMenuOpen, setIsFruitCategoryMenuOpen] = useState(false);
   const [search, setSearch] = useState("");
   const [treeKind, setTreeKind] = useState<Kind>("さくらんぼ");
   const [treeId, setTreeId] = useState("sato");
@@ -1054,12 +1055,25 @@ export default function FruitPediaPage() {
                     <span>検索</span>
                     <input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="品種・果物名で探す" />
                   </label>
-                  <div className="filterPills" aria-label="種類で絞り込む">
-                    {kinds.map((item) => (
-                      <button key={item} className={kind === item ? "filterPill chosen" : "filterPill"} onClick={() => setKind(item)}>
-                        {item}
-                      </button>
-                    ))}
+                  <div className="fruitCategoryFilter">
+                    <button
+                      type="button"
+                      className="fruitCategoryMenuToggle"
+                      aria-expanded={isFruitCategoryMenuOpen}
+                      aria-controls="fruitpedia-mobile-category-options"
+                      onClick={() => setIsFruitCategoryMenuOpen((open) => !open)}
+                    >
+                      <span className="fruitCategoryToggleCaption">果物の種類</span>
+                      <strong>{kind === "すべて" ? "すべての果物" : kind}</strong>
+                      <span className={`fruitCategoryToggleChevron ${isFruitCategoryMenuOpen ? "isOpen" : ""}`} aria-hidden="true">⌄</span>
+                    </button>
+                    <div id="fruitpedia-mobile-category-options" className={`filterPills ${isFruitCategoryMenuOpen ? "mobileExpanded" : ""}`} aria-label="種類で絞り込む">
+                      {kinds.map((item) => (
+                        <button key={item} type="button" className={kind === item ? "filterPill chosen" : "filterPill"} aria-pressed={kind === item} onClick={() => { setKind(item); setIsFruitCategoryMenuOpen(false); }}>
+                          {item}
+                        </button>
+                      ))}
+                    </div>
                   </div>
                 </div>
 
@@ -1765,6 +1779,10 @@ export default function FruitPediaPage() {
         }
 
 
+        /* スマホ用のカテゴリー選択ボタン。PCのフィルター表示は従来どおり。 */
+        .fruitCategoryFilter { display: contents; }
+        .fruitCategoryMenuToggle { display: none; }
+
         /* ===== FruitPedia smartphone refinement (story/page.tsx inspired) =====
            Desktop styling above 900px is intentionally unchanged. */
         @media (min-width: 681px) and (max-width: 900px) {
@@ -1779,7 +1797,7 @@ export default function FruitPediaPage() {
           .pediaPage { width: 100%; max-width: 100%; overflow-x: clip; }
           .pediaPage .pageContainer,
           .pediaPage .categoryNavigationInner { width: calc(100% - 32px); max-width: none; margin-inline: auto; }
-          .pediaPage .heroSection { padding: 105px 0 85px !important; }
+          .pediaPage .heroSection { padding: 42px 0 56px !important; }
           .pediaPage .heroLayout { display: flex; flex-direction: column; align-items: stretch; gap: 40px; }
           .pediaPage .heroCopy { flex: none; width: 100%; }
           .pediaPage .eyebrow { margin-bottom: 23px; font-size: 10px; }
@@ -1810,6 +1828,20 @@ export default function FruitPediaPage() {
           .pediaPage .searchField input { width: 100%; min-height: 46px; font-size: 14px; }
           .pediaPage .filterPills, .pediaPage .treeKinds { gap: 7px; }
           .pediaPage .filterPill, .pediaPage .treeKind { min-height: 38px; padding: 8px 11px; font-size: 11px; }
+          /* 果物一覧のみに折りたたみ式メニューを適用。家系図のカテゴリーは維持。 */
+          .pediaPage .fruitCategoryFilter { display: block; width: 100%; min-width: 0; }
+          .pediaPage .fruitCategoryMenuToggle {
+            display: flex; width: 100%; min-height: 58px; align-items: center; gap: 12px;
+            padding: 11px 17px; border: 1px solid #deddd7; border-radius: 17px;
+            background: #fff; color: #343431; font: inherit; cursor: pointer; text-align: left;
+          }
+          .pediaPage .fruitCategoryToggleCaption { color: #85857e; font-size: 11px; flex-shrink: 0; }
+          .pediaPage .fruitCategoryMenuToggle strong { margin-left: auto; font-size: 15px; font-weight: 700; }
+          .pediaPage .fruitCategoryToggleChevron { display: inline-flex; font-size: 23px; line-height: 1; margin-left: 4px; transform: translateY(-3px); transition: transform .2s ease; }
+          .pediaPage .fruitCategoryToggleChevron.isOpen { transform: rotate(180deg) translateY(3px); }
+          .pediaPage .fruitCategoryFilter .filterPills { display: none; }
+          .pediaPage .fruitCategoryFilter .filterPills.mobileExpanded { display: flex; margin-top: 13px; padding: 14px; border: 1px solid #e5e4de; border-radius: 17px; background: #fff; }
+          .pediaPage .fruitCategoryFilter .filterPill { font-size: 12px; min-height: 39px; padding: 8px 12px; }
           /* fruit/page.tsx の商品一覧と同じ、スマホではカード1列＋左右16px */
           .pediaPage .specimenGrid { grid-template-columns: minmax(0, 1fr); gap: 20px; }
           .pediaPage .calendarGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
