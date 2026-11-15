@@ -261,7 +261,7 @@ const fruits: Fruit[] = [
   { id: "dragonfruit", name: "ドラゴンフルーツ", kind: "その他", period: [7, 8, 9, 10], summary: "鮮やかな果皮と種のある果肉。", origin: "沖縄県・鹿児島県など", color: "#efd3da" },
   { id: "starfruit", name: "スターフルーツ", kind: "その他", period: [9, 10, 11], summary: "切ると星形になる果実。", origin: "沖縄県など", color: "#f1eac1" },
   { id: "jabuticaba", name: "ジャボチカバ", kind: "その他", period: [5, 6, 7, 8, 9, 10], summary: "幹に直接実がなる珍しい果樹。", origin: "各地で小規模栽培（特定の主要産地なし）", color: "#dad2e7" },
-  { id: "loquat-rare", name: "シークヮーサー", kind: "その他", period: [8, 9, 10, 11, 12], summary: "沖縄で親しまれる香酸柑橘。", origin: "沖縄県（大宜味村・名護市・本部町など）", color: "#e4ebca" },
+  { id: "loquat-rare", name: "シークヮーサー", kind: "柑橘", period: [8, 9, 10, 11, 12], summary: "沖縄で親しまれる香酸柑橘。", origin: "沖縄県（大宜味村・名護市・本部町など）", color: "#e4ebca" },
 ];
 
 // 交配親が確認できる場合のみ、親子関係を描画する。
@@ -754,7 +754,7 @@ function FruitVector({ fruit, dense = false }: { fruit: Fruit; dense?: boolean }
         break;
       }
       case "柑橘":
-        shape = <><circle cx="100" cy="87" r={fruit.id === "kinkan" ? 40 : 54} fill={fruit.id === "yuzu" ? "#e7d356" : fruit.id === "sudachi" || fruit.id === "kabosu" ? "#73a25f" : "#e9a344"}/><path d="M100 37 L104 23" stroke="#806343" strokeWidth="6" strokeLinecap="round"/><ellipse cx="124" cy="30" rx="20" ry="9" transform="rotate(-25 124 30)" fill="#6b9d62" />{shine}</>;
+        shape = <><circle cx="100" cy="87" r={fruit.id === "kinkan" ? 40 : 54} fill={fruit.id === "yuzu" ? "#e7d356" : fruit.id === "sudachi" || fruit.id === "kabosu" || fruit.id === "loquat-rare" ? "#73a25f" : "#e9a344"}/><path d="M100 37 L104 23" stroke="#806343" strokeWidth="6" strokeLinecap="round"/><ellipse cx="124" cy="30" rx="20" ry="9" transform="rotate(-25 124 30)" fill="#6b9d62" />{shine}</>;
         break;
       case "柿":
         shape = <><path d="M55 76 C57 49 79 47 100 49 C121 47 143 49 145 76 C151 113 127 134 100 135 C73 134 49 113 55 76Z" fill="#e6a152"/><path d="M100 54 L100 31 M100 54 Q75 25 63 48 L99 65 Q124 25 139 48 L100 65Z" fill="#67975d" stroke="#67975d" strokeWidth="3"/>{shine}</>;
