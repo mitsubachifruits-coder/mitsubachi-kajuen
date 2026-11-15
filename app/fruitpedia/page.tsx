@@ -1006,7 +1006,7 @@ export default function FruitPediaPage() {
               <div className="heroMeta">
                 <span>掲載 {fruits.length} 件</span>
                 <span className="metaDivider" />
-                <span>国内で栽培される果物</span>
+                <span>日本各地で栽培される果物</span>
               </div>
             </div>
             <aside className="dailyFruitArea" aria-label="今日の果物">
@@ -1048,7 +1048,7 @@ export default function FruitPediaPage() {
                     <p className="categoryEnglishName">01 / 果物一覧</p>
                     <h2 className="categoryTitle">果物一覧</h2>
                   </div>
-                  <p className="categoryDescription">項目を選んで詳細を見る。</p>
+                  <p className="categoryDescription">項目を選んで詳細を見ることができます。</p>
                 </div>
 
                 <div className="toolRow">
@@ -1105,7 +1105,7 @@ export default function FruitPediaPage() {
                     <p className="categoryEnglishName">02 / 家系図</p>
                     <h2 className="categoryTitle">家系図</h2>
                   </div>
-                  <p className="categoryDescription">交配親と子品種を表示。未確認の関係は結びません。</p>
+                  <p className="categoryDescription">交配親と子品種を表示しています。</p>
                 </div>
 
                 <div className="treeCategoryFilter">
@@ -1222,7 +1222,7 @@ export default function FruitPediaPage() {
                     <p className="categoryEnglishName">03 / 旬カレンダー</p>
                     <h2 className="categoryTitle">旬カレンダー</h2>
                   </div>
-                  <p className="categoryDescription">月ごとの旬の目安。</p>
+                  <p className="categoryDescription">月ごとの旬の果物をまとめました。</p>
                 </div>
 
                 <div className="monthGrid">
