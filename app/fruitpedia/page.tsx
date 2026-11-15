@@ -1783,7 +1783,8 @@ export default function FruitPediaPage() {
           .pediaPage .heroLayout { display: flex; flex-direction: column; align-items: stretch; gap: 40px; }
           .pediaPage .heroCopy { flex: none; width: 100%; }
           .pediaPage .eyebrow { margin-bottom: 23px; font-size: 10px; }
-          .pediaPage .heroTitle { max-width: 100%; font-size: clamp(37px, 10vw, 54px) !important; line-height: 1.13 !important; letter-spacing: -0.055em; overflow-wrap: anywhere; }
+          /* fruit/page.tsx と同じスマホ用見出しサイズ・左揃え */
+          .pediaPage .heroTitle { max-width: 100%; font-size: clamp(48px, 15vw, 72px) !important; line-height: 1.13 !important; letter-spacing: -0.055em; text-align: left; overflow-wrap: anywhere; }
           .pediaPage .heroDescription { max-width: 100%; margin-top: 30px; font-size: 15px; line-height: 1.9; }
           .pediaPage .heroMeta { flex-wrap: wrap; column-gap: 12px; row-gap: 8px; margin-top: 30px; font-size: 10px; line-height: 1.6; }
           .pediaPage .metaDivider { width: 22px; }
@@ -1809,14 +1810,15 @@ export default function FruitPediaPage() {
           .pediaPage .searchField input { width: 100%; min-height: 46px; font-size: 14px; }
           .pediaPage .filterPills, .pediaPage .treeKinds { gap: 7px; }
           .pediaPage .filterPill, .pediaPage .treeKind { min-height: 38px; padding: 8px 11px; font-size: 11px; }
-          /* 一覧は2列のまま、余白と可読性を調整 */
-          .pediaPage .specimenGrid, .pediaPage .calendarGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-          .pediaPage .specimenCard { border-radius: 18px; min-width: 0; }
-          .pediaPage .specimenBody { padding: 13px 12px 17px; }
-          .pediaPage .specimenBody .productBadge { min-height: 22px; padding: 3px 8px; font-size: 9px; }
-          .pediaPage .specimenBody .productName { font-size: 17px; line-height: 1.4; }
-          .pediaPage .specimenBody .productSpecification { font-size: 11px; line-height: 1.7; }
-          .pediaPage .specimenIndex { top: 10px; left: 11px; font-size: 8px; }
+          /* fruit/page.tsx の商品一覧と同じ、スマホではカード1列＋左右16px */
+          .pediaPage .specimenGrid { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+          .pediaPage .calendarGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+          .pediaPage .specimenCard { border-radius: 20px; min-width: 0; }
+          .pediaPage .specimenBody { padding: 25px 23px 23px; }
+          .pediaPage .specimenBody .productBadge { min-height: 24px; padding: 4px 10px; font-size: 10px; }
+          .pediaPage .specimenBody .productName { font-size: 22px; line-height: 1.4; }
+          .pediaPage .specimenBody .productSpecification { font-size: 13px; line-height: 1.8; }
+          .pediaPage .specimenIndex { top: 17px; left: 18px; font-size: 10px; }
           .pediaPage .treePickerGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
           .pediaPage .treeStage { padding: 24px 12px 26px; border-radius: 20px; }
           .pediaPage .treeRow { gap: 10px; }
@@ -1833,11 +1835,11 @@ export default function FruitPediaPage() {
           .pediaPage .calendarHead p { font-size: 11px; }
         }
         @media (max-width: 420px) {
-          .pediaPage .heroTitle { font-size: clamp(35px, 10vw, 42px) !important; }
-          .pediaPage .categoryTitle { font-size: 39px !important; }
-          .pediaPage .specimenBody { padding: 12px 11px 16px; }
-          .pediaPage .specimenBody .productName { font-size: 16px; }
-          .pediaPage .specimenBody .productSpecification { font-size: 10.5px; }
+          .pediaPage .heroTitle { font-size: clamp(38px, 11.5vw, 46px) !important; }
+          .pediaPage .categoryTitle { font-size: 42px !important; }
+          .pediaPage .specimenBody { padding: 25px 23px 23px; }
+          .pediaPage .specimenBody .productName { font-size: 22px; }
+          .pediaPage .specimenBody .productSpecification { font-size: 13px; }
           .pediaPage .treeNode strong { font-size: 14px; }
         }
         @media (max-width: 680px) {
