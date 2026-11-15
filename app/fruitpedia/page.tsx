@@ -1764,6 +1764,96 @@ export default function FruitPediaPage() {
           .pediaPage .treeNode.clickable { width: calc(50% - 8px); }
         }
 
+
+        /* ===== FruitPedia smartphone refinement (story/page.tsx inspired) =====
+           Desktop styling above 900px is intentionally unchanged. */
+        @media (min-width: 681px) and (max-width: 900px) {
+          .pediaPage .heroLayout { align-items: center; }
+          .pediaPage .dailyFruitArea { flex: 0 0 250px; width: 250px; min-width: 0; }
+          .pediaPage .heroTitle { font-size: clamp(43px, 6vw, 65px); overflow-wrap: anywhere; }
+          .pediaPage .heroDescription { font-size: 16px; }
+          .pediaPage .categoryNavigation { top: 94px; }
+        }
+        @media (max-width: 680px) {
+          /* storyと同じ左右16pxと、余白を生かした縦組み */
+          .pediaPage { width: 100%; max-width: 100%; overflow-x: clip; }
+          .pediaPage .pageContainer,
+          .pediaPage .categoryNavigationInner { width: calc(100% - 32px); max-width: none; margin-inline: auto; }
+          .pediaPage .heroSection { padding: 105px 0 85px !important; }
+          .pediaPage .heroLayout { display: flex; flex-direction: column; align-items: stretch; gap: 40px; }
+          .pediaPage .heroCopy { flex: none; width: 100%; }
+          .pediaPage .eyebrow { margin-bottom: 23px; font-size: 10px; }
+          .pediaPage .heroTitle { max-width: 100%; font-size: clamp(37px, 10vw, 54px) !important; line-height: 1.13 !important; letter-spacing: -0.055em; overflow-wrap: anywhere; }
+          .pediaPage .heroDescription { max-width: 100%; margin-top: 30px; font-size: 15px; line-height: 1.9; }
+          .pediaPage .heroMeta { flex-wrap: wrap; column-gap: 12px; row-gap: 8px; margin-top: 30px; font-size: 10px; line-height: 1.6; }
+          .pediaPage .metaDivider { width: 22px; }
+          .pediaPage .dailyFruitArea { flex: none; align-self: stretch; width: min(100%, 390px); min-width: 0; max-width: 390px; margin-inline: auto; }
+          .pediaPage .dailyFruitHeading { margin-bottom: 13px; font-size: 13px; }
+          .pediaPage .dailyFruitCard { min-height: 0; border-radius: 19px; }
+          .pediaPage .dailyFruitVisual { aspect-ratio: 1.5 / 1; }
+          .pediaPage .dailyFruitInfo { padding: 16px 18px; }
+          .pediaPage .dailyFruitInfo strong { font-size: 20px; }
+          /* スマホヘッダー高さ82pxに揃えてナビを固定 */
+          .pediaPage .categoryNavigation { top: 82px; }
+          .pediaPage .categoryNavigationInner { justify-content: space-between; gap: 6px; }
+          .pediaPage .categoryNavigationLink { flex: 0 0 auto; padding: 16px 8px; font-size: 11px; letter-spacing: .02em; }
+          .pediaPage .categoryNavigationLink:first-child { padding-left: 0; }
+          .pediaPage .categoryNavigationLink:last-child { padding-right: 0; }
+          .pediaPage .productsArea { padding: 30px 0 110px; scroll-margin-top: 140px; }
+          .pediaPage .categorySection { padding-top: 80px !important; scroll-margin-top: 140px; }
+          .pediaPage .categoryHeader { grid-template-columns: minmax(0, 1fr); gap: 16px; margin-bottom: 27px; padding-bottom: 24px; }
+          .pediaPage .categoryEnglishName { margin-bottom: 13px; font-size: 10px; }
+          .pediaPage .categoryTitle { font-size: clamp(38px, 10vw, 48px) !important; line-height: 1.2 !important; overflow-wrap: anywhere; }
+          .pediaPage .categoryDescription { font-size: 13px; line-height: 1.85; }
+          .pediaPage .searchField { max-width: none; width: 100%; font-size: 12px; }
+          .pediaPage .searchField input { width: 100%; min-height: 46px; font-size: 14px; }
+          .pediaPage .filterPills, .pediaPage .treeKinds { gap: 7px; }
+          .pediaPage .filterPill, .pediaPage .treeKind { min-height: 38px; padding: 8px 11px; font-size: 11px; }
+          /* 一覧は2列のまま、余白と可読性を調整 */
+          .pediaPage .specimenGrid, .pediaPage .calendarGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+          .pediaPage .specimenCard { border-radius: 18px; min-width: 0; }
+          .pediaPage .specimenBody { padding: 13px 12px 17px; }
+          .pediaPage .specimenBody .productBadge { min-height: 22px; padding: 3px 8px; font-size: 9px; }
+          .pediaPage .specimenBody .productName { font-size: 17px; line-height: 1.4; }
+          .pediaPage .specimenBody .productSpecification { font-size: 11px; line-height: 1.7; }
+          .pediaPage .specimenIndex { top: 10px; left: 11px; font-size: 8px; }
+          .pediaPage .treePickerGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+          .pediaPage .treeStage { padding: 24px 12px 26px; border-radius: 20px; }
+          .pediaPage .treeRow { gap: 10px; }
+          .pediaPage .treeNode.small, .pediaPage .treeNode.clickable { width: calc(50% - 5px); min-width: 0; }
+          .pediaPage .treeNode.current { width: min(210px, 85%); }
+          .pediaPage .treeNode { min-width: 0; padding: 10px 8px 13px; border-radius: 14px; }
+          .pediaPage .treeNode strong { font-size: 15px; overflow-wrap: anywhere; }
+          .pediaPage .treeConnector.top span:first-child, .pediaPage .treeConnector.bottom span:last-child { left: 23%; right: 23%; }
+          .pediaPage .smallNote, .pediaPage .treeUnknown { font-size: 11px; line-height: 1.85; }
+          .pediaPage .monthGrid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 7px; }
+          .pediaPage .monthButton { min-height: 44px; font-size: 12px; }
+          .pediaPage .calendarHead { gap: 10px; }
+          .pediaPage .calendarHead span { font-size: 36px; }
+          .pediaPage .calendarHead p { font-size: 11px; }
+        }
+        @media (max-width: 420px) {
+          .pediaPage .heroTitle { font-size: clamp(35px, 10vw, 42px) !important; }
+          .pediaPage .categoryTitle { font-size: 39px !important; }
+          .pediaPage .specimenBody { padding: 12px 11px 16px; }
+          .pediaPage .specimenBody .productName { font-size: 16px; }
+          .pediaPage .specimenBody .productSpecification { font-size: 10.5px; }
+          .pediaPage .treeNode strong { font-size: 14px; }
+        }
+        @media (max-width: 680px) {
+          /* Portalはbody直下なので、ページスコープに依存せずスマホだけ調整 */
+          .modalBackdrop { padding: 12px 12px 20px; }
+          .modalCard { width: min(100%, 580px); max-height: calc(100dvh - 32px); border-radius: 18px; }
+          .modalVisual { height: clamp(185px, 58vw, 255px); }
+          .modalContent { padding: 23px 20px 27px; }
+          .modalTitle { font-size: 29px; line-height: 1.35; overflow-wrap: anywhere; }
+          .modalText, .modalDetailMore { font-size: 13px; line-height: 1.9; }
+          .modalDetailMore { padding: 14px 15px; }
+          .modalFact { gap: 14px; font-size: 12px; }
+          .modalFact strong { text-align: right; overflow-wrap: anywhere; }
+          .modalClose { z-index: 2; }
+        }
+
       `}</style>
     </>
   );
