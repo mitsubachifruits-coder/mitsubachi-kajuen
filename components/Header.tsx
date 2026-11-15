@@ -16,7 +16,7 @@ const navigationItems = [
     number: "02",
   },
   {
-    label: "くだもの図鑑",
+    label: "くだもの事典",
     href: "/fruitpedia",
     number: "03",
   },

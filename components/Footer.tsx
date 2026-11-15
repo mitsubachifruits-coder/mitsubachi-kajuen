@@ -99,7 +99,7 @@ export default function Footer() {
             >
               <Link href="/about">私たちについて</Link>
               <Link href="/story">これまでの歩み</Link>
-              <Link href="/fruitpedia">くだもの図鑑</Link>
+              <Link href="/fruitpedia">くだもの事典</Link>
               <Link href="/contact">お問い合わせ</Link>
               
               <a href="https://q2cxkf-4m.myshopify.com/">
