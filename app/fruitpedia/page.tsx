@@ -565,6 +565,10 @@ const pearMap: Record<string, { base: string; glow: string; leaf: string; round?
   shinko: { base: "#bca061", glow: "#e8cf9c", leaf: "#71945d", round: true },
   nikkori: { base: "#c5a05c", glow: "#ebcfa0", leaf: "#739b5f", round: true },
   niitaka: { base: "#bd9d54", glow: "#e2c88f", leaf: "#6d9356", round: true },
+  "ancestor-162-29": { base: "#c4d078", glow: "#ecf3bb", leaf: "#68a35b", round: true },
+  "ancestor-菊水": { base: "#c4d078", glow: "#ecf3bb", leaf: "#68a35b", round: true },
+  "ancestor-早生幸蔵": { base: "#d5b05d", glow: "#efd9a8", leaf: "#7ba060", round: true },
+  "ancestor-イ-33": { base: "#caa25a", glow: "#ead29f", leaf: "#77985d", round: true },
 };
 
 const watermelonMap: Record<string, { body: string; stripe: string }> = {
