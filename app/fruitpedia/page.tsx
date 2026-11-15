@@ -1898,6 +1898,45 @@ export default function FruitPediaPage() {
           .pediaPage .specimenBody .productSpecification { font-size: 11px; }
           .pediaPage .treeNode strong { font-size: 14px; }
         }
+        /* スマホの下部3セクションは親に16pxだけ余白を設ける。
+           子コンテナは100%にして、二重の左右余白を防ぐ。 */
+        @media (max-width: 680px) {
+          .pediaPage .productsArea {
+            box-sizing: border-box;
+            width: 100%;
+            padding-left: 16px !important;
+            padding-right: 16px !important;
+          }
+          .pediaPage .productsArea > .pageContainer {
+            box-sizing: border-box;
+            width: 100% !important;
+            max-width: none !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+          }
+          .pediaPage .productsArea .categorySection {
+            box-sizing: border-box;
+            width: 100%;
+            min-width: 0;
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+          }
+          .pediaPage .productsArea .categoryHeader,
+          .pediaPage .productsArea .toolRow,
+          .pediaPage .productsArea .specimenGrid,
+          .pediaPage .productsArea .treePickerGrid,
+          .pediaPage .productsArea .treeStage,
+          .pediaPage .productsArea .calendarGrid,
+          .pediaPage .productsArea .monthGrid {
+            box-sizing: border-box;
+            width: 100%;
+            min-width: 0;
+            max-width: none;
+          }
+        }
+
         @media (max-width: 680px) {
           /* Portalはbody直下なので、ページスコープに依存せずスマホだけ調整 */
           /* 詳細カード自身はスクロールさせず、全文をそのまま展開する。
