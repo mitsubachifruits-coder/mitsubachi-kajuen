@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "みつばち果樹園について | みつばち果樹園",
+  title: "私たちについて | みつばち果樹園",
   description:
     "山形県東根市のみつばち果樹園と、直営店みつばちフルーツについてご紹介します。",
 };

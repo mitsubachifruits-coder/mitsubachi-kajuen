@@ -957,6 +957,31 @@ export default function FruitPediaPage() {
     return fruits.filter((fruit) => fruit.period.includes(month));
   }, [month]);
 
+  // 家系図の四角い枠の中心を、画面の中央に合わせる。
+  // 品種切り替え後の高さを使うため、レイアウト確定後に位置を計算する。
+  const scrollToTreeStage = () => {
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        const stage = document.getElementById("fruitpedia-tree-stage");
+        if (!stage) return;
+        const rect = stage.getBoundingClientRect();
+        const stageCenterY = window.scrollY + rect.top + rect.height / 2;
+        const targetY = Math.max(0, stageCenterY - window.innerHeight / 2);
+        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        window.scrollTo({
+          top: targetY,
+          behavior: prefersReducedMotion ? "instant" : "smooth",
+        });
+      });
+    });
+  };
+
+  const selectTreeFruit = (fruit: Fruit) => {
+    setTreeKind(fruit.kind);
+    setTreeId(fruit.id);
+    scrollToTreeStage();
+  };
+
   const jump = (next: "dictionary" | "tree" | "calendar") => {
     setView(next);
     setSelected(null);
@@ -1091,7 +1116,7 @@ export default function FruitPediaPage() {
                   {visibleTreeItems.map((tree) => {
                     const fruit = allFamilyFruits.find((item) => item.id === tree.id) || getFruitByName(tree.id, tree.kind);
                     return (
-                      <button key={tree.id} className={tree.id === treeId ? "treePickerCard active" : "treePickerCard"} aria-pressed={tree.id === treeId} onClick={() => setTreeId(tree.id)}>
+                      <button key={tree.id} className={tree.id === treeId ? "treePickerCard active" : "treePickerCard"} aria-pressed={tree.id === treeId} onClick={() => selectTreeFruit(fruit)}>
                         <div className="treePickerVisual" style={{ background: fruit.color }}>
                           <FruitVector fruit={fruit} dense />
                         </div>
@@ -1101,12 +1126,12 @@ export default function FruitPediaPage() {
                   })}
                 </div>
 
-                <div className="treeStage">
+                <div className="treeStage" id="fruitpedia-tree-stage">
                   {currentTree.parents ? <div className="treeRow parents">
                     {currentTree.parents.map((name) => {
                       const item = getFruitByName(name, currentTree.kind);
                       return (
-                        <button key={name} type="button" className="treeNode small clickable" onClick={() => { if (trees.some((entry) => entry.id === item.id)) { setTreeKind(item.kind); setTreeId(item.id); } }} aria-label={`${name}の家系図を見る`}>
+                        <button key={name} type="button" className="treeNode small clickable" onClick={() => { if (trees.some((entry) => entry.id === item.id)) selectTreeFruit(item); }} aria-label={`${name}の家系図を見る`}>
                           <div className="treeNodeVisual" style={{ background: item.color }}>
                             <FruitVector fruit={item} dense />
                           </div>
@@ -1140,7 +1165,7 @@ export default function FruitPediaPage() {
                         {children.map((item) => {
                           const name = item.name;
                           return (
-                            <button key={item.id} className="treeNode small clickable" onClick={() => { setTreeKind(item.kind); setTreeId(item.id); }}>
+                            <button key={item.id} className="treeNode small clickable" onClick={() => selectTreeFruit(item)}>
                               <div className="treeNodeVisual" style={{ background: item.color }}>
                                 <FruitVector fruit={item} dense />
                               </div>
@@ -1233,10 +1258,9 @@ export default function FruitPediaPage() {
                   onClick={() => {
                     const target = trees.find((tree) => tree.id === selected.id);
                     if (target) {
-                      setTreeKind(target.kind);
-                      setTreeId(target.id);
+                      setView("tree");
                       setSelected(null);
-                      jump("tree");
+                      selectTreeFruit(allFamilyFruits.find((fruit) => fruit.id === target.id) || selected);
                     }
                   }}
                 >
@@ -1417,6 +1441,7 @@ export default function FruitPediaPage() {
         .treePickerCard span { display: block; padding: 0 12px; color: #31312e; font-size: 12px; line-height: 1.6; }
 
         .treeStage {
+          scroll-margin-top: 112px;
           border: 1px solid #e5e4de;
           border-radius: 18px;
           background: #fff;
