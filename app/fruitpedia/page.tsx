@@ -1822,7 +1822,7 @@ export default function FruitPediaPage() {
           .pediaPage .heroDescription { max-width: 100%; margin-top: 30px; font-size: 15px; line-height: 1.9; }
           .pediaPage .heroMeta { flex-wrap: wrap; column-gap: 12px; row-gap: 8px; margin-top: 30px; font-size: 10px; line-height: 1.6; }
           .pediaPage .metaDivider { width: 22px; }
-          .pediaPage .dailyFruitArea { flex: none; align-self: stretch; width: min(100%, 390px); min-width: 0; max-width: 390px; margin-inline: auto; }
+          .pediaPage .dailyFruitArea { flex: none; align-self: stretch; width: 100%; min-width: 0; max-width: none; margin-inline: 0; }
           .pediaPage .dailyFruitHeading { margin-bottom: 13px; font-size: 13px; }
           .pediaPage .dailyFruitCard { min-height: 0; border-radius: 19px; }
           .pediaPage .dailyFruitVisual { aspect-ratio: 1.5 / 1; }
@@ -1830,9 +1830,9 @@ export default function FruitPediaPage() {
           .pediaPage .dailyFruitInfo strong { font-size: 20px; }
           /* スマホヘッダー高さ82pxに揃えてナビを固定 */
           .pediaPage .categoryNavigation { top: 82px; }
-          /* セクション全体の左右端を「今日の果物」カードと揃える。 */
+          /* ヒーロー、ナビ、3セクションを同じ左右16pxのガイドに揃える。 */
           .pediaPage .productsArea > .pageContainer,
-          .pediaPage .categoryNavigationInner { width: min(calc(100% - 32px), 390px); max-width: 390px; margin-inline: auto; }
+          .pediaPage .categoryNavigationInner { width: calc(100% - 32px); max-width: none; margin-inline: auto; }
           .pediaPage .categoryNavigationInner { justify-content: space-between; gap: 4px; }
           .pediaPage .categoryNavigationLink { flex: 0 1 auto; min-width: 0; padding: 16px 5px; font-size: clamp(10px, 2.8vw, 12px); letter-spacing: 0; }
           .pediaPage .categoryNavigationLink:first-child { padding-left: 0; }
