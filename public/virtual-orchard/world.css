@@ -35,3 +35,37 @@ html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#dce9db;fon
 @media(prefers-reduced-motion:reduce){.pointerHint{transition:none}}
 
 html.orchardFontsPending .mapBox,html.orchardFontsPending .mapShow,html.orchardFontsPending .pointerHint,html.orchardFontsPending .bottomHint,html.orchardFontsPending .loadMessage{visibility:hidden;}
+
+/* Small, glassy controls keep the existing orchard scenery dominant. */
+.flightHud{position:absolute;left:50%;transform:translateX(-50%);bottom:109px;z-index:6;width:max-content;max-width:calc(100vw - 30px);min-width:300px;padding:10px 12px 11px;border-radius:18px;border:1px solid rgba(66,85,60,.12);background:rgba(255,253,246,.91);backdrop-filter:blur(18px);box-shadow:0 10px 36px rgba(40,50,36,.16);text-align:center;pointer-events:auto;}
+.flightMetrics{display:flex;align-items:center;justify-content:center;gap:13px;color:#648169;font-size:10px;font-weight:800;letter-spacing:.02em}
+.nearFruitLabel{margin:5px auto 7px;min-height:18px;font-size:12px;color:#345541;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.flightActions{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:5px;}
+.flightActions button{border:0;border-radius:999px;padding:9px 12px;background:#3c6d4b;color:white;font-size:11px;font-weight:900;cursor:pointer;white-space:nowrap;min-height:34px;}
+.flightActions .flightSoft{border:1px solid #d6dfd1;color:#477157;background:#f4f7ed;}
+.flightActions button:disabled{background:#dee6da;color:#86998a;cursor:default;}
+.flightActions button[hidden]{display:none!important;}
+.altitudeControls{position:absolute;z-index:6;right:20px;bottom:121px;display:flex;flex-direction:column;gap:6px;pointer-events:auto;}
+.altitudeControls button{width:51px;height:51px;border-radius:16px;background:rgba(255,253,246,.9);border:1px solid rgba(66,85,60,.12);backdrop-filter:blur(18px);box-shadow:0 10px 34px rgba(25,45,27,.11);color:#416d4c;font-size:22px;font-weight:900;cursor:pointer;touch-action:none;display:flex;flex-direction:column;justify-content:center;align-items:center;line-height:1.05;}
+.altitudeControls button small{display:block;font-size:8px;margin-top:1px;}
+.altitudeControls button:active{background:#d9f0d6;}
+.flightToast{position:absolute;z-index:6;top:52%;left:50%;transform:translate(-50%,-42%);pointer-events:none;opacity:0;transition:opacity .2s,transform .2s;max-width:calc(100vw - 36px);width:max-content;padding:11px 17px;background:rgba(255,253,246,.94);border-radius:999px;border:1px solid #fff;box-shadow:0 12px 35px rgba(23,45,25,.2);font-size:12px;color:#385341;font-weight:800;}
+.flightToast.visible{opacity:1;transform:translate(-50%,-50%)}
+@media(max-width:740px){
+  .flightHud{left:auto;right:10px;bottom:max(18px,calc(env(safe-area-inset-bottom) + 10px));transform:none;width:204px;min-width:0;max-width:calc(100vw - 155px);padding:8px 7px;border-radius:16px;}
+  .flightMetrics{gap:7px;font-size:8px;}
+  .nearFruitLabel{font-size:10px;margin:4px auto 6px;}
+  .flightActions{gap:4px;}
+  .flightActions button{padding:7px 8px;font-size:9px;min-height:30px;}
+  .altitudeControls{right:12px;bottom:max(175px,calc(env(safe-area-inset-bottom) + 157px));gap:5px;}
+  .altitudeControls button{width:44px;height:44px;border-radius:14px;font-size:20px;}
+  .altitudeControls button small{font-size:8px;}
+  .joystick{bottom:max(78px,calc(env(safe-area-inset-bottom) + 46px));}
+  .flightToast{font-size:11px;}
+}
+html.orchardFontsPending .flightHud,html.orchardFontsPending .altitudeControls,html.orchardFontsPending .flightToast{visibility:hidden;}
+@media(prefers-reduced-motion:reduce){.flightToast{transition:none;}}
+
+/* Flight actions replace the old keyboard-help strip; help lives under the ? button. */
+.bottomHint{display:none !important;}
+.flightActions button:focus-visible,.altitudeControls button:focus-visible{outline:3px solid #44845a;outline-offset:2px;}

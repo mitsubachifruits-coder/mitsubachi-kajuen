@@ -6,28 +6,44 @@
   <meta name="theme-color" content="#dce9db" />
   <title>みつばち果樹園</title>
   <link rel="preload" href="/fonts/GenSenRoundedJP-H.otf" as="font" type="font/otf" crossorigin="anonymous" />
-  <link rel="stylesheet" href="/virtual-orchard/world.css?v=20261116-joystick-1" />
+  <link rel="stylesheet" href="/virtual-orchard/world.css?v=20261116-beeflight-v2" />
 </head>
 <body>
   <main id="world">
     <div id="canvasMount"></div>
-    <div class="sight" aria-hidden="true"><span></span></div>
-    <aside class="mapBox" id="mapBox" aria-label="園内の散歩マップ">
+    
+    <aside class="mapBox" id="mapBox" aria-label="園内の飛行マップ">
       <div class="mapHeader">
-        <div class="mapTitle">散歩マップ</div>
+        <div class="mapTitle">飛行マップ</div>
         <div class="mapActions">
           <button type="button" id="mapExpand" aria-label="地図を拡大" aria-expanded="false">拡大</button>
           <button type="button" id="mapHide" aria-label="マップを非表示にする" aria-controls="mapBox">非表示</button>
         </div>
       </div>
       <canvas id="worldMap" width="520" height="620"></canvas>
-      <div class="mapFooter"><span id="walkDistance">歩いた距離 0m</span><span class="mapGuide">畑をタップして移動</span></div>
+      <div class="mapFooter"><span id="walkDistance">飛んだ距離 0m</span><span class="mapGuide">畑をタップして移動</span></div>
     </aside>
-    <button type="button" id="mapShow" class="mapShow" aria-label="散歩マップを表示する" aria-controls="mapBox" hidden>マップを表示</button>
+    <button type="button" id="mapShow" class="mapShow" aria-label="飛行マップを表示する" aria-controls="mapBox" hidden>マップを表示</button>
+    <div id="flightHud" class="flightHud" aria-label="みつばちの飛行とアクション">
+      <div class="flightMetrics"><span id="flightAltitude">高度 2m / 220m</span><span id="harvestCount">収穫 0</span></div>
+      <div id="nearFruitLabel" class="nearFruitLabel" aria-live="polite">自由に飛んでみよう</div>
+      <div class="flightActions">
+        <button type="button" id="birdViewButton" class="flightSoft" aria-pressed="false">空から眺める</button>
+        <button type="button" id="harvestButton" disabled>収穫する</button>
+        <button type="button" id="waterButton">水やり</button>
+        <button type="button" id="fruitInfoButton" disabled>事典</button>
+        <button type="button" id="restoreButton" class="flightSoft" hidden>実を戻す</button>
+      </div>
+    </div>
+    <div class="altitudeControls" aria-label="飛行の高度を変える">
+      <button type="button" id="riseButton" aria-label="上昇する">↑<small>上昇</small></button>
+      <button type="button" id="fallButton" aria-label="下降する">↓<small>下降</small></button>
+    </div>
+    <div id="flightToast" class="flightToast" role="status" aria-live="polite"></div>
     <div id="pointerHint" class="pointerHint" aria-live="polite"></div>
     <div id="joystick" class="joystick" aria-label="移動スティック"><div class="joystickPad"></div><div id="knob" class="knob"></div></div>
-    <div class="bottomHint" aria-hidden="true">W A S D で歩く　・　ドラッグで見渡す　・　実を選ぶ</div>
-    <div id="loadMessage" class="loadMessage">果樹園への道を準備中…</div>
+    <div class="bottomHint" aria-hidden="true">W A S D：飛ぶ　 Space / C：上昇・下降　 V：俯瞰　 E：収穫　 H：水やり</div>
+    <div id="loadMessage" class="loadMessage">みつばちの飛行を準備中…</div>
   </main>
   <script>
     window.addEventListener('load', function () {
@@ -39,6 +55,6 @@
       }, 16000);
     });
   </script>
-  <script type="module" src="/virtual-orchard/world.js?v=20261116-mobile-gate-2"></script>
+  <script type="module" src="/virtual-orchard/world.js?v=20261116-beeflight-v2"></script>
 </body>
 </html>

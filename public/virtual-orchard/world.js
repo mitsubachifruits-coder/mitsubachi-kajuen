@@ -9,12 +9,12 @@ const tips = $('pointerHint');
 const loadMessage = $('loadMessage');
 
 const ZONES = [
-  { kind:'さくらんぼ', sign:'さくらんぼ', x:-46, z:58, bg:'#b89470', mapAccent:'#d9e9c3', fruit:'#e74b54', flower:'#f4dbcf', id:0 },
-  { kind:'桃', sign:'もも', x:46, z:58, bg:'#b58a68', mapAccent:'#f2e7d0', fruit:'#e78c78', flower:'#f4d3d3', id:1 },
-  { kind:'すいか', sign:'すいか', x:-46, z:0, bg:'#ae805c', mapAccent:'#dcf0c5', fruit:'#337c4e', flower:'#f3e9bf', id:2 },
-  { kind:'ぶどう', sign:'ぶどう', x:46, z:0, bg:'#aa7d5d', mapAccent:'#e0ebcf', fruit:'#8b659d', flower:'#e4d0ed', id:3 },
-  { kind:'西洋梨', sign:'西洋梨', x:-46, z:-58, bg:'#b38a66', mapAccent:'#e8efd0', fruit:'#b3bc65', flower:'#f0f1cc', id:4 },
-  { kind:'りんご', sign:'りんご', x:46, z:-58, bg:'#b18b68', mapAccent:'#f0e2d2', fruit:'#db5b53', flower:'#f5d7d3', id:5 },
+  { kind:'さくらんぼ', sign:'さくらんぼ', x:-46, z:58, bg:'#98704f', mapAccent:'#d9e9c3', fruit:'#e74b54', flower:'#f4dbcf', id:0 },
+  { kind:'桃', sign:'もも', x:46, z:58, bg:'#986c4c', mapAccent:'#f2e7d0', fruit:'#e78c78', flower:'#f4d3d3', id:1 },
+  { kind:'すいか', sign:'すいか', x:-46, z:0, bg:'#916744', mapAccent:'#dcf0c5', fruit:'#337c4e', flower:'#f3e9bf', id:2 },
+  { kind:'ぶどう', sign:'ぶどう', x:46, z:0, bg:'#8d6245', mapAccent:'#e0ebcf', fruit:'#8b659d', flower:'#e4d0ed', id:3 },
+  { kind:'西洋梨', sign:'西洋梨', x:-46, z:-58, bg:'#956c4b', mapAccent:'#e8efd0', fruit:'#b3bc65', flower:'#f0f1cc', id:4 },
+  { kind:'りんご', sign:'りんご', x:46, z:-58, bg:'#987251', mapAccent:'#f0e2d2', fruit:'#db5b53', flower:'#f5d7d3', id:5 },
 ];
 const state = {
   paused:true,
@@ -43,10 +43,23 @@ let mapExpanded=false;
 
 let renderer, scene, camera, mainLight, hemisphere, clock;
 let rootGroup;
-const pos = new THREE.Vector3(0,1.68,99);
+const pos = new THREE.Vector3(0,2.15,99);
 let yaw=0;
-let pitch=-0.065;
+let pitch=.39;
 let walkTime=0;
+let playerBee=null;
+let birdMode=false;
+let cameraDistance=9;
+let nearbyFruit=null;
+let activeAltitudeUp=false,activeAltitudeDown=false;
+let basketCount=0;
+const harvestedPlants=new Map();
+const waterEffects=[];
+const wetSoil=[];
+let lastHudFruitId='';
+let lastHudUpdate=0;
+let lastMapUpdate=0;
+let lastToastTimeout=0;
 let ready=false;
 const FONT_FAMILY='"GenSenOrchard"';
 
@@ -65,7 +78,7 @@ const ink=material('#4e7058');
 const steel=material('#adb2b0',{metalness:.4,roughness:.7});
 const berryRed=material('#cd3347',{roughness:.36});
 const hay=material('#d7c7a1');
-const soil=material('#ac9572');
+const soil=material('#806044');
 
 function post(type, extra={}) {
   window.parent.postMessage({type,...extra},window.location.origin);
@@ -161,6 +174,203 @@ function brandLogoPanel(){
   face.userData.displayName='みつばち果樹園';
   return face;
 }
+
+// Rounded, welcoming 3D bee: modeled from the project's simple bee character language.
+// No external geometry/animation dependencies; small enough for mobile GPU budgets.
+function smoothBeeBall(parent,x,y,z,rad,mat,scale=[1,1,1]){
+  const ob=new THREE.Mesh(new THREE.SphereGeometry(rad,22,16),mat);
+  ob.position.set(x,y,z);ob.scale.set(...scale);ob.castShadow=true;parent.add(ob);return ob;
+}
+function createPlayerBee(){
+  const bee=new THREE.Group();
+  const body=new THREE.Group();bee.add(body);
+  const honey=m('#f9cd54','gloss'),sun=m('#ffdb70','gloss'),dark=m('#403329','gloss');
+  const pale=m('#fff1b6','gloss'),blush=m('#f49a91');
+  smoothBeeBall(body,0,-.04,.43,.56,honey,[1.00,.81,1.32]);
+  smoothBeeBall(body,0,.16,-.36,.49,sun,[1.0,1.04,1.04]);
+  for(const z of [.35,.70]){
+    const stripe=new THREE.Mesh(new THREE.TorusGeometry(.47,.080,8,32),dark);
+    stripe.position.set(0,-.045,z);stripe.scale.set(1,.82,1);
+    stripe.castShadow=true;body.add(stripe);
+  }
+  for(const side of [-1,1]){
+    smoothBeeBall(body,side*.205,.29,-.765,.115,dark,[.94,1.10,.61]);
+    smoothBeeBall(body,side*.177,.324,-.828,.037,m('#ffffff'),[1,1,.50]);
+    smoothBeeBall(body,side*.34,-.005,-.785,.082,blush,[1,.6,.35]);
+    const antenna=new THREE.Group();body.add(antenna);
+    pathLine(antenna,[[side*.15,.59,-.47],[side*.28,.76,-.59],[side*.33,.83,-.67]],.019,dark);
+    smoothBeeBall(antenna,side*.33,.84,-.67,.055,dark);
+    bar(body,[side*.43,-.16,-.29],[side*.57,-.32,-.55],.037,dark,7);
+    bar(body,[side*.26,-.41,.50],[side*.34,-.60,.57],.029,dark,7);
+  }
+  pathLine(body,[[-.115,-.004,-.83],[0,-.06,-.885],[.115,-.004,-.83]],.018,dark);
+  const wingMat=new THREE.MeshStandardMaterial({color:'#ecf9ff',transparent:true,opacity:.76,roughness:.26,metalness:.0,depthWrite:false,side:THREE.DoubleSide});
+  const wings=[];
+  for(const side of [-1,1]){
+    const pivot=new THREE.Group();pivot.position.set(side*.24,.51,.22);body.add(pivot);
+    const wing=smoothBeeBall(pivot,side*.40,.08,.22,.45,wingMat,[1.22,.14,.72]);
+    wing.rotation.y=side*.22;wings.push({pivot,side});
+  }
+  const basket=new THREE.Group();basket.position.set(0,-.28,.94);body.add(basket);
+  // Miniature woven-honey basket, shown on the avatar even when empty.
+  const basketMat=m('#c59965');
+  const bowl=new THREE.Mesh(new THREE.CylinderGeometry(.22,.17,.25,12,1,true),basketMat);
+  basket.add(bowl);
+  const rim=new THREE.Mesh(new THREE.TorusGeometry(.225,.028,6,24),m('#8c6542'));
+  rim.rotation.x=Math.PI/2;rim.position.y=.12;basket.add(rim);
+  const handle=new THREE.Mesh(new THREE.TorusGeometry(.22,.024,6,20,Math.PI),m('#9c764d'));
+  handle.position.y=.15;handle.rotation.z=Math.PI/2;basket.add(handle);
+  const collected=smoothBeeBall(basket,0,.16,0,.16,material('#e76a60',{roughness:.45}),[1,1,1]);collected.visible=false;
+  const can=new THREE.Group();can.position.set(.59,-.31,-.49);body.add(can);
+  const canMat=material('#a7d0d2',{roughness:.43,metalness:.04});
+  const canBody=new THREE.Mesh(new THREE.CylinderGeometry(.16,.18,.28,12),canMat);can.add(canBody);
+  bar(can,[.05,.045,0],[.35,-.02,-.07],.039,canMat,8);
+  smoothBeeBall(can,.39,-.05,-.07,.085,canMat,[.8,.4,.7]);
+  const canHandle=new THREE.Mesh(new THREE.TorusGeometry(.14,.028,7,20,Math.PI*1.5),m('#7daeb4'));
+  canHandle.position.set(-.12,.08,0);can.add(canHandle);
+  can.visible=false;
+  bee.position.copy(pos);rootGroup.add(bee);
+  return {group:bee,body,wings,collected,can};
+}
+function updatePlayerBee(time,dt,moving){
+  if(!playerBee)return;
+  playerBee.group.position.copy(pos);
+  playerBee.group.position.y+=Math.sin(time*3.7)*.065;
+  playerBee.group.rotation.y=yaw;
+  playerBee.body.rotation.z+=( (moving ? -JOY.x*.14 : 0)-playerBee.body.rotation.z)*Math.min(1,dt*8);
+  playerBee.body.rotation.x+=( (moving ? -.08 : 0)-playerBee.body.rotation.x)*Math.min(1,dt*7);
+  for(const wing of playerBee.wings){wing.pivot.rotation.z=wing.side*(.12+Math.sin(time*40)*.52);}
+  playerBee.collected.visible=basketCount>0;
+  playerBee.can.visible=waterEffects.some(effect=>performance.now()*.001-effect.birth<.95);
+}
+function cameraFollow(dt){
+  const target=new THREE.Vector3(pos.x,pos.y+.20,pos.z);
+  let desired;
+  if(birdMode){
+    // Gallery overview: full six-zone orchard visible while the bee can still fly.
+    target.set(pos.x*.18,0,pos.z*.18);
+    desired=new THREE.Vector3(target.x+Math.sin(yaw)*48,235,target.z+Math.cos(yaw)*59);
+  }else{
+    const elevation=Math.max(.08,Math.min(1.40,pitch));
+    const horizontal=Math.cos(elevation)*cameraDistance;
+    desired=new THREE.Vector3(pos.x+Math.sin(yaw)*horizontal,pos.y+1.1+Math.sin(elevation)*cameraDistance,pos.z+Math.cos(yaw)*horizontal);
+  }
+  camera.position.lerp(desired,Math.min(1,dt*(birdMode?3.2:6.8)));
+  camera.lookAt(target);
+  if(scene?.fog){
+    const baseFar=state.weather?.mode==='fog'?240:740;
+    scene.fog.far=Math.max(baseFar,(pos.y>32||birdMode)?910:baseFar);
+    scene.fog.near=(pos.y>32||birdMode)?175:(state.weather?.mode==='fog'?24:155);
+  }
+}
+function toastMessage(message){
+  const toast=$('flightToast');if(!toast)return;
+  toast.textContent=message;toast.classList.add('visible');
+  window.clearTimeout(lastToastTimeout);
+  lastToastTimeout=window.setTimeout(()=>toast.classList.remove('visible'),2600);
+}
+function getClosestPlant(){
+  let nearest=null;let best=5.6;
+  for(const entity of leafMeshes){
+    const centerY=entity.kind==='すいか'?.62:entity.kind==='ぶどう'?3.1:2.65;
+    const dx=entity.mesh.position.x-pos.x,dz=entity.mesh.position.z-pos.z;
+    const d=Math.hypot(dx,dz);
+    if(d<best&&Math.abs(pos.y-centerY)<4.8){best=d;nearest=entity;}
+  }
+  return nearest;
+}
+function harvestNearby(){
+  if(state.paused)return;
+  const entity=getClosestPlant();
+  if(!entity){toastMessage('実の近くに飛んでみよう');return;}
+  if(harvestedPlants.has(entity.fruit.id)){toastMessage('この木の実は収穫済み');return;}
+  const tone=m(cultivarTone(entity.fruit),'gloss');
+  const targets=[];
+  entity.mesh.traverse((child)=>{
+    if(child.isMesh&&child.material===tone){child.visible=false;targets.push(child);}
+  });
+  if(entity.kind==='ぶどう'){
+    for(const grapeBunch of grapeCanopyHits){
+      if(grapeBunch.mesh.userData.fruitId!==entity.fruit.id)continue;
+      for(const berry of grapeBunch.berries){berry.visible=false;targets.push(berry);}
+    }
+  }
+  if(!targets.length){toastMessage('この実はまだ収穫できないみたい');return;}
+  harvestedPlants.set(entity.fruit.id,targets);
+  basketCount+=1;
+  if(playerBee)playerBee.collected.material.color.set(cultivarTone(entity.fruit));
+  toastMessage(`${entity.fruit.name}を収穫したよ 🍒`);
+  updateFlightHud(true);
+}
+function restoreFruit(){
+  if(state.paused)return;
+  for(const meshes of harvestedPlants.values())for(const mesh of meshes)mesh.visible=true;
+  harvestedPlants.clear();basketCount=0;
+  toastMessage('果物が元の姿に戻ったよ');updateFlightHud(true);
+}
+function waterGround(){
+  if(state.paused)return;
+  if(pos.y>9){toastMessage('水やりは地面に近づいてから');return;}
+  const entity=getClosestPlant();
+  const forward=new THREE.Vector3(-Math.sin(yaw),0,-Math.cos(yaw));
+  const x=entity?.mesh.position.x??pos.x+forward.x*2.2;
+  const z=entity?.mesh.position.z??pos.z+forward.z*2.2;
+  const circle=new THREE.Mesh(new THREE.CircleGeometry(1.32,24),new THREE.MeshBasicMaterial({color:'#513823',transparent:true,opacity:.50,depthWrite:false,side:THREE.DoubleSide}));
+  circle.rotation.x=-Math.PI/2;circle.position.set(x,.091,z);rootGroup.add(circle);
+  wetSoil.push({mesh:circle,birth:performance.now()*.001,duration:15});
+  const drops=new THREE.Group();rootGroup.add(drops);
+  const dropMaterial=new THREE.MeshBasicMaterial({color:'#c5e8f3',transparent:true,opacity:.85,depthWrite:false});
+  const from=new THREE.Vector3(pos.x,pos.y-.45,pos.z-.60);
+  for(let i=0;i<(IS_MOBILE?15:25);i++){
+    const drop=new THREE.Mesh(new THREE.SphereGeometry(.058,6,4),dropMaterial);
+    const angle=i*2.3999632297;
+    const landing=new THREE.Vector3(x+Math.cos(angle)*(i%5)*.18,.10,z+Math.sin(angle)*(i%5)*.18);
+    drop.userData.from=from.clone().add(new THREE.Vector3((Math.random()-.5)*.25,0,(Math.random()-.5)*.25));
+    drop.userData.to=landing;
+    drop.userData.offset=(i%5)*.026;
+    drop.position.copy(from);
+    drops.add(drop);
+  }
+  waterEffects.push({group:drops,birth:performance.now()*.001});
+  toastMessage(entity?`${entity.fruit.name}に水をあげたよ 💧`:'土に水をまいたよ 💧');
+}
+function updateWaterEffects(time,dt){
+  for(let i=wetSoil.length-1;i>=0;i--){
+    const effect=wetSoil[i],age=time-effect.birth;
+    if(age>effect.duration){rootGroup.remove(effect.mesh);effect.mesh.geometry.dispose();effect.mesh.material.dispose();wetSoil.splice(i,1);}
+    else effect.mesh.material.opacity=.5*Math.max(0,1-age/effect.duration);
+  }
+  for(let i=waterEffects.length-1;i>=0;i--){
+    const fx=waterEffects[i],age=time-fx.birth;
+    if(age>1.0){rootGroup.remove(fx.group);const mat=fx.group.children[0]?.material;fx.group.children.forEach(drop=>drop.geometry.dispose());if(mat)mat.dispose();waterEffects.splice(i,1);}
+    else for(const drop of fx.group.children){
+      const u=Math.max(0,Math.min(1,age*1.65-drop.userData.offset));
+      drop.position.lerpVectors(drop.userData.from,drop.userData.to,u);
+      drop.position.y+=Math.sin(u*Math.PI)*.55;
+      drop.visible=u>0&&u<1;
+    }
+  }
+}
+function updateFlightHud(force=false){
+  if(!force&&performance.now()-lastHudUpdate<160)return;
+  lastHudUpdate=performance.now();
+  const altitude=$('flightAltitude');if(altitude)altitude.textContent=`高度 ${Math.round(Math.max(0,pos.y))}m / 220m`;
+  const basket=$('harvestCount');if(basket)basket.textContent=`収穫 ${basketCount}`;
+  const nearest=getClosestPlant();nearbyFruit=nearest;
+  const label=$('nearFruitLabel');
+  if(label){label.textContent=nearest?.fruit.name??'自由に飛んでみよう';}
+  const harvestButton=$('harvestButton');
+  const infoButton=$('fruitInfoButton');
+  if(harvestButton){
+    harvestButton.disabled=!nearest||harvestedPlants.has(nearest.fruit.id)||state.paused;
+    harvestButton.textContent=nearest&&harvestedPlants.has(nearest.fruit.id)?'収穫済み':'収穫する';
+  }
+  if(infoButton)infoButton.disabled=!nearest||state.paused;
+  const waterButton=$('waterButton');if(waterButton)waterButton.disabled=state.paused||pos.y>9;
+  const resetButton=$('restoreButton');if(resetButton)resetButton.hidden=basketCount===0;
+  const bird=$('birdViewButton');if(bird){bird.textContent=birdMode?'通常視点':'空から眺める';bird.setAttribute('aria-pressed',String(birdMode));}
+}
+
 function createLoadingScene(){
   renderer=new THREE.WebGLRenderer({antialias:true,alpha:false,powerPreference:'high-performance'});
   renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,IS_MOBILE?1.3:1.8));
@@ -173,8 +383,8 @@ function createLoadingScene(){
   renderer.domElement.tabIndex=0;
   root.appendChild(renderer.domElement);
   scene=new THREE.Scene();scene.background=new THREE.Color('#a7d3e1');
-  scene.fog=new THREE.Fog('#c3dae3',145,440);
-  camera=new THREE.PerspectiveCamera(66,innerWidth/innerHeight,.1,470);
+  scene.fog=new THREE.Fog('#c3dae3',160,760);
+  camera=new THREE.PerspectiveCamera(66,innerWidth/innerHeight,.1,1200);
   camera.rotation.order='YXZ';
   mainLight=new THREE.DirectionalLight('#ffefd8',2.05);
   mainLight.position.set(-24,42,18);mainLight.castShadow=!IS_MOBILE;
@@ -195,9 +405,10 @@ function createLoadingScene(){
   makeEntrance();
   makeProps();
   makeBees();
+  playerBee=createPlayerBee();
   makeButterflies();
   makeWeatherMeshes();
-  camera.position.copy(pos);camera.rotation.set(pitch,yaw,0,'YXZ');
+  cameraFollow(1);
   attachControls();
   animate();
   loadMessage.classList.add('hidden');
@@ -206,7 +417,7 @@ function createLoadingScene(){
   post('orchard:ready');
 }
 function makeLandscape(){
-  plane(rootGroup,0,-.10,0,370,390,m('#9b7957'));
+  plane(rootGroup,0,-.10,0,370,390,m('#806246'));
   // The distant ridges encircle the Yamagata Basin; distant fields are intentionally low-poly.
   makeBasinRidge(200,'#9aafb0',22,13);
   makeBasinRidge(174,'#7f9f98',17,39);
@@ -314,10 +525,10 @@ function makePlotFloors(){
     // Soft alternating soil beds create a planted-earth surface rather than a colored lawn.
     for(let strip=0;strip<7;strip++){
       const x=-23.6+strip*7.85;
-      plane(g,x,.014,0,4.35,40.8,m(strip%2===0?'#b9926d':'#a7805e'));
+      plane(g,x,.014,0,4.35,40.8,m(strip%2===0?'#9e7552':'#856144'));
       for(let i=0;i<10;i++){
         const z=-19.1+i*4.18;
-        ball(g,x+2.12,.075,z,.14,m(i%2?'#86664d':'#c3a27e'),[1.2,.35,1.0],6);
+        ball(g,x+2.12,.075,z,.14,m(i%2?'#775239':'#b58e69'),[1.2,.35,1.0],6);
       }
     }
     // Border stones and soft wild grass mark orchard paths.
@@ -487,17 +698,18 @@ function makeGrapeTrellis(){
         const tone=grapeTones[(Math.floor(col/4)+row)%grapeTones.length];
         const bunchX=x+.42,bunchZ=z-.37;
         bar(g,[bunchX,beamY+.12,bunchZ],[bunchX,beamY-.21,bunchZ],.022,bunchMat,5);
+        const berries=[];
         for(let tier=0;tier<4;tier++){
           const count=4-tier;
           for(let n=0;n<count;n++){
             const bx=bunchX+(n-(count-1)/2)*.17;
-            ball(g,bx,beamY-.34-tier*.17,bunchZ,.092,tone,[1,1.08,1],8);
+            berries.push(ball(g,bx,beamY-.34-tier*.17,bunchZ,.092,tone,[1,1.08,1],8));
           }
         }
         const hit=new THREE.Mesh(new THREE.SphereGeometry(.62,8,8),new THREE.MeshBasicMaterial({transparent:true,opacity:0,depthWrite:false}));
         hit.position.set(bunchX,beamY-.52,bunchZ);
         g.add(hit);
-        grapeCanopyHits.push({mesh:hit,x:46+bunchX,z:bunchZ});
+        grapeCanopyHits.push({mesh:hit,x:46+bunchX,z:bunchZ,berries});
       }
     }
   }
@@ -742,6 +954,7 @@ function plantCultivar(fruit,x,z,kind,index){
 function addAllCultivars(list){
   for(const group of leafMeshes){rootGroup.remove(group.mesh);}
   leafMeshes.length=0;hitMeshes.length=0;
+  harvestedPlants.clear();basketCount=0;lastHudFruitId='';
   for(const zone of ZONES){
     const cultivars=list.filter(f=>f.kind===zone.kind);
     const columns=zone.kind==='さくらんぼ'?6:zone.kind==='西洋梨'?3:zone.kind==='ぶどう'?3:4;
@@ -913,10 +1126,10 @@ function drawMap(){
   ctx.fillStyle='#786448';ctx.fillRect(gateX-7,gateY-3,14,5);
   const [px,py]=mapPoint(pos.x,pos.z);
   ctx.save();ctx.translate(px,py);ctx.rotate(yaw);
-  ctx.fillStyle='#e26c4d';ctx.beginPath();ctx.moveTo(0,-10);ctx.lineTo(-7,7);ctx.lineTo(7,7);ctx.closePath();ctx.fill();
+  ctx.fillStyle='#f4bc41';ctx.beginPath();ctx.moveTo(0,-10);ctx.lineTo(-7,7);ctx.lineTo(7,7);ctx.closePath();ctx.fill();
   ctx.strokeStyle='#fff';ctx.lineWidth=2;ctx.stroke();ctx.restore();
   const distanceLabel=$('walkDistance');
-  if(distanceLabel)distanceLabel.textContent='歩いた距離 '+Math.round(walkedDistance)+'m';
+  if(distanceLabel)distanceLabel.textContent='飛んだ距離 '+Math.round(walkedDistance)+'m';
 }
 function showHoverFruit(fruitId){
   state.activeId=fruitId;
@@ -935,6 +1148,40 @@ function pickAt(clientX,clientY){
 }
 let drag=null;
 function attachControls(){
+  $('birdViewButton').addEventListener('click',()=>{
+    if(state.paused)return;
+    birdMode=!birdMode;updateFlightHud(true);
+  });
+  $('harvestButton').addEventListener('click',harvestNearby);
+  $('waterButton').addEventListener('click',waterGround);
+  $('fruitInfoButton').addEventListener('click',()=>{
+    const near=getClosestPlant();if(near&&!state.paused)post('orchard:pick',{id:near.fruit.id});
+  });
+  $('restoreButton').addEventListener('click',restoreFruit);
+  for(const [name,kind] of [['riseButton','up'],['fallButton','down']]){
+    const element=$(name);
+    const down=e=>{if(state.paused)return;kind==='up'?activeAltitudeUp=true:activeAltitudeDown=true;element.setPointerCapture(e.pointerId);e.preventDefault();};
+    const up=()=>{if(kind==='up')activeAltitudeUp=false;else activeAltitudeDown=false;};
+    element.addEventListener('pointerdown',down);
+    for(const evt of ['pointerup','pointercancel','lostpointercapture'])element.addEventListener(evt,up);
+  }
+  let pinchDistance=null;
+  renderer.domElement.addEventListener('touchstart',e=>{
+    if(e.touches.length===2)pinchDistance=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
+  },{passive:true});
+  renderer.domElement.addEventListener('touchmove',e=>{
+    if(e.touches.length===2){
+      const current=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
+      if(pinchDistance!==null)cameraDistance=Math.max(5,Math.min(30,cameraDistance-(current-pinchDistance)*.04));
+      pinchDistance=current;
+    }
+  },{passive:true});
+  renderer.domElement.addEventListener('touchend',e=>{if(e.touches.length<2)pinchDistance=null;},{passive:true});
+  renderer.domElement.addEventListener('wheel',e=>{
+    if(state.paused)return;
+    cameraDistance=Math.max(5,Math.min(32,cameraDistance+Math.sign(e.deltaY)*1.1));
+    e.preventDefault();
+  },{passive:false});
   const mapExpand=$('mapExpand');
   const mapBox=$('mapBox');
   const mapHide=$('mapHide');
@@ -992,7 +1239,7 @@ function attachControls(){
       const dx=e.clientX-drag.lastX,dy=e.clientY-drag.lastY;
       drag.dist+=Math.abs(dx)+Math.abs(dy);
       yaw-=dx*.0039;
-      pitch=Math.max(-.9,Math.min(.63,pitch-dy*.0031));
+      pitch=Math.max(.10,Math.min(1.40,pitch+dy*.0031));
       drag.lastX=e.clientX;drag.lastY=e.clientY;
     }
     if(!drag && !state.paused && e.pointerType==='mouse')showHoverFruit(pickAt(e.clientX,e.clientY));
@@ -1009,12 +1256,17 @@ function attachControls(){
   renderer.domElement.addEventListener('pointerleave',()=>{if(!drag)showHoverFruit(null);});
   window.addEventListener('keydown',e=>{
     const key=e.key.toLowerCase();
-    if(['w','a','s','d','arrowup','arrowdown','arrowleft','arrowright',' '].includes(key))e.preventDefault();
+    if(['w','a','s','d','arrowup','arrowdown','arrowleft','arrowright',' ','c','e','v','h','r'].includes(key))e.preventDefault();
+    if(e.repeat&&['e','v','h','r'].includes(key))return;
     KEYS.add(key);
-    if(key==='e'&&!state.paused&&state.activeId)post('orchard:pick',{id:state.activeId});
+    if(state.paused)return;
+    if(key==='v'){birdMode=!birdMode;updateFlightHud(true);}
+    if(key==='e')harvestNearby();
+    if(key==='h')waterGround();
+    if(key==='r')restoreFruit();
   });
   window.addEventListener('keyup',e=>KEYS.delete(e.key.toLowerCase()));
-  window.addEventListener('blur',()=>{KEYS.clear();JOY.x=JOY.y=0;const knob=$('knob');knob.style.transform='translate(-50%,-50%)';});
+  window.addEventListener('blur',()=>{KEYS.clear();JOY.x=JOY.y=0;activeAltitudeUp=activeAltitudeDown=false;const knob=$('knob');knob.style.transform='translate(-50%,-50%)';});
   const joystick=$('joystick'),knob=$('knob');let jid=null;
   function joyInput(e){
     const rect=joystick.getBoundingClientRect();
@@ -1031,20 +1283,22 @@ function attachControls(){
 function movement(dt){
   const f=(KEYS.has('w')||KEYS.has('arrowup')?1:0)-(KEYS.has('s')||KEYS.has('arrowdown')?1:0)-JOY.y;
   const r=(KEYS.has('d')||KEYS.has('arrowright')?1:0)-(KEYS.has('a')||KEYS.has('arrowleft')?1:0)+JOY.x;
+  const vertical=(KEYS.has(' ')?1:0)+(activeAltitudeUp?1:0)-(KEYS.has('c')?1:0)-(activeAltitudeDown?1:0);
   const len=Math.hypot(f,r);
-  if(len<.06)return false;
-  const F=f/Math.max(1,len),R=r/Math.max(1,len);
-  const speed=(KEYS.has('shift')?11.0:7.0)*dt;
-  const dx=(-Math.sin(yaw)*F+Math.cos(yaw)*R)*speed;
-  const dz=(-Math.cos(yaw)*F-Math.sin(yaw)*R)*speed;
-  const oldX=pos.x,oldZ=pos.z;
-  pos.x=Math.max(-84,Math.min(84,pos.x+dx));
-  pos.z=Math.max(-98,Math.min(102,pos.z+dz));
-  walkedDistance+=Math.hypot(pos.x-oldX,pos.z-oldZ);
-  if(!footsteps.length||Math.hypot(footsteps[footsteps.length-1].x-pos.x,footsteps[footsteps.length-1].z-pos.z)>2.1){
+  const flySpeed=(KEYS.has('shift')?18:11.5)*dt;
+  const oldX=pos.x,oldY=pos.y,oldZ=pos.z;
+  if(len>.06){
+    const F=f/Math.max(1,len),R=r/Math.max(1,len);
+    pos.x=Math.max(-185,Math.min(185,pos.x+(-Math.sin(yaw)*F+Math.cos(yaw)*R)*flySpeed));
+    pos.z=Math.max(-184,Math.min(184,pos.z+(-Math.cos(yaw)*F-Math.sin(yaw)*R)*flySpeed));
+  }
+  if(vertical!==0)pos.y=Math.max(1.35,Math.min(220,pos.y+Math.sign(vertical)*(KEYS.has('shift')?27:16)*dt));
+  const distance=Math.hypot(pos.x-oldX,pos.z-oldZ,pos.y-oldY);
+  walkedDistance+=distance;
+  if(distance>.001&&(!footsteps.length||Math.hypot(footsteps[footsteps.length-1].x-pos.x,footsteps[footsteps.length-1].z-pos.z)>2.4)){
     footsteps.push({x:pos.x,z:pos.z});if(footsteps.length>900)footsteps.shift();
   }
-  return true;
+  return distance>.001;
 }
 function localZone(){
   let near=null,dmin=24;
@@ -1060,10 +1314,12 @@ function updateLabels(){
 function warpToKind(kind){
   const zone=ZONES.find(z=>z.kind===kind);
   if(!zone)return;
-  pos.x=zone.x<0?-12.2:12.2;
+  pos.x=zone.x<0?-15.0:15.0;
   pos.z=zone.z+5.2;
+  pos.y=2.9;
   yaw=zone.x<0?Math.PI/2:-Math.PI/2;
-  pitch=-.09;
+  pitch=.38;
+  birdMode=false;
   showHoverFruit(null);
   localZone();
 }
@@ -1073,10 +1329,12 @@ function focusFruit(id){
   const zone=ZONES.find(z=>z.kind===entity.kind);
   const x=entity.mesh.position.x,z=entity.mesh.position.z;
   pos.x=x+(zone?.x<0?4.8:-4.8);
+  pos.y=2.8;
   pos.z=z+2.8;
   const dir=new THREE.Vector3(x-pos.x,0,z-pos.z);
   yaw=Math.atan2(-dir.x,-dir.z);
-  pitch=-.03;
+  pitch=.33;
+  birdMode=false;
   localZone();
 }
 function animate(){
@@ -1085,11 +1343,14 @@ function animate(){
   const t=performance.now()*.001;
   const moving=!state.paused&&movement(dt);
   if(moving)walkTime+=dt*10;
-  camera.position.set(pos.x,1.68+(moving?Math.sin(walkTime)*.028:0),pos.z);
-  camera.rotation.set(pitch,yaw,0,'YXZ');
+  updatePlayerBee(t,dt,moving);
+  cameraFollow(dt);
   birdAndBeeUpdate(t);
   rainUpdate(dt,t);snowUpdate(dt,t);
-  updateLabels();localZone();drawMap();
+  updateWaterEffects(t,dt);
+  updateFlightHud();
+  updateLabels();localZone();
+  if(performance.now()-lastMapUpdate>90){drawMap();lastMapUpdate=performance.now();}
   renderer.render(scene,camera);
 }
 window.addEventListener('resize',()=>{
@@ -1116,6 +1377,7 @@ window.addEventListener('message',event=>{
   }
   if(data.type==='orchard:weather' && ready)configureWeather(data.weather||null);
   if(data.type==='orchard:pause')state.paused=Boolean(data.paused);
+  if(data.type==='orchard:focusControls'&&ready)renderer?.domElement?.focus({preventScroll:true});
   if(data.type==='orchard:go' && typeof data.kind==='string')warpToKind(data.kind);
   if(data.type==='orchard:focus' && typeof data.id==='string')focusFruit(data.id);
 });

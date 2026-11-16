@@ -230,17 +230,23 @@ export default function VirtualOrchardPage() {
     };
   }, [ready, viewportError, frameAttempt, send]);
 
+  // Keep the catalog stable while the sky changes; replanting would discard harvested fruit.
   useEffect(() => {
     if (!ready) return;
     const enabled: Kind[] = ["さくらんぼ", "桃", "すいか", "ぶどう", "西洋梨", "りんご"];
     send({ type: "orchard:catalog", fruits: fruits.filter((f) => enabled.includes(f.kind)) });
-    send({ type: "orchard:weather", weather });
-    send({ type: "orchard:pause", paused: !started });
-  }, [ready, weather, started, send]);
+  }, [ready, send]);
 
   useEffect(() => {
-    send({ type: "orchard:pause", paused: !started || !!selected || showCatalog || showHelp });
-  }, [started, selected, showCatalog, showHelp, send]);
+    if (!ready) return;
+    send({ type: "orchard:weather", weather });
+  }, [ready, weather, send]);
+
+  useEffect(() => {
+    const paused = !started || !!selected || showCatalog || showHelp;
+    send({ type: "orchard:pause", paused });
+    if (!paused && ready) send({ type: "orchard:focusControls" });
+  }, [started, selected, showCatalog, showHelp, ready, send]);
 
   useEffect(() => {
     if (!selected && !showCatalog && !showHelp) return;
@@ -266,7 +272,7 @@ export default function VirtualOrchardPage() {
   return (
     <>
       <link rel="preload" href="/fonts/GenSenRoundedJP-H.otf" as="font" type="font/otf" crossOrigin="anonymous" />
-      <main className={`orchardShell ${fontStatus !== "ready" ? "orchardFontsPending" : ""}`} aria-label="みつばち果樹園を歩く">
+      <main className={`orchardShell ${fontStatus !== "ready" ? "orchardFontsPending" : ""}`} aria-label="みつばちになって果樹園を飛ぶ">
         {fontStatus === "loading" && <div className="orchardFontSpinner" role="status" aria-label="フォントを読み込んでいます" />}
         {fontStatus === "error" && (
           <div className="orchardFontError" role="alert">
@@ -278,7 +284,7 @@ export default function VirtualOrchardPage() {
           ref={iframe}
           key={frameAttempt}
           title="みつばち果樹園"
-          src={`/virtual-orchard/world.html?v=20261116-mobile-gate-2-${frameAttempt}`}
+          src={`/virtual-orchard/world.html?v=20261116-beeflight-v2-${frameAttempt}`}
           onLoad={() => send({ type: "orchard:ping" })}
           className="orchardWorld"
           allow="fullscreen"
@@ -313,10 +319,10 @@ export default function VirtualOrchardPage() {
           <div className="orchardEntrance">
             <div className="orchardWelcome">
               <div className="orchardEyebrow">WELCOME TO MITSUBACHI</div>
-              <h1>果樹園を、歩こう。</h1>
+              <h1>果樹園を、飛ぼう。</h1>
               <p>
-                さくらんぼの木陰を抜けて、桃畑へ。<br />
-                六つの実りが待つ、小さな果樹園へようこそ。
+                みつばちになって、実りの上を自由に飛ぼう。<br />
+                収穫も、水やりも、ただ眺めるだけでも。
               </p>
               <div className="welcomeLogoLine">
                 <BrandLogo />
@@ -333,7 +339,7 @@ export default function VirtualOrchardPage() {
             <div className="orchardFind" aria-live="polite">
               <span className="orchardDot" />
               {zone ? `${zone}の畑` : "果樹園の入口"}
-              <small>実をタップしてみよう</small>
+              <small>空を自由に飛ぼう</small>
             </div>
             <div className="orchardBottom">
               <nav className="orchardNav" aria-label="畑を選ぶ">
@@ -358,10 +364,12 @@ export default function VirtualOrchardPage() {
                 ×
               </button>
               <span className="orchardEyebrow">HOW TO EXPLORE</span>
-              <h2>果樹園の歩き方</h2>
-              <p>パソコンでは <strong>W・A・S・D</strong> で歩いて、マウスをドラッグして見回せます。</p>
-              <p>スマホでは左下のスティックで移動、右側の画面をスワイプして見回せます。</p>
-              <p>木や実をタップ・クリックすると、くだもの事典が開きます。マップ上の畑をタップすると移動できます。パソコンでは下のメニューからも移動できます。</p>
+              <h2>みつばちの飛び方</h2>
+              <p>パソコンでは <strong>W・A・S・D</strong> で飛び、<strong>Space・C</strong> で上昇・下降します。ドラッグで見回し、ホイールでカメラ距離を変えられます。</p>
+              <p>スマホでは左下のスティックで飛び、右側の「上昇・下降」ボタンで高度を変えます。画面スワイプでカメラを回せます。</p>
+              <p>操作しなければその場でホバリングできます。<strong>空から眺める</strong>を押すと、果樹園全体を高い空から見渡せます。</p>
+              <p>果物に近づくと<strong>収穫・水やり・事典</strong>が使えます。水やりによる成長や、クリアすべき目的はありません。</p>
+              <p>木や実をクリックすると、くだもの事典が開きます。マップで畑を選ぶこともできます。</p>
               <button className="orchardStart" onClick={() => setShowHelp(false)}>
                 わかった！
               </button>
