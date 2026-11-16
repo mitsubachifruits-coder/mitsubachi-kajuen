@@ -158,10 +158,51 @@ const ancestryColor: Record<Kind, string> = {
   "びわ": "#f2dfc6", "あんず": "#f1dfc8", "うめ": "#e3e9cf", "その他": "#e1e6d8",
 };
 
-const ancestorFruits: Fruit[] = [...ancestorNames].map(([name, kind]) => ({
-  id: `ancestor-${name}`, name, kind, period: [], summary: "家系図に登場する親品種・育成系統。",
-  origin: "系譜参考", color: ancestryColor[kind],
-}));
+// 親品種にも固有の旬が確認できる場合のみ月を設定する。
+// 旬は国内での収穫時期の一例で、地域・年によって前後します。
+// 未確認の交配系統には推測の収穫月を与えず、カレンダー内の「旬未確認」に掲載する。
+const ancestorHarvestMonths: Record<string, number[]> = {
+  "ゴールデンデリシャス": [10], // https://de.aichi-kyosai.or.jp/service/culture/internet/cook/vegetable/vegetable_1/post_510.html
+  "国光": [11], // 同上
+  "レーニア": [7, 8], // https://www.oh-cherry.com/brand/lenia/ （北海道での例）
+  "ウインク": [9, 10], // https://www.city.koshu.yamanashi.jp/iju/54things/articles/no-113.html
+  "バートレット": [8, 9], // https://www.foodslink.jp/syokuzaihyakka/syun/fruit/younashi2.htm
+};
+
+const ancestorOffspring = new Map<string, string[]>();
+for (const child of documentedTrees) {
+  const fruitName = fruits.find((fruit) => fruit.id === child.id)?.name;
+  if (!fruitName) continue;
+  for (const parent of child.parents ?? []) {
+    const existing = ancestorOffspring.get(parent) ?? [];
+    if (!existing.includes(fruitName)) existing.push(fruitName);
+    ancestorOffspring.set(parent, existing);
+  }
+}
+for (const [name, entry] of Object.entries(ancestorDetails)) {
+  for (const parent of entry.parents ?? []) {
+    const existing = ancestorOffspring.get(parent) ?? [];
+    if (!existing.includes(name)) existing.push(name);
+    ancestorOffspring.set(parent, existing);
+  }
+}
+
+const ancestorFruits: Fruit[] = [...ancestorNames].map(([name, kind]) => {
+  const period = ancestorHarvestMonths[name] ?? [];
+  const offspring = ancestorOffspring.get(name) ?? [];
+  const isBreedingLine = /[0-9０-９]/.test(name) || /[×Xx]/.test(name);
+  const relationship = isBreedingLine ? "親系統" : "親品種";
+  const family = offspring.length > 0 ? `${offspring.slice(0, 2).join("・")}${offspring.length > 2 ? "など" : ""}の${relationship}。` : `家系図に登場する${relationship}。`;
+  return {
+    id: `ancestor-${name}`,
+    name,
+    kind,
+    period,
+    summary: `${family}${period.length ? "国内の旬は産地によって前後します。" : "品種固有の旬は確認中です。"}`,
+    origin: "産地の情報は未確認",
+    color: ancestryColor[kind],
+  };
+});
 const allFamilyFruits = [...fruits, ...ancestorFruits];
 const ancestorTrees: Tree[] = ancestorFruits.map((fruit) => {
   const detail = ancestorDetails[fruit.name];
@@ -264,7 +305,7 @@ export default function FruitPediaPage() {
   }, [selected]);
 
   const filtered = useMemo(() => {
-    return fruits.filter((fruit) => {
+    return allFamilyFruits.filter((fruit) => {
       const hitKind = kind === "すべて" || fruit.kind === kind;
       const hitSearch = search.trim() === "" || `${fruit.name} ${fruit.kind}`.includes(search.trim());
       return hitKind && hitSearch;
@@ -286,7 +327,8 @@ export default function FruitPediaPage() {
   }, [treeKind]);
 
   const monthFruits = useMemo(() => {
-    return fruits.filter((fruit) => fruit.period.includes(month));
+    // 0 = 「旬未確認」: 子品種の系譜に登場しても実際の旬が未確認の品種・系統。
+    return allFamilyFruits.filter((fruit) => month === 0 ? fruit.period.length === 0 : fruit.period.includes(month));
   }, [month]);
 
   // 家系図の四角い枠の中心を、画面の中央に合わせる。
@@ -347,7 +389,7 @@ export default function FruitPediaPage() {
                 品種、産地、家系図、旬をまとめた事典です。
               </p>
               <div className="heroMeta">
-                <span>掲載 {fruits.length} 件</span>
+                <span>掲載 {allFamilyFruits.length} 件</span>
                 <span className="metaDivider" />
                 <span>日本各地で栽培される果物</span>
               </div>
@@ -430,6 +472,7 @@ export default function FruitPediaPage() {
                       </div>
                       <div className="specimenBody">
                         <span className="productBadge">{fruit.kind}</span>
+                        {fruit.id.startsWith("ancestor-") && <span className="ancestorBadge">親品種・系統</span>}
                         <h3 className="productName">{fruit.name}</h3>
                         <p className="productSpecification">{fruit.summary}</p>
                       </div>
@@ -565,7 +608,7 @@ export default function FruitPediaPage() {
                     <p className="categoryEnglishName">03 / 旬カレンダー</p>
                     <h2 className="categoryTitle">旬カレンダー</h2>
                   </div>
-                  <p className="categoryDescription">月ごとの旬の果物をまとめています。</p>
+                  <p className="categoryDescription">月ごとの旬と、家系図に登場する親品種もまとめています。</p>
                 </div>
 
                 <div className="monthGrid">
@@ -574,12 +617,16 @@ export default function FruitPediaPage() {
                       {label}
                     </button>
                   ))}
+                  <button type="button" className={month === 0 ? "monthButton unknownMonthButton chosen" : "monthButton unknownMonthButton"} aria-pressed={month === 0} onClick={() => setMonth(0)}>
+                    旬未確認
+                  </button>
                 </div>
 
                 <div className="calendarHead">
-                  <span>{month}月</span>
+                  <span>{month === 0 ? "旬未確認" : `${month}月`}</span>
                   <p>{monthFruits.length} 件</p>
                 </div>
+                {month === 0 && <p className="calendarUnconfirmedNote">家系図に登場する親品種・育成系統のうち、品種固有の旬が確認できていない項目です。旬を推測で設定せず、まとめて掲載しています。</p>}
 
                 <div className="calendarGrid">
                   {monthFruits.map((fruit) => (
@@ -588,11 +635,12 @@ export default function FruitPediaPage() {
                         <FruitVector fruit={fruit} dense />
                       </div>
                       <span>{fruit.name}</span>
+                      {fruit.id.startsWith("ancestor-") && <small className="calendarAncestorLabel">親品種・系統</small>}
                     </button>
                   ))}
                 </div>
                 {monthFruits.length === 0 && <p className="emptyText">この月に該当する掲載項目はありません。</p>}
-                <p className="calendarNote">旬は産地・栽培方法により異なる目安です。通年品目や地域ブランド・系統も掲載しています。</p>
+                <p className="calendarNote">旬は産地・栽培方法により異なる目安です。親品種のうち個別の旬が確認できたものは該当月に、未確認のものは「旬未確認」に掲載しています。</p>
               </section>
             )}
           </div>
@@ -625,7 +673,7 @@ export default function FruitPediaPage() {
               </div>
               <div className="modalFact">
                 <span>旬の目安</span>
-                <strong>{selected.period.length ? `${selected.period.join("・")}月` : "-"}</strong>
+                <strong>{selected.period.length ? `${selected.period.join("・")}月` : "未確認"}</strong>
               </div>
               {trees.some((tree) => tree.id === selected.id) && (
                 <button
@@ -850,6 +898,9 @@ export default function FruitPediaPage() {
         .treeUnknown { margin: 0 0 25px; text-align: center; color: #777770; font-size: 12px; }
         .sourceLink { text-align: center; margin: 12px 0 0; color: #567154; font-size: 11px; }
         .sourceLink a { text-decoration: underline; text-underline-offset: 4px; }
+        .ancestorBadge { display: inline-flex; align-items: center; margin-left: 7px; padding: 3px 8px; border-radius: 999px; background: #f6f2e9; color: #7b7668; font-size: 9px; line-height: 1.4; }
+        .calendarUnconfirmedNote { max-width: 750px; margin: -10px 0 25px; font-size: 12px; line-height: 1.9; color: #777770; }
+        .calendarAncestorLabel { display: block; text-align: center; padding: 0 8px 11px; color: #8b897c; font-size: 10px; line-height: 1.6; }
         .calendarNote { margin: 24px 0 0; color: #777770; font-size: 11px; line-height: 1.9; }
 
         .monthGrid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 6px; margin-bottom: 28px; }
@@ -862,6 +913,7 @@ export default function FruitPediaPage() {
           font-size: 11px;
         }
         .monthButton.chosen { background: #343431; border-color: #343431; color: #fff; }
+        .unknownMonthButton { grid-column: span 3; border-style: dashed; }
         .calendarHead { display: flex; align-items: end; justify-content: space-between; gap: 15px; margin-bottom: 24px; padding-bottom: 22px; border-bottom: 1px solid #deddd7; }
         .calendarHead span { color: #2d2d29; font-size: clamp(34px, 4.5vw, 54px); font-weight: 400; }
         .calendarHead p { margin: 0; color: #777770; font-size: 12px; }
