@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="ja" class="orchardFontsPending">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover,user-scalable=no" />
+  <meta name="theme-color" content="#dce9db" />
+  <title>みつばち果樹園</title>
+  <link rel="preload" href="/fonts/GenSenRoundedJP-H.otf" as="font" type="font/otf" crossorigin="anonymous" />
+  <link rel="stylesheet" href="/virtual-orchard/world.css?v=20261116-ui-logo-1" />
+</head>
+<body>
+  <main id="world">
+    <div id="canvasMount"></div>
+    <div class="sight" aria-hidden="true"><span></span></div>
+    <aside class="mapBox" id="mapBox" aria-label="園内の散歩マップ"><div class="mapHeader"><div class="mapTitle">散歩マップ</div><button type="button" id="mapExpand" aria-label="地図を拡大" aria-expanded="false">拡大</button></div><canvas id="worldMap" width="520" height="620"></canvas><div class="mapFooter"><span id="walkDistance">歩いた距離 0m</span><span class="mapGuide">畑をタップして移動</span></div></aside>
+    <div id="pointerHint" class="pointerHint" aria-live="polite"></div>
+    <div id="joystick" class="joystick" aria-label="移動スティック"><div class="joystickPad"></div><div id="knob" class="knob"></div></div>
+    <div class="lookGuide" aria-hidden="true">スワイプで見渡す</div>
+    <div class="bottomHint" aria-hidden="true">W A S D で歩く　・　ドラッグで見渡す　・　実を選ぶ</div>
+    <div id="loadMessage" class="loadMessage">果樹園への道を準備中…</div>
+  </main>
+  <script>
+    window.addEventListener('load', function () {
+      setTimeout(function () {
+        if (!window.__orchardReady) {
+          document.getElementById('loadMessage').textContent = '通信環境を確認して、ページを再読み込みしてください。';
+          window.parent.postMessage({type:'orchard:error'},window.location.origin);
+        }
+      }, 16000);
+    });
+  </script>
+  <script type="module" src="/virtual-orchard/world.js?v=20261116-ui-logo-1"></script>
+</body>
+</html>

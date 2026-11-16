@@ -1,0 +1,12 @@
+/* Import this file from app/layout.tsx to apply the existing font across your entire site. */
+@font-face {
+  font-family: "GenSenSite";
+  src: url("/fonts/GenSenRoundedJP-H.otf") format("opentype");
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: block;
+}
+html, body, body *, button, input, textarea, select {
+  font-family: "GenSenSite", sans-serif !important;
+  font-synthesis: none;
+}

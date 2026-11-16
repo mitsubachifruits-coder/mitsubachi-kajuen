@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-
+import "./brand-font.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
