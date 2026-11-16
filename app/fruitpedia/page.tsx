@@ -160,7 +160,7 @@ const ancestryColor: Record<Kind, string> = {
 
 // 親品種にも固有の旬が確認できる場合のみ月を設定する。
 // 旬は国内での収穫時期の一例で、地域・年によって前後します。
-// 未確認の交配系統には推測の収穫月を与えず、カレンダー内の「旬未確認」に掲載する。
+// 未確認の交配系統には推測の収穫月を与えず、旬カレンダーには掲載しない。
 const ancestorHarvestMonths: Record<string, number[]> = {
   "ゴールデンデリシャス": [10], // https://de.aichi-kyosai.or.jp/service/culture/internet/cook/vegetable/vegetable_1/post_510.html
   "国光": [11], // 同上
@@ -327,8 +327,8 @@ export default function FruitPediaPage() {
   }, [treeKind]);
 
   const monthFruits = useMemo(() => {
-    // 0 = 「旬未確認」: 子品種の系譜に登場しても実際の旬が未確認の品種・系統。
-    return allFamilyFruits.filter((fruit) => month === 0 ? fruit.period.length === 0 : fruit.period.includes(month));
+    // 旬を確認できている品種のみ月別に掲載。旬未確認の親品種は一覧と家系図には残す。
+    return allFamilyFruits.filter((fruit) => fruit.period.includes(month));
   }, [month]);
 
   // 家系図の四角い枠の中心を、画面の中央に合わせる。
@@ -616,16 +616,12 @@ export default function FruitPediaPage() {
                       {label}
                     </button>
                   ))}
-                  <button type="button" className={month === 0 ? "monthButton unknownMonthButton chosen" : "monthButton unknownMonthButton"} aria-pressed={month === 0} onClick={() => setMonth(0)}>
-                    旬未確認
-                  </button>
                 </div>
 
                 <div className="calendarHead">
-                  <span>{month === 0 ? "旬未確認" : `${month}月`}</span>
+                  <span>{month}月</span>
                   <p>{monthFruits.length} 件</p>
                 </div>
-                {month === 0 && <p className="calendarUnconfirmedNote">家系図に登場する親品種・育成系統のうち、品種固有の旬が確認できていない項目です。旬を推測で設定せず、まとめて掲載しています。</p>}
 
                 <div className="calendarGrid">
                   {monthFruits.map((fruit) => (
@@ -638,7 +634,7 @@ export default function FruitPediaPage() {
                   ))}
                 </div>
                 {monthFruits.length === 0 && <p className="emptyText">この月に該当する掲載項目はありません。</p>}
-                <p className="calendarNote">旬は産地・栽培方法により異なる目安です。親品種のうち個別の旬が確認できたものは該当月に、未確認のものは「旬未確認」に掲載しています。</p>
+                <p className="calendarNote">旬は産地・栽培方法により異なる目安です。収穫時期が確認できている品種のみ掲載しています。</p>
               </section>
             )}
           </div>
@@ -896,7 +892,6 @@ export default function FruitPediaPage() {
         .treeUnknown { margin: 0 0 25px; text-align: center; color: #777770; font-size: 12px; }
         .sourceLink { text-align: center; margin: 12px 0 0; color: #567154; font-size: 11px; }
         .sourceLink a { text-decoration: underline; text-underline-offset: 4px; }
-        .calendarUnconfirmedNote { max-width: 750px; margin: -10px 0 25px; font-size: 12px; line-height: 1.9; color: #777770; }
         .calendarNote { margin: 24px 0 0; color: #777770; font-size: 11px; line-height: 1.9; }
 
         .monthGrid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 6px; margin-bottom: 28px; }
@@ -909,7 +904,6 @@ export default function FruitPediaPage() {
           font-size: 11px;
         }
         .monthButton.chosen { background: #343431; border-color: #343431; color: #fff; }
-        .unknownMonthButton { grid-column: span 3; border-style: dashed; }
         .calendarHead { display: flex; align-items: end; justify-content: space-between; gap: 15px; margin-bottom: 24px; padding-bottom: 22px; border-bottom: 1px solid #deddd7; }
         .calendarHead span { color: #2d2d29; font-size: clamp(34px, 4.5vw, 54px); font-weight: 400; }
         .calendarHead p { margin: 0; color: #777770; font-size: 12px; }
