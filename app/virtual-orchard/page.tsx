@@ -159,9 +159,9 @@ export default function VirtualOrchardPage() {
   const [selected, setSelected] = useState<Fruit | null>(null);
   const [zone, setZone] = useState<OrchardKind | null>(null);
   const [weather, setWeather] = useState<WeatherInfo | null>(null);
-  const [showHelp, setShowHelp] = useState(false);
-  const [showCatalog, setShowCatalog] = useState(false);
-  const [catalogKind, setCatalogKind] = useState<OrchardKind>("さくらんぼ");
+  const [showCollection, setShowCollection] = useState(false);
+  const [harvestedIds, setHarvestedIds] = useState<string[]>([]);
+  const [collectionLoaded, setCollectionLoaded] = useState(false);
   const [viewportError, setViewportError] = useState(false);
   const [frameAttempt, setFrameAttempt] = useState(0);
 
@@ -186,6 +186,27 @@ export default function VirtualOrchardPage() {
   }, []);
 
   useEffect(() => {
+    try {
+      const raw = JSON.parse(window.localStorage.getItem("mitsubachi-orchard-discoveries-v1") || "[]") as unknown;
+      if (Array.isArray(raw)) {
+        setHarvestedIds([...new Set(raw.filter((id): id is string => typeof id === "string" && fruits.some((f) => f.id === id)))]);
+      }
+    } catch {
+      // Storage may be disabled; keep the in-memory collection usable.
+    }
+    setCollectionLoaded(true);
+  }, []);
+
+  useEffect(() => {
+    if (!collectionLoaded) return;
+    try {
+      window.localStorage.setItem("mitsubachi-orchard-discoveries-v1", JSON.stringify(harvestedIds));
+    } catch {
+      // Browsers in private mode may not allow persistent storage.
+    }
+  }, [harvestedIds, collectionLoaded]);
+
+  useEffect(() => {
     const oldOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     return () => {
@@ -204,9 +225,13 @@ export default function VirtualOrchardPage() {
     const onMessage = (event: MessageEvent) => {
       if (event.source !== iframe.current?.contentWindow || !event.data || typeof event.data !== "object") return;
       if (event.data.type === "orchard:ready") setReady(true);
-      if (event.data.type === "orchard:pick" && typeof event.data.id === "string") {
+      if (event.data.type === "orchard:harvest" && typeof event.data.id === "string") {
         const fruit = fruits.find((f) => f.id === event.data.id);
-        if (fruit) setSelected(fruit);
+        if (fruit && ["さくらんぼ", "桃", "すいか", "ぶどう", "西洋梨", "りんご"].includes(fruit.kind)) {
+          setHarvestedIds((current) => current.includes(fruit.id) ? current : [...current, fruit.id]);
+          setShowCollection(false);
+          setSelected(fruit);
+        }
       }
       if (event.data.type === "orchard:zone") {
         const name = event.data.kind as OrchardKind;
@@ -243,22 +268,21 @@ export default function VirtualOrchardPage() {
   }, [ready, weather, send]);
 
   useEffect(() => {
-    const paused = !started || !!selected || showCatalog || showHelp;
+    const paused = !started || !!selected || showCollection;
     send({ type: "orchard:pause", paused });
     if (!paused && ready) send({ type: "orchard:focusControls" });
-  }, [started, selected, showCatalog, showHelp, ready, send]);
+  }, [started, selected, showCollection, ready, send]);
 
   useEffect(() => {
-    if (!selected && !showCatalog && !showHelp) return;
+    if (!selected && !showCollection) return;
     const closeOnEscape = (event: KeyboardEvent) => {
       if (event.key !== "Escape") return;
       setSelected(null);
-      setShowCatalog(false);
-      setShowHelp(false);
+      setShowCollection(false);
     };
     window.addEventListener("keydown", closeOnEscape);
     return () => window.removeEventListener("keydown", closeOnEscape);
-  }, [selected, showCatalog, showHelp]);
+  }, [selected, showCollection]);
 
   const go = (kind: OrchardKind) => {
     if (!started) setStarted(true);
@@ -267,7 +291,6 @@ export default function VirtualOrchardPage() {
   };
 
   const weatherTitle = weather ? weather.label : "空模様を準備中";
-  const weatherSubline = "タップして空を変える";
 
   return (
     <>
@@ -284,7 +307,7 @@ export default function VirtualOrchardPage() {
           ref={iframe}
           key={frameAttempt}
           title="みつばち果樹園"
-          src={`/virtual-orchard/world.html?v=20261116-beeflight-ui-clean-v3-${frameAttempt}`}
+          src={`/virtual-orchard/world.html?v=20261116-discovery-v1-${frameAttempt}`}
           onLoad={() => send({ type: "orchard:ping" })}
           className="orchardWorld"
           allow="fullscreen"
@@ -296,22 +319,10 @@ export default function VirtualOrchardPage() {
             <BrandLogo />
           </a>
           <div className="orchardTopRight">
-            <button
-              type="button"
-              className="orchardWeather"
-              title="タップして空模様を変更"
-              aria-label={`現在の空模様は${weatherTitle}。タップすると変わります`}
-              onClick={() => setWeather((current) => makeRandomWeather(current?.mode))}
-            >
+            <div className="orchardWeather" role="status" aria-label={`果樹園内の今の天気は${weatherTitle}`}>
               <WeatherGlyph mode={weather?.mode} isDay={weather?.isDay} />
-              <span>
-                <strong>{weatherTitle}</strong>
-                <small>{weatherSubline}</small>
-              </span>
-            </button>
-            <button className="orchardCircle" aria-label="操作方法" title="操作方法" onClick={() => setShowHelp(true)}>
-              ?
-            </button>
+              <span><strong>今の天気　{weatherTitle}</strong></span>
+            </div>
           </div>
         </header>
 
@@ -327,6 +338,17 @@ export default function VirtualOrchardPage() {
               <div className="welcomeLogoLine">
                 <BrandLogo />
               </div>
+              <section className="orchardFlightInstructions" aria-label="飛行の操作一覧">
+                <div className="orchardFlightInstructionsTitle">HOW TO FLY · 操作一覧</div>
+                <ul>
+                  <li><strong>PC：</strong>W・A・S・Dで飛行、Cで上昇、Spaceで下降</li>
+                  <li><strong>視点：</strong>ドラッグで見回す、ホイールでカメラ調整、Vで俯瞰</li>
+                  <li><strong>スマホ：</strong>左スティックで飛行、右側のボタンで上下移動</li>
+                  <li><strong>収穫：</strong>木や実をタップ／クリック。PCは近くでEも使えます</li>
+                  <li><strong>水やり：</strong>PCはH。操作しなければホバリング</li>
+                </ul>
+                <p>収穫すると、その果物のカードが解放されます。目的やノルマはありません。</p>
+              </section>
               <button onClick={() => setStarted(true)} className="orchardStart" disabled={!ready || fontStatus !== "ready"}>
                 {ready ? "果樹園に入る ↗" : "果樹園を準備しています…"}
               </button>
@@ -339,7 +361,6 @@ export default function VirtualOrchardPage() {
             <div className="orchardFind" aria-live="polite">
               <span className="orchardDot" />
               {zone ? `${zone}の畑` : "果樹園の入口"}
-              <small>空を自由に飛ぼう</small>
             </div>
             <div className="orchardBottom">
               <nav className="orchardNav" aria-label="畑を選ぶ">
@@ -350,73 +371,59 @@ export default function VirtualOrchardPage() {
                   </button>
                 ))}
               </nav>
-              <button className="orchardBrowse" onClick={() => setShowCatalog(true)}>
-                品種を探す <span aria-hidden="true">⌕</span>
-              </button>
             </div>
           </>
         )}
 
-        {showHelp && (
-          <div className="orchardSmallBackdrop" onClick={() => setShowHelp(false)}>
-            <div className="orchardHelp" role="dialog" aria-modal="true" aria-label="操作方法" onClick={(e) => e.stopPropagation()}>
-              <button className="smallClose" onClick={() => setShowHelp(false)} aria-label="閉じる">
-                ×
-              </button>
-              <span className="orchardEyebrow">HOW TO EXPLORE</span>
-              <h2>みつばちの飛び方</h2>
-              <ul className="orchardHelpList">
-                <li><strong>パソコン：</strong><strong>W・A・S・D</strong> で飛び、<strong>Cで上昇、Spaceで下降</strong>します。ドラッグで見回し、ホイールでカメラ距離を変えられます。</li>
-                <li><strong>スマホ：</strong>左下のスティックで飛び、右側の「上昇・下降」ボタンで高度を変えます。画面スワイプでカメラを回せます。</li>
-                <li><strong>ホバリング・俯瞰：</strong>操作しなければその場でホバリングできます。PCは <strong>Vキー</strong> で、果樹園全体を高い空から見渡せます。</li>
-                <li><strong>収穫・水やり：</strong>PCでは果物に近づいて <strong>Eキーで収穫、Hキーで水やり、Rキーで果物を戻す</strong>操作ができます。成長要素やゲームの目的はありません。</li>
-                <li><strong>くだもの事典：</strong>木や実をクリックすると、くだもの事典が開きます。マップで畑を選ぶこともできます。</li>
-              </ul>
-              <button className="orchardStart" onClick={() => setShowHelp(false)}>
-                わかった！
-              </button>
-            </div>
-          </div>
+        {started && (
+          <button
+            type="button"
+            className="orchardCollectionTrigger"
+            onClick={() => setShowCollection(true)}
+            aria-label="収穫した果物のカードを開く"
+          >
+            <span className="collectionTriggerIcon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="4" y="4" width="16" height="16" rx="3" />
+                <circle cx="12" cy="10" r="2.5" />
+                <path d="M7.5 17c1.2-2.1 2.9-3.1 4.5-3.1s3.3 1 4.5 3.1" />
+              </svg>
+            </span>
+            収穫した果物
+          </button>
         )}
 
-        {showCatalog && (
-          <div className="orchardSmallBackdrop" onClick={() => setShowCatalog(false)}>
-            <div className="orchardCatalog" role="dialog" aria-modal="true" aria-label="品種を探す" onClick={(e) => e.stopPropagation()}>
+        {showCollection && (
+          <div className="orchardSmallBackdrop" role="presentation" onClick={() => setShowCollection(false)}>
+            <section className="orchardCatalog orchardCollection" role="dialog" aria-modal="true" aria-label="収穫した果物" onClick={(e) => e.stopPropagation()}>
               <div className="catalogTop">
                 <div>
-                  <span className="orchardEyebrow">FRUIT COLLECTION</span>
-                  <h2>品種を探す</h2>
+                  <span className="orchardEyebrow">MY FRUIT COLLECTION</span>
+                  <h2>収穫した果物</h2>
+                  <p className="collectionSubtitle">収穫した品種のカードがここに残ります。</p>
                 </div>
-                <button className="smallClose" onClick={() => setShowCatalog(false)} aria-label="閉じる">
-                  ×
-                </button>
+                <button className="smallClose" onClick={() => setShowCollection(false)} aria-label="閉じる">×</button>
               </div>
-              <div className="catalogChips">
-                {ORCHARDS.map((o) => (
-                  <button key={o.kind} className={catalogKind === o.kind ? "picked" : ""} onClick={() => setCatalogKind(o.kind)}>
-                    <OrchardFruitIcon kind={o.kind} />
-                    <span>{o.label}</span>
-                  </button>
-                ))}
-              </div>
-              <div className="catalogNames">
-                {fruits
-                  .filter((f) => f.kind === catalogKind)
-                  .map((f) => (
-                    <button
-                      key={f.id}
-                      onClick={() => {
-                        setShowCatalog(false);
-                        setSelected(f);
-                        send({ type: "orchard:focus", id: f.id });
-                      }}
-                    >
-                      {f.name}
-                      <span>↗</span>
-                    </button>
-                  ))}
-              </div>
-            </div>
+              {harvestedIds.length === 0 ? (
+                <div className="collectionEmpty">
+                  <strong>まだ収穫した果物はありません。</strong>
+                  <p>果樹園を飛んで、木や実をタップしてみよう。初めて収穫すると、その品種の情報が開きます。</p>
+                </div>
+              ) : (
+                <div className="collectionCards">
+                  {harvestedIds.map((id) => {
+                    const fruit = fruits.find((f) => f.id === id);
+                    if (!fruit) return null;
+                    return (
+                      <button key={fruit.id} className="collectionFruitCard" onClick={() => { setShowCollection(false); setSelected(fruit); }}>
+                        <span className="collectionFruitArt" style={{ background: fruit.color }}><FruitVector fruit={fruit} /></span>
+                        <span className="collectionFruitName">{fruit.name}<small>{fruit.kind}</small></span>
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+            </section>
           </div>
         )}
 
@@ -497,7 +504,7 @@ export default function VirtualOrchardPage() {
         .orchardTop{position:absolute;z-index:15;top:0;left:0;right:0;display:flex;align-items:flex-start;justify-content:space-between;gap:10px;padding:max(20px,env(safe-area-inset-top)) max(20px,env(safe-area-inset-right)) 0 20px;pointer-events:none;}
         .orchardTopBrand{pointer-events:auto;display:flex;align-items:center;justify-content:center;min-height:58px;padding:10px 17px;border:1px solid rgba(43,55,43,.10);border-radius:18px;background:rgba(255,255,252,.90);backdrop-filter:blur(18px);box-shadow:0 8px 30px rgba(31,51,40,.08);white-space:nowrap;text-decoration:none;color:inherit;transition:transform .15s ease,box-shadow .15s ease;}.orchardTopBrand:hover{transform:translateY(-1px);box-shadow:0 10px 34px rgba(31,51,40,.14);}.orchardTopBrand:focus-visible{outline:3px solid #4a9e72;outline-offset:3px;}
         .orchardTopBrand .brandLogo{font-size:clamp(16px,2vw,24px);line-height:1.1;}
-        .orchardWeather,.orchardCircle{pointer-events:auto;background:rgba(255,255,252,.90);border:1px solid rgba(43,55,43,.10);backdrop-filter:blur(18px);box-shadow:0 8px 30px rgba(31,51,40,.08);}
+        .orchardWeather{pointer-events:none;background:rgba(255,255,252,.90);border:1px solid rgba(43,55,43,.10);backdrop-filter:blur(18px);box-shadow:0 8px 30px rgba(31,51,40,.08);}
         .orchardTopRight{display:flex;gap:9px;align-items:stretch;}
         .orchardWeather{display:flex;align-items:center;gap:10px;border-radius:18px;padding:8px 14px;min-height:58px;text-align:left;color:#2f4035;}
         .orchardGlyph{display:block;width:28px;height:28px;flex:none;}
@@ -564,6 +571,34 @@ export default function VirtualOrchardPage() {
         .modalBackdrop .vectorSvg,.modalBackdrop .vectorSvg.dense{display:block;width:82%;height:82%;max-width:100%;max-height:100%;overflow:visible;flex-shrink:0;}
         .modalCard .detailButton{display:inline-flex;min-width:112px;min-height:42px;flex:0 0 auto;align-items:center;justify-content:center;gap:10px;margin-top:22px;padding:8px 10px 8px 15px;border:1px solid #deddd8;border-radius:999px;background:#fff;color:#3f3f3a;font-size:10px;font-weight:500;line-height:1;letter-spacing:.06em;text-decoration:none;cursor:pointer;}
         .modalCard .detailButtonArrow{display:inline-flex;width:27px;height:27px;align-items:center;justify-content:center;border-radius:999px;background:#f3f3ef;color:#777770;font-size:13px;}
+        .orchardWelcome{max-height:min(91dvh,820px);overflow-y:auto;overscroll-behavior:contain;padding-top:32px;padding-bottom:30px;}
+        .orchardWelcome h1{margin:12px 0 8px;}
+        .orchardWelcome p{margin-bottom:12px;}
+        .welcomeLogoLine{margin-bottom:15px;}
+        .orchardFlightInstructions{text-align:left;background:rgba(245,247,240,.86);border:1px solid #e5eae0;padding:16px 18px;border-radius:17px;margin:0 0 20px;}
+        .orchardFlightInstructionsTitle{font-size:10px;font-weight:900;letter-spacing:.09em;color:#54725b;margin-bottom:10px;}
+        .orchardFlightInstructions ul{list-style:disc outside;padding-left:1.1em;margin:0;display:grid;gap:7px;}
+        .orchardFlightInstructions li{color:#516153;font-size:11px;line-height:1.65;padding-left:3px;}
+        .orchardFlightInstructions li::marker{color:#86ab8c;}
+        .orchardFlightInstructions strong{color:#35533f;font-weight:900;}
+        .orchardFlightInstructions p{font-size:10px;line-height:1.7;color:#7b8779;margin:11px 0 0;}
+        .orchardCollectionTrigger{position:absolute;z-index:22;top:92px;right:20px;display:flex;align-items:center;gap:9px;padding:10px 14px;border:1px solid rgba(45,65,47,.13);border-radius:999px;background:rgba(255,255,249,.93);backdrop-filter:blur(18px);color:#43684c;box-shadow:0 11px 36px rgba(30,50,32,.16);font-size:11px;font-weight:900;}
+        .collectionTriggerIcon{display:inline-flex;width:21px;height:21px;}
+        .collectionTriggerIcon svg{width:21px;height:21px;}
+        .orchardCollection{width:min(580px,100%);}
+        .collectionSubtitle{font-size:11px;color:#819081;margin:0 0 16px;}
+        .collectionEmpty{background:#f8faf5;border-radius:17px;padding:26px 20px;text-align:center;color:#47614d;}
+        .collectionEmpty strong{font-size:14px;}
+        .collectionEmpty p{font-size:12px;color:#7d8b7d;line-height:1.9;margin:12px 0 0;}
+        .collectionCards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;max-height:60dvh;overflow-y:auto;padding:2px;}
+        .collectionFruitCard{overflow:hidden;display:flex;flex-direction:column;text-align:left;padding:0;border:1px solid #e9eee6;border-radius:16px;background:#fff;min-width:0;transition:transform .15s;}
+        .collectionFruitCard:hover{transform:translateY(-2px);}
+        .collectionFruitArt{display:grid;place-items:center;height:108px;width:100%;overflow:hidden;}
+        .collectionFruitArt .fruitVectorWrap{display:grid;place-items:center;width:100%;height:100%;}
+        .collectionFruitArt .vectorSvg,.collectionFruitArt .vectorSvg.dense{display:block;height:85%;width:85%;overflow:visible;}
+        .collectionFruitName{color:#405546;font-size:12px;font-weight:850;padding:11px 12px 13px;overflow-wrap:anywhere;}
+        .collectionFruitName small{display:block;margin-top:4px;color:#9aa69b;font-size:9px;font-weight:600;}
+        @media(max-width:740px){.orchardCollectionTrigger{right:12px;top:max(75px,calc(env(safe-area-inset-top) + 66px));padding:9px 12px;font-size:11px;}.orchardWelcome{padding:25px 17px 23px;}.orchardWelcome h1{font-size:30px;}.orchardFlightInstructions{padding:13px 14px;margin-bottom:15px;}.orchardFlightInstructions li{font-size:10px;}.collectionCards{grid-template-columns:repeat(2,minmax(0,1fr));}.collectionFruitArt{height:95px;}.orchardCollection{width:min(430px,100%);}}
         @media(max-width:980px){.orchardNavItem{padding:9px 9px;font-size:11px;}}
         @media(max-width:740px){.orchardTop{padding:max(10px,env(safe-area-inset-top)) 16px 0;}.orchardWeather{padding:7px 9px;border-radius:13px;min-height:48px;gap:5px;}.orchardGlyph{width:22px;height:22px;}.orchardWeather strong{font-size:10px;}.orchardWeather small{font-size:8px;}.orchardCircle{width:39px;height:48px;border-radius:13px;}.orchardFind{top:max(72px,calc(env(safe-area-inset-top) + 63px));left:16px;}.orchardFind small{display:none;}.orchardBottom{left:0;transform:none;width:100%;bottom:max(9px,env(safe-area-inset-bottom));padding:0 9px;display:grid;gap:7px;}.orchardNav{width:100%;overflow-x:auto;scrollbar-width:none;border-radius:17px;justify-content:space-between;}.orchardNav::-webkit-scrollbar{display:none;}.orchardNavItem{flex:1;flex-direction:column;min-width:56px;gap:4px;font-size:9px;padding:6px 4px;}.orchardFruitIcon{width:26px;height:26px;border-radius:9px;}.orchardBrowse{justify-self:end;padding:10px 12px;border-radius:12px;font-size:11px;}.orchardWelcome{padding:36px 18px 28px;}.orchardWelcome h1{font-size:32px;}.orchardWelcome p{font-size:13px;}.brandLogo{font-size:24px;}}
         @media(max-width:740px){.orchardTopBrand{min-height:48px;padding:7px 9px;border-radius:13px;}.orchardTopBrand .brandLogo{font-size:clamp(12px,3.5vw,17px);letter-spacing:-.07em;}.orchardTop{gap:6px;}}
