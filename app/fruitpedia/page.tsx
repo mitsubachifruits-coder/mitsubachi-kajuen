@@ -472,7 +472,6 @@ export default function FruitPediaPage() {
                       </div>
                       <div className="specimenBody">
                         <span className="productBadge">{fruit.kind}</span>
-                        {fruit.id.startsWith("ancestor-") && <span className="ancestorBadge">親品種・系統</span>}
                         <h3 className="productName">{fruit.name}</h3>
                         <p className="productSpecification">{fruit.summary}</p>
                       </div>
@@ -635,7 +634,6 @@ export default function FruitPediaPage() {
                         <FruitVector fruit={fruit} dense />
                       </div>
                       <span>{fruit.name}</span>
-                      {fruit.id.startsWith("ancestor-") && <small className="calendarAncestorLabel">親品種・系統</small>}
                     </button>
                   ))}
                 </div>
@@ -898,9 +896,7 @@ export default function FruitPediaPage() {
         .treeUnknown { margin: 0 0 25px; text-align: center; color: #777770; font-size: 12px; }
         .sourceLink { text-align: center; margin: 12px 0 0; color: #567154; font-size: 11px; }
         .sourceLink a { text-decoration: underline; text-underline-offset: 4px; }
-        .ancestorBadge { display: inline-flex; align-items: center; margin-left: 7px; padding: 3px 8px; border-radius: 999px; background: #f6f2e9; color: #7b7668; font-size: 9px; line-height: 1.4; }
         .calendarUnconfirmedNote { max-width: 750px; margin: -10px 0 25px; font-size: 12px; line-height: 1.9; color: #777770; }
-        .calendarAncestorLabel { display: block; text-align: center; padding: 0 8px 11px; color: #8b897c; font-size: 10px; line-height: 1.6; }
         .calendarNote { margin: 24px 0 0; color: #777770; font-size: 11px; line-height: 1.9; }
 
         .monthGrid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 6px; margin-bottom: 28px; }
