@@ -359,16 +359,6 @@ function updateFlightHud(force=false){
   const nearest=getClosestPlant();nearbyFruit=nearest;
   const label=$('nearFruitLabel');
   if(label){label.textContent=nearest?.fruit.name??'自由に飛んでみよう';}
-  const harvestButton=$('harvestButton');
-  const infoButton=$('fruitInfoButton');
-  if(harvestButton){
-    harvestButton.disabled=!nearest||harvestedPlants.has(nearest.fruit.id)||state.paused;
-    harvestButton.textContent=nearest&&harvestedPlants.has(nearest.fruit.id)?'収穫済み':'収穫する';
-  }
-  if(infoButton)infoButton.disabled=!nearest||state.paused;
-  const waterButton=$('waterButton');if(waterButton)waterButton.disabled=state.paused||pos.y>9;
-  const resetButton=$('restoreButton');if(resetButton)resetButton.hidden=basketCount===0;
-  const bird=$('birdViewButton');if(bird){bird.textContent=birdMode?'通常視点':'空から眺める';bird.setAttribute('aria-pressed',String(birdMode));}
 }
 
 function createLoadingScene(){
@@ -1148,16 +1138,7 @@ function pickAt(clientX,clientY){
 }
 let drag=null;
 function attachControls(){
-  $('birdViewButton').addEventListener('click',()=>{
-    if(state.paused)return;
-    birdMode=!birdMode;updateFlightHud(true);
-  });
-  $('harvestButton').addEventListener('click',harvestNearby);
-  $('waterButton').addEventListener('click',waterGround);
-  $('fruitInfoButton').addEventListener('click',()=>{
-    const near=getClosestPlant();if(near&&!state.paused)post('orchard:pick',{id:near.fruit.id});
-  });
-  $('restoreButton').addEventListener('click',restoreFruit);
+  // Screen action buttons removed. The PC keyboard shortcuts remain available.
   for(const [name,kind] of [['riseButton','up'],['fallButton','down']]){
     const element=$(name);
     const down=e=>{if(state.paused)return;kind==='up'?activeAltitudeUp=true:activeAltitudeDown=true;element.setPointerCapture(e.pointerId);e.preventDefault();};
@@ -1283,7 +1264,7 @@ function attachControls(){
 function movement(dt){
   const f=(KEYS.has('w')||KEYS.has('arrowup')?1:0)-(KEYS.has('s')||KEYS.has('arrowdown')?1:0)-JOY.y;
   const r=(KEYS.has('d')||KEYS.has('arrowright')?1:0)-(KEYS.has('a')||KEYS.has('arrowleft')?1:0)+JOY.x;
-  const vertical=(KEYS.has(' ')?1:0)+(activeAltitudeUp?1:0)-(KEYS.has('c')?1:0)-(activeAltitudeDown?1:0);
+  const vertical=(KEYS.has('c')?1:0)+(activeAltitudeUp?1:0)-(KEYS.has(' ')?1:0)-(activeAltitudeDown?1:0);
   const len=Math.hypot(f,r);
   const flySpeed=(KEYS.has('shift')?18:11.5)*dt;
   const oldX=pos.x,oldY=pos.y,oldZ=pos.z;
