@@ -365,11 +365,13 @@ export default function VirtualOrchardPage() {
               </button>
               <span className="orchardEyebrow">HOW TO EXPLORE</span>
               <h2>みつばちの飛び方</h2>
-              <p>パソコンでは <strong>W・A・S・D</strong> で飛び、<strong>Cで上昇、Spaceで下降</strong>します。ドラッグで見回し、ホイールでカメラ距離を変えられます。</p>
-              <p>スマホでは左下のスティックで飛び、右側の「上昇・下降」ボタンで高度を変えます。画面スワイプでカメラを回せます。</p>
-              <p>操作しなければその場でホバリングできます。PCは <strong>Vキー</strong> で、果樹園全体を高い空から見渡せます。</p>
-              <p>PCでは果物に近づいて <strong>Eキーで収穫、Hキーで水やり、Rキーで果物を戻す</strong>操作ができます。成長要素やゲームの目的はありません。</p>
-              <p>木や実をクリックすると、くだもの事典が開きます。マップで畑を選ぶこともできます。</p>
+              <ul className="orchardHelpList">
+                <li><strong>パソコン：</strong><strong>W・A・S・D</strong> で飛び、<strong>Cで上昇、Spaceで下降</strong>します。ドラッグで見回し、ホイールでカメラ距離を変えられます。</li>
+                <li><strong>スマホ：</strong>左下のスティックで飛び、右側の「上昇・下降」ボタンで高度を変えます。画面スワイプでカメラを回せます。</li>
+                <li><strong>ホバリング・俯瞰：</strong>操作しなければその場でホバリングできます。PCは <strong>Vキー</strong> で、果樹園全体を高い空から見渡せます。</li>
+                <li><strong>収穫・水やり：</strong>PCでは果物に近づいて <strong>Eキーで収穫、Hキーで水やり、Rキーで果物を戻す</strong>操作ができます。成長要素やゲームの目的はありません。</li>
+                <li><strong>くだもの事典：</strong>木や実をクリックすると、くだもの事典が開きます。マップで畑を選ぶこともできます。</li>
+              </ul>
               <button className="orchardStart" onClick={() => setShowHelp(false)}>
                 わかった！
               </button>
@@ -527,6 +529,11 @@ export default function VirtualOrchardPage() {
         .orchardHelp,.orchardCatalog{position:relative;background:#fffdf9;border-radius:24px;padding:27px;width:min(510px,100%);box-shadow:0 20px 65px rgba(0,0,0,.14);max-height:min(82dvh,720px);overflow:auto;}
         .orchardHelp h2,.orchardCatalog h2{font-size:27px;margin:7px 0 18px;letter-spacing:-.05em;}
         .orchardHelp p{font-size:14px;line-height:2;color:#697268;}
+        .orchardHelpList{margin:0 0 16px;padding:0 0 0 1.45em;list-style:disc outside;color:#697268;font-size:14px;line-height:1.85;}
+        .orchardHelpList li{display:list-item;padding-left:.12em;}
+        .orchardHelpList li + li{margin-top:11px;}
+        .orchardHelpList li::marker{color:#70977a;}
+        .orchardHelpList strong{color:#415e49;font-weight:800;}
         .orchardHelp .orchardStart{margin-top:10px;}
         .smallClose{border:0;border-radius:999px;background:#eff1ed;color:#444;position:absolute;top:15px;right:17px;font-size:25px;width:38px;height:38px;}
         .catalogTop{display:flex;justify-content:space-between;}
