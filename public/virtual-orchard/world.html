@@ -6,13 +6,24 @@
   <meta name="theme-color" content="#dce9db" />
   <title>みつばち果樹園</title>
   <link rel="preload" href="/fonts/GenSenRoundedJP-H.otf" as="font" type="font/otf" crossorigin="anonymous" />
-  <link rel="stylesheet" href="/virtual-orchard/world.css?v=20261116-ui-logo-1" />
+  <link rel="stylesheet" href="/virtual-orchard/world.css?v=20261116-mobile-gate-2" />
 </head>
 <body>
   <main id="world">
     <div id="canvasMount"></div>
     <div class="sight" aria-hidden="true"><span></span></div>
-    <aside class="mapBox" id="mapBox" aria-label="園内の散歩マップ"><div class="mapHeader"><div class="mapTitle">散歩マップ</div><button type="button" id="mapExpand" aria-label="地図を拡大" aria-expanded="false">拡大</button></div><canvas id="worldMap" width="520" height="620"></canvas><div class="mapFooter"><span id="walkDistance">歩いた距離 0m</span><span class="mapGuide">畑をタップして移動</span></div></aside>
+    <aside class="mapBox" id="mapBox" aria-label="園内の散歩マップ">
+      <div class="mapHeader">
+        <div class="mapTitle">散歩マップ</div>
+        <div class="mapActions">
+          <button type="button" id="mapExpand" aria-label="地図を拡大" aria-expanded="false">拡大</button>
+          <button type="button" id="mapHide" aria-label="マップを非表示にする" aria-controls="mapBox">非表示</button>
+        </div>
+      </div>
+      <canvas id="worldMap" width="520" height="620"></canvas>
+      <div class="mapFooter"><span id="walkDistance">歩いた距離 0m</span><span class="mapGuide">畑をタップして移動</span></div>
+    </aside>
+    <button type="button" id="mapShow" class="mapShow" aria-label="散歩マップを表示する" aria-controls="mapBox" hidden>マップを表示</button>
     <div id="pointerHint" class="pointerHint" aria-live="polite"></div>
     <div id="joystick" class="joystick" aria-label="移動スティック"><div class="joystickPad"></div><div id="knob" class="knob"></div></div>
     <div class="lookGuide" aria-hidden="true">スワイプで見渡す</div>
@@ -29,6 +40,6 @@
       }, 16000);
     });
   </script>
-  <script type="module" src="/virtual-orchard/world.js?v=20261116-ui-logo-1"></script>
+  <script type="module" src="/virtual-orchard/world.js?v=20261116-mobile-gate-2"></script>
 </body>
 </html>

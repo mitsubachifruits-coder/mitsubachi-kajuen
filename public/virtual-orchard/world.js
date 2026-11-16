@@ -131,8 +131,8 @@ function brandLogoPanel(){
   canvas.width=1400;canvas.height=420;
   const ctx=canvas.getContext('2d');
   ctx.fillStyle='#fffdf5';
-  ctx.beginPath();ctx.roundRect(18,18,canvas.width-36,canvas.height-36,44);ctx.fill();
-  ctx.strokeStyle='#e9dcc3';ctx.lineWidth=18;ctx.stroke();
+  ctx.beginPath();ctx.roundRect(13,13,canvas.width-26,canvas.height-26,15);ctx.fill();
+  ctx.strokeStyle='#ede4d4';ctx.lineWidth=7;ctx.stroke();
   const chars=[
     {t:'み',c:'#ff3131'},{t:'つ',c:'#006dff'},{t:'ば',c:'#00bf63'},
     {t:'ち',c:'#ffde59'},{t:'果',c:'#8c52ff'},{t:'樹',c:'#00a1ff'},{t:'園',c:'#ff66c4'}
@@ -367,16 +367,19 @@ function makePathway(){
     bar(rootGroup,[x,0,z],[x,y+.12,z],.028,m('#729c67'),5);
     ball(rootGroup,x,y+.15,z,.13,m(petalColors[i%petalColors.length]),[.95,.85,.95]);
   }
-  // Rustic entrance: brand sign is a SQUARE, above (not inside) the wooden arch.
+  // Minimal orchard entrance: two clean posts, one light beam and a slim wooden plaque.
+  // The wordmark remains on a single horizontal line, slightly above the beam.
   const welcome=new THREE.Group();
-  bar(welcome,[-3.45,0,0],[-3.45,2.9,0],.16,darkWood);
-  bar(welcome,[3.45,0,0],[3.45,2.9,0],.16,darkWood);
-  cube(welcome,0,2.82,0,8.6,.24,.37,warmWood);
-  const name=brandLogoPanel();
-  name.position.set(0,4.72,.12);welcome.add(name);
-  for(let x of [-2.3,2.3]){
-    bar(welcome,[x,2.94,-.1],[x,3.72,-.1],.07,m('#a88759'));
+  const gateWood=m('#957a57');
+  const plaqueWood=m('#b69b75');
+  for (const x of [-3.72,3.72]) {
+    cube(welcome,x,1.72,0,.22,3.44,.26,gateWood);
   }
+  cube(welcome,0,3.45,0,7.72,.15,.28,gateWood);
+  // Subtle wood edge behind the off-white logo, without brackets or ornaments.
+  cube(welcome,0,4.44,-.035,6.79,2.05,.13,plaqueWood);
+  const name=brandLogoPanel();
+  name.position.set(0,4.44,.055);welcome.add(name);
   welcome.position.set(0,0,91);rootGroup.add(welcome);
   // Names along paths are optional guideposts, NOT cultivar labels on crops.
   for(const zone of ZONES){
@@ -933,6 +936,31 @@ function pickAt(clientX,clientY){
 let drag=null;
 function attachControls(){
   const mapExpand=$('mapExpand');
+  const mapBox=$('mapBox');
+  const mapHide=$('mapHide');
+  const mapShow=$('mapShow');
+
+  function setMapVisible(visible){
+    mapBox.hidden=!visible;
+    mapShow.hidden=visible;
+    if(!visible){
+      mapExpanded=false;
+      mapBox.classList.remove('expanded');
+      mapExpand.textContent='拡大';
+      mapExpand.setAttribute('aria-expanded','false');
+    }
+    mapHide.setAttribute('aria-expanded',String(visible));
+    mapShow.setAttribute('aria-expanded',String(visible));
+  }
+  mapHide.addEventListener('click',e=>{
+    e.stopPropagation();
+    setMapVisible(false);
+  });
+  mapShow.addEventListener('click',e=>{
+    e.stopPropagation();
+    setMapVisible(true);
+  });
+
   if(mapExpand){
     mapExpand.addEventListener('click',e=>{
       e.stopPropagation();mapExpanded=!mapExpanded;

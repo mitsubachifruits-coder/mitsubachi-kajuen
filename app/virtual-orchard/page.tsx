@@ -278,7 +278,7 @@ export default function VirtualOrchardPage() {
           ref={iframe}
           key={frameAttempt}
           title="みつばち果樹園"
-          src={`/virtual-orchard/world.html?v=20261116-ui-logo-1-${frameAttempt}`}
+          src={`/virtual-orchard/world.html?v=20261116-mobile-gate-2-${frameAttempt}`}
           onLoad={() => send({ type: "orchard:ping" })}
           className="orchardWorld"
           allow="fullscreen"
@@ -286,9 +286,9 @@ export default function VirtualOrchardPage() {
         <div className="orchardOverlay" aria-hidden="true" />
 
         <header className="orchardTop">
-          <div className="orchardTopBrand" aria-label="みつばち果樹園のロゴ">
+          <a className="orchardTopBrand" href="/" aria-label="みつばち果樹園のトップページに戻る" title="トップページに戻る">
             <BrandLogo />
-          </div>
+          </a>
           <div className="orchardTopRight">
             <button
               type="button"
@@ -361,7 +361,7 @@ export default function VirtualOrchardPage() {
               <h2>果樹園の歩き方</h2>
               <p>パソコンでは <strong>W・A・S・D</strong> で歩いて、マウスをドラッグして見回せます。</p>
               <p>スマホでは左下のスティックで移動、右側の画面をスワイプして見回せます。</p>
-              <p>木や実をクリックすると、くだもの事典が開きます。下のメニューから別の畑へも移動できます。</p>
+              <p>木や実をタップ・クリックすると、くだもの事典が開きます。マップ上の畑をタップすると移動できます。パソコンでは下のメニューからも移動できます。</p>
               <button className="orchardStart" onClick={() => setShowHelp(false)}>
                 わかった！
               </button>
@@ -485,7 +485,7 @@ export default function VirtualOrchardPage() {
         .orchardOverlay{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(18,34,28,.10),transparent 24%,transparent 66%,rgba(22,43,31,.08));}
         .orchardShell button,.orchardShell a{font-family:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent;}
         .orchardTop{position:absolute;z-index:15;top:0;left:0;right:0;display:flex;align-items:flex-start;justify-content:space-between;gap:10px;padding:max(20px,env(safe-area-inset-top)) max(20px,env(safe-area-inset-right)) 0 max(20px,env(safe-area-inset-left));pointer-events:none;}
-        .orchardTopBrand{pointer-events:none;display:flex;align-items:center;justify-content:center;min-height:58px;padding:10px 17px;border:1px solid rgba(43,55,43,.10);border-radius:18px;background:rgba(255,255,252,.90);backdrop-filter:blur(18px);box-shadow:0 8px 30px rgba(31,51,40,.08);white-space:nowrap;}
+        .orchardTopBrand{pointer-events:auto;display:flex;align-items:center;justify-content:center;min-height:58px;padding:10px 17px;border:1px solid rgba(43,55,43,.10);border-radius:18px;background:rgba(255,255,252,.90);backdrop-filter:blur(18px);box-shadow:0 8px 30px rgba(31,51,40,.08);white-space:nowrap;text-decoration:none;color:inherit;transition:transform .15s ease,box-shadow .15s ease;}.orchardTopBrand:hover{transform:translateY(-1px);box-shadow:0 10px 34px rgba(31,51,40,.14);}.orchardTopBrand:focus-visible{outline:3px solid #4a9e72;outline-offset:3px;}
         .orchardTopBrand .brandLogo{font-size:clamp(16px,2vw,24px);line-height:1.1;}
         .orchardWeather,.orchardCircle{pointer-events:auto;background:rgba(255,255,252,.90);border:1px solid rgba(43,55,43,.10);backdrop-filter:blur(18px);box-shadow:0 8px 30px rgba(31,51,40,.08);}
         .orchardTopRight{display:flex;gap:9px;align-items:stretch;}
@@ -552,6 +552,7 @@ export default function VirtualOrchardPage() {
         @media(max-width:980px){.orchardNavItem{padding:9px 9px;font-size:11px;}}
         @media(max-width:740px){.orchardTop{padding:max(10px,env(safe-area-inset-top)) 11px 0;}.orchardWeather{padding:7px 9px;border-radius:13px;min-height:48px;gap:5px;}.orchardGlyph{width:22px;height:22px;}.orchardWeather strong{font-size:10px;}.orchardWeather small{font-size:8px;}.orchardCircle{width:39px;height:48px;border-radius:13px;}.orchardFind{top:max(72px,calc(env(safe-area-inset-top) + 63px));left:11px;}.orchardFind small{display:none;}.orchardBottom{left:0;transform:none;width:100%;bottom:max(9px,env(safe-area-inset-bottom));padding:0 9px;display:grid;gap:7px;}.orchardNav{width:100%;overflow-x:auto;scrollbar-width:none;border-radius:17px;justify-content:space-between;}.orchardNav::-webkit-scrollbar{display:none;}.orchardNavItem{flex:1;flex-direction:column;min-width:56px;gap:4px;font-size:9px;padding:6px 4px;}.orchardFruitIcon{width:26px;height:26px;border-radius:9px;}.orchardBrowse{justify-self:end;padding:10px 12px;border-radius:12px;font-size:11px;}.orchardWelcome{padding:36px 18px 28px;}.orchardWelcome h1{font-size:32px;}.orchardWelcome p{font-size:13px;}.brandLogo{font-size:24px;}}
         @media(max-width:740px){.orchardTopBrand{min-height:48px;padding:7px 9px;border-radius:13px;}.orchardTopBrand .brandLogo{font-size:clamp(12px,3.5vw,17px);letter-spacing:-.07em;}.orchardTop{gap:6px;}}
+        @media(max-width:740px){.orchardBottom,.orchardNav,.orchardBrowse{display:none !important;}}
         @media(max-width:390px){.orchardTopBrand{padding:7px 6px;}.orchardTopBrand .brandLogo{font-size:12px;}.orchardTopRight{gap:5px;}}
         @media(max-width:680px){.modalBackdrop{padding:max(12px,env(safe-area-inset-top)) 12px max(24px,env(safe-area-inset-bottom));overflow-y:auto;overflow-x:hidden;display:block;-webkit-overflow-scrolling:touch;}.modalCard{width:min(100%,580px);max-height:none;height:auto;overflow:visible;border-radius:18px;margin:0 auto;}.modalVisual{height:clamp(185px,58vw,255px);}.modalContent{padding:23px 20px 27px;}.modalTitle{font-size:29px;line-height:1.35;overflow-wrap:anywhere;}.modalText,.modalDetailMore{font-size:13px;line-height:1.9;}.modalDetailMore{padding:14px 15px;}.modalFact{font-size:12px;}.modalClose{z-index:2;}}
       `}</style>
