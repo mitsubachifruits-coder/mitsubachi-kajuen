@@ -30,7 +30,7 @@ html.orchardFontsPending .pointerHint,html.orchardFontsPending .loadMessage{visi
   .altitudeControls{display:flex;right:12px;bottom:max(175px,calc(env(safe-area-inset-bottom) + 157px));gap:5px;}
   .altitudeControls button{width:44px;height:44px;border-radius:14px;font-size:20px;}
   .altitudeControls button small{font-size:8px;}
-  .joystick{bottom:max(78px,calc(env(safe-area-inset-bottom) + 46px));}
+  .joystick{display:block;bottom:max(78px,calc(env(safe-area-inset-bottom) + 46px));pointer-events:auto;}
   .flightToast{font-size:11px;}
 }
 html.orchardFontsPending .altitudeControls,html.orchardFontsPending .flightToast{visibility:hidden;}
