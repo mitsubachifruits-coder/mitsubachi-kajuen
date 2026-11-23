@@ -174,7 +174,7 @@ export default function StoryPage() {
             <h1 className="storyTitle">
               ゼロから
               <br />
-              つくられた。
+              つくられた
             </h1>
 
             <div className="storyHeroBottom">
@@ -203,7 +203,7 @@ export default function StoryPage() {
                   <h2 className="sectionTitle">
                     土地をつくった
                     <br />
-                    先人たちの開拓史。
+                    先人たちの開拓史
                   </h2>
                 </div>
 
